@@ -195,11 +195,11 @@ bar {
 }
 
 #assign programs to specific workspaces
-assign [class="^Firefox$"] 1
-assign [class="/^ParaView$/i"] 10
+assign [class="Firefox"] 1
+assign [class="(?i)ParaView"] 10
 
 #remove title bar from firefox
-for_window [class="^Firefox$"] border none
+for_window [class="(?i)Firefox"] border none
 
 #keybinding to launch firefox
 bindsym $mod+i exec firefox
