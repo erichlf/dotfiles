@@ -204,6 +204,10 @@ assign [class="(?i)ParaView"] 10
 #remove title bar from firefox
 for_window [class="(?i)Firefox"] border none
 
+#focus when opening programs that are assigned to a space
+for_window [class="(?i)Firefox"] focus
+for_window [class="(?i)Paraview"] focus
+
 #keybinding to launch firefox
 bindsym $mod+i exec firefox
 
