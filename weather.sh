@@ -21,4 +21,4 @@ if [ -z $1 ]; then
     exit 0;
 fi
 
-curl -s http://rss.wunderground.com/auto/rss_full/global/stations/$1.xml\?units=${METRIC} | perl -ne 'if (/Current/) {chomp;/<title>Current Conditions\s*:\s*(\d+\.?\d?[CF]), (.+) - \d.+<\/title>/; print "$1 $2"; }'
+curl -s http://rss.wunderground.com/auto/rss_full/global/stations/$1.xml\?units=${METRIC} | perl -ne 'if (/Current/) {chomp;/<title>Current Conditions\s*:\s*(-?\d+\.?\d?[CF]), (.+) - \d.+<\/title>/; print "$1 $2"; }'
