@@ -11,8 +11,7 @@ total_run_times 0
 TEXT
 
 [
-    { "full_text": "${time %H:%M}", "color": "\#b492b6", "separator_block_width": 10, "separator": false },
-    { "full_text": "${time %a, %d %b %Y}", "color": "\#b492b6", "separator_block_width": 420, "separator": false },
+    { "full_text": "${time %H:%M %a, %d %b %Y}", "color": "\#b492b6", "separator_block_width": 420, "separator": false },
     { "full_text": "\uE031", "color": "\#5f5f5f" },
     { "full_text": "${execi 100 ~/.i3/weather.sh 08025}", "color": "\#b492b6" }
 ]  ,
