@@ -1,4 +1,4 @@
-i3
+dotfiles
 ==
 
-My config files for i3wm
+This repo contains all my config files
