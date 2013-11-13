@@ -39,6 +39,7 @@ exec --no-startup-id feh --bg-scale ~/Backgrounds/digital_nature-1280x800.jpg
 #below are my startup programs
 exec gnome-sound-applet
 exec nm-applet
+exec nuvolaplayer
 
 #don't switch focus based on mouse position
 focus_follows_mouse no
