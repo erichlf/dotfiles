@@ -1,4 +1,6 @@
 #!/bin/sh
-echo "{\"version\":1}"
-echo "[[] ,"
-conky -c ~/.i3/conkyrc
+# Send header so that i3 knows we are using JSON
+echo '{"version":1}'
+echo '['
+echo '[],'
+exec conky -c $HOME/.i3/conkyrc
