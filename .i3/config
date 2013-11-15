@@ -41,6 +41,9 @@ exec gnome-sound-applet
 exec nm-applet
 exec nuvolaplayer
 
+#suspend isn't working for me in 13.04
+exec --no-startup-id sh ~/.i3/suspend.sh
+
 #don't switch focus based on mouse position
 focus_follows_mouse no
 

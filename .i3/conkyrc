@@ -7,7 +7,7 @@ max_text_width 0
 update_interval 2.0
 total_run_times 0
 
-override_utf8_locale yes
+#override_utf8_locale yes
 
 TEXT
 
