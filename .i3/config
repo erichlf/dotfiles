@@ -12,10 +12,7 @@
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-#font -*-cure-medium-*-*-*-11-*-*-*-*-*-*-*
-font xft:Monospace 10
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font xft:Monospace 9
 
 #windows
 new_window 1pixel
@@ -185,10 +182,8 @@ bindsym $mod+r mode "resize"
 bar {
         mode dock
         position top
-        #font -*-cure-medium-*-*-*-11-*-*-*-*-*-*-*
         font xft:Monospace 9
         workspace_buttons yes
-        #status_command i3status
         status_command ~/.i3/conky.sh
         #tray_output none
         colors {
@@ -197,7 +192,7 @@ bar {
             focused_workspace #101010 #101010 #b72f62
             active_workspace #5f5f5f #101010 #101010
             inactive_workspacef #101010 #b492b6 #101010
-            urgent_workspace #2e3436 #9a878f
+            urgent_workspace #b492b6 #101010 #101010
         }
 }
 
