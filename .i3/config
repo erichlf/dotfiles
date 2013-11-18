@@ -207,8 +207,9 @@ for_window [class="(?i)Firefox"] border none
 for_window [class="(?i)Firefox"] focus
 for_window [class="(?i)Paraview"] focus
 
-#keybinding to launch firefox
+#keybinding to launch various programs
 bindsym $mod+i exec firefox
+bindsym $mod+n exec nautilus
 
 # i3 doesn't have soft audio keys by default
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +5% 
