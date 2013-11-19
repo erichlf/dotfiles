@@ -10,14 +10,22 @@ complete -cf git
 # add .bash_aliases
 #-------------------------------------------------------------
 if [ -f ~/.bash_aliases ]; then
-        . ~/.bash_aliases
+    . ~/.bash_aliases
 fi
 
 #-------------------------------------------------------------
 # Source global definitions (if any)
 #-------------------------------------------------------------
 if [ -f /etc/bashrc ]; then
-      . /etc/bashrc   # --> Read /etc/bashrc, if present.
+    . /etc/bashrc   # --> Read /etc/bashrc, if present.
+fi
+
+#-------------------------------------------------------------
+# Add any programs install by cabal to path 
+#-------------------------------------------------------------
+if [ -d ~/.cabal/bin ]; then
+    PATH=~/.cabal/bin:$PATH
+    export PATH
 fi
 
 #-------------------------------------------------------------
