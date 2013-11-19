@@ -54,7 +54,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191919" -sf "#b72f62" -b
+bindsym $mod+d exec dmenu_run -fn "xft:Monospace 9" -nb "#101010" -nf "#b492b6" -sb "#191919" -sf "#b72f62" -b
 
 # change focus
 bindsym $mod+j focus left
