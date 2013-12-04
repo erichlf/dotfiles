@@ -300,11 +300,15 @@ nnoremap <f3> :TagbarToggle<cr>
 "source project specific config files
 runtime! projects/**/*.vim
 
+"gvim specific options
+if has("gui_running")
+    colorscheme ron
+    set go-=T "remove the toolbar
+endif
+
 "dont load csapprox if we no gui support - silences an annoying warning
 if !has("gui")
     let g:CSApprox_loaded = 1
-    set colorscheme ron
-    set go-=T "remove the toolbar
 endif
 
 "make <c-l> clear the highlight as well as redraw
