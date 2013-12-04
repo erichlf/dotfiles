@@ -304,6 +304,7 @@ runtime! projects/**/*.vim
 if !has("gui")
     let g:CSApprox_loaded = 1
     set colorscheme ron
+    set go-=T "remove the toolbar
 endif
 
 "make <c-l> clear the highlight as well as redraw
