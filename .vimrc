@@ -303,6 +303,7 @@ runtime! projects/**/*.vim
 "dont load csapprox if we no gui support - silences an annoying warning
 if !has("gui")
     let g:CSApprox_loaded = 1
+    set colorscheme ron
 endif
 
 "make <c-l> clear the highlight as well as redraw
