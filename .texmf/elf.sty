@@ -1,0 +1,112 @@
+\ProvidesPackage{elf}
+\pdfoutput=1
+
+%below are my standard includes. I don't like ugly preambles so I made this
+%style file instead.
+%it also includes a bunch of shortcuts and various configurations
+\RequirePackage{amsmath,amssymb}
+\let\theorem\relax
+\let\endtheorem\relax
+\let\corollar\relax
+\let\endcorollary\relax
+\let\lemma\relax
+\let\endlemma\relax
+\let\remark\relax
+\let\endremark\relax
+%\let\proof\relax
+%\let\endproof\relax
+\RequirePackage{amsthm}
+\RequirePackage{float}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{enumerate}
+\RequirePackage{paralist}
+\RequirePackage{cancel}
+\RequirePackage{tikz}
+\RequirePackage{gauss}
+\RequirePackage{graphicx}
+\RequirePackage{rotating}
+\RequirePackage{nicefrac}
+\RequirePackage{verbatim}
+\RequirePackage{listings}
+\RequirePackage{color}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{hyperref}
+\RequirePackage{algorithm}
+
+\lstset{% command to set programming language parameter(s)
+frame=single,
+	showstringspaces=false,
+	showlines=false, %get rid of trailing white lines
+	emptylines=1, %allow blank line
+	breaklines=true, %get rid of overflow lines and enter \n
+	numbers=left, %line number
+	numberstyle=\scriptsize, %make line numbers small
+	stepnumber=1, %line number every line
+	numbersep=5pt,
+	tabsize=2, %set tabs to two spaces
+	basicstyle=\small, % print whole listing small
+	keywordstyle=\bfseries,% green keywords
+	stringstyle=\ttfamily % typewriter type for strings
+}
+
+%shorter bold font
+\newcommand{\mbf}[1]{
+	\mathbf{#1}
+}
+\newcommand{\tbf}[1]{
+	\textbf{#1}
+}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{crlry}{Corollary}
+\newtheorem{remark}{Remark}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\propautorefname}{Proposition}
+\newcommand{\thmautorefname}{Theorem}
+\newcommand{\crlryautorefname}{Corollary}
+
+%redefine sections for autoref
+\def\chapterautorefname{Chapter}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+\def\subsubsectionautorefname{Subsubsection}
+\def\algorithmautorefname{Algorithm}
+\def\propositionautorefname{Proposition}
+
+%Math Operators
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\ess}{ess}
+
+%Shorter mathbb
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\qid}{\mathbf{1}}
+\newcommand{\qi}{\mathbf{i}}
+\newcommand{\qj}{\mathbf{j}}
+\newcommand{\qk}{\mathbf{k}}
+\newcommand{\Order}{\mathcal{O}}
+\newcommand{\order}{\mathcal{o}}
+
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
