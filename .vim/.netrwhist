@@ -1,3 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/media/OSX/Users/efoster/.config/ParaView'
+let g:netrw_dirhist_2='/home/BCAMATH/efoster/.android'
+let g:netrw_dirhist_3='/home/BCAMATH/efoster/.pentadactyl'
+let g:netrw_dirhist_4='/media/Shared/.PlayOnLinux/scripts'
+let g:netrw_dirhist_5='/media/Shared/ISO/SKIDROW'
+let g:netrw_dirhist_6='/media/Shared/Documents/Teaching/www/.git/hooks'
+let g:netrw_dirhist_7='/etc/X11/Xsession.d'
