@@ -103,6 +103,9 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindcode $mod+d focus child
 
+#make workspaces tabbed
+workspace_layout tabbed
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
