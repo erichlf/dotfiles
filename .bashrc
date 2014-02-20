@@ -107,4 +107,5 @@ case ${TERM} in *term | rxvt | linux)
 esac
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
+export LC_ALL="en_US.UTF-8"
 
