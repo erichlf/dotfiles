@@ -100,11 +100,7 @@ On_White='\e[47m'       # White
 NC="\e[m"               # Color Reset
 
 
-case ${TERM} in *term | rxvt | linux)
-        #PS1="\n\[\033[1;32m\]\u\[\033[1;34m\]@\[\033[1;31m\]\H \[\033[0m\][\[\033[1;33m\]\w\[\033[0m\]] "
-        PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
-        ;;
-esac
+PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export LC_ALL="en_US.UTF-8"
