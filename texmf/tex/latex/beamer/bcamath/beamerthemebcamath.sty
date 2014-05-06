@@ -1,0 +1,30 @@
+\mode<presentation>
+
+\definecolor{BCAMBlue}{RGB}{0, 97, 176}
+
+\renewcommand{\frametitle}[1]{\begin{center}\textbf{#1}\end{center}}
+
+\RequirePackage{beamerthemesplit}
+\RequirePackage{tikz,amsmath,nicefrac} % for math AMS fonts
+\usetikzlibrary{calc}
+\RequirePackage{graphicx} % to include figures
+\RequirePackage{hyperref, newlfont}
+\RequirePackage{animate}
+\RequirePackage{multimedia}
+\RequirePackage[labelformat=empty]{caption,subcaption}
+\RequirePackage{etoolbox}
+
+\useinnertheme{bcamath}
+\useoutertheme{bcamath}
+\usecolortheme{bcamath}
+
+\def\logo{\includegraphics[scale=0.4]{logo_bcam}}
+
+\setbeamertemplate{navigation symbols}{}
+%\usetheme{Warsaw}
+\setbeamercovered{dynamic}
+%\usecolortheme[named=BCAMBlue]{structure}
+%\setbeamercolor{title}{fg=white}
+\usefonttheme{professionalfonts}
+
+\mode<all>

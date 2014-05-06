@@ -32,6 +32,7 @@ let g:Tex_IgnoredWarnings =
 	\'There were undefined references'."\n".
 	\'Citation %.%# undefined'
 let g:Tex_IgnoreLevel = 6
+let g:Tex_UseMakefile = 0
 
 set iskeyword+=:
 
@@ -67,9 +68,9 @@ set list
 set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 set incsearch "find the next match as we type the search
-set hlsearch "hilight searches by default
+set hlsearch "highlight searches by default
 
-set wrap "dont wrap lines
+set wrap "don't wrap lines
 set linebreak "wrap lines at convenient points
 
 if v:version >= 703
@@ -89,13 +90,13 @@ set autoindent
 "folding settings
 set foldmethod=indent "fold based on indent
 set foldnestmax=3 "deepest fold is 3 levels
-set nofoldenable "dont fold by default
+set nofoldenable "don't fold by default
 
 set wildmode=list:longest "make cmdline tab completion similar to bash
 set wildmenu "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore=*.pdf,*.pyc,*.o,*.obj,*~ "stuff to ignore when tab completing
 
-set formatoptions-=o "dont continue comments when pushing o/O
+set formatoptions-=o "don't continue comments when pushing o/O
 
 "vertical/horizontal scroll off settings
 set scrolloff=3
@@ -124,12 +125,12 @@ set statusline =%#identifier#
 set statusline+=[%t] "tail of the filename
 set statusline+=%*
 
-"display a warning if fileformat isnt unix
+"display a warning if fileformat isn't unix
 set statusline+=%#warningmsg#
 set statusline+=%{&ff!='unix'?'['.&ff.']':''}
 set statusline+=%*
 
-"display a warning if file encoding isnt utf-8
+"display a warning if file encoding isn't utf-8
 set statusline+=%#warningmsg#
 set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
 set statusline+=%*
@@ -306,7 +307,7 @@ if has("gui_running")
     set go-=T "remove the toolbar
 endif
 
-"dont load csapprox if we no gui support - silences an annoying warning
+"don't load csapprox if we no gui support - silences an annoying warning
 if !has("gui")
     let g:CSApprox_loaded = 1
 endif
@@ -333,7 +334,7 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 
 "jump to last cursor position when opening a file
-"dont do it when writing a commit log entry
+"don't do it when writing a commit log entry
 autocmd BufReadPost * call SetCursorPosition()
 function! SetCursorPosition()
     if &filetype !~ 'svn\|commit\c'
