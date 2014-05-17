@@ -104,4 +104,4 @@ PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export LC_ALL="en_US.UTF-8"
-
+export PROMPT_COMMAND='history -a'
