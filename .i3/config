@@ -47,6 +47,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
+#start paraview
+bindsym $mod+p exec paraview 
+
 # kill focused window
 bindsym $mod+Shift+Q kill
 

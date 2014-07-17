@@ -1,10 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/media/OSX/Users/efoster/.config/ParaView'
-let g:netrw_dirhist_2='/home/BCAMATH/efoster/.android'
-let g:netrw_dirhist_3='/home/BCAMATH/efoster/.pentadactyl'
-let g:netrw_dirhist_4='/media/Shared/.PlayOnLinux/scripts'
-let g:netrw_dirhist_5='/media/Shared/ISO/SKIDROW'
-let g:netrw_dirhist_6='/media/Shared/Documents/Teaching/www/.git/hooks'
-let g:netrw_dirhist_7='/etc/X11/Xsession.d'
-let g:netrw_dirhist_8='/home/BCAMATH/efoster/.config/autostart'
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/BCAMATH/efoster/dolfin-adjoint'
+let g:netrw_dirhist_2='/home/BCAMATH/efoster/dolfin-adjoint/tests_firedrake'
+let g:netrw_dirhist_3='/home/BCAMATH/efoster/dolfin-adjoint'
+let g:netrw_dirhist_4='/home/BCAMATH/efoster/dolfin-adjoint/tests_dolfin'
+let g:netrw_dirhist_5='/home/BCAMATH/efoster/dolfin-adjoint/tests_dolfin/shallow_water'
+let g:netrw_dirhist_6='/media/Shared/Documents/Research/Hypoellipticity/Papers/SimilarityKolmogorov'
