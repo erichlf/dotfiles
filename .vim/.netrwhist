@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/BCAMATH/efoster/dolfin-adjoint'
 let g:netrw_dirhist_2='/home/BCAMATH/efoster/dolfin-adjoint/tests_firedrake'
 let g:netrw_dirhist_3='/home/BCAMATH/efoster/dolfin-adjoint'
 let g:netrw_dirhist_4='/home/BCAMATH/efoster/dolfin-adjoint/tests_dolfin'
 let g:netrw_dirhist_5='/home/BCAMATH/efoster/dolfin-adjoint/tests_dolfin/shallow_water'
 let g:netrw_dirhist_6='/media/Shared/Documents/Research/Hypoellipticity/Papers/SimilarityKolmogorov'
+let g:netrw_dirhist_7='/media/Shared/Documents/Research/SWE/src/Media-NAS'
