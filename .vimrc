@@ -18,11 +18,12 @@ filetype indent on
 
 " The following is for vim-latex:
 let g:tex_flavor = 'pdflatex'
+let g:tex_BibtexFlavor = 'bibtex' "biber
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_ViewRule_ps = 'evince'
 let g:livepreview_previewer = 'evince'
-let g:Tex_MultipleCompileFormats = 'dvi,pdf'
+let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_IgnoredWarnings = 
 	\'Underfull'."\n".
 	\'Overfull'."\n".
