@@ -51,6 +51,7 @@ set vb t_vb=
 
 "activate pathogen
 "call pathogen#infect()
+set directory=$HOME/.vim/swap
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start

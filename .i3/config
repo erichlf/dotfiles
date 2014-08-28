@@ -211,8 +211,3 @@ for_window [class="(?i)Firefox"] border none
 #focus when opening programs that are assigned to a space
 for_window [class="(?i)Firefox"] focus
 for_window [class="(?i)Paraview"] focus
-
-# i3 doesn"t have soft audio keys by default
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +5% 
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -5%
-#bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
