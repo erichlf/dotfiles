@@ -4,6 +4,9 @@
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
 
+"auto reload when saving
+autocmd! bufwritepost .vimrc source %
+
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
 " can be called correctly.
 set shellslash
@@ -50,7 +53,12 @@ set novisualbell
 set vb t_vb=
 
 "activate pathogen
-"call pathogen#infect()
+call pathogen#infect()
+
+"force save file which require root permission
+cmap w!! %!sudo tee > /dev/null %
+
+"swap directory
 set directory=$HOME/.vim/swap
 
 "allow backspacing over everything in insert mode
@@ -65,6 +73,8 @@ set showmode "show current mode down the bottom
 set number "show line numbers
 
 set textwidth=80 "line wrapping
+vmap Q qg
+nmap Q gqap
 
 "display tabs and trailing spaces
 set list
@@ -85,10 +95,18 @@ if v:version >= 703
 endif
 
 "default indent settings
-set shiftwidth=4
+set tabstop=4
 set softtabstop=4
+set shiftwidth=4
+set shiftround
+set smartcase
 set expandtab
 set autoindent
+
+"swap files have been quite annoying lately
+set nobackup
+set nowritebackup
+set noswapfile
 
 "folding settings
 set foldmethod=indent "fold based on indent
@@ -363,3 +381,6 @@ autocmd BufReadPost fugitive://*
   \ nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
 
+augroup mkd
+  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
+ augroup END
