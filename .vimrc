@@ -55,6 +55,21 @@ set vb t_vb=
 "activate pathogen
 call pathogen#infect()
 
+"powerline
+set laststatus=2
+
+"python-mode
+map <Leader>g :call RopeGotoDefinition()<CR>
+let ropevim_enable_shortcuts = 1
+let g:pymode_rope_goto_def_newwin = "vnew"
+let g:pymode_rope_extended_complete = 1
+let g:pymode_breakpoint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_builtin_objs = 0
+let g:pymode_syntax_builtin_funcs = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
+
+
 "force save file which require root permission
 cmap w!! %!sudo tee > /dev/null %
 
@@ -103,6 +118,13 @@ set smartcase
 set expandtab
 set autoindent
 
+"no arrow keys-- force me to use hjkl
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+
 "swap files have been quite annoying lately
 set nobackup
 set nowritebackup
@@ -145,6 +167,7 @@ set hidden
 set statusline =%#identifier#
 set statusline+=[%t] "tail of the filename
 set statusline+=%*
+"set statusline+=%{fugitive#statusline()} "git status
 
 "display a warning if fileformat isn't unix
 set statusline+=%#warningmsg#
@@ -217,7 +240,6 @@ function! StatuslineTrailingSpaceWarning()
     endif
     return b:statusline_trailing_space_warning
 endfunction
-
 
 "return the syntax highlight group under the cursor ''
 function! StatuslineCurrentHighlight()
@@ -384,3 +406,13 @@ autocmd BufReadPost fugitive://*
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
  augroup END
+
+"tab completion
+function! SuperTab()
+    if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
+    return "\<Tab>"
+    else
+    return "\<C-n>"
+    endif
+endfunction
+imap <Tab> <C-R>=SuperTab()<CR>
