@@ -6,6 +6,7 @@ set guioptions=bCr
 ":autocmd LocationChange drive.google.com :normal! <C-z>
 :autocmd LocationChange docs.google.com :normal! <C-z>
 :autocmd LocationChange tree.schwippy.com :normal! <C-z>
+:autocmd LocationChange http://gabrielecirulli.github.io/2048/ :normal! <C-z>
 
 "pass keys to gmail
 set passkeys+=mail.google.com:#y

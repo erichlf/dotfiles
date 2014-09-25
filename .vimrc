@@ -1,5 +1,5 @@
 "-------------------------------------------------------------
-" LaTeX package 
+" LaTeX package
 "-------------------------------------------------------------
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
@@ -27,15 +27,15 @@ let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_ViewRule_ps = 'evince'
 let g:livepreview_previewer = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_IgnoredWarnings = 
-	\'Underfull'."\n".
-	\'Overfull'."\n".
-	\'specifier changed to'."\n".
-	\'You have requested'."\n".
-	\'LaTeX Font Warning:'."\n".
-	\'Missing number, treated as zero.'."\n".
-	\'There were undefined references'."\n".
-	\'Citation %.%# undefined'
+let g:Tex_IgnoredWarnings =
+    \'Underfull'."\n".
+    \'Overfull'."\n".
+    \'specifier changed to'."\n".
+    \'You have requested'."\n".
+    \'LaTeX Font Warning:'."\n".
+    \'Missing number, treated as zero.'."\n".
+    \'There were undefined references'."\n".
+    \'Citation %.%# undefined'
 let g:Tex_IgnoreLevel = 6
 let g:Tex_UseMakefile = 0
 
@@ -53,7 +53,13 @@ set novisualbell
 set vb t_vb=
 
 "activate pathogen
+filetype off
+
 call pathogen#infect()
+call pathogen#helptags()
+
+filetype plugin indent on
+syntax on
 
 "powerline
 set laststatus=2
@@ -63,10 +69,13 @@ map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
 let g:pymode_rope_goto_def_newwin = "vnew"
 let g:pymode_rope_extended_complete = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_complete_on_dot = 0
 let g:pymode_breakpoint = 0
 let g:pymode_syntax = 1
 let g:pymode_syntax_builtin_objs = 0
 let g:pymode_syntax_builtin_funcs = 0
+let g:pymode_lint_ignore = "W0401"
 map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
 
 
@@ -110,12 +119,9 @@ if v:version >= 703
 endif
 
 "default indent settings
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set shiftround
 set smartcase
-set expandtab
 set autoindent
 
 "no arrow keys-- force me to use hjkl
@@ -145,13 +151,6 @@ set formatoptions-=o "don't continue comments when pushing o/O
 set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
-
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-"turn on syntax highlighting
-syntax on
 
 "some stuff to get the mouse going in term
 set mouse=a
@@ -222,7 +221,7 @@ set laststatus=2
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
-"return '[\s]' if trailing white space is detected
+"return '[\s]' if trailing whitespace is detected
 "return '' otherwise
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
@@ -240,6 +239,9 @@ function! StatuslineTrailingSpaceWarning()
     endif
     return b:statusline_trailing_space_warning
 endfunction
+
+"remove whitespace when :w
+autocmd BufWritePre * :%s/\s\+$//e
 
 "return the syntax highlight group under the cursor ''
 function! StatuslineCurrentHighlight()
@@ -278,6 +280,8 @@ function! StatuslineTabWarning()
     endif
     return b:statusline_tab_warning
 endfunction
+
+autocmd BufWritePre * retab
 
 "recalculate the long line warning when idle and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
