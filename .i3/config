@@ -197,17 +197,14 @@ bar {
             focused_workspace #101010 #101010 #b72f62
             active_workspace #5f5f5f #101010 #101010
             inactive_workspacef #101010 #b492b6 #101010
-            urgent_workspace #b492b6 #101010 #101010
+            urgent_workspace #101010 #b72f62 #101010
         }
 }
 
 #assign programs to specific workspaces
 assign [class="Firefox"] 1
 assign [class="(?i)ParaView"] 10
+assign [class="(?i)Pybliographer"] 3
 
 #remove title bar from firefox
 for_window [class="(?i)Firefox"] border none
-
-#focus when opening programs that are assigned to a space
-for_window [class="(?i)Firefox"] focus
-for_window [class="(?i)Paraview"] focus
