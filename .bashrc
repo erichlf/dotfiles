@@ -7,6 +7,13 @@ complete -cf apt-get
 complete -cf git
 
 #-------------------------------------------------------------
+# add .bash_exports
+#-------------------------------------------------------------
+if [ -f ~/.bash_exports ]; then
+    . ~/.bash_exports
+fi
+
+#-------------------------------------------------------------
 # add .bash_aliases
 #-------------------------------------------------------------
 if [ -f ~/.bash_aliases ]; then
@@ -107,7 +114,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #add git to ps1
-source /etc/bash_completion.d/git-prompt
+source /etc/bash_completion.d/git
 PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
