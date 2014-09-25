@@ -61,9 +61,6 @@ call pathogen#helptags()
 filetype plugin indent on
 syntax on
 
-"powerline
-set laststatus=2
-
 "python-mode
 map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
@@ -78,6 +75,9 @@ let g:pymode_syntax_builtin_funcs = 0
 let g:pymode_lint_ignore = "W0401"
 map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
 
+"airline stuff
+let g:airline_theme='badwolf'
+let g:airline_powerline_fonts = 1
 
 "force save file which require root permission
 cmap w!! %!sudo tee > /dev/null %

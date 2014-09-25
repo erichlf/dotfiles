@@ -106,7 +106,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #add git to ps1
-if [ -f /etc/bash_completion.di/git ]; then
+if [ -f /etc/bash_completion.d/git-prompt ]; then
+    . /etc/bash_completion.d/git-prompt
+    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+elif [ -f /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
     PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
