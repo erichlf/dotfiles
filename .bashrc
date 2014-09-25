@@ -106,5 +106,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #add git to ps1
-source /etc/bash_completion.d/git
-PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+if [ -f /etc/bash_completion.di/git ]; then
+    . /etc/bash_completion.d/git
+    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
+    . /opt/etc/bash_completion.d/git-prompt.sh
+    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+else
+    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
+fi
