@@ -1,0 +1,71 @@
+\ProvidesPackage{elfbeamer}
+
+%below are my standard includes for beamer. I don't like ugly preambles so I
+%made this style file instead.  It also includes a bunch of shortcuts and
+%various configurations
+\RequirePackage{tikz,amsmath,nicefrac} % for math AMS fonts
+\usetikzlibrary{calc}
+\RequirePackage{graphicx} % to include figures
+\RequirePackage{hyperref, newlfont}
+\RequirePackage{animate}
+\RequirePackage{multimedia}
+\RequirePackage[labelformat=empty]{caption,subcaption}
+\RequirePackage{etoolbox}
+\RequirePackage[ruled,noline]{algorithm2e}
+\RequirePackage{algorithmic}
+\RequirePackage{listings}
+
+\lstset{% command to set programming language parameter(s)
+    frame=single,
+    showstringspaces=false,
+    showlines=false, %get rid of trailing white lines
+    emptylines=1, %allow blank line
+    breaklines=true, %get rid of overflow lines and enter \n
+    numbers=left, %line number
+    numberstyle=\scriptsize, %make line numbers small
+    stepnumber=1, %line number every line
+    numbersep=5pt,
+    tabsize=2, %set tabs to two spaces
+    basicstyle=\small, % print whole listing small
+    keywordstyle=\bfseries,% green keywords
+    stringstyle=\ttfamily % typewriter type for strings
+}
+%Math Operators
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\ess}{ess}
+
+%Shorter mathbb
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\qid}{\mathbf{1}}
+\newcommand{\qi}{\mathbf{i}}
+\newcommand{\qj}{\mathbf{j}}
+\newcommand{\qk}{\mathbf{k}}
+\newcommand{\tg}{\tilde{g}}
+\newcommand{\tv}{\tilde{v}}
+\newcommand{\tz}{\tilde{z}}
+\newcommand{\Order}{\mathcal{O}}
+\newcommand{\order}{\mathcal{o}}
+
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\renewcommand{\tilde}[1]{\widetilde{#1}}

@@ -1,0 +1,35 @@
+\mode<presentation>
+
+% Title page
+\defbeamertemplate*{title page}{bcamath}[1][]{
+    \vspace*{\fill}
+    \begin{beamercolorbox}[wd=12cm,center,sep=8pt,#1]{}
+        \usebeamerfont{title}\inserttitle\par
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=12cm,center,#1]{}
+        \usebeamerfont{author}\insertauthor\par
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=12cm,center,#1]{}
+        \usebeamerfont{author}\insertdate
+    \end{beamercolorbox}
+    \vspace*{\fill}
+}
+
+\defbeamertemplate*{headline}{bcamath}{
+  \ifnum\thepage=1
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+        leftskip=.3cm,rightskip=.3cm plus1fil]{separation line}
+    \end{beamercolorbox}
+  \fi
+  \ifnum\thepage>1
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex,%
+        leftskip=.3cm,rightskip=.3cm plus1fil]{separation line}
+        \usebeamerfont{section in head/foot}%
+        \textcolor{black}{\insertshorttitle\hfill\insertshortauthor}
+    \end{beamercolorbox}
+  \fi
+}
+
+\defbeamertemplate*{footline}{plain}{}
+
+\mode<all>
