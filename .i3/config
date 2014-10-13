@@ -9,6 +9,9 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# second monitor
+force_xinerama yes
+
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
@@ -51,6 +54,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+i exec firefox
 bindsym $mod+n exec nautilus
 bindsym $mod+p exec paraview
+bindsym $mod+g exec gvim
 
 # kill focused window
 bindsym $mod+Shift+Q kill
