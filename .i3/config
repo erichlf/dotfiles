@@ -39,9 +39,9 @@ exec nm-applet
 #exec nuvolaplayer
 
 # audio controls
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 5%- unmute
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 5%+ unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master +1 toggle
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
