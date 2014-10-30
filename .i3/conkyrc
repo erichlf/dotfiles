@@ -7,16 +7,18 @@ max_text_width 0
 update_interval 2.0
 total_run_times 0
 
-#override_utf8_locale yes
+#symbola font is required for the proper symbols
+#Symbola font is included in ttf-ancient-fonts
 
 TEXT
 
 [
     { "full_text": "${time %H:%M %a, %d %b %Y}", "color": "\#b492b6", "separator_block_width": 310, "separator": false },
-    { "full_text": "\uE031", "color": "\#5f5f5f" },
+    { "full_text": "\u26C8", "color": "\#5f5f5f" },
     { "full_text": "${execi 100 ~/.i3/weather.sh 08025}", "color": "\#b492b6" },
-    { "full_text": "⚡", "color": "\#5f5f5f" },
+    { "full_text": "${exec acpi -b | awk -F' ' '{if ($3 == "Discharging,") { print "\\uD83D\\uDD0B" } else { print "\\uD83D\\uDD0C" }}'}", "color": "\#5f5f5f" },
     { "full_text": "${battery_bar BAT0}", "color":
          ${if_match ${battery_percent BAT0}<20}"\#b95670"${else}"\#b492b6"${endif} },
-    { "full_text": "${exec amixer get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "Mute" } else { print $2"%" }}'}", "color": "\#b492b6" }
+    { "full_text": "${exec amixer get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "\\uD83D\\uDD07" } else { print "\\uD83D\\uDD0A"}}'}", "color": "\#5f5f5f" },
+    { "full_text": "${exec amixer get Master | awk -F'[]%[]' '/%/ { print $2"%" }'}", "color": "\#b492b6" }
 ],
