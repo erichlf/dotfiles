@@ -36,16 +36,15 @@ exec --no-startup-id feh --bg-scale ~/Backgrounds/digital-nature-1280x800.jpg
 #below are my startup programs
 exec gnome-sound-applet
 exec nm-applet
-#exec nuvolaplayer
 
 # audio controls
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 5%- unmute
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 5%+ unmute
 bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master +1 toggle
 
-# Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
+# Media player controls; requires playerctl, libglib2.0, gtk-doc-tools, and
+# gobject_introspection. https://github.com/acrisci/playerctl
+bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
@@ -63,14 +62,13 @@ focus_follows_mouse no
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
 #keybinding to launch various programs
+bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+i exec firefox
 bindsym $mod+n exec nautilus
 bindsym $mod+p exec paraview
 bindsym $mod+g exec gvim
+bindsym $mod+m exec nuvolaplayer
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -125,9 +123,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindcode $mod+d focus child
-
 #make workspaces tabbed
 workspace_layout tabbed
 
@@ -155,12 +150,12 @@ bindsym $mod+Shift+asterisk move workspace 8
 bindsym $mod+Shift+parenleft move workspace 9
 bindsym $mod+Shift+parenright move workspace 10
 
-# reload the configuration file
-bindsym $mod+Shift+C reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+Mod1+E exit
+bindsym $mod+Shift+C reload  # reload the configuration file
+bindsym $mod+Shift+R restart  # restart i3 inplace
+bindsym $mod+Shift+Mod1+E exit  # exit i3 (logs you out of your X session)
+bindsym $mod+Shift+Mod1+R exec sudo reboot now  # reboot the machine now
+bindsym $mod+Shift+Mod1+S exec sudo shutdown 0  # shutdown the machine now
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -229,3 +224,9 @@ assign [class="(?i)Pybliographer"] 3
 
 #remove title bar from firefox
 for_window [class="(?i)Firefox"] border none
+
+#my programs which I always use
+exec --no-startup-id i3-msg 'workspace 1; exec firefox'
+exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace 2; exec gvim'
+exec --no-startup-id i3-msg 'workspace 3; exec pybliographics ~/Research/Complete.bib'
