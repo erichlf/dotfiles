@@ -38,9 +38,9 @@ exec gnome-sound-applet
 exec nm-applet
 
 # audio controls
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 5%- unmute
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 5%+ unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master +1 toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master 5%- unmute"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q -D pulse set Master 5%+ unmute"
+bindsym XF86AudioMute exec --no-startup-id "amixer -q -D pulse set Master +1 toggle"
 
 # Media player controls; requires playerctl, libglib2.0, gtk-doc-tools, and
 # gobject_introspection. https://github.com/acrisci/playerctl
