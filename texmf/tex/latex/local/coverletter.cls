@@ -22,13 +22,14 @@
 %% based on std letter class
 \LoadClass[\@@ptsize,\@@papersize]{letter}
 
+\RequirePackage{etoolbox}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage[UKenglish]{datetime}
 \RequirePackage[top=0.75in, bottom=0.5in, left=0.75in, right=0.75in]{geometry}
 
 \newcommand*{\Name}[1]{\def\@name{#1}} % Your name
-\newcommand*{\Title}[1]{\def\@title{#1}} % Your title
+\newcommand*{\Title}[1]{\def\@protitle{#1}} % Your protitle
 \newcommand*{\dept}[1]{\def\@dept{#1}} % Your department/institution
 \newcommand*{\Address}[1]{\def\@address{#1}} % Your address
 \newcommand*{\email}[1]{\def\@email{#1}} % Your email address
@@ -37,17 +38,34 @@
 \newcommand*{\logo}[1]{\def\@logo{#1}} % department logo
 
 \address{
-    \includegraphics[width=1.5in]{\@logo}
-    \hspace{5.1in} \\[-1.5ex]
-    \makebox[\textwidth][r]{\large \bf \@name, \@title\hspace{1.0in}}\\
+    \ifthenelse{\isundefined{\@logo}}{ % no logo
+        \hspace{6.6in} \\[-1.5ex]
+    }{
+        \includegraphics[width=1.5in]{\@logo}
+    }
+    \ifthenelse{\isundefined{\@protitle}}{
+        \hspace{5.7in} \\[-1.5ex]
+        \makebox[\textwidth][r]{\large \bf \@name\hspace{1.2in}}\\
+    }{
+        \hspace{5.1in} \\[-1.5ex]
+        \makebox[\textwidth][r]{\large \bf \@name, \@protitle\hspace{1.0in}}\\
+    }
     \hline
     \hspace{\fill}
     \parbox[t]{3in}{
-        \@dept \\ % Your department
+        \ifthenelse{\isundefined{\@dept}}{}{
+            \@dept \\ % Your department
+        }
         \@address\\ % Your address
-        phone: \@phone\\ % Your phone number
-        email: \@email\\ % Your email address
-        homepage: \@homepage % Your URL
+        \ifthenelse{\isundefined{\@phone}}{}{
+            phone: \@phone\\ % Your phone number
+        }
+        \ifthenelse{\isundefined{\@email}}{}{
+            email: \@email\\ % Your email address
+        }
+        \ifthenelse{\isundefined{\@homepage}}{}{
+            homepage: \@homepage % Your URL
+        }
     }
 }
 
@@ -57,4 +75,4 @@
 \newdateformat{mydate}{\twodigit{\THEDAY}~\monthname[\THEMONTH] \THEYEAR}
 \date{\mydate\today}
 
-\signature{\@name, \@title}
+\signature{\@name\ifthenelse{\isundefined{\@protitle}}{}{, \@protitle}}
