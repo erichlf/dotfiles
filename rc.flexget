@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# main variables
+DAEMON=/usr/bin/flexget
+CONFIG=/volume1/homes/erichlf/.flexget/config.yml
+
+DESC=flexget
+
+start_flexget () {
+    $DAEMON -c $CONFIG daemon start -d
+}
+
+stop_flexget () {
+    $DAEMON daemon stop
+}
+
+restart_flexget () {
+    $DAEMON daemon restart
+}
+
+case "$1" in
+    start)
+        start_flexget
+        ;;
+    stop)
+        stop_flexget
+        ;;
+    restart)
+        restart_flexget
+        ;;
+    *)
+        start_flexget
+        ;;
+esac
+
