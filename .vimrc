@@ -125,13 +125,6 @@ set shiftround
 set smartcase
 set autoindent
 
-"no arrow keys-- force me to use hjkl
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-
 "swap files have been quite annoying lately
 set nobackup
 set nowritebackup
