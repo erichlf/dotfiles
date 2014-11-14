@@ -33,6 +33,7 @@ let g:Tex_IgnoredWarnings =
     \'specifier changed to'."\n".
     \'You have requested'."\n".
     \'LaTeX Font Warning:'."\n".
+    \'LaTeX Warning: File %.%# already exists on the system'."\n".
     \'Missing number, treated as zero.'."\n".
     \'There were undefined references'."\n".
     \'Citation %.%# undefined'

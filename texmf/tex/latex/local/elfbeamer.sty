@@ -9,11 +9,20 @@
 \RequirePackage{hyperref, newlfont}
 \RequirePackage{animate}
 \RequirePackage{multimedia}
-\RequirePackage[labelformat=empty]{caption,subcaption}
+\RequirePackage[compatibility=false]{caption}
+\RequirePackage{subcaption}
 \RequirePackage{etoolbox}
 \RequirePackage[ruled,noline]{algorithm2e}
 \RequirePackage{algorithmic}
 \RequirePackage{listings}
+\RequirePackage{fancyvrb,verbatim}
+\RequirePackage{pdfpages}
+\RequirePackage{upquote}
+
+\RequirePackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
 
 \lstset{% command to set programming language parameter(s)
     frame=single,
@@ -30,6 +39,25 @@
     keywordstyle=\bfseries,% green keywords
     stringstyle=\ttfamily % typewriter type for strings
 }
+
+\lstset{ % Python style for highlighting
+  language=Python,
+  basicstyle=\tiny,
+  otherkeywords={self},             % Add keywords here
+  keywordstyle=\color{deepblue},
+  commentstyle=\color{deepgreen},    % Custom highlighting style
+  stringstyle=\color{deepred},
+  numberstyle=\color{gray},
+  numbers=left,
+}
+
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{1ex}
+  \setlength\belowdisplayskip{1ex}
+  \setlength\abovedisplayshortskip{1ex}
+  \setlength\belowdisplayshortskip{1ex}
+}
+
 %Math Operators
 \DeclareMathOperator{\inv}{inv}
 \DeclareMathOperator{\sgn}{sgn}
@@ -69,3 +97,7 @@
 \renewcommand{\bar}[1]{\overline{#1}}
 \renewcommand{\hat}[1]{\widehat{#1}}
 \renewcommand{\tilde}[1]{\widetilde{#1}}
+
+% affiliation
+\newcommand{\savefootnote}[2]{\footnote{\label{#1}#2}}
+\newcommand{\repeatfootnote}[1]{\textsuperscript{\ref{#1}}}

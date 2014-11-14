@@ -32,6 +32,7 @@ beamerthemebcamath.sty
 logo_bcam.jpg
 
 ./tex/latex/beamer/plain:
+beamercolorthemeplain.log
 beamercolorthemeplain.sty
 beamerinnerthemeplain.sty
 beamerouterthemeplain.sty
@@ -39,6 +40,9 @@ beamerouterthemeplain.sty
 beamerthemeplain.sty
 
 ./tex/latex/local:
+coverletter.cls
+coverletter.sty
+CV.cls
 elfbeamer.sty
 .elf.s.swp
 elf.sty

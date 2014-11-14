@@ -6,11 +6,14 @@
     \begin{beamercolorbox}[wd=12cm,center,sep=8pt,#1]{}
         \usebeamerfont{title}\inserttitle\par
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=12cm,center,#1]{}
+    \begin{beamercolorbox}[wd=12cm,center,sep=4pt,#1]{}
         \usebeamerfont{author}\insertauthor\par
     \end{beamercolorbox}
     \begin{beamercolorbox}[wd=12cm,center,#1]{}
-        \usebeamerfont{author}\insertdate
+        \usebeamerfont{author}\insertdate\par
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=12cm,center,sep=15pt,#1]{}
+        \usebeamerfont{author}\insertinstitute
     \end{beamercolorbox}
     \vspace*{\fill}
 }
@@ -31,5 +34,7 @@
 }
 
 \defbeamertemplate*{footline}{plain}{}
+
+\setbeamertemplate{bibliography item}[text]
 
 \mode<all>
