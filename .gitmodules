@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/vim-latex-suite"]
 	path = .vim/bundle/vim-latex-suite
 	url = git@github.com:gerw/vim-latex-suite.git
+[submodule ".vim/bundle/vim-sensible"]
+	path = .vim/bundle/vim-sensible
+	url = git@github.com:tpope/vim-sensible.git
