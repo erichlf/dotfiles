@@ -228,7 +228,7 @@ assign [class="(?i)Pybliographer"] 3
 for_window [class="(?i)Firefox"] border none
 
 #my programs which I always use
-exec --no-startup-id i3-msg 'workspace 1; exec firefox'
+exec firefox
 exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec gvim'
-exec --no-startup-id i3-msg 'workspace 3; exec pybliographics ~/Research/Complete.bib'
+exec pybliographics ~/Research/Complete.bib
