@@ -16,7 +16,7 @@ nmap -builtin j 10j
 nmap -builtin k 10k
 
 "" swap d/D
-"nmap -builtin dd d 
+"nmap -builtin dd d
 :map d <Nop>
 :map dd -ex tabclose
 nmap -builtin gd :js config.tabbrowser.removeTab(tabs.getTab())<CR>
@@ -42,18 +42,18 @@ nmap -builtin ! :pintab<CR>
 nmap -builtin ,F :set fullscreen!<CR>
 
 "" Translate from english to spanish
-nmap -builtin es :tabopen en-es 
+nmap -builtin es :tabopen en-es
 
 "" Translate from spanish to english
-nmap -builtin en :tabopen es-en 
+nmap -builtin en :tabopen es-en
 
 ""Google-Scholar search
-nmap -builtin ,s :open scholar 
-nmap -builtin ,S :tabopen scholar 
+nmap -builtin ,s :open scholar
+nmap -builtin ,S :tabopen scholar
 
 ""Wikipedia search
-nmap -builtin ,w :open wikipedia 
-nmap -builtin ,W :tabopen wikipedia 
+nmap -builtin w :open wikipedia
+nmap -builtin W :tabopen wikipedia
 
 "" display download
 nmap -builtin ,d :downloads<CR>
@@ -62,6 +62,6 @@ nmap -builtin ,d :downloads<CR>
 nmap -builtin ,c :tabopen about:config<CR>
 
 "" inject the ezproxy into current site (used for research)
-nmap ,p :javascript dactyl.open(content.location.href.replace(/\.(edu|com|net|org)\//, ".$1.ezproxy.lib.vt.edu:8080\/"))<CR> 
+nmap ,p :javascript dactyl.open(content.location.href.replace(/\.(edu|com|net|org)\//, ".$1.ezproxy.lib.vt.edu:8080\/"))<CR>
 
-nmap ,ru :tabopen google site:rutracker.org 
+nmap ru :tabopen google site:rutracker.org
