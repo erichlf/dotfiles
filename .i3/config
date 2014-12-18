@@ -231,4 +231,4 @@ for_window [class="(?i)Firefox"] border none
 exec firefox
 exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec gvim'
-exec pybliographics ~/Research/Complete.bib
+exec pybliographic ~/Research/Complete.bib
