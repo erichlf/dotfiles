@@ -118,3 +118,5 @@ elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
 else
     PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
 fi
+
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\007"'
