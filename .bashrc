@@ -121,3 +121,6 @@ fi
 
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\007"'
 source ~/.commacd.bash
+
+#chapel compiler
+cd ~/chapel-1.11.0 && source ~/chapel-1.11.0/util/setchplenv.bash && cd - && clear

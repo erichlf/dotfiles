@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/media/Shared/Documents/Research/QGE.FEM/AFE/src/results'
-let g:netrw_dirhist_2='/etc/lightdm/lightdm.conf.d'
-let g:netrw_dirhist_3='/home/BCAMATH/efoster/.hashdist/tmp'
-let g:netrw_dirhist_4='/sys/class/leds/smc::kbd_backlight'
-let g:netrw_dirhist_5='/media/Shared/Documents/Recipes'
-let g:netrw_dirhist_6='/media/Shared/Documents/Recipes/Dessert'
-let g:netrw_dirhist_7='/home/BCAMATH/efoster/data2/efoster/SWE/src'
-let g:netrw_dirhist_8='/home/BCAMATH/efoster/data2/efoster/SWE/src/solvers'
-let g:netrw_dirhist_9='/media/Shared/Downloads/LBM-HPC/D2Q9'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/home/BCAMATH/efoster/.config/upstart'
