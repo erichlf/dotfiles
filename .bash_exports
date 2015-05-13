@@ -1,10 +1,19 @@
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export LC_ALL="en_US.UTF-8"
 export PROMPT_COMMAND='history -a'
 export UWHPSC=$HOME/Documents/Notes/Parallel.Computing/uwhpsc
 export MYHPSC=$HOME/Documents/Notes/Parallel.Computing/HPSC
+export KRB5_CONFIG=$HOME/.pdckrb/krb5.conf
+export CHPL_HOME=$HOME/bin/chapel-1.11.0
+export CHPL_HOST_PLATFORM=`$CHPL_HOME/util/chplenv/chpl_platform.py`
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$CHPL_HOME" ] ; then
+    export PATH="$PATH:$CHPL_HOME/bin/$CHPL_HOST_PLATFORM"
+    export MANPATH="$MANPATH:$CHPL_HOME/man"
+fi
+

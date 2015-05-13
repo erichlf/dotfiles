@@ -1,3 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/BCAMATH/efoster/.config/upstart'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/'
+let g:netrw_dirhist_2='/home'
+let g:netrw_dirhist_3='/home/BCAMATH'
+let g:netrw_dirhist_4='/home/BCAMATH/efoster'
+let g:netrw_dirhist_5='/home/BCAMATH/efoster/SSHFS'
+let g:netrw_dirhist_6='/home/BCAMATH/efoster/SSHFS/SWE'
+let g:netrw_dirhist_7='/home/BCAMATH/efoster/SSHFS/SWE/src'
+let g:netrw_dirhist_8='/home/BCAMATH/efoster/SSHFS/SWE/src/results'
+let g:netrw_dirhist_9='/home/BCAMATH/efoster/SSHFS/SWE/src/results/QGE'

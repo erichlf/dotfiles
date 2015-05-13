@@ -7,6 +7,13 @@ complete -cf apt-get
 complete -cf git
 
 #-------------------------------------------------------------
+# Source global definitions (if any)
+#-------------------------------------------------------------
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc   # --> Read /etc/bashrc, if present.
+fi
+
+#-------------------------------------------------------------
 # add .bash_exports
 #-------------------------------------------------------------
 if [ -f ~/.bash_exports ]; then
@@ -18,13 +25,6 @@ fi
 #-------------------------------------------------------------
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
-fi
-
-#-------------------------------------------------------------
-# Source global definitions (if any)
-#-------------------------------------------------------------
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
 #-------------------------------------------------------------
@@ -121,6 +121,3 @@ fi
 
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\007"'
 source ~/.commacd.bash
-
-#chapel compiler
-cd ~/chapel-1.11.0 && source ~/chapel-1.11.0/util/setchplenv.bash && cd - && clear
