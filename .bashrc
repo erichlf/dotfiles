@@ -120,4 +120,7 @@ else
 fi
 
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\007"'
-source ~/.commacd.bash
+
+if [ -f ~/.commacd.bash ]; then
+    source ~/.commacd.bash
+fi
