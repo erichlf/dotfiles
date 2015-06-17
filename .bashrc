@@ -112,8 +112,8 @@ if [ -f /etc/bash_completion.d/git-prompt ]; then
 elif [ -f /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
     PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
-elif [ -f /opt/local/etc/bash_completion.d/git-completion ]; then
-    :x
+elif [ -f ~/.git-completion ]; then
+    . ~/.git-completion
     PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
