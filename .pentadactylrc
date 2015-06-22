@@ -43,10 +43,16 @@ nmap -builtin ! :pintab<CR>
 nmap -builtin ,F :set fullscreen!<CR>
 
 "" Translate from english to spanish
-nmap -builtin es :tabopen en-es
+nmap -builtin enes :tabopen en-es
 
 "" Translate from spanish to english
-nmap -builtin en :tabopen es-en
+nmap -builtin esen :tabopen es-en
+
+"" Translate from english to italian
+nmap -builtin enit :tabopen en-it
+
+"" Translate from italian to english
+nmap -builtin iten :tabopen it-en
 
 ""Google-Scholar search
 nmap -builtin ,s :open scholar
