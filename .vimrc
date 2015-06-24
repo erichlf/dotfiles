@@ -19,6 +19,9 @@ set grepprg=grep\ -nH\ $*
 " OPTIONAL: This enables automatic indentation as you type.
 filetype indent on
 
+" The following is for editor-config:
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 " The following is for vim-latex:
 let g:tex_flavor = 'pdflatex'
 let g:tex_BibtexFlavor = 'bibtex' "biber
