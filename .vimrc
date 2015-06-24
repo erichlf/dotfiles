@@ -244,9 +244,6 @@ function! StatuslineTrailingSpaceWarning()
     return b:statusline_trailing_space_warning
 endfunction
 
-"remove whitespace when :w
-autocmd BufWritePre * :%s/\s\+$//e
-
 "return the syntax highlight group under the cursor ''
 function! StatuslineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')

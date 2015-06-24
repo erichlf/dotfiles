@@ -43,24 +43,24 @@ nmap -builtin ! :pintab<CR>
 nmap -builtin ,F :set fullscreen!<CR>
 
 "" Translate from english to spanish
-nmap -builtin enes :tabopen en-es
+nmap -builtin enes :tabopen en-es 
 
 "" Translate from spanish to english
-nmap -builtin esen :tabopen es-en
+nmap -builtin esen :tabopen es-en 
 
 "" Translate from english to italian
-nmap -builtin enit :tabopen en-it
+nmap -builtin enit :tabopen en-it 
 
 "" Translate from italian to english
-nmap -builtin iten :tabopen it-en
+nmap -builtin iten :tabopen it-en 
 
 ""Google-Scholar search
-nmap -builtin ,s :open scholar
-nmap -builtin ,S :tabopen scholar
+nmap -builtin ,s :open scholar 
+nmap -builtin ,S :tabopen scholar 
 
 ""Wikipedia search
-nmap -builtin w :open wikipedia
-nmap -builtin W :tabopen wikipedia
+nmap -builtin w :open wikipedia 
+nmap -builtin W :tabopen wikipedia 
 
 "" display download
 nmap -builtin ,d :downloads<CR>
@@ -71,4 +71,4 @@ nmap -builtin ,c :tabopen about:config<CR>
 "" inject the ezproxy into current site (used for research)
 nmap ,p :javascript dactyl.open(content.location.href.replace(/\.(edu|com|net|org)\//, ".$1.ezproxy.lib.vt.edu:8080\/"))<CR>
 
-nmap ru :tabopen google site:rutracker.org
+nmap ru :tabopen google site:rutracker.org 
