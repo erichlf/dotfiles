@@ -15,8 +15,8 @@ TEXT
 [
     { "full_text": "${time %H:%M %a, %d %b %Y}", "color": "\#b492b6", "separator_block_width": 310, "separator": false },
     { "full_text": "\u26C8", "color": "\#5f5f5f" },
-    { "full_text": "${execi 100 ~/.i3/weather.sh 08025}", "color": "\#b492b6" },
+    { "full_text": "${execi 100 ~/.i3/weather.sh 06770}", "color": "\#b492b6" },
     { "full_text": "${exec acpi -b | awk -F' ' '{if ($3 == "Discharging,") { print "\\uD83D\\uDD0B" } else { print "\\uD83D\\uDD0C" }}'}", "color": "\#5f5f5f" },
-    { "full_text": "${battery_bar BAT1}", "color":
-         ${if_match ${battery_percent BAT1}<20}"\#b95670"${else}"\#b492b6"${endif} }
+    { "full_text": "${battery_bar BAT0}", "color":
+         ${if_match ${battery_percent BAT0}<20}"\#b95670"${else}"\#b492b6"${endif} }
 ],
