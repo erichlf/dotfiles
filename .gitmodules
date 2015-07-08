@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/vim-sensible"]
 	path = .vim/bundle/vim-sensible
 	url = git@github.com:tpope/vim-sensible.git
+[submodule ".vim/bundle/editorconfig-vim"]
+	path = .vim/bundle/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git
