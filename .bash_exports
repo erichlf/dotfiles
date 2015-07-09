@@ -6,6 +6,12 @@ export MYHPSC=$HOME/Documents/Notes/Parallel.Computing/HPSC
 export KRB5_CONFIG=$HOME/.pdckrb/krb5.conf
 export CHPL_HOME=$HOME/bin/chapel-1.11.0
 
+# check if we are on OSX and then set CLICOLOR
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then 
+    export CLICOLOR=1
+fi
+
 if [ -f $CHPL_HOME/util/chplenv/chpl_platform.py ]; then
     export CHPL_HOST_PLATFORM=`$CHPL_HOME/util/chplenv/chpl_platform.py`
 fi
