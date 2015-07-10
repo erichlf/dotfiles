@@ -26,5 +26,5 @@
     path = .vim/bundle/editorconfig-vim
     url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule ".vim/bundle/c-mode"]
-    path = .vim/bundle/c-mode
-    url = git@github.com:erichlf/c-mode.git
+	path = .vim/bundle/c-mode
+	url = git@github.com:erichlf/c-mode
