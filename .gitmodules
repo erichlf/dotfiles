@@ -1,27 +1,30 @@
 [submodule ".vim/bundle/vim-bufferline"]
-	path = .vim/bundle/vim-bufferline
-	url = https://github.com/bling/vim-bufferline
+    path = .vim/bundle/vim-bufferline
+    url = https://github.com/bling/vim-bufferline
 [submodule ".vim/bundle/nerdcommenter"]
-	path = .vim/bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
+    path = .vim/bundle/nerdcommenter
+    url = https://github.com/scrooloose/nerdcommenter.git
 [submodule ".vim/bundle/python-mode"]
-	path = .vim/bundle/python-mode
-	url = git@github.com:klen/python-mode
+    path = .vim/bundle/python-mode
+    url = git@github.com:klen/python-mode
 [submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = git@github.com:bling/vim-airline.git
+    path = .vim/bundle/vim-airline
+    url = git@github.com:bling/vim-airline.git
 [submodule ".vim/bundle/vim-fugitive"]
-	path = .vim/bundle/vim-fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+    path = .vim/bundle/vim-fugitive
+    url = git@github.com:tpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-git"]
-	path = .vim/bundle/vim-git
-	url = git@github.com:tpope/vim-git.git
+    path = .vim/bundle/vim-git
+    url = git@github.com:tpope/vim-git.git
 [submodule ".vim/bundle/vim-latex-suite"]
-	path = .vim/bundle/vim-latex-suite
-	url = git@github.com:gerw/vim-latex-suite.git
+    path = .vim/bundle/vim-latex-suite
+    url = git@github.com:gerw/vim-latex-suite.git
 [submodule ".vim/bundle/vim-sensible"]
-	path = .vim/bundle/vim-sensible
-	url = git@github.com:tpope/vim-sensible.git
+    path = .vim/bundle/vim-sensible
+    url = git@github.com:tpope/vim-sensible.git
 [submodule ".vim/bundle/editorconfig-vim"]
-	path = .vim/bundle/editorconfig-vim
-	url = git@github.com:editorconfig/editorconfig-vim.git
+    path = .vim/bundle/editorconfig-vim
+    url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".vim/bundle/c-mode"]
+    path = .vim/bundle/c-mode
+    url = git@github.com:erichlf/c-mode.git
