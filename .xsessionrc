@@ -1,6 +1,6 @@
 #fix the keyboard to use correct key mappings
-if [ -s ~/.Xmodmap ]; then
-    xmodmap /home/BCAMATH/efoster/.Xmodmap
+if [ -s $HOME/.Xmodmap ]; then
+    xmodmap $HOME/.Xmodmap
 fi
 
 #clipboard synchronization
