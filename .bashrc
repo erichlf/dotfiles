@@ -127,3 +127,6 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\0
 if [ -f ~/.commacd.bash ]; then
     source ~/.commacd.bash
 fi
+
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
