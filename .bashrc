@@ -128,5 +128,7 @@ if [ -f ~/.commacd.bash ]; then
     source ~/.commacd.bash
 fi
 
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
+if [[ $(expr index "$-" i) > 0 ]]; then
+    bind '"\e[A":history-search-backward'
+    bind '"\e[B":history-search-forward'
+fi
