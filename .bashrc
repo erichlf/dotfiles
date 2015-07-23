@@ -132,3 +132,7 @@ if [[ $(expr index "$-" i) > 0 ]]; then
     bind '"\e[A":history-search-backward'
     bind '"\e[B":history-search-forward'
 fi
+
+# Base16 Shell
+BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-atelierlakeside.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL

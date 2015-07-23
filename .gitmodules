@@ -6,28 +6,37 @@
     url = https://github.com/scrooloose/nerdcommenter.git
 [submodule ".vim/bundle/python-mode"]
     path = .vim/bundle/python-mode
-    url = git@github.com:klen/python-mode
+    url = https://github.com/klen/python-mode
 [submodule ".vim/bundle/vim-airline"]
     path = .vim/bundle/vim-airline
-    url = git@github.com:bling/vim-airline.git
+    url = https://github.com/bling/vim-airline.git
 [submodule ".vim/bundle/vim-fugitive"]
     path = .vim/bundle/vim-fugitive
-    url = git@github.com:tpope/vim-fugitive.git
+    url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-git"]
     path = .vim/bundle/vim-git
-    url = git@github.com:tpope/vim-git.git
+    url = https://github.com/tpope/vim-git.git
 [submodule ".vim/bundle/vim-latex-suite"]
     path = .vim/bundle/vim-latex-suite
-    url = git@github.com:gerw/vim-latex-suite.git
+    url = https://github.com/gerw/vim-latex-suite.git
 [submodule ".vim/bundle/vim-sensible"]
     path = .vim/bundle/vim-sensible
-    url = git@github.com:tpope/vim-sensible.git
+    url = https://github.com/tpope/vim-sensible.git
 [submodule ".vim/bundle/editorconfig-vim"]
     path = .vim/bundle/editorconfig-vim
-    url = git@github.com:editorconfig/editorconfig-vim.git
+    url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule ".vim/bundle/vim-clang-format"]
     path = .vim/bundle/vim-clang-format
-    url = git@github.com:rhysd/vim-clang-format.git
+    url = https://github.com/rhysd/vim-clang-format.git
 [submodule ".vim/bundle/c-mode"]
     path = .vim/bundle/c-mode
-    url = git@github.com:erichlf/c-mode
+    url = https://github.com/erichlf/c-mode
+[submodule ".vim/bundle/base16-vim"]
+    path = .vim/bundle/base16-vim
+    url = https://github.com/chriskempson/base16-vim.git
+[submodule ".vim/bundle/vim-simple-todo"]
+    path = .vim/bundle/vim-simple-todo
+    url = https://github.com/vitalk/vim-simple-todo.git
+[submodule "base16-shell"]
+	path = base16-shell
+	url = https://github.com/chriskempson/base16-shell.git

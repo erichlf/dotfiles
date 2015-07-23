@@ -350,9 +350,10 @@ nnoremap <f3> :TagbarToggle<cr>
 "source project specific config files
 runtime! projects/**/*.vim
 
+let base16colorspace=256
+colorscheme base16-default
 "gvim specific options
 if has("gui_running")
-    colorscheme ron
     set go-=T "remove the toolbar
 endif
 
