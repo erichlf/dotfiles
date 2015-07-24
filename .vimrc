@@ -19,6 +19,8 @@ set grepprg=grep\ -nH\ $*
 " OPTIONAL: This enables automatic indentation as you type.
 filetype indent on
 
+let mapleader=","
+
 " The following is for editor-config:
 let g:EditorConfig_core_mode = 'external_command'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
