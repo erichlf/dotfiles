@@ -217,7 +217,6 @@ bar {
             inactive_workspacef #101010 #b492b6 #101010
             urgent_workspace #101010 #b72f62 #101010
         }
-        # status_command i3status -c ~/.i3/i3status.conf
 }
 
 #assign programs to specific workspaces
