@@ -6,6 +6,7 @@ max_text_width 0
 # Update interval in seconds
 update_interval 2.0
 total_run_times 0
+double_buffer yes
 
 #symbola font is required for the proper symbols
 #ttf-ancient-fonts contains the symbola font
