@@ -8,7 +8,9 @@ update_interval 2.0
 total_run_times 0
 
 #symbola font is required for the proper symbols
-#Symbola font is included in ttf-ancient-fonts
+#ttf-ancient-fonts contains the symbola font
+#acpi is required for the charging/discharging functionality
+#curl is required for weather.sh to work.
 
 TEXT
 
