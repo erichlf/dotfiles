@@ -153,9 +153,12 @@ bindsym $mod+Shift+asterisk move workspace 8
 bindsym $mod+Shift+parenleft move workspace 9
 bindsym $mod+Shift+parenright move workspace 10
 
-bindsym $mod+Shift+C reload  # reload the configuration file
-bindsym $mod+Shift+R restart  # restart i3 inplace
-bindsym $mod+Shift+Mod1+E exit  # exit i3 (logs you out of your X session)
+# reload the configuration file
+bindsym $mod+Shift+C reload
+# restart i3 inplace
+bindsym $mod+Shift+R restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+Mod1+E exit
 bindsym $mod+Shift+Mod1+R exec sudo reboot now  # reboot the machine now
 bindsym $mod+Shift+Mod1+S exec sudo shutdown 0  # shutdown the machine now
 
@@ -208,7 +211,7 @@ bar {
         font xft:Monospace 9
         workspace_buttons yes
         status_command ~/.i3/conky.sh
-        # tray_output none
+        tray_output primary
         colors {
             background #101010
             statusline #605c5a
