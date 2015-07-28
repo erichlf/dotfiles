@@ -232,5 +232,6 @@ for_window [class="(?i)Firefox"] border none
 
 #my programs which I always use
 exec firefox
+exec empathyi -h
 exec --no-startup-id i3-msg 'workspace 2; exec gnome-terminal'
 exec pybliographic ~/Research/Complete.bib
