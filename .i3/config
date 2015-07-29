@@ -77,6 +77,7 @@ bindsym $mod+m exec nuvolaplayer
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
+# requires cabal-install and yeganesh
 bindsym $mod+d exec ~/.i3/dmenu.sh
 
 # change focus
