@@ -9,30 +9,21 @@ complete -cf git
 #-------------------------------------------------------------
 # Source global definitions (if any)
 #-------------------------------------------------------------
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc   # --> Read /etc/bashrc, if present.
-fi
+[ -f /etc/bashrc ] && source /etc/bashrc
 
 #-------------------------------------------------------------
 # add .bash_exports
 #-------------------------------------------------------------
-if [ -f ~/.bash_exports ]; then
-    . ~/.bash_exports
-fi
+[ -f $HOME/.bash_exports ] && source $HOME/.bash_exports
 
 #-------------------------------------------------------------
 # add .bash_aliases
 #-------------------------------------------------------------
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+[ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases
 
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
-
-#set -o nounset     # These  two options are useful for debugging.
-#set -o xtrace
 alias debug="set -o nounset; set -o xtrace"
 
 ulimit -S -c 0      # Don't want coredumps.
@@ -59,7 +50,7 @@ unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+    source /etc/bash_completion
 fi
 
 #add git to ps1
@@ -79,17 +70,13 @@ else
     PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
 fi
 
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:`pwd | sed "s|^$HOME|~|"`\007"'
+[ -f ~/.commacd.bash ] && source ~/.commacd.bash
 
-if [ -f ~/.commacd.bash ]; then
-    source ~/.commacd.bash
-fi
-
-if [[ $(expr index "$-" i) > 0 ]]; then
+if [[ "$-" == *i* ]]; then
     bind '"\e[A":history-search-backward'
     bind '"\e[B":history-search-forward'
-fi
 
-# Base16 Shell
-BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-atelierlakeside.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+    # Base16 Shell
+    BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-atelierlakeside.dark.sh"
+    [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+fi
