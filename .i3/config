@@ -211,7 +211,7 @@ bar {
         font xft:Monospace 9
         workspace_buttons yes
         status_command ~/.i3/conky.sh
-        tray_output primary
+        tray_output LVDS1
         colors {
             background #101010
             statusline #605c5a
