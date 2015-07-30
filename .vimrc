@@ -50,7 +50,7 @@ let g:Tex_UseMakefile = 0
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 let g:calendar_clock_12hour = 0
-let g:calendar_date_endian = "little"
+let g:calendar_date_endian = "big"
 let g:calendar_view = "week"
 
 set iskeyword+=:
