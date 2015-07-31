@@ -1,9 +1,9 @@
 set -e
 
-declare -a DOTFILES=[.bashrc .bash_exports .commacd.bash .editorconfig
+declare -a DOTFILES=(.bashrc .bash_exports .commacd.bash .editorconfig
                      .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
                      .screenrc texmf .vim .vimrc .Xmodmap .Xresources
-                     .xsessionrc]
+                     .xsessionrc)
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
@@ -14,7 +14,7 @@ git submodule update
 
 #create my links
 cd $HOME
-for dotfile in $DOTFILES; do ln -s $HOME/dotfiles/$dotfile; done
+for dotfile in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$dotfile; done
 
 ############################# developer tools ##################################
 sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
@@ -27,7 +27,7 @@ sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
                         acpi gtk-doc-tools gobject-introspection \
                         libglib2.0-devcabal-install htop feh
 
-#install playerctl
+#install playerctl for media keys
 git clone git@github.com:acrisci/playerctl.git
 cd playerctl
 ./autogen.sh
