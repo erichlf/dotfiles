@@ -17,10 +17,15 @@ cd $HOME
 for dotfile in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$dotfile; done
 
 ############################# developer tools ##################################
+#fenics repo
+sudo add-apt-repository ppa:fenics-packages/fenics
+
+sudo apt-get update
 sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
                         cmake g++ python-scipy python-numpy python-matplotlib \
-                        ipython ipython-notebook python-sympy cython gimp screen
+                        ipython ipython-notebook python-sympy cython gimp \
+                        fenics screen
 
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
