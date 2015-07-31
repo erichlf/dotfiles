@@ -44,7 +44,7 @@ sudo apt-get install -y network-manager-vpnc smbclient foomatic-db
 
 ################################ extras ########################################
 #add nuvolaplayer repo and grab key
-echo 'https://tiliado.eu/nuvolaplayer/repository/deb/ vivid stable' \
+echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ vivid stable' \
     > sudo tee /etc/apt/sources.list.d/tiliado-nuvolaplayer.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
                  --recv-keys 40554B8FA5FE6F6A
