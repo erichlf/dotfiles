@@ -16,6 +16,13 @@ git submodule update
 cd $HOME
 for dotfile in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$dotfile; done
 
+#setup my networks
+CONNECTIONS=$(sudo ls $HOME/dotfiles/private/system-connections/)
+for CONNECTION in "$CONNECTIONS"; do
+    sudo cp "$HOME/dotfiles/private/system-connections/$CONNECTION" \
+            /etc/NetworkManager/system-connections/
+done
+
 ############################# developer tools ##################################
 #fenics repo
 sudo add-apt-repository ppa:fenics-packages/fenics
