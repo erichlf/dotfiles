@@ -48,10 +48,12 @@ echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ vivid stable' \
     > sudo tee /etc/apt/sources.list.d/tiliado-nuvolaplayer.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
                  --recv-keys 40554B8FA5FE6F6A
+#nuvolaplayer3 requires webkit
+sudo add-apt-repository ppa:webkit-team/ppa
 
 sudo apt-get update
-sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin pidgin-extprefs \
-                        flashplugin-installer syncthing
+sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin \
+                        pidgin-extprefs flashplugin-installer syncthing
 
 ######################## remove things I never use #############################
 apt-get autoremove transmission-gtk libreoffice thunderbird
