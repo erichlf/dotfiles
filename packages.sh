@@ -1,9 +1,9 @@
 set -e
 
-declare -a DOTFILES=(.bashrc .bash_exports .commacd.bash .editorconfig
-                     .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
-                     .screenrc texmf .vim .vimrc .Xmodmap .Xresources
-                     .xsessionrc)
+declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
+                      .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
+                      .screenrc texmf .vim .vimrc .Xmodmap .Xresources
+                      .xsessionrc private/.bash_aliases private/.ssh )
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
