@@ -74,7 +74,7 @@ sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin \
                         pidgin-extprefs flashplugin-installer syncthing
 
 ######################## remove things I never use #############################
-apt-get autoremove transmission-gtk libreoffice thunderbird
+apt-get autoremove transmission-gtk libreoffice thunderbird evince
 
 ########################## update and upgrade ##################################
 sudo apt-get update
