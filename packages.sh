@@ -56,6 +56,9 @@ sudo apt-get install -y network-manager-vpnc smbclient foomatic-db
 
 #setup printers
 sudo gpasswd -a ${USER} lpadmin
+sudo service cups stop
+sudo cp private/printers.conf /etc/cups/
+sudo service cups start
 
 ################################ extras ########################################
 #add nuvolaplayer repo and grab key
