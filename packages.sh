@@ -54,6 +54,9 @@ cabal install yeganesh
 ############################ usi requirements ##################################
 sudo apt-get install -y network-manager-vpnc smbclient foomatic-db
 
+#setup printers
+sudo gpasswd -a ${USER} lpadmin
+
 ################################ extras ########################################
 #add nuvolaplayer repo and grab key
 echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ vivid stable' \
