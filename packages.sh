@@ -32,7 +32,8 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
-                        fenics screen
+                        fenics screen texlive latex-beamer texlive-latex-extra \
+                        texlive-math-extra
 
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
