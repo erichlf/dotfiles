@@ -59,7 +59,7 @@ bindsym XF86KbdBrightnessUp exec --no-startup-id "cd /sys/class/leds/smc::kbd_ba
 
 bindsym XF86Eject exec eject
 
-#don"t switch focus based on mouse position
+#don't switch focus based on mouse position
 focus_follows_mouse no
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -215,9 +215,9 @@ bar {
         colors {
             background #101010
             statusline #605c5a
-            focused_workspace #101010 #101010 #b72f62
-            active_workspace #5f5f5f #101010 #101010
-            inactive_workspacef #101010 #b492b6 #101010
+            focused_workspace #5f5f5f #b492b6 #101010
+            active_workspace #101010 #101010 #b72f62
+            inactive_workspace #101010 #101010 #b492b6
             urgent_workspace #101010 #b72f62 #101010
         }
 }
@@ -232,6 +232,6 @@ for_window [class="(?i)Firefox"] border none
 
 #my programs which I always use
 exec firefox
-exec pidgin
+exec pidgin -h
 exec --no-startup-id i3-msg 'workspace 2; exec gnome-terminal'
 exec pybliographic ~/Research/Complete.bib
