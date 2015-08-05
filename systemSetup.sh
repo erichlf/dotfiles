@@ -38,7 +38,7 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
                         acpi gtk-doc-tools gobject-introspection \
-                        libglib2.0-dev cabal-install htop feh
+                        libglib2.0-dev cabal-install htop feh python-keyring
 
 #install playerctl for media keys
 git clone git@github.com:acrisci/playerctl.git
@@ -73,6 +73,15 @@ sudo add-apt-repository ppa:webkit-team/ppa
 sudo apt-get update
 sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin \
                         pidgin-extprefs flashplugin-installer syncthing
+
+#fix facebook for pidgin
+echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04 ./ | \
+    sudo tee /etc/apt/sources.list.d/jgeboski.list
+wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04/Release.key
+sudo apt-key add Release.key
+rm Release.key
+sudo apt-get update
+sudo apt-get install purple-facebook
 
 ######################## remove things I never use #############################
 apt-get autoremove transmission-gtk libreoffice thunderbird evince
