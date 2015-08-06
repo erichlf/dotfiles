@@ -34,7 +34,6 @@ exec --no-startup-id xsetroot -solid '#000000'
 exec --no-startup-id feh --bg-scale ~/Backgrounds/digital-nature-1280x800.jpg
 
 #below are my startup scripts
-exec gnome-sound-applet
 exec nm-applet
 exec gtk-redshift -c dotfiles/redshift.conf
 
