@@ -38,7 +38,8 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
                         acpi gtk-doc-tools gobject-introspection \
-                        libglib2.0-dev cabal-install htop feh python-keyring
+                        libglib2.0-dev cabal-install htop feh python-keyring \
+                        xbacklight
 
 #install playerctl for media keys
 git clone git@github.com:acrisci/playerctl.git
