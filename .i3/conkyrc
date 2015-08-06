@@ -22,5 +22,7 @@ TEXT
     { "full_text": "\u2709", "color": "\#5f5f5f" },
     { "full_text": "${execi 10 ~/dotfiles/gmail-count -u erichlf}", "color": ${if_match ${exec ~/dotfiles/gmail-count -u 10 erichlf}==0}"\#5f5f5f"${else}"\#b72f62"${endif} },
     { "full_text": "${exec acpi -b | awk -F' ' '{if ($3 == "Discharging,") { print "\\uD83D\\uDD0B" } else { print "\\uD83D\\uDD0C" }}'}", "color": "\#5f5f5f" },
-    { "full_text": "${battery_bar BAT1}", "color": ${if_match ${battery_percent BAT1}<20}"\#b72f62"${else}"\#5f5f5f"${endif} }
+    { "full_text": "${battery_bar BAT1}", "color": ${if_match ${battery_percent BAT1}<20}"\#b72f62"${else}"\#5f5f5f"${endif} },
+    { "full_text": "${exec amixer get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "\\uD83D\\uDD07" } else { print "\\uD83D\\uDD0A"}}'}", "color": "\#5f5f5f" },
+    { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '/%/ { print $2"%" }'}", "color": "\#5f5f5f" }
 ],
