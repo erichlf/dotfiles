@@ -206,13 +206,15 @@ def auth(username, password):
     if verbose:
         print('Succesfully logged into gmail.')
 
-    opener = urllib2.build_opener(handler)
-    urllib2.install_opener(opener)
+    return handler
 
 
-def get_feed(url):
+def get_feed(handler, url):
     if verbose:
         print("Attempting to open feed.")
+
+    opener = urllib2.build_opener(handler)
+    urllib2.install_opener(opener)
 
     try:
         feed = urllib2.urlopen(url)
@@ -248,10 +250,9 @@ def main():
         print("A valid username and a password must be provided.")
         sys.exit(1)
 
+    handler = auth(username, password)
     for label in labels:
-        auth(username, password)
-
-        feed = get_feed(url + label)
+        feed = get_feed(handler, url + label)
 
         atom = feedparser.parse(feed)
 
