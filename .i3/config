@@ -207,7 +207,7 @@ bar {
         font xft:Monospace 9
         workspace_buttons yes
         status_command ~/.i3/conky.sh
-        tray_output LVDS1
+        tray_output HDMI1
         colors {
             background          #101010
             statusline          #5f5f5f
