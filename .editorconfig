@@ -12,7 +12,7 @@ max_line_length = 80
 [.pentadactylrc]
 trim_trailing_whitespace = false
 
-[*.c, *.C]
+[*.{c,C}]
 indent_size = 2
 tab_width = 2
 
