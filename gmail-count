@@ -58,7 +58,7 @@ import feedparser
 
 # these are the labels you want to check
 # should always atleast contain ''
-labels = ['' 'usi']
+labels = ['inbox', 'usi']
 
 #
 # First time? Add password to keyring
@@ -250,11 +250,19 @@ def main():
         print("A valid username and a password must be provided.")
         sys.exit(1)
 
+    i = 0  # entry counter
     handler = auth(username, password)
     for label in labels:
         feed = get_feed(handler, url + label)
 
         atom = feedparser.parse(feed)
+
+        if verbose:
+            print 'Label %s:' % label
+            for entry in atom.entries:
+                i += 1
+                print "Entry %i:" % i
+                print entry.title
 
         num_emails += len(atom.entries)
 
