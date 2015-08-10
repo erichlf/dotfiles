@@ -150,7 +150,7 @@ set nofoldenable "don't fold by default
 
 set wildmode=list:longest "make cmdline tab completion similar to bash
 set wildmenu "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.pdf,*.pyc,*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore=*.pdf,*.pyc,*.o,*.obj,*~,*.lo,*.lo.d "stuff to ignore when tab completing
 
 set formatoptions-=o "don't continue comments when pushing o/O
 
