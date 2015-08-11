@@ -68,7 +68,7 @@ floating_modifier $mod
 bindsym $mod+Return exec gnome-terminal
 bindsym $mod+i exec firefox
 bindsym $mod+n exec nautilus
-bindsym $mod+p exec ~/Shared/ParaView-4.3.1-Linux-64bit/bin/paraview
+bindsym $mod+p exec paraview
 bindsym $mod+g exec gvim
 bindsym $mod+m exec nuvolaplayer
 
