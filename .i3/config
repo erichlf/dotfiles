@@ -70,7 +70,7 @@ bindsym $mod+i exec firefox
 bindsym $mod+n exec nautilus
 bindsym $mod+p exec paraview
 bindsym $mod+g exec gvim
-bindsym $mod+m exec nuvolaplayer
+bindsym $mod+m exec nuvolaplayer3
 
 # kill focused window
 bindsym $mod+Shift+Q kill
