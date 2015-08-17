@@ -14,7 +14,7 @@ git submodule update
 
 #create my links
 cd $HOME
-for dotfile in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$dotfile; done
+for FILE in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$FILE; done
 
 #setup my networks
 CONNECTIONS=$(sudo ls $HOME/dotfiles/private/system-connections/)
@@ -85,10 +85,14 @@ sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin purple-facebook \
                         pidgin-extprefs flashplugin-installer syncthing
 
 ######################## remove things I never use #############################
-apt-get remove -y transmission-gtk libreoffice thunderbird evince
+sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
 
 ########################## update and upgrade ##################################
 sudo apt-get update
 sudo apt-get dist-upgrade
 
 sudo apt-get autoremove
+
+############################## annoyances ######################################
+echo '$USER ALL = NOPASSWD: /sbin/shutdown' | tee -a /etc/sudoers
+echo '$USER ALL = NOPASSWD: /sbin/reboot' | tee -a /etc/sudoers
