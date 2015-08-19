@@ -230,4 +230,4 @@ for_window [class="(?i)Firefox"] border none
 exec firefox
 exec pidgin
 exec --no-startup-id i3-msg 'workspace 2; exec gnome-terminal'
-exec pybliographic ~/Research/Complete.bib
+# exec pybliographic ~/Research/Complete.bib
