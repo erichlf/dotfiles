@@ -14,7 +14,7 @@ git submodule update
 
 #create my links
 cd $HOME
-for dotfile in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$dotfile; done
+for FILE in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$FILE; done
 
 #setup my networks
 CONNECTIONS=$(sudo ls $HOME/dotfiles/private/system-connections/)
@@ -39,7 +39,9 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
                         acpi gtk-doc-tools gobject-introspection \
                         libglib2.0-dev cabal-install htop feh python-keyring \
-                        xbacklight
+                        xbacklight bikeshed
+
+#bikeshed contains utilities such as purge-old-kernels
 
 #install playerctl for media keys
 git clone git@github.com:acrisci/playerctl.git
@@ -71,10 +73,6 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
 #nuvolaplayer3 requires webkit
 sudo add-apt-repository ppa:webkit-team/ppa
 
-sudo apt-get update
-sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin \
-                        pidgin-extprefs flashplugin-installer syncthing
-
 #fix facebook for pidgin
 echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04 ./ | \
     sudo tee /etc/apt/sources.list.d/jgeboski.list
@@ -82,11 +80,19 @@ wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04/Rele
 sudo apt-key add Release.key
 rm Release.key
 sudo apt-get update
-sudo apt-get install purple-facebook
+
+sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin purple-facebook \
+                        pidgin-extprefs flashplugin-installer syncthing
 
 ######################## remove things I never use #############################
-apt-get autoremove transmission-gtk libreoffice thunderbird evince
+sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
 
 ########################## update and upgrade ##################################
 sudo apt-get update
 sudo apt-get dist-upgrade
+
+sudo apt-get autoremove
+
+############################## annoyances ######################################
+echo '$USER ALL = NOPASSWD: /sbin/shutdown' | tee -a /etc/sudoers
+echo '$USER ALL = NOPASSWD: /sbin/reboot' | tee -a /etc/sudoers
