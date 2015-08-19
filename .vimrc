@@ -53,6 +53,12 @@ let g:calendar_clock_12hour = 0
 let g:calendar_date_endian = "big"
 let g:calendar_view = "week"
 
+let g:clang_format#command = '~/bin/clang-format'
+let g:clang_format#detect_style_format = 1
+let g:clang_format#auto_formatexpr = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+let g:clang_format#auto_format = 1
+
 set iskeyword+=:
 
 "Use Vim settings, rather then Vi settings (much better!).
