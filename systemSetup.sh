@@ -27,13 +27,24 @@ done
 #fenics repo
 sudo add-apt-repository ppa:fenics-packages/fenics
 
+#latest git
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt-get update
+
 sudo apt-get update
 sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
                         fenics screen texlive latex-beamer texlive-latex-extra \
-                        texlive-math-extra
+                        texlive-math-extra git libgnome-keyring-dev
+
+
+#setup credential helper for git
+cd /usr/share/doc/git/contrib/credential/gnome-keyring
+sudo make
+cd $HOME
+git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
