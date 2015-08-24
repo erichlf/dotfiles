@@ -37,14 +37,19 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
                         fenics screen texlive latex-beamer texlive-latex-extra \
-                        texlive-math-extra git libgnome-keyring-dev
-
+                        texlive-math-extra git libgnome-keyring-dev ruby1.9.1 \
+                        ruby1.9.1-dev
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
 sudo make
 cd $HOME
 git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+
+#setup markdown preview
+sudo gem install rdoc
+sudo gem install rails
+sudo gem install mdprev
 
 ############################# my base system ###################################
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
