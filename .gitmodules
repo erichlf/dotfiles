@@ -53,3 +53,6 @@
 [submodule "private"]
 	path = private
 	url = git@bitbucket.org:erichlf/dotfiles-private.git
+[submodule ".vim/bundle/md-vim"]
+	path = .vim/bundle/md-vim
+	url = git@github.com:hughbien/md-vim.git

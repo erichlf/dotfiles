@@ -81,6 +81,8 @@ call pathogen#helptags()
 filetype plugin indent on
 syntax on
 
+au BufNewFile,BufRead *.md set ft=md
+
 "python-mode
 map <Leader>g :call RopeGotoDefinition()<CR>
 let ropevim_enable_shortcuts = 1
