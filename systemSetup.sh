@@ -38,7 +38,7 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         ipython ipython-notebook python-sympy cython gimp \
                         fenics screen texlive latex-beamer texlive-latex-extra \
                         texlive-math-extra git libgnome-keyring-dev ruby1.9.1 \
-                        ruby1.9.1-dev
+                        ruby1.9.1-dev wkhtmltopdf
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
