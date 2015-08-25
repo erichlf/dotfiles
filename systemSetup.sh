@@ -14,22 +14,25 @@ git submodule update
 
 #create my links
 cd $HOME
-for FILE in ${DOTFILES[@]}; do ln -s $HOME/dotfiles/$FILE; done
+for FILE in ${DOTFILES[@]}; do ln -s -f $HOME/dotfiles/$FILE; done
 
 #setup my networks
-CONNECTIONS=$(sudo ls $HOME/dotfiles/private/system-connections/)
-for CONNECTION in "$CONNECTIONS"; do
-    sudo cp "$HOME/dotfiles/private/system-connections/$CONNECTION" \
-            /etc/NetworkManager/system-connections/
+for CONNECTION in $HOME/dotfiles/private/system-connections/*; do
+    sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
 done
 
 ############################# developer tools ##################################
 #fenics repo
-sudo add-apt-repository ppa:fenics-packages/fenics
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep fenics | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:fenics-packages/fenics
+fi
 
 #latest git
-sudo add-apt-repository ppa:git-core/ppa
-sudo apt-get update
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep git-core | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:git-core/ppa
+fi
 
 sudo apt-get update
 sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
@@ -37,7 +40,7 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
                         fenics screen texlive texlive-science latex-beamer \
-                        texlive-latex-extra texlive-math-extra git
+                        texlive-latex-extra texlive-math-extra git \
                         libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev wkhtmltopdf
 
 #setup credential helper for git
@@ -60,7 +63,9 @@ sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
 #bikeshed contains utilities such as purge-old-kernels
 
 #install playerctl for media keys
-git clone git@github.com:acrisci/playerctl.git
+if [ ! -d playerctl ]; then
+    git clone git@github.com:acrisci/playerctl.git
+fi
 cd playerctl
 ./autogen.sh
 make
@@ -76,25 +81,43 @@ sudo apt-get install -y network-manager-vpnc smbclient foomatic-db
 
 #setup printers
 sudo gpasswd -a ${USER} lpadmin
-sudo service cups stop
-sudo cp private/printers.conf /etc/cups/
+cups_status=`sudo service cups status | grep process | wc -l`
+if [ $cups_status != 0 ]; then
+    sudo service cups stop
+fi
+sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
 sudo service cups start
 
 ################################ extras ########################################
 #add nuvolaplayer repo and grab key
-echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ vivid stable' \
-    > sudo tee /etc/apt/sources.list.d/tiliado-nuvolaplayer.list
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
-                 --recv-keys 40554B8FA5FE6F6A
+if [ ! -f /etc/apt/sources.list.d/nuvola-player.list ]; then
+    echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ trusty stable' \
+        > sudo tee /etc/apt/sources.list.d/nuvola-player.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
+                    --recv-keys 40554B8FA5FE6F6A
+fi
+
 #nuvolaplayer3 requires webkit
-sudo add-apt-repository ppa:webkit-team/ppa
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep webkit-team | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:webkit-team/ppa
+fi
 
 #fix facebook for pidgin
-echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04 ./ | \
-    sudo tee /etc/apt/sources.list.d/jgeboski.list
-wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04/Release.key
-sudo apt-key add Release.key
-rm Release.key
+if [ ! -f /etc/apt/source.list.d/jgeboski.list ]; then
+    echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_14.04 ./ | \
+        sudo tee /etc/apt/sources.list.d/jgeboski.list
+    wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04/Release.key
+    sudo apt-key add Release.key
+    rm Release.key
+fi
+
+if [ ! -f /etc/apt/sources.list.d/syncthing-release.list ]; then
+    curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+    echo "deb http://apt.syncthing.net/ syncthing release" \
+        | sudo tee /etc/apt/sources.list.d/syncthing-release.list
+fi
+
 sudo apt-get update
 
 sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin purple-facebook \
@@ -105,10 +128,10 @@ sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
 
 ########################## update and upgrade ##################################
 sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt-get -y dist-upgrade
 
 sudo apt-get autoremove
 
 ############################## annoyances ######################################
-echo '$USER ALL = NOPASSWD: /sbin/shutdown' | tee -a /etc/sudoers
-echo '$USER ALL = NOPASSWD: /sbin/reboot' | tee -a /etc/sudoers
+echo "$USER ALL = NOPASSWD: /sbin/shutdown" | sudo tee -a /etc/sudoers
+echo "$USER ALL = NOPASSWD: /sbin/reboot" | sudo tee -a /etc/sudoers
