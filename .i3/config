@@ -31,7 +31,7 @@ exec --no-startup-id unity-settings-daemon
 
 #give me a background image
 exec --no-startup-id xsetroot -solid '#000000'
-exec --no-startup-id feh --bg-scale --no-inerama ~/Backgrounds/digital-nature-1280x800.jpg
+exec --no-startup-id feh --bg-scale --no-xinerama ~/Backgrounds/digital-nature-1280x800.jpg
 
 #below are my startup scripts
 exec nm-applet
@@ -55,8 +55,6 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 # Keyboard backlight shortcuts
 bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur-5)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
 bindsym XF86KbdBrightnessUp exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur+5)); if [ $cur -gt 255 ]; then cur=255; fi; echo $cur | sudo tee brightness "
-
-bindsym XF86Eject exec eject
 
 #don't switch focus based on mouse position
 focus_follows_mouse no
@@ -207,7 +205,7 @@ bar {
         font xft:Monospace 9
         workspace_buttons yes
         status_command ~/.i3/conky.sh
-        tray_output LVDS1
+        tray_output eDP1
         colors {
             background          #101010
             statusline          #5f5f5f
