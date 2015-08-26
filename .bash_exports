@@ -28,8 +28,3 @@ if [ -d $CHPL_HOME ] ; then
     export PATH="$PATH:$CHPL_HOME/bin/$CHPL_HOST_PLATFORM"
     export MANPATH="$MANPATH:$CHPL_HOME/man"
 fi
-
-# Source MOOSE profile
-if [ -f /opt/moose/environments/moose_profile ]; then
-    . /opt/moose/environments/moose_profile
-fi

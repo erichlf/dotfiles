@@ -22,3 +22,5 @@
     added = yellow
     changed = green
     untracked = cyan
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
