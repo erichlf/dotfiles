@@ -48,14 +48,6 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# backlight controls
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-
-# Keyboard backlight shortcuts
-bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur-5)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
-bindsym XF86KbdBrightnessUp exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur+5)); if [ $cur -gt 255 ]; then cur=255; fi; echo $cur | sudo tee brightness "
-
 #don't switch focus based on mouse position
 focus_follows_mouse no
 
@@ -228,4 +220,4 @@ for_window [class="(?i)Firefox"] border none
 exec firefox
 exec pidgin
 exec --no-startup-id i3-msg 'workspace 2; exec gnome-terminal'
-# exec pybliographic ~/Research/Complete.bib
+exec pybliographic ~/Research/Complete.bib
