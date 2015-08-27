@@ -23,6 +23,6 @@ TEXT
     { "full_text": ${if_match "${execi 10 ~/dotfiles/gmail-count -u erichlf}"=="0"}"0", "color": "\#5f5f5f"${else}"${execi 10 ~/dotfiles/gmail-count -u erichlf}", "color": "\#b72f62"${endif} },
     { "full_text": ${if_match "${battery_short BAT0}"=="D"}"\uD83D\uDD0B"${else}"\uD83D\uDD0C"${endif}, "color": "\#5f5f5f" },
     { "full_text": "${battery_bar BAT0}", "color": ${if_match ${battery_percent BAT0}<20}"\#b72f62"${else}"\#5f5f5f"${endif} },
-    { "full_text": "${exec amixer get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "\\uD83D\\uDD07" } else { print "\\uD83D\\uDD0A"}}'}", "color": "\#5f5f5f" },
-    { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '/%/ { print $2"%" }'}", "color": "\#5f5f5f" }
+    { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{if ($5 == "off") { print "\\uD83D\\uDD07" } else { print "\\uD83D\\uDD0A"}}'}", "color": "\#5f5f5f" },
+    { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{ print $2"%" }'}", "color": "\#5f5f5f" }
 ],
