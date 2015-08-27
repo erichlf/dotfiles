@@ -34,6 +34,7 @@ let g:Tex_ViewRule_ps = 'zathura'
 let g:livepreview_previewer = 'zathura'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_IgnoredWarnings =
+    \'Marginpar'."\n".
     \'Underfull'."\n".
     \'Overfull'."\n".
     \'specifier changed to'."\n".
