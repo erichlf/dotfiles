@@ -31,7 +31,7 @@ exec --no-startup-id unity-settings-daemon
 
 #give me a background image
 exec --no-startup-id xsetroot -solid '#000000'
-exec --no-startup-id feh --bg-scale --no-xinerama ~/Backgrounds/digital-nature-1280x800.jpg
+exec --no-startup-id feh --bg-scale --no-xinerama /usr/share/backgrounds/Forever_by_Shady.jpg
 
 #below are my startup scripts
 exec nm-applet
