@@ -121,8 +121,9 @@ fi
 
 sudo apt-get update
 
-sudo apt-get install -y transgui nuvolaplayer3 zathura pidgin purple-facebook \
-                        pidgin-extprefs flashplugin-installer syncthing
+sudo apt-get install -y transgui nuvolaplayer3 zathura zathura-djvu zathura-ps \
+                        pidgin purple-facebook pidgin-extprefs \
+                        flashplugin-installer syncthing
 
 ######################## remove things I never use #############################
 sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
