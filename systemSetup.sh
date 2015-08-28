@@ -127,6 +127,7 @@ sudo apt-get install -y transgui nuvolaplayer3 zathura zathura-djvu zathura-ps \
 
 ######################## remove things I never use #############################
 sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
+gsettings set org.gnome.desktop.background show-desktop-icons false
 
 ########################## update and upgrade ##################################
 sudo apt-get update
