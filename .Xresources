@@ -1,22 +1,22 @@
-! Base16 Atelier Lakeside
-! Scheme: Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/lakeside/)
+! Base16 Ashes
+! Scheme: Jannik Siebert (https://github.com/janniks)
 
-#define base00 #161b1d
-#define base01 #1f292e
-#define base02 #516d7b
-#define base03 #5a7b8c
-#define base04 #7195a8
-#define base05 #7ea2b4
-#define base06 #c1e4f6
-#define base07 #ebf8ff
-#define base08 #d22d72
-#define base09 #935c25
-#define base0A #8a8a0f
-#define base0B #568c3b
-#define base0C #2d8f6f
-#define base0D #257fad
-#define base0E #5d5db1
-#define base0F #b72dd2
+#define base00 #1C2023
+#define base01 #393F45
+#define base02 #565E65
+#define base03 #747C84
+#define base04 #ADB3BA
+#define base05 #C7CCD1
+#define base06 #DFE2E5
+#define base07 #F3F4F5
+#define base08 #C7AE95
+#define base09 #C7C795
+#define base0A #AEC795
+#define base0B #95C7AE
+#define base0C #95AEC7
+#define base0D #AE95C7
+#define base0E #C795AE
+#define base0F #C79595
 
 *.foreground:   base05
 *.background:   base00
