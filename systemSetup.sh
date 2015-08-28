@@ -59,7 +59,7 @@ sudo gem install mdprev
 sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
                         acpi gtk-doc-tools gobject-introspection \
                         libglib2.0-dev cabal-install htop feh python-feedparser \
-                        python-keyring xbacklight bikeshed
+                        python-keyring xbacklight bikeshed autocutsel
 
 #bikeshed contains utilities such as purge-old-kernels
 

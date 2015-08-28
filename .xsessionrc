@@ -6,3 +6,5 @@ fi
 #clipboard synchronization
 autocutsel -fork &
 autocutsel -selection PRIMARY -fork &
+
+xrdb $HOME/.Xresources &
