@@ -7,4 +7,5 @@ fi
 autocutsel -fork &
 autocutsel -selection PRIMARY -fork &
 
+xsetroot -cursor_name left_ptr
 xrdb $HOME/.Xresources &
