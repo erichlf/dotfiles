@@ -138,3 +138,4 @@ sudo apt-get autoremove
 ############################## annoyances ######################################
 echo "$USER ALL = NOPASSWD: /sbin/shutdown" | sudo tee -a /etc/sudoers
 echo "$USER ALL = NOPASSWD: /sbin/reboot" | sudo tee -a /etc/sudoers
+echo "$USER ALL = NOPASSWD: /usr/bin/tee brightness" | sudo tee -a /etc/sudoers
