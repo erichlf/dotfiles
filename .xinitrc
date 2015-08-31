@@ -1,4 +1,3 @@
-. /etc/X11/Xsession
 #fix the keyboard to use correct key mappings
 if [ -s $HOME/.Xmodmap ]; then
     xmodmap $HOME/.Xmodmap
