@@ -1,10 +1,6 @@
 #!/bin/bash
 # Set MOOSE_JOBS to the number of physical processors available
-if [ `uname -s` == 'Darwin' ]; then
-  export MOOSE_JOBS=`/usr/sbin/sysctl -n hw.ncpu`
-else
-  export MOOSE_JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
-fi
+export MOOSE_JOBS=`cat /proc/cpuinfo | grep processor | wc -l`
 
 # Modules Source
 source /opt/moose/Modules/3.2.10/init/bash
@@ -12,15 +8,6 @@ source /opt/moose/Modules/3.2.10/init/bash
 # MOOSE_PPS_WIDTH
 export MOOSE_PPS_WIDTH=180
 
-# Source the autojump profile if requested:
-if [ -n "$MOOSE_JUMP" ]; then
-  source /opt/moose/environments/autojump_profile
-fi
-
-# IF, anyone wants to use our prompt:
-if [ -n "$MOOSE_PROMPT" ]; then
-  PS1="\[\033[1;34m\][\u]\[\033[1;32m\][\w]\[\033[0m\]> "
-fi
-
-# Load the moose-dev-gcc and moose-tools module by default:
-module load moose-dev-gcc moose-tools
+# Load the moose-tools module by default:
+module load moose-tools
+export PETSC_DIR='/usr/lib/petsc'
