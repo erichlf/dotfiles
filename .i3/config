@@ -19,9 +19,9 @@ new_window 1pixel
 new_float 1pixel
 
 #program colors
-client.focused          #5f5f5f #5f5f5f #101010
-client.focused_inactive #101010 #101010 #5f5f5f
-client.unfocused        #101010 #101010 #5f5f5f
+client.focused          #ffffff #ffffff #101010
+client.focused_inactive #101010 #101010 #ffffff
+client.unfocused        #101010 #101010 #ffffff
 client.urgent           #101010 #b72f62 #101010
 client.background       #101010
 
@@ -203,10 +203,10 @@ bar {
         tray_output eDP1
         colors {
             background          #101010
-            statusline          #5f5f5f
-            focused_workspace   #5f5f5f #5f5f5f #101010
-            active_workspace    #101010 #101010 #5f5f5f
-            inactive_workspace  #101010 #101010 #5f5f5f
+            statusline          #ffffff
+            focused_workspace   #ffffff #ffffff #101010
+            active_workspace    #101010 #101010 #ffffff
+            inactive_workspace  #101010 #101010 #ffffff
             urgent_workspace    #101010 #b72f62 #101010
         }
 }
