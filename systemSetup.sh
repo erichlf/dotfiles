@@ -125,6 +125,9 @@ sudo apt-get install -y transgui nuvolaplayer3 zathura zathura-djvu zathura-ps \
                         pidgin purple-facebook pidgin-extprefs \
                         flashplugin-installer syncthing
 
+######################## fix the terminal font for 4k ##########################
+sudo dpkg-reconfigure console-setup
+
 ######################## remove things I never use #############################
 sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
 gsettings set org.gnome.desktop.background show-desktop-icons false
