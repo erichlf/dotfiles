@@ -50,7 +50,7 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev \
                         wkhtmltopdf pybliographer libmetis-dev libparmetis-dev \
                         libmpfr-dev libcgal-dev libqhull-dev nvidia-opencl-dev \
-                        nvidia-modprobe libgsl0-dev liblpsolve55-dev
+                        nvidia-modprobe libgsl0-dev liblpsolve55-dev paraview
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
