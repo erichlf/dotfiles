@@ -28,6 +28,11 @@ if [ $ppa_added == 0 ]; then
     sudo add-apt-repository ppa:fenics-packages/fenics
 fi
 
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep libadjoint | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo apt-add-repository ppa:libadjoint/ppa
+fi
+
 #latest git
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep git-core | wc -l`
 if [ $ppa_added == 0 ]; then
@@ -39,10 +44,11 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
-                        fenics screen texlive texlive-bibtex-extra \
-                        texlive-science latex-beamer texlive-latex-extra \
-                        texlive-math-extra git libgnome-keyring-dev ruby1.9.1 \
-                        ruby1.9.1-dev wkhtmltopdf pybliographer
+                        fenics python-dolfin-adjoint screen texlive \
+                        texlive-bibtex-extra texlive-science latex-beamer \
+                        texlive-latex-extra texlive-math-extra git \
+                        libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev \
+                        wkhtmltopdf pybliographer
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
