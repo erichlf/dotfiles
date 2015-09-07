@@ -48,8 +48,8 @@ sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
                         texlive-bibtex-extra texlive-science latex-beamer \
                         texlive-latex-extra texlive-math-extra git \
                         libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev \
-                        wkhtmltopdf pybliographer libmetis-dev libmpfr-dev \
-                        libcgal-dev libqhull-dev
+                        wkhtmltopdf pybliographer libmetis-dev libparmetis-dev \
+                        libmpfr-dev libcgal-dev libqhull-dev
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
