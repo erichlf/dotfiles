@@ -19,6 +19,8 @@ set grepprg=grep\ -nH\ $*
 " OPTIONAL: This enables automatic indentation as you type.
 filetype indent on
 
+set printoptions=duplex:long,syntax:y,number:y
+
 let mapleader=","
 
 " The following is for editor-config:
