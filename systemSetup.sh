@@ -40,7 +40,7 @@ if [ $ppa_added == 0 ]; then
 fi
 
 sudo apt-get update
-sudo apt-get install -y vim vim-gnome openssh-server editorconfig \
+sudo apt-get install -y vim vim-gtk openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
                         cmake g++ python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython gimp \
@@ -137,7 +137,8 @@ sudo apt-get install -y transgui nuvolaplayer3 zathura zathura-djvu zathura-ps \
 sudo dpkg-reconfigure console-setup
 
 ######################## remove things I never use #############################
-sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport
+sudo apt-get remove -y transmission-gtk libreoffice thunderbird evince apport \
+                       gnome-terminal gedit
 gsettings set org.gnome.desktop.background show-desktop-icons false
 
 ########################## update and upgrade ##################################
