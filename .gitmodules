@@ -56,3 +56,6 @@
 [submodule ".vim/bundle/md-vim"]
 	path = .vim/bundle/md-vim
 	url = git@github.com:hughbien/md-vim.git
+[submodule ".vim/bundle/gtags.vim"]
+	path = .vim/bundle/gtags.vim
+	url = https://github.com/vim-scripts/gtags.vim.git

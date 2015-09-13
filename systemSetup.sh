@@ -39,6 +39,12 @@ if [ $ppa_added == 0 ]; then
     sudo add-apt-repository ppa:git-core/ppa
 fi
 
+#latest gnu-global
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep dns-gnu | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:dns/gnu
+fi
+
 sudo apt-get update
 sudo apt-get install -y vim vim-gtk openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
@@ -46,7 +52,7 @@ sudo apt-get install -y vim vim-gtk openssh-server editorconfig \
                         ipython ipython-notebook python-sympy cython gimp \
                         fenics python-dolfin-adjoint screen texlive \
                         texlive-bibtex-extra texlive-science latex-beamer \
-                        texlive-latex-extra texlive-math-extra git \
+                        texlive-latex-extra texlive-math-extra git global \
                         libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev \
                         wkhtmltopdf pybliographer libmetis-dev libparmetis-dev \
                         libmpfr-dev libcgal-dev libqhull-dev nvidia-opencl-dev \
