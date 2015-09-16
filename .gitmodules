@@ -56,3 +56,6 @@
 [submodule ".vim/bundle/unite.vim"]
 	path = .vim/bundle/unite.vim
 	url = git@github.com:Shougo/unite.vim.git
+[submodule ".vim/bundle/unite-gtags"]
+	path = .vim/bundle/unite-gtags
+	url = https://github.com/hewes/unite-gtags.git
