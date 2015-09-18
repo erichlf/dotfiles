@@ -26,3 +26,7 @@ if [ -d $CHPL_HOME ] ; then
     export PATH="$PATH:$CHPL_HOME/bin/$CHPL_HOST_PLATFORM"
     export MANPATH="$MANPATH:$CHPL_HOME/man"
 fi
+
+export PETSC_DIR=$HOME/workspace/petsc-passo
+export CC=clang
+export CXX=clang++
