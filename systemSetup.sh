@@ -45,6 +45,12 @@ if [ $ppa_added == 0 ]; then
     sudo add-apt-repository ppa:dns/gnu
 fi
 
+#newer version of gcc
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep ubuntu-toolchain-r | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+fi
+
 sudo apt-get update
 sudo apt-get install -y vim vim-gtk openssh-server editorconfig \
                         build-essential gfortran build-essential subversion \
