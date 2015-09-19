@@ -113,7 +113,7 @@ sudo service cups start
 #add nuvolaplayer repo and grab key
 if [ ! -f /etc/apt/sources.list.d/nuvola-player.list ]; then
     echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ trusty stable' \
-        > sudo tee /etc/apt/sources.list.d/nuvola-player.list
+        | sudo tee /etc/apt/sources.list.d/nuvola-player.list
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
                     --recv-keys 40554B8FA5FE6F6A
 fi
