@@ -25,44 +25,41 @@ done
 #fenics repo
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep fenics | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:fenics-packages/fenics
+    sudo add-apt-repository ppa:fenics-packages/fenics -y
 fi
 
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep libadjoint | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo apt-add-repository ppa:libadjoint/ppa
+    sudo apt-add-repository ppa:libadjoint/ppa -y
 fi
 
 #latest git
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep git-core | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:git-core/ppa
+    sudo add-apt-repository ppa:git-core/ppa -y
 fi
 
 #latest gnu-global
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep dns-gnu | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:dns/gnu
+    sudo add-apt-repository ppa:dns/gnu -y
 fi
 
 #newer version of gcc
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep ubuntu-toolchain-r | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 fi
 
 sudo apt-get update
-sudo apt-get install -y vim vim-gtk openssh-server editorconfig \
-                        build-essential gfortran build-essential subversion \
-                        cmake g++ python-scipy python-numpy python-matplotlib \
-                        ipython ipython-notebook python-sympy cython gimp \
+sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential \
+                        gfortran subversion cmake gcc g++ clang \
+                        python-scipy python-numpy python-matplotlib \
+                        ipython ipython-notebook python-sympy cython \
                         fenics python-dolfin-adjoint screen texlive \
                         texlive-bibtex-extra texlive-science latex-beamer \
-                        texlive-latex-extra texlive-math-extra git global \
-                        libgnome-keyring-dev ruby1.9.1 ruby1.9.1-dev \
-                        wkhtmltopdf pybliographer libmetis-dev libparmetis-dev \
-                        libmpfr-dev libcgal-dev libqhull-dev nvidia-opencl-dev \
-                        nvidia-modprobe libgsl0-dev liblpsolve55-dev paraview
+                        texlive-latex-extra texlive-math-extra global \
+                        libgnome-keyring-dev pybliographer paraview
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
@@ -70,15 +67,10 @@ sudo make
 cd $HOME
 git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 
-#setup markdown preview
-sudo gem install rdoc
-sudo gem install rails
-sudo gem install mdprev
-
 ############################# my base system ###################################
-sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
-                        acpi gtk-doc-tools gobject-introspection \
-                        libglib2.0-dev cabal-install htop feh python-feedparser \
+sudo apt-get install -y i3 conky curl gtk-redshift ttf-ancient-fonts \
+                        acpi gtk-doc-tools gobject-introspection libglib2.0-dev \
+                        cabal-install htop feh python-feedparser \
                         python-keyring xbacklight bikeshed autocutsel scrot
 
 #bikeshed contains utilities such as purge-old-kernels
@@ -86,8 +78,12 @@ sudo apt-get install -y i3 conky curl arandr gtk-redshift ttf-ancient-fonts \
 #install playerctl for media keys
 if [ ! -d playerctl ]; then
     git clone git@github.com:acrisci/playerctl.git
+    cd playerctl
+else
+    cd playerctl
+    git fetch
+    git pull origin
 fi
-cd playerctl
 ./autogen.sh
 make
 sudo make install
@@ -121,7 +117,7 @@ fi
 #nuvolaplayer3 requires webkit
 ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep webkit-team | wc -l`
 if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:webkit-team/ppa
+    sudo add-apt-repository ppa:webkit-team/ppa -y
 fi
 
 #fix facebook for pidgin
