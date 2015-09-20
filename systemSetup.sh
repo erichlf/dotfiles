@@ -51,6 +51,12 @@ if [ $ppa_added == 0 ]; then
     sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 fi
 
+#newer version of clang
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep h-rayflood | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:h-rayflood/llvm -y
+fi
+
 sudo apt-get update
 sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential \
                         gfortran subversion cmake gcc g++ clang \
@@ -59,7 +65,8 @@ sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential 
                         fenics python-dolfin-adjoint screen texlive \
                         texlive-bibtex-extra texlive-science latex-beamer \
                         texlive-latex-extra texlive-math-extra global \
-                        libgnome-keyring-dev pybliographer paraview
+                        libgnome-keyring-dev pybliographer paraview \
+                        libparpack2-dev
 
 #setup credential helper for git
 cd /usr/share/doc/git/contrib/credential/gnome-keyring
