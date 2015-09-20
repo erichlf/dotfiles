@@ -47,7 +47,7 @@ fi
 
 sudo apt-get update
 sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential \
-                        gfortran subversion cmake gcc g++ clang clang++ \
+                        gfortran subversion cmake gcc g++ clang \
                         python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython \
                         fenics python-dolfin-adjoint screen texlive \
