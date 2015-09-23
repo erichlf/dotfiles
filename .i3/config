@@ -205,7 +205,7 @@ bar {
             background          #101010
             statusline          #ffffff
             focused_workspace   #ffffff #ffffff #101010
-            active_workspace    #101010 #101010 #ffffff
+            active_workspace    #ffffff #101010 #ffffff
             inactive_workspace  #101010 #101010 #ffffff
             urgent_workspace    #101010 #b72f62 #101010
         }
