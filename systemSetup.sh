@@ -45,9 +45,14 @@ if [ $ppa_added == 0 ]; then
     sudo add-apt-repository ppa:dns/gnu -y
 fi
 
+ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep george-edison | wc -l`
+if [ $ppa_added == 0 ]; then
+    sudo add-apt-repository ppa:george-edison55/cmake-3.x
+fi
+
 sudo apt-get update
 sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential \
-                        gfortran subversion cmake gcc g++ clang \
+                        gfortran subversion cmake gcc g++ clang freeglut3 \
                         python-scipy python-numpy python-matplotlib \
                         ipython ipython-notebook python-sympy cython \
                         fenics python-dolfin-adjoint screen texlive \
