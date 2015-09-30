@@ -6,22 +6,22 @@ xterm*font: 7x13
 ! Base16 Chalk
 ! Scheme: Chris Kempson (http://chriskempson.com)
 
-#define base00 #1C2023 # Black
-#define base01 #C7AE95 # Red
-#define base02 #95C7AE # Green
-#define base03 #AEC795 # Yellow
-#define base04 #AE95C7 # Blue
-#define base05 #C795AE # Magenta
-#define base06 #95AEC7 # Cyan
-#define base07 #C7CCD1 # White
-#define base08 #747C84 # Bright Black
-#define base09 $base01 # Bright Red
-#define base10 $base02 # Bright Green
-#define base11 $base03 # Bright Yellow
-#define base12 $base04 # Bright Blue
-#define base13 $base05 # Bright Magenta
-#define base14 $base06 # Bright Cyan
-#define base15 #F3F4F5 # Bright White
+#define base00 #1C2023
+#define base01 #C7AE95
+#define base02 #95C7AE
+#define base03 #AEC795
+#define base04 #AE95C7
+#define base05 #C795AE
+#define base06 #95AEC7
+#define base07 #C7CCD1
+#define base08 #747C84
+#define base09 $base01
+#define base10 $base02
+#define base11 $base03
+#define base12 $base04
+#define base13 $base05
+#define base14 $base06
+#define base15 #F3F4F5
 #define base16 #C7C795
 #define base17 #C79595
 #define base18 #393F45
