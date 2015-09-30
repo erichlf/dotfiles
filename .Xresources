@@ -59,3 +59,6 @@ xterm*font: 7x13
 *.color19:         base02
 *.color20:         base04
 *.color21:         base06
+
+Xcurser.theme: DMZ-White
+Xcurser.size: 8
