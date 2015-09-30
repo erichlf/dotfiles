@@ -9,3 +9,4 @@ autocutsel -selection PRIMARY -fork &
 
 xsetroot -cursor_name left_ptr
 xrdb $HOME/.Xresources &
+xmodmap $HOME/.Xmodmap
