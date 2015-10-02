@@ -221,6 +221,6 @@ for_window [class="(?i)Firefox"] border none
 
 #my programs which I always use
 exec --no-startup-id i3-msg "exec sleep 3 && exec firefox"
-exec --no-startup-id i3-msg "workspace 2; exec sleep 3 && exec xterm"
+exec --no-startup-id i3-msg "workspace 2; exec xterm"
 exec pidgin
 exec pybliographic ~/Research/Complete.bib
