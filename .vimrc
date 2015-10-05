@@ -363,6 +363,7 @@ nnoremap <f3> :TagbarToggle<cr>
 "source project specific config files
 runtime! projects/**/*.vim
 
+let g:base16_shell_path='~/dotfiles/base16-shell'
 let base16colorspace=256
 colorscheme base16-ashes
 "gvim specific options

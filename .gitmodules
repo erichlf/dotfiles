@@ -39,8 +39,8 @@
     path = base16-shell
     url = https://github.com/chriskempson/base16-shell.git
 [submodule "base16-xresources"]
-    path = base16-xresources
-    url = git@github.com:chriskempson/base16-xresources.git
+	path = base16-xresources
+	url = https://github.com/chriskempson/base16-xresources.git
 [submodule ".vim/bundle/i3-vim-syntax"]
     path = .vim/bundle/i3-vim-syntax
     url = https://github.com/PotatoesMaster/i3-vim-syntax.git
