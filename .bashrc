@@ -53,22 +53,22 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     source /etc/bash_completion
 fi
 
+PS1_string="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]"
 #add git to ps1
 if [ -f /etc/bash_completion.d/git-prompt ]; then
     . /etc/bash_completion.d/git-prompt
-    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+    PS1_string=$PS1_string"\$(__git_ps1)"
 elif [ -f /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
-    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+    PS1_string=$PS1_string"\$(__git_ps1)"
 elif [ -f ~/.git-completion ]; then
     . ~/.git-completion
-    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
+    PS1_string=$PS1_string"\$(__git_ps1)"
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
-    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\$(__git_ps1)\n└→ \[\e[0m\]"
-else
-    PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]\n└→ \[\e[0m\]"
+    PS1_string=$PS1_string"\$(__git_ps1)"
 fi
+PS1=$PS1_string"\n└→ \[\e[0m\]"
 
 [ -f ~/.commacd.bash ] && source ~/.commacd.bash
 
