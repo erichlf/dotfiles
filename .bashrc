@@ -41,6 +41,7 @@ shopt -s no_empty_cmd_completion
 shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s extglob       # Necessary for programmable completion.
+shopt -u nocaseglob    # I want things to be case sensitive
 
 # Disable options:
 shopt -u mailwarn
