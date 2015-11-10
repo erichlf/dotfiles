@@ -144,6 +144,7 @@ if v:version >= 703
 endif
 
 "default indent settings
+set tabstop=2 softtabstop=2 shiftwidth=2
 set expandtab
 set shiftround
 set smartcase
