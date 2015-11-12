@@ -1,6 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/erichlf/Downloads/cfe-3.6.2.src/tools/clang-format'
 let g:netrw_dirhist_2='/Users/erich/dotfiles'
 let g:netrw_dirhist_3='/home/erich/dotfiles'
 let g:netrw_dirhist_4='/home/erich/dotfiles/.i3'
+let g:netrw_dirhist_5='/home/erich/dotfiles'
+let g:netrw_dirhist_6='/media/Media/workspace/moose/framework/src/base'
+let g:netrw_dirhist_7='/media/Media/workspace/pyHart.bak'
+let g:netrw_dirhist_8='/media/Media/workspace/hart'
