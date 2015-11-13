@@ -208,9 +208,10 @@ bar {
 }
 
 #assign programs to specific workspaces
-assign [class="Firefox"] 1
+assign [class="(?i)Firefox"] 1
 assign [class="(?i)ParaView"] 10
 assign [class="(?i)Pybliographer"] 3
+assign [title="default"] 2
 
 #remove title bar from firefox
 for_window [class="(?i)Firefox"] border none
@@ -219,6 +220,6 @@ for_window [class="(?i)Firefox"] border none
 exec nm-applet
 exec --no-startup-id i3-msg "exec sleep 3 && exec xmodmap ~/.Xmodmap"
 exec --no-startup-id i3-msg "exec sleep 3 && exec firefox"
-exec --no-startup-id i3-msg "exec sleep 3 && i3-msg workspace 2; exec xterm"
+exec --no-startup-id i3-msg "exec sleep 3 && exec xterm -T 'default'"
 exec pidgin
 exec pybliographic ~/Research/Complete.bib
