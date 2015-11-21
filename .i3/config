@@ -14,23 +14,23 @@ set $mod Mod4
 # font for window titles. ISO 10646 = Unicode
 font xft:Monospace 9
 
-#windows
+# windows
 new_window 1pixel
 new_float 1pixel
 
-#program colors
-client.focused          #ffffff #ffffff #101010
-client.focused_inactive #101010 #101010 #ffffff
-client.unfocused        #101010 #101010 #ffffff
-client.urgent           #101010 #b72f62 #101010
-client.background       #101010
+# program colors
+client.focused          # ffffff # ffffff # 101010
+client.focused_inactive # 101010 # 101010 # ffffff
+client.unfocused        # 101010 # 101010 # ffffff
+client.urgent           # 101010 # b72f62 # 101010
+client.background       # 101010
 
-#use the gnome-settings-daemon to make windows look pretty, and get all the
-#nice setting like volume up/down/mute, keyboard and monitor brightness, etc.
+# use the gnome-settings-daemon to make windows look pretty, and get all the
+# nice setting like volume up/down/mute, keyboard and monitor brightness, etc.
 exec --no-startup-id unity-settings-daemon
 
-#give me a background image
-exec --no-startup-id xsetroot -solid '#000000'
+# give me a background image
+exec --no-startup-id xsetroot -solid '# 000000'
 
 # audio controls
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master 5%- unmute"
@@ -47,13 +47,13 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/asus::kbd_backlight; cur=$(cat brightness); cur=$((cur-1)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
 bindsym XF86KbdBrightnessUp exec --no-startup-id "cd /sys/class/leds/asus::kbd_backlight; cur=$(cat brightness); cur=$((cur+1)); if [ $cur -gt 3 ]; then cur=3; fi; echo $cur | sudo tee brightness "
 
-#don't switch focus based on mouse position
+# don't switch focus based on mouse position
 focus_follows_mouse no
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-#keybinding to launch various programs
+# keybinding to launch various programs
 bindsym $mod+Return exec xterm
 bindsym $mod+i exec firefox
 bindsym $mod+n exec nautilus
@@ -111,7 +111,7 @@ bindsym $mod+Shift+space floating toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-#make workspaces tabbed
+# make workspaces tabbed
 workspace_layout tabbed
 
 # switch to workspace
@@ -198,25 +198,29 @@ bar {
         status_command ~/.i3/conky.sh
         tray_output eDP1
         colors {
-            background          #101010
-            statusline          #ffffff
-            focused_workspace   #ffffff #ffffff #101010
-            active_workspace    #ffffff #101010 #ffffff
-            inactive_workspace  #101010 #101010 #ffffff
-            urgent_workspace    #101010 #b72f62 #101010
+            background          # 101010
+            statusline          # ffffff
+            focused_workspace   # ffffff # ffffff # 101010
+            active_workspace    # ffffff # 101010 # ffffff
+            inactive_workspace  # 101010 # 101010 # ffffff
+            urgent_workspace    # 101010 # b72f62 # 101010
         }
 }
 
-#assign programs to specific workspaces
+# fix dialogues so they always float
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# assign programs to specific workspaces
 assign [class="(?i)Firefox"] 1
 assign [class="(?i)ParaView"] 10
 assign [class="(?i)Pybliographer"] 3
 assign [title="default"] 2
 
-#remove title bar from firefox
+# remove title bar from firefox
 for_window [class="(?i)Firefox"] border none
 
-#below are my startup scripts
+# below are my startup scripts
 exec nm-applet
 exec --no-startup-id i3-msg "exec sleep 3 && exec xmodmap ~/.Xmodmap"
 exec --no-startup-id i3-msg "exec sleep 3 && exec firefox"
