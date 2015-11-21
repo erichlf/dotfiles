@@ -19,11 +19,11 @@ new_window 1pixel
 new_float 1pixel
 
 # program colors
-client.focused          # ffffff # ffffff # 101010
-client.focused_inactive # 101010 # 101010 # ffffff
-client.unfocused        # 101010 # 101010 # ffffff
-client.urgent           # 101010 # b72f62 # 101010
-client.background       # 101010
+client.focused          #ffffff #ffffff #101010
+client.focused_inactive #101010 #101010 #ffffff
+client.unfocused        #101010 #101010 #ffffff
+client.urgent           #101010 #b72f62 #101010
+client.background       #101010
 
 # use the gnome-settings-daemon to make windows look pretty, and get all the
 # nice setting like volume up/down/mute, keyboard and monitor brightness, etc.
@@ -200,12 +200,12 @@ bar {
         status_command ~/.i3/conky.sh
         tray_output eDP1
         colors {
-            background          # 101010
-            statusline          # ffffff
-            focused_workspace   # ffffff # ffffff # 101010
-            active_workspace    # ffffff # 101010 # ffffff
-            inactive_workspace  # 101010 # 101010 # ffffff
-            urgent_workspace    # 101010 # b72f62 # 101010
+            background          #101010
+            statusline          #ffffff
+            focused_workspace   #ffffff #ffffff #101010
+            active_workspace    #ffffff #101010 #ffffff
+            inactive_workspace  #101010 #101010 #ffffff
+            urgent_workspace    #101010 #b72f62 #101010
         }
 }
 
