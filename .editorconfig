@@ -1,24 +1,2 @@
-root = true  # top-most EditorConfig file
-
-[*]
-end_of_line = lf
-char_set = utf-8
-trim_trailing_whitespace = true
-indent_style = space
-indent_size = 4
-tab_width = 4
-max_line_length = 80
-
-[.pentadactylrc]
-trim_trailing_whitespace = false
-
-[*.{c,C}]
-indent_size = 2
-tab_width = 2
-
-[Makefile]
+[compile,*.mk,Makefile]
 indent_style = tab
-
-[*.tex]
-indent_size = 2
-tab_width = 2
