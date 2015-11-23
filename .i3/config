@@ -31,6 +31,7 @@ exec --no-startup-id unity-settings-daemon
 
 # give me a background image
 exec --no-startup-id xsetroot -solid '# 000000'
+exec --no-startup-id feh --bg-scale /usr/share/backgrounds/Forever_by_Shady_S.jpg
 
 # audio controls
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master 5%- unmute"
@@ -224,7 +225,7 @@ for_window [class="(?i)Firefox"] border none
 
 # below are my startup scripts
 exec nm-applet
-exec --no-startup-id i3-msg "exec sleep 3 && exec xmodmap ~/.Xmodmap"
+exec --no-startup-id i3-msg "exec sleep 3 && exec source .xinitrc"
 exec --no-startup-id i3-msg "exec sleep 3 && exec firefox"
 exec --no-startup-id i3-msg "exec sleep 3 && exec xterm -T 'default'"
 exec pidgin
