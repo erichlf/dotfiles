@@ -152,7 +152,7 @@ bindsym $mod+Shift+Mod1+S exec sudo shutdown 0  # shutdown the machine now
 bindsym $mod+x [urgent=latest] focus
 
 # set our power management system
-set $Locker i3lock && sleep 1
+set $Locker i3lock -c 000000 && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 
