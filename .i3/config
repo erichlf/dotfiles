@@ -217,6 +217,7 @@ for_window [window_role="task_dialog"] floating enable
 # assign programs to specific workspaces
 assign [class="(?i)Firefox"] 1
 assign [class="(?i)ParaView"] 10
+assign [class="(?i)Nuvolaplayer"] 10
 assign [class="(?i)Pybliographer"] 3
 assign [title="default"] 2
 
