@@ -61,6 +61,7 @@ bindsym $mod+n exec nautilus
 bindsym $mod+p exec paraview
 bindsym $mod+g exec gvim
 bindsym $mod+m exec nuvolaplayer3 -a spotify
+bindsym $mod+Shift+M exec nuvolaplayer3 -a google_play_music
 
 # kill focused window
 bindsym $mod+Shift+Q kill
