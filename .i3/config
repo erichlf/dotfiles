@@ -38,9 +38,11 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master
 bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q -D pulse set Master 5%+ unmute"
 bindsym XF86AudioMute exec --no-startup-id "amixer -q -D pulse set Master +1 toggle"
 
-bindsym XF86AudioPlay exec nuvolaplayer3ctl action toggle-play
-bindsym XF86AudioNext exec nuvolaplayer3ctl action next-song
-bindsym XF86AudioPrev exec nuvolaplayer3ctl action prev-song
+# Media player controls; requires playerctl, libglib2.0, gtk-doc-tools, and
+# gobject_introspection. https://github.com/acrisci/playerctl
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Keyboard backlight shortcuts
 bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/asus::kbd_backlight; cur=$(cat brightness); cur=$((cur-1)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
