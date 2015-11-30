@@ -41,13 +41,13 @@
     \ifthenelse{\isundefined{\@logo}}{ % no logo
         \hspace{6.6in} \\[-1.5ex]
     }{
-        \includegraphics[width=1.5in]{\@logo}
+        \includegraphics[width=2.0in]{\@logo}
     }
     \ifthenelse{\isundefined{\@protitle}}{
         \hspace{5.7in} \\[-1.5ex]
         \makebox[\textwidth][r]{\large \bf \@name\hspace{1.2in}}\\
     }{
-        \hspace{5.1in} \\[-1.5ex]
+        \hspace{4.8in} \\[-1.5ex]
         \makebox[\textwidth][r]{\large \bf \@name, \@protitle\hspace{1.0in}}\\
     }
     \hline
