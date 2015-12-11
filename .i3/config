@@ -155,6 +155,8 @@ bindsym $mod+x [urgent=latest] focus
 # set our power management system
 set $Locker i3lock -c 000000 && sleep 1
 
+exec --no-startup-id xautolock -time 5 -locker $Locker &
+
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 
 mode "$mode_system" {

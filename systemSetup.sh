@@ -1,4 +1,9 @@
+#!/bin/bash
 set -e
+
+# get the version of ubuntu
+codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
+release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
                       .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
@@ -8,102 +13,177 @@ declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
-cd $HOME/dotfiles
-git submodule init
-git submodule update
+(cd $HOME/dotfiles && git submodule init && git submodule update)
+
+function ask(){
+  read -p "$1 [$2] " answer
+  answer="${answer:-$2}"
+  case "$answer" in
+    y|Y ) return 0;;
+    n|N ) return 1;;
+    * ) ask "$1" "$2";;
+  esac
+}
+
+function no_ppa_exists(){
+  ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep $1 | wc -l`
+  [ $ppa_added == 0 ];
+}
+
+function add_ppa(){
+  sudo add-apt-repository ppa:$1 -y
+
+  return 0
+}
+
+function get_update(){
+  sudo apt-get update 1>/dev/null
+}
+
+function get_install(){
+  sudo apt-get install -y $@
+
+  return 0
+}
+
+function sudo_rule(){
+  echo "$USER ALL = NOPASSWD: $@" | sudo tee -a /etc/sudoers
+}
 
 #create my links
-cd $HOME
-for FILE in ${DOTFILES[@]}; do ln -s -f $HOME/dotfiles/$FILE; done
+if ask "Would you like to create symbolic links?" "Y"
+then 
+  cd $HOME
+  for FILE in ${DOTFILES[@]}; do ln -s -f $HOME/dotfiles/$FILE; done
+fi
 
 #setup my networks
-for CONNECTION in $HOME/dotfiles/private/system-connections/*; do
+if ask "Would you like to setup you network connections?" "Y"
+then 
+  for CONNECTION in $HOME/dotfiles/private/system-connections/*; do
     sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
-done
+  done
+fi
 
 ############################# developer tools ##################################
-#fenics repo
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep fenics | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:fenics-packages/fenics -y
-fi
-
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep libadjoint | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo apt-add-repository ppa:libadjoint/ppa -y
-fi
-
 #latest git
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep git-core | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:git-core/ppa -y
+if no_ppa_exists git-core
+then
+    add_ppa git-core/ppa
 fi
 
 #latest gnu-global
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep dns-gnu | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:dns/gnu -y
+if no_ppa_exists dns-gnu
+then
+    add_ppa dns/gnu
 fi
 
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep george-edison | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:george-edison55/cmake-3.x
+#latest cmake
+if no_ppa_exists cmake-3.x
+then
+    add_ppa george-edison55/cmake-3.x
 fi
 
-sudo apt-get update
-sudo apt-get install -y vim vim-gtk openssh-server editorconfig build-essential \
-                        gfortran subversion cmake gcc g++ clang freeglut3 \
-                        python-scipy python-numpy python-matplotlib \
-                        ipython ipython-notebook python-sympy cython \
-                        fenics python-dolfin-adjoint screen texlive \
-                        texlive-bibtex-extra texlive-science latex-beamer \
-                        texlive-latex-extra texlive-math-extra global \
-                        libgnome-keyring-dev pybliographer paraview \
-                        libparpack2-dev
+get_update
+
+# install development utilities
+get_install vim vim-gtk openssh-server editorconfig global subversion git \
+            screen libgnome-keyring-dev paraview 
+
+# install latex
+get_install texlive texlive-bibtex-extra texlive-science latex-beamer \
+            texlive-latex-extra texlive-math-extra pybliographer
+
+# install moose development environment
+if ask "Would you like to install MOOSE?" "Y"
+then
+  moose=moose-environment_ubuntu_14.04_1.1-36.x86_64.deb
+  get_install build-essential gfortran tcl m4 freeglut3 doxygen libx11-dev
+  cd $HOME/Downloads
+  wget http://mooseframework.org/static/media/uploads/files/$moose -O $moose
+  sudo dpkg -i $moose
+  cd $HOME
+fi
+
+# install my own development environment
+get_install cmake gcc g++ clang libparpack2-dev
+
+# install python development
+get_install python-scipy python-numpy python-matplotlib ipython \
+            ipython-notebook python-sympy cython
 
 #setup credential helper for git
-cd /usr/share/doc/git/contrib/credential/gnome-keyring
-sudo make
-cd $HOME
-git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
+if [ ! -f $keyring/git-credential-gnome-keyring ]
+then
+  cd $keyring
+  sudo make
+  cd $HOME
+  git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+fi
+
+#fenics
+if ask "Would you like to install FEniCS?" "N"
+then
+  if no_ppa_exists fenics
+  then
+    add_ppa fenics-packages/fenics
+  fi
+
+  if no_ppa_exists libadjoingt
+  then
+    add_ppa libadjoint/ppa
+  fi
+  get_update
+  get_install fenics python-dolfin-adjoint
+fi
+
 
 ############################# my base system ###################################
-sudo apt-get install -y i3 conky curl gtk-redshift ttf-ancient-fonts \
-                        acpi gtk-doc-tools gobject-introspection libglib2.0-dev \
-                        cabal-install htop feh python-feedparser \
-                        python-keyring xbacklight bikeshed autocutsel scrot
+get_install i3 conky curl gtk-redshift ttf-ancient-fonts acpi gtk-doc-tools \
+            gobject-introspection libglib2.0-dev cabal-install htop feh \
+            python-feedparser python-keyring xbacklight bikeshed autocutsel scrot
 
 #bikeshed contains utilities such as purge-old-kernels
 
 #install playerctl for media keys
-if [ ! -d playerctl ]; then
-    git clone git@github.com:acrisci/playerctl.git
-    cd playerctl
-else
-    cd playerctl
-    git fetch
-    git pull origin
+if ask "Build and install playerctl?" "Y"
+then
+  if [ ! -d playerctl ]; then
+      git clone git@github.com:acrisci/playerctl.git
+      cd playerctl
+  else
+      cd playerctl
+      git fetch
+      git pull origin
+  fi
+  ./autogen.sh
+  make
+  sudo make install
+  sudo ldconfig
 fi
-./autogen.sh
-make
-sudo make install
-sudo ldconfig
 
 # install cabal and yeganesh for dmenu
-cabal update
-cabal install yeganesh
+if ask "Install yaganesh?" "Y"
+then
+  cabal update
+  cabal install yeganesh
+fi
 
 ############################ usi requirements ##################################
-sudo apt-get install -y network-manager-vpnc smbclient foomatic-db
+get_install network-manager-vpnc smbclient foomatic-db
 
 #setup printers
-sudo gpasswd -a ${USER} lpadmin
-cups_status=`sudo service cups status | grep process | wc -l`
-if [ $cups_status != 0 ]; then
-    sudo service cups stop
+if ask "Do you want to install USI-printers?" "Y"
+then
+  sudo gpasswd -a ${USER} lpadmin
+  cups_status=`sudo service cups status | grep process | wc -l`
+  if [ $cups_status != 0 ]; then
+      sudo service cups stop
+  fi
+  sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
+  sudo service cups start
 fi
-sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
-sudo service cups start
 
 ################################ extras ########################################
 #add nuvolaplayer repo and grab key
@@ -111,20 +191,20 @@ if [ ! -f /etc/apt/sources.list.d/nuvola-player.list ]; then
     echo 'deb https://tiliado.eu/nuvolaplayer/repository/deb/ trusty stable' \
         | sudo tee /etc/apt/sources.list.d/nuvola-player.list
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
-                    --recv-keys 40554B8FA5FE6F6A
+                     --recv-keys 40554B8FA5FE6F6A
 fi
 
 #nuvolaplayer3 requires webkit
-ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep webkit-team | wc -l`
-if [ $ppa_added == 0 ]; then
-    sudo add-apt-repository ppa:webkit-team/ppa -y
+if no_ppa_exists webkit-team
+then
+    add_ppa webkit-team/ppa
 fi
 
 #fix facebook for pidgin
-if [ ! -f /etc/apt/source.list.d/jgeboski.list ]; then
-    echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_14.04 ./ | \
-        sudo tee /etc/apt/sources.list.d/jgeboski.list
-    wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_15.04/Release.key
+if [ ! -f /etc/apt/sources.list.d/jgeboski.list ]; then
+    echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release ./ \
+         | sudo tee /etc/apt/sources.list.d/jgeboski.list
+    wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release/Release.key
     sudo apt-key add Release.key
     rm Release.key
 fi
@@ -135,14 +215,13 @@ if [ ! -f /etc/apt/sources.list.d/syncthing-release.list ]; then
         | sudo tee /etc/apt/sources.list.d/syncthing-release.list
 fi
 
-sudo apt-get update
+get_update
 
-sudo apt-get install -y transgui nuvolaplayer3 zathura zathura-djvu zathura-ps \
-                        pidgin purple-facebook pidgin-extprefs \
-                        flashplugin-installer syncthing
+get_install transgui nuvolaplayer3 zathura zathura-djvu zathura-ps pidgin \
+            purple-facebook pidgin-extprefs flashplugin-installer syncthing
 
 ######################## fix the terminal font for 4k ##########################
-sudo dpkg-reconfigure console-setup
+# sudo dpkg-reconfigure console-setup
 
 ######################## remove things I never use #############################
 sudo apt-get remove -y transmission-gtk libreoffice libreoffice-* thunderbird \
@@ -150,12 +229,18 @@ sudo apt-get remove -y transmission-gtk libreoffice libreoffice-* thunderbird \
 gsettings set org.gnome.desktop.background show-desktop-icons false
 
 ########################## update and upgrade ##################################
-sudo apt-get update
+get_update
 sudo apt-get -y dist-upgrade
 
 sudo apt-get autoremove
 
 ############################## annoyances ######################################
-echo "$USER ALL = NOPASSWD: /sbin/shutdown" | sudo tee -a /etc/sudoers
-echo "$USER ALL = NOPASSWD: /sbin/reboot" | sudo tee -a /etc/sudoers
-echo "$USER ALL = NOPASSWD: /usr/bin/tee brightness" | sudo tee -a /etc/sudoers
+
+if ask "Add sudo rules?" "Y"
+then 
+  sudo_rule /sbin/pm-shutdown
+  sudo_rule /sbin/pm-hibernate
+  sudo_rule /sbin/shutdown
+  sudo_rule /sbin/reboot
+  sudo_rule /usr/bin/tee brightness
+fi
