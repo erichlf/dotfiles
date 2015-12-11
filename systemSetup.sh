@@ -95,7 +95,7 @@ get_install texlive texlive-bibtex-extra texlive-science latex-beamer \
             texlive-latex-extra texlive-math-extra pybliographer
 
 # install moose development environment
-if ask "Would you like to install MOOSE?" "Y"
+if ask "Install MOOSE?" "Y"
 then
   moose=moose-environment_ubuntu_14.04_1.1-36.x86_64.deb
   get_install build-essential gfortran tcl m4 freeglut3 doxygen libx11-dev
@@ -106,11 +106,17 @@ then
 fi
 
 # install my own development environment
-get_install cmake gcc g++ clang libparpack2-dev
+if ask "Install development framework?" "Y"
+then
+  get_install cmake gcc g++ clang libparpack2-dev
+fi
 
 # install python development
-get_install python-scipy python-numpy python-matplotlib ipython \
-            ipython-notebook python-sympy cython
+if ask "Install python framework?" "Y"
+then
+  get_install python-scipy python-numpy python-matplotlib ipython \
+              ipython-notebook python-sympy cython
+fi
 
 #setup credential helper for git
 keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
@@ -123,7 +129,7 @@ then
 fi
 
 #fenics
-if ask "Would you like to install FEniCS?" "N"
+if ask "Install FEniCS?" "N"
 then
   if no_ppa_exists fenics
   then
@@ -140,11 +146,10 @@ fi
 
 
 ############################# my base system ###################################
+#bikeshed contains utilities such as purge-old-kernels
 get_install i3 conky curl gtk-redshift ttf-ancient-fonts acpi gtk-doc-tools \
             gobject-introspection libglib2.0-dev cabal-install htop feh \
             python-feedparser python-keyring xbacklight bikeshed autocutsel scrot
-
-#bikeshed contains utilities such as purge-old-kernels
 
 #install playerctl for media keys
 if ask "Build and install playerctl?" "Y"
