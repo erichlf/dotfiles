@@ -54,6 +54,12 @@ nmap -builtin enit :tabopen en-it
 "" Translate from italian to english
 nmap -builtin iten :tabopen it-en 
 
+"" Translate from english to german
+nmap -builtin enit :tabopen en-de 
+
+"" Translate from german to english
+nmap -builtin iten :tabopen de-en 
+
 ""Google-Scholar search
 nmap -builtin ,s :open scholar 
 nmap -builtin ,S :tabopen scholar 
