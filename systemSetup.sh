@@ -145,7 +145,7 @@ function MOOSE(){
 
 # install my own development environment
 function dev_framework(){
-  get_install cmake gcc g++ clang libparpack2-dev
+  get_install cmake gcc g++ clang # libparpack2-dev
 }
 
 # install python development
