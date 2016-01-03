@@ -21,7 +21,7 @@ TEXT
     { "full_text": "${execi 100 ~/.i3/weather.sh 06770}", "color": "\#ffffff" },
     { "full_text": "\u2709", "color": "\#ffffff" },
     { "full_text": ${if_match "${execi 10 ~/dotfiles/gmail-count -u erichlf}"=="0"}"0", "color": "\#ffffff"${else}"${execi 10 ~/dotfiles/gmail-count -u erichlf}", "color": "\#b72f62"${endif} },
-    { "full_text": ${if_match "${battery_short BAT0}"=="D"}"\uD83D\uDD0B"${else}"\uD83D\uDD0C"${endif}, "color": "\#ffffff" },
+    { "full_text": "${exec acpi | awk '{if ($3 == "Discharging,") { print "\\uD83D\\uDD0B" } else { print "\\uD83D\\uDD0C"}}'}", "color": "\#ffffff" },
     { "full_text": "${battery_bar BAT0}", "color": ${if_match ${battery_percent BAT0}<20}"\#b72f62"${else}"\#ffffff"${endif} },
     { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{if ($5 == "off") { print "\\uD83D\\uDD07" } else { print "\\uD83D\\uDD0A"}}'}", "color": "\#ffffff" },
     { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{ print $2"%" }'}", "color": "\#ffffff" }
