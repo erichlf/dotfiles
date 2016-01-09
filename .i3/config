@@ -45,6 +45,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Keyboard backlight shortcuts
+# requires GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi=" in
+# /etc/default/grub
 bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/asus::kbd_backlight; cur=$(cat brightness); cur=$((cur-1)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
 bindsym XF86KbdBrightnessUp exec --no-startup-id "cd /sys/class/leds/asus::kbd_backlight; cur=$(cat brightness); cur=$((cur+1)); if [ $cur -gt 3 ]; then cur=3; fi; echo $cur | sudo tee brightness "
 
