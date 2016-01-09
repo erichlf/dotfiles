@@ -179,7 +179,18 @@ function base_sys(){
   get_install i3 conky curl gtk-redshift ttf-ancient-fonts acpi gtk-doc-tools \
               gobject-introspection libglib2.0-dev cabal-install htop feh \
               python-feedparser python-keyring xbacklight bikeshed autocutsel \
-              scrot
+              scrot autofs
+
+  if [ ! -d /media/NFS ]; then
+    sudo mkdir /media/NFS
+  fi
+
+  sudo cp $DOTFILES/private/autofs.nfs /etc/
+
+  echo '/media/NFS /etc/autofs.nfs' \
+    | sudo tee /etc/autofs.master
+
+  sudo service autofs start
 
   if [ ! -d playerctl ]; then
       git clone git@github.com:acrisci/playerctl.git
