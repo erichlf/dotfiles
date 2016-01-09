@@ -186,6 +186,7 @@ function base_sys(){
   fi
 
   sudo cp $DOTFILES/private/autofs.nfs /etc/
+  ln -s -f /media/NFS/Media-NAS
 
   echo '/media/NFS /etc/autofs.nfs' \
     | sudo tee /etc/autofs.master
