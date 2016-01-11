@@ -21,7 +21,7 @@ TEXT
     { "full_text": "${execi 100 ~/.i3/weather.sh 06770}", "color": "\#ffffff" },
     { "full_text": "\u2709", "color": "\#ffffff" },
     { "full_text": ${if_match "${execi 10 ~/dotfiles/gmail-count -u erichlf}"=="0"}"0", "color": "\#ffffff"${else}"${execi 10 ~/dotfiles/gmail-count -u erichlf}", "color": "\#b72f62"${endif} },
-    { "full_text": "${exec acpi | awk '{print $3 ~ "Discharging," ?  "\\uD83D\\uDD0B" : "\\uD83D\\uDD0C"}'}", "color": "\#ffffff" },
+    { "full_text": "${exec acpi -a | awk '{print $3 ~ "off-line" ?  "\\uD83D\\uDD0B" : "\\uD83D\\uDD0C"}'}", "color": "\#ffffff" },
     { "full_text": "${battery_bar BAT0}", "color": ${if_match ${battery_percent BAT0}<20}"\#b72f62"${else}"\#ffffff"${endif} },
     { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{print $5 ~ "off" ? "\\uD83D\\uDD07" : "\\uD83D\\uDD0A"}'}", "color": "\#ffffff" },
     { "full_text": "${exec amixer -D pulse get Master | tail -1 | awk -F'[]%[]' '{print $2"%"}'}", "color": "\#ffffff" }
