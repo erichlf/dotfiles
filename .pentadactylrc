@@ -55,10 +55,10 @@ nmap -builtin enit :tabopen en-it
 nmap -builtin iten :tabopen it-en 
 
 "" Translate from english to german
-nmap -builtin enit :tabopen en-de 
+nmap -builtin ende :tabopen en-de 
 
 "" Translate from german to english
-nmap -builtin iten :tabopen de-en 
+nmap -builtin deen :tabopen de-en 
 
 ""Google-Scholar search
 nmap -builtin ,s :open scholar 
