@@ -59,3 +59,9 @@
 [submodule ".vim/bundle/unite-gtags"]
 	path = .vim/bundle/unite-gtags
 	url = https://github.com/hewes/unite-gtags.git
+[submodule ".vim/bundle/auto-pairs"]
+	path = .vim/bundle/auto-pairs
+	url = git://github.com/jiangmiao/auto-pairs.git
+[submodule ".vim/bundle/minibufexpl.vim"]
+	path = .vim/bundle/minibufexpl.vim
+	url = https://github.com/fholgado/minibufexpl.vim
