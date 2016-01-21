@@ -27,4 +27,4 @@ if [ -d $CHPL_HOME ] ; then
     export MANPATH="$MANPATH:$CHPL_HOME/man"
 fi
 
-export PETSC_DIR=/usr/lib/petsc
+[ -d /opt/eclipse ] && export ECLIPSE_HOME=/opt/eclipse
