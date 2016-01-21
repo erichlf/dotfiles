@@ -112,7 +112,21 @@ function dev_utils(){
   get_update
 
   get_install vim vim-gtk openssh-server editorconfig global subversion git \
-              screen libgnome-keyring-dev paraview 
+              screen libgnome-keyring-dev paraview openjdk-7-jdk xvfb \
+              build-essential
+
+  wget http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/1/eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz
+
+  #this is the installation of eclipse
+  sudo tar xzvf eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz -C /opt/
+
+  #to install eclim we need to own this directory
+  sudo chown erich:erich -R /opt/eclipse
+
+  #download and install eclim
+  wget http://sourceforge.net/projects/eclim/files/eclim/2.5.0/eclim_2.5.0.jar
+  java -Dvim.files=$HOME/.vim -Declipse.home=/opt/eclipse \
+       -jar eclim_2.5.0.jar install
 
   #setup credential helper for git
   keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
@@ -302,7 +316,7 @@ function sudo_rules(){
 for choice in $choices
 do
   case $choice in
-    1) 
+    1)
        sym_links
        network_connections
        dev_utils
