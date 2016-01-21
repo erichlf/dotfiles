@@ -6,7 +6,7 @@ nailgun.server.port=10012
 
 # Specifies the workspace directory to use
 # See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
-osgi.instance.area.default=@user.home/myworkspace
+osgi.instance.area.default=@user.home/workspace
 
 # increase heap size
 -Xmx256M
