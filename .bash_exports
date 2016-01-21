@@ -27,4 +27,7 @@ if [ -d $CHPL_HOME ] ; then
     export MANPATH="$MANPATH:$CHPL_HOME/man"
 fi
 
-[ -d /opt/eclipse ] && export ECLIPSE_HOME=/opt/eclipse
+if [ -d /opt/eclipse ] ; then
+    export ECLIPSE_HOME=/opt/eclipse
+    export PATH="$PATH:$ECLIPSE_HOME"
+fi
