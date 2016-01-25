@@ -138,6 +138,13 @@ function dev_utils(){
     git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
     cd $PWD
   fi
+
+  cd $HOME
+  git clone https://github.com/powerline/fonts powerlineFonts
+  cd powerlineFonts
+  ./install.sh
+  cd $HOME
+  rm powerlineFonts
 }
 
 # install latex

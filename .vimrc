@@ -101,8 +101,11 @@ let g:pymode_lint_ignore = "W0401"
 map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
 
 "airline stuff
+set guifont=Source\ Code\ Pro\ for\ Powerline
 let g:airline_theme='badwolf'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tagbar#enabled = 0
 
 "force save file which require root permission
 cmap w!! %!sudo tee > /dev/null %
@@ -354,11 +357,16 @@ endfunction
 
 "nerdtree settings
 let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 40
+let g:NERDTreeWinSize = 25
+autocmd vimenter * NERDTree " start nerdtree automatically
+" close window if nerdtree is the only thing open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"tagbar settings
+autocmd vimenter * Tagbar " start tagbar automatically
 
 "explorer mappings
-nnoremap <f1> :BufExplorer<cr>
-nnoremap <f2> :NERDTreeToggle<cr>
+nnoremap <f2> :NERDTreeToggle<CR>
 nnoremap <f3> :TagbarToggle<cr>
 
 "source project specific config files

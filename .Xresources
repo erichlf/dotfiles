@@ -1,7 +1,12 @@
+xterm*termName: xterm-256color
 xterm*locale: true
 xterm*saveLine: 4096
-xterm*faceName: Liberation Mono:size=10:antialias=false
-xterm*font: 7x13
+
+xterm*faceName: Source Code Pro for Powerline
+xterm*faceSize: 10
+
+xterm*selectToClipboard: true
+XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
 
 #include "dotfiles/base16-xresources/base16-ashes.dark.256.xresources"
 *.highlightColor: base02
