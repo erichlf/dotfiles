@@ -23,9 +23,6 @@
     path = .vim/bundle/vim-clang-format
     url = https://github.com/rhysd/vim-clang-format.git
     ignore = dirty
-[submodule ".vim/bundle/c-mode"]
-    path = .vim/bundle/c-mode
-    url = https://github.com/erichlf/c-mode
 [submodule ".vim/bundle/base16-vim"]
     path = .vim/bundle/base16-vim
     url = https://github.com/chriskempson/base16-vim.git
