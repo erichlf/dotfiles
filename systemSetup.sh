@@ -17,20 +17,21 @@ setup.\nWhat would you like to do?" 14 50 16)
 
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
-         3  "Setup network connections"
-         4  "Install development utilities"
-         5  "Install LaTeX"
-         6  "Install MOOSE"
-         7  "Install FEniCS"
-         8  "Install development framework"
-         9  "Install python framework"
-         10 "Install base system"
-         11 "USI setup"
-         12 "Install my extras"
-         13 "Install nvidia drivers"
-         14 "Remove crapware"
-         15 "Update system"
-         16 "sudo rules")
+         3  "Update dotfile submodules"
+         4  "Setup network connections"
+         5  "Install development utilities"
+         6  "Install LaTeX"
+         7  "Install MOOSE"
+         8  "Install FEniCS"
+         9  "Install development framework"
+         10 "Install python framework"
+         11 "Install base system"
+         12 "USI setup"
+         13 "Install my extras"
+         14 "Install nvidia drivers"
+         15 "Remove crapware"
+         16 "Update system"
+         17 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -78,6 +79,12 @@ function sudo_rule(){
 function sym_links(){
   cd $HOME
   for FILE in ${DOTFILES[@]}; do ln -s -f $HOME/dotfiles/$FILE; done
+  cd $PWD
+}
+
+function update_submodules(){
+  cd $HOME/dotfiles
+  git submodules update --init --recursive
   cd $PWD
 }
 
@@ -145,6 +152,11 @@ function dev_utils(){
   ./install.sh
   cd $HOME
   rm powerlineFonts
+  cd $PWD
+
+  cd $HOME/dotfiles/.vim/bundle/YouCompleteMe
+  ./install.py --clang-completer
+  cd $PWD
 }
 
 # install latex
@@ -342,63 +354,67 @@ do
        sudo_rules
        ./systemSetup.sh
        ;;
-    3)
+    2)
        sym_links
        ./systemSetup.sh
        ;;
     3)
-       network_connections
+       update_submodules
        ./systemSetup.sh
        ;;
     4)
-       dev_utils
+       network_connections
        ./systemSetup.sh
        ;;
     5)
-       LaTeX
+       dev_utils
        ./systemSetup.sh
        ;;
     6)
-       MOOSE
+       LaTeX
        ./systemSetup.sh
        ;;
     7)
-       FEniCS
+       MOOSE
        ./systemSetup.sh
        ;;
     8)
-       dev_framework
+       FEniCS
        ./systemSetup.sh
        ;;
     9)
-       python_framework
+       dev_framework
        ./systemSetup.sh
        ;;
     10)
-       base_sys
+       python_framework
        ./systemSetup.sh
        ;;
     11)
-       USI_setup
+       base_sys
        ./systemSetup.sh
        ;;
     12)
-       extras
+       USI_setup
        ./systemSetup.sh
        ;;
     13)
-       nvidia_drivers
+       extras
        ./systemSetup.sh
        ;;
     14)
-       crapware
+       nvidia_drivers
        ./systemSetup.sh
        ;;
     15)
-       update_sys
+       crapware
        ./systemSetup.sh
        ;;
     16)
+       update_sys
+       ./systemSetup.sh
+       ;;
+    17)
        sudo_rules
        ./systemSetup.sh
        ;;

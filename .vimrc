@@ -49,13 +49,6 @@ let g:Tex_IgnoredWarnings =
 let g:Tex_IgnoreLevel = 6
 let g:Tex_UseMakefile = 0
 
-" calendar settings to use google
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-let g:calendar_clock_12hour = 0
-let g:calendar_date_endian = "big"
-let g:calendar_view = "week"
-
 let g:clang_format#command = '~/bin/clang-format'
 let g:clang_format#detect_style_format = 1
 let g:clang_format#auto_formatexpr = 1
@@ -125,8 +118,11 @@ set showmode "show current mode down the bottom
 set number "show line numbers
 
 set textwidth=80 "line wrapping
-vmap Q qg
-nmap Q gqap
+
+nmap <A-Left> <C-w>h
+nmap <A-Down> <C-w>j
+nmap <A-Up> <C-w>k
+nmap <A-Right> <C-w>l
 
 "display tabs and trailing spaces
 set list
@@ -386,8 +382,8 @@ if !has("gui")
 endif
 
 "make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+"nnoremap <C-L> :nohls<CR><C-L>
+"inoremap <C-L> <C-O>:nohls<CR>
 
 "map Q to something useful
 noremap Q gq
