@@ -1,6 +1,3 @@
-"-------------------------------------------------------------
-" LaTeX package
-"-------------------------------------------------------------
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
 
@@ -22,38 +19,6 @@ filetype indent on
 set printoptions=duplex:long,syntax:y,number:y
 
 let mapleader=","
-
-" The following is for editor-config:
-let g:EditorConfig_core_mode = 'external_command'
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" The following is for vim-latex:
-let g:tex_flavor = 'pdflatex'
-let g:tex_BibtexFlavor = 'bibtex' "biber
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_ViewRule_ps = 'zathura'
-let g:livepreview_previewer = 'zathura'
-let g:Tex_MultipleCompileFormats = 'pdf'
-let g:Tex_IgnoredWarnings =
-    \'Marginpar'."\n".
-    \'Underfull'."\n".
-    \'Overfull'."\n".
-    \'specifier changed to'."\n".
-    \'You have requested'."\n".
-    \'LaTeX Font Warning:'."\n".
-    \'LaTeX Warning: File %.%# already exists on the system'."\n".
-    \'Missing number, treated as zero.'."\n".
-    \'There were undefined references'."\n".
-    \'Citation %.%# undefined'
-let g:Tex_IgnoreLevel = 6
-let g:Tex_UseMakefile = 0
-
-let g:clang_format#command = '~/bin/clang-format'
-let g:clang_format#detect_style_format = 1
-let g:clang_format#auto_formatexpr = 1
-let g:clang_format#auto_format_on_insert_leave = 1
-let g:clang_format#auto_format = 1
 
 set iskeyword+=:
 
@@ -79,28 +44,7 @@ syntax on
 
 au BufNewFile,BufRead *.md set ft=md
 
-"python-mode
-map <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enable_shortcuts = 1
-let g:pymode_rope_goto_def_newwin = "vnew"
-let g:pymode_rope_extended_complete = 1
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 0
-let g:pymode_syntax_builtin_funcs = 0
-let g:pymode_lint_ignore = "W0401"
-map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
-
-"airline stuff
-set guifont=Source\ Code\ Pro\ for\ Powerline
-let g:airline_theme='badwolf'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tagbar#enabled = 0
-
-"force save file which require root permission
+"force save file which requires root permission
 cmap w!! %!sudo tee > /dev/null %
 
 "swap directory
@@ -131,7 +75,7 @@ set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 set incsearch "find the next match as we type the search
 set hlsearch "highlight searches by default
 
-set wrap "don't wrap lines
+set wrap "wrap lines
 set linebreak "wrap lines at convenient points
 
 if v:version >= 703
@@ -179,6 +123,99 @@ set t_Co=256
 
 "hide buffers when not displayed
 set hidden
+
+" The following is for editor-config:
+let g:EditorConfig_core_mode = 'external_command'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" The following is for vim-latex:
+let g:tex_flavor = 'pdflatex'
+let g:tex_BibtexFlavor = 'bibtex' "biber
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_ViewRule_pdf = 'zathura'
+let g:Tex_ViewRule_ps = 'zathura'
+let g:livepreview_previewer = 'zathura'
+let g:Tex_MultipleCompileFormats = 'pdf'
+let g:Tex_IgnoredWarnings =
+    \'Marginpar'."\n".
+    \'Underfull'."\n".
+    \'Overfull'."\n".
+    \'specifier changed to'."\n".
+    \'You have requested'."\n".
+    \'LaTeX Font Warning:'."\n".
+    \'LaTeX Warning: File %.%# already exists on the system'."\n".
+    \'Missing number, treated as zero.'."\n".
+    \'There were undefined references'."\n".
+    \'Citation %.%# undefined'
+let g:Tex_IgnoreLevel = 6
+let g:Tex_UseMakefile = 0
+
+let g:clang_format#command = '~/bin/clang-format'
+let g:clang_format#detect_style_format = 1
+let g:clang_format#auto_formatexpr = 1
+let g:clang_format#auto_format_on_insert_leave = 1
+let g:clang_format#auto_format = 1
+
+"python-mode
+map <Leader>g :call RopeGotoDefinition()<CR>
+let ropevim_enable_shortcuts = 1
+let g:pymode_rope_goto_def_newwin = "vnew"
+let g:pymode_rope_extended_complete = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_breakpoint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_builtin_objs = 0
+let g:pymode_syntax_builtin_funcs = 0
+let g:pymode_lint_ignore = "W0401"
+map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
+
+"airline stuff
+set guifont=Source\ Code\ Pro\ for\ Powerline
+let g:airline_theme='badwolf'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tagbar#enabled = 0
+
+"nerdtree settings
+let g:NERDTreeMouseMode = 2
+let g:NERDTreeWinSize = 25
+autocmd vimenter * NERDTree " start nerdtree automatically
+" close window if nerdtree is the only thing open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"tagbar settings
+autocmd vimenter * Tagbar " start tagbar automatically
+
+"explorer mappings
+nnoremap <f2> :NERDTreeToggle<CR>
+nnoremap <f3> :TagbarToggle<cr>
+
+"source project specific config files
+runtime! projects/**/*.vim
+
+let g:base16_shell_path='~/dotfiles/base16-shell'
+let base16colorspace=256
+colorscheme base16-ashes
+"gvim specific options
+if has("gui_running")
+    set go-=T "remove the toolbar
+endif
+
+"don't load csapprox if we no gui support - silences an annoying warning
+if !has("gui")
+    let g:CSApprox_loaded = 1
+endif
+
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+"map Q to something useful
+noremap Q gq
+
+"make Y consistent with C and D
+nnoremap Y y$
 
 "statusline setup
 set statusline =%#identifier#
@@ -338,59 +375,6 @@ function! s:LongLines()
     return filter(line_lens, 'v:val > threshold')
 endfunction
 
-"find the median of the given array of numbers
-function! s:Median(nums)
-    let nums = sort(a:nums)
-    let l = len(nums)
-
-    if l % 2 == 1
-        let i = (l-1) / 2
-        return nums[i]
-    else
-        return (nums[l/2] + nums[(l/2)-1]) / 2
-    endif
-endfunction
-
-"nerdtree settings
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 25
-autocmd vimenter * NERDTree " start nerdtree automatically
-" close window if nerdtree is the only thing open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-"tagbar settings
-autocmd vimenter * Tagbar " start tagbar automatically
-
-"explorer mappings
-nnoremap <f2> :NERDTreeToggle<CR>
-nnoremap <f3> :TagbarToggle<cr>
-
-"source project specific config files
-runtime! projects/**/*.vim
-
-let g:base16_shell_path='~/dotfiles/base16-shell'
-let base16colorspace=256
-colorscheme base16-ashes
-"gvim specific options
-if has("gui_running")
-    set go-=T "remove the toolbar
-endif
-
-"don't load csapprox if we no gui support - silences an annoying warning
-if !has("gui")
-    let g:CSApprox_loaded = 1
-endif
-
-"make <c-l> clear the highlight as well as redraw
-"nnoremap <C-L> :nohls<CR><C-L>
-"inoremap <C-L> <C-O>:nohls<CR>
-
-"map Q to something useful
-noremap Q gq
-
-"make Y consistent with C and D
-nnoremap Y y$
-
 "visual search mappings
 function! s:VSetSearch()
     let temp = @@
@@ -431,7 +415,7 @@ autocmd BufReadPost fugitive://*
 
 augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
- augroup END
+augroup END
 
 "tab completion
 function! SuperTab()
