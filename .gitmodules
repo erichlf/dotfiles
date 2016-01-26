@@ -62,6 +62,3 @@
 [submodule ".vim/bundle/YouCompleteMe"]
 	path = .vim/bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git
-[submodule ".vim/bundle/minibufexpl.vim"]
-	path = .vim/bundle/minibufexpl.vim
-	url = git@github.com:fholgado/minibufexpl.vim.git

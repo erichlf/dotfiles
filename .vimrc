@@ -182,7 +182,7 @@ let g:NERDTreeMouseMode = 2
 let g:NERDTreeWinSize = 25
 autocmd vimenter * NERDTree " start nerdtree automatically
 " close window if nerdtree is the only thing open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "tagbar settings
 autocmd vimenter * Tagbar " start tagbar automatically
@@ -373,6 +373,20 @@ function! s:LongLines()
     let spaces = repeat(" ", &ts)
     let line_lens = map(getline(1,'$'), 'len(substitute(v:val, "\\t", spaces, "g"))')
     return filter(line_lens, 'v:val > threshold')
+endfunction
+
+"find the median of the given array of numbers
+function! s:Median(nums)
+    let nums = sort(a:nums)
+    let l = len(nums)
+
+    if l % 2 == 1
+        let i = (l-1) / 2
+        return nums[i]
+    else
+        return (nums[l/2] +
+        nums[(l/2)-1]) / 2
+    endif
 endfunction
 
 "visual search mappings
