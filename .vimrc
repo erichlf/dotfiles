@@ -182,7 +182,7 @@ let g:NERDTreeMouseMode = 2
 let g:NERDTreeWinSize = 25
 autocmd vimenter * NERDTree " start nerdtree automatically
 " close window if nerdtree is the only thing open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "tagbar settings
 autocmd vimenter * Tagbar " start tagbar automatically
