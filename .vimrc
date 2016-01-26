@@ -180,6 +180,7 @@ let g:airline#extensions#tagbar#enabled = 0
 "nerdtree settings
 let g:NERDTreeMouseMode = 2
 let g:NERDTreeWinSize = 25
+
 autocmd vimenter * NERDTree " start nerdtree automatically
 " close window if nerdtree is the only thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -190,6 +191,8 @@ autocmd vimenter * Tagbar " start tagbar automatically
 "explorer mappings
 nnoremap <f2> :NERDTreeToggle<CR>
 nnoremap <f3> :TagbarToggle<cr>
+
+command Bd bp\|bd \#
 
 "source project specific config files
 runtime! projects/**/*.vim
