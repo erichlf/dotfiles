@@ -17,14 +17,13 @@ nmap -builtin j 10j
 nmap -builtin k 10k
 
 "" swap d/D
-"nmap -builtin dd d
 :map d <Nop>
 :map dd -ex tabclose
 nmap -builtin gd :js config.tabbrowser.removeTab(tabs.getTab())<CR>
 
-"" w/e switch tabs
-nmap -builtin ( <C-p>
-nmap -builtin ) <C-n>
+"" switch between tabs
+nmap -builtin <A-Left> <C-p>
+nmap -builtin <A-Right> <C-n>
 
 "" back/forward
 nmap -builtin < <C-o>
@@ -73,8 +72,5 @@ nmap -builtin ,d :downloads<CR>
 
 "" about:config
 nmap -builtin ,c :tabopen about:config<CR>
-
-"" inject the ezproxy into current site (used for research)
-nmap ,p :javascript dactyl.open(content.location.href.replace(/\.(edu|com|net|org)\//, ".$1.ezproxy.lib.vt.edu:8080\/"))<CR>
 
 nmap ru :tabopen google site:rutracker.org 
