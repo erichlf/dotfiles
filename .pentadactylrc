@@ -26,6 +26,10 @@ nmap -builtin gd :js config.tabbrowser.removeTab(tabs.getTab())<CR>
 nmap -builtin <A-Left> <C-p>
 nmap -builtin <A-Right> <C-n>
 
+"" move tabs 
+nmap -builtin <S-A-Left> :tabmove! -1<CR>
+nmap -builtin <S-A-Right> :tabmove! +1<CR>
+
 "" back/forward
 nmap -builtin < <C-o>
 nmap -builtin > <C-i>
