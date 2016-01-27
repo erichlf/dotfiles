@@ -7,8 +7,8 @@ release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
                       .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
-                      .screenrc texmf .vim .vimrc .Xmodmap .Xresources
-                      .xsessionrc private/.bash_aliases )
+                      .pentadactyl .screenrc texmf .vim .vimrc .Xmodmap
+                      .Xresources .xsessionrc private/.bash_aliases )
 
 PWD=`pwd`
 

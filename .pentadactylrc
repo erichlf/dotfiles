@@ -1,6 +1,7 @@
 "set it so we have only have the commandline status line, bottom scroll and
 "right scroll
 set guioptions=bCr
+colorscheme solarized-dark
 
 "google docs breaks things
 ":autocmd LocationChange drive.google.com :normal! <C-z>
