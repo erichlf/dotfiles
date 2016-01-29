@@ -10,7 +10,7 @@ declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
                       .pentadactyl .screenrc texmf .vim .vimrc .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
 
-PWD=`pwd`
+PWD=$HOME/dotfiles
 
 cmd=(dialog --backtitle "system setup" --menu "Welcome to Erich's system
 setup.\nWhat would you like to do?" 14 50 16)
@@ -105,35 +105,35 @@ function dev_utils(){
   fi
 
   #latest gnu-global
-  if no_ppa_exists dns-gnu
-  then
-      add_ppa dns/gnu
-  fi
+#  if no_ppa_exists dns-gnu
+#  then
+#      add_ppa dns/gnu
+#  fi
 
   #latest cmake
-  if no_ppa_exists cmake-3.x
-  then
-      add_ppa george-edison55/cmake-3.x
-  fi
+#  if no_ppa_exists cmake-3.x
+#  then
+#      add_ppa george-edison55/cmake-3.x
+#  fi
 
   get_update
 
   get_install vim vim-gtk openssh-server editorconfig global subversion git \
               screen libgnome-keyring-dev paraview openjdk-7-jdk xvfb \
-              build-essential
+              build-essential cmake
 
-  wget http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/1/eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz
+#  wget http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/1/eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz
 
   #this is the installation of eclipse
-  sudo tar xzvf eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz -C /opt/
+#  sudo tar xzvf eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz -C /opt/
 
   #to install eclim we need to own this directory
-  sudo chown erich:erich -R /opt/eclipse
+#  sudo chown erich:erich -R /opt/eclipse
 
   #download and install eclim
-  wget http://sourceforge.net/projects/eclim/files/eclim/2.5.0/eclim_2.5.0.jar
-  java -Dvim.files=$HOME/.vim -Declipse.home=/opt/eclipse \
-       -jar eclim_2.5.0.jar install
+#  wget http://sourceforge.net/projects/eclim/files/eclim/2.5.0/eclim_2.5.0.jar
+#  java -Dvim.files=$HOME/.vim -Declipse.home=/opt/eclipse \
+#       -jar eclim_2.5.0.jar install
 
   #setup credential helper for git
   keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
@@ -147,16 +147,19 @@ function dev_utils(){
   fi
 
   cd $HOME
-  git clone https://github.com/powerline/fonts powerlineFonts
+  if [ ! -d powerlineFonts ]
+  then
+    git clone https://github.com/powerline/fonts powerlineFonts
+  fi
   cd powerlineFonts
   ./install.sh
   cd $HOME
-  rm powerlineFonts
+  rm -rf powerlineFonts
   cd $PWD
 
-  cd $HOME/dotfiles/.vim/bundle/YouCompleteMe
-  ./install.py --clang-completer
-  cd $PWD
+  #cd $HOME/dotfiles/.vim/bundle/YouCompleteMe
+  #./install.py --clang-completer
+  #cd $PWD
 }
 
 # install latex
@@ -167,7 +170,7 @@ get_install texlive texlive-bibtex-extra texlive-science latex-beamer \
 
 # install moose development environment
 function MOOSE(){
-  moose=moose-environment_ubuntu_14.04_1.1-36.x86_64.deb
+  moose=moose-environment_ubuntu_14.04_1.1-37.x86_64.deb
   get_install build-essential gfortran tcl m4 freeglut3 doxygen libx11-dev \
               libblas-dev liblapack-dev
   cd $HOME/Downloads
@@ -178,7 +181,7 @@ function MOOSE(){
 
 # install my own development environment
 function dev_framework(){
-  get_install cmake gcc g++ clang # libparpack2-dev
+  get_install cmake gcc g++ clang ctags# libparpack2-dev
 }
 
 # install python development
@@ -218,10 +221,10 @@ function base_sys(){
     sudo mkdir /media/NFS
   fi
 
-  sudo cp $DOTFILES/private/autofs.nfs /etc/
+  sudo cp $HOME/dotfiles/private/auto.nfs /etc/
   ln -s -f /media/NFS/Media-NAS
 
-  echo '/media/NFS /etc/autofs.nfs' \
+  echo '/media/NFS /etc/auto.nfs' \
     | sudo tee /etc/autofs.master
 
   sudo service autofs start
@@ -252,13 +255,13 @@ function base_sys(){
 function USI_setup(){
   get_install network-manager-vpnc smbclient foomatic-db
 
-  sudo gpasswd -a ${USER} lpadmin
-  cups_status=`sudo service cups status | grep process | wc -l`
-  if [ $cups_status != 0 ]; then
-      sudo service cups stop
-  fi
-  sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
-  sudo service cups start
+  #sudo gpasswd -a ${USER} lpadmin
+  #cups_status=`sudo service cups status | grep process | wc -l`
+  #if [ $cups_status != 0 ]; then
+  #    sudo service cups stop
+  #fi
+  #sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
+  #sudo service cups start
 }
 
 ################################ extras ########################################
@@ -337,11 +340,11 @@ do
   case $choice in
     1)
        sym_links
-       network_connections
+       #network_connections
        dev_utils
        LaTeX
        MOOSE
-       FEniCS
+       #FEniCS
        dev_framework
        python_framework
        base_sys
