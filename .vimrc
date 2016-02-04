@@ -150,6 +150,9 @@ let g:Tex_IgnoredWarnings =
 let g:Tex_IgnoreLevel = 6
 let g:Tex_UseMakefile = 0
 
+" youcompleteme settings
+let g:ycm_confirm_extra_conf = 0
+
 let g:clang_format#command = '~/bin/clang-format'
 let g:clang_format#detect_style_format = 1
 let g:clang_format#auto_formatexpr = 1
@@ -192,7 +195,7 @@ autocmd vimenter * Tagbar " start tagbar automatically
 nnoremap <f2> :NERDTreeToggle<CR>
 nnoremap <f3> :TagbarToggle<cr>
 
-command Bd bp\|bd \#
+command! Bd bp\|bd \#
 
 "source project specific config files
 runtime! projects/**/*.vim
