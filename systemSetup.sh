@@ -225,7 +225,7 @@ function base_sys(){
   ln -s -f /media/NFS/Media-NAS
 
   echo '/media/NFS /etc/auto.nfs' \
-    | sudo tee /etc/autofs.master
+    | sudo tee /etc/auto.master
 
   sudo service autofs start
 
