@@ -195,7 +195,7 @@ autocmd vimenter * Tagbar " start tagbar automatically
 nnoremap <f2> :NERDTreeToggle<CR>
 nnoremap <f3> :TagbarToggle<CR>
 
-nnoremap <Leader>bd :bp\|bd #<CR>
+nnoremap <Leader>bd :b#\|bd #<CR>
 
 "source project specific config files
 runtime! projects/**/*.vim
