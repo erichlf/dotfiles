@@ -328,8 +328,8 @@ function update_sys(){
 
 ############################## annoyances ######################################
 function sudo_rules(){
-  sudo_rule /sbin/pm-shutdown
-  sudo_rule /sbin/pm-hibernate
+  sudo_rule /usr/sbin/pm-suspend
+  sudo_rule /usr/sbin/pm-hibernate
   sudo_rule /sbin/shutdown
   sudo_rule /sbin/reboot
   sudo_rule /usr/bin/tee brightness
