@@ -204,6 +204,7 @@ function FEniCS(){
 #  fi
 #  get_update
 #  get_install fenics python-dolfin-adjoint
+  get_install freeglut3-dev
   curl -s http://fenicsproject.org/fenics-install.sh | bash
   cd $PWD
 }
@@ -355,71 +356,71 @@ do
        update_sys
        sudo apt-get autoremove
        sudo_rules
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     2)
        sym_links
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     3)
        update_submodules
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     4)
        network_connections
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     5)
        dev_utils
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     6)
        LaTeX
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     7)
        MOOSE
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     8)
        FEniCS
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     9)
        dev_framework
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     10)
        python_framework
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     11)
        base_sys
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     12)
        USI_setup
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     13)
        extras
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     14)
        nvidia_drivers
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     15)
        crapware
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     16)
        update_sys
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
     17)
        sudo_rules
-       ./systemSetup.sh
+       ./$PWD/systemSetup.sh
        ;;
   esac
 done
