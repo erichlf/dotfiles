@@ -170,7 +170,7 @@ get_install texlive texlive-bibtex-extra texlive-science latex-beamer \
 
 # install moose development environment
 function MOOSE(){
-  moose=moose-environment_ubuntu_14.04_1.1-37.x86_64.deb
+  moose=moose-environment_ubuntu_14.04_1.1-39.x86_64.deb
   get_install build-essential gfortran tcl m4 freeglut3 doxygen libx11-dev \
               libblas-dev liblapack-dev
   cd $HOME/Downloads

@@ -8,7 +8,7 @@ xterm*faceSize: 10
 xterm*selectToClipboard: true
 XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
 
-#include "~/dotfiles/base16-xresources/base16-ashes.dark.256.xresources"
+#include "/home/erich/dotfiles/base16-xresources/base16-ashes.dark.256.xresources"
 *.highlightColor: base02
 
 Xcurser.theme: DMZ-White
