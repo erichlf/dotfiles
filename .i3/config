@@ -31,7 +31,6 @@ exec --no-startup-id unity-settings-daemon
 
 # give me a background image
 exec --no-startup-id xsetroot -solid '# 000000'
-exec --no-startup-id feh --bg-fill ~/dotfiles/Forever-Shady-S.jpg
 
 # audio controls
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master 5%- unmute"
@@ -260,3 +259,5 @@ exec --no-startup-id i3-msg "exec sleep 3 && exec xterm -T 'default'"
 exec pidgin
 exec pybliographic ~/Research/Complete.bib
 exec xmodmap ~/.Xmodmap
+
+exec --no-startup-id feh --bg-fill ~/dotfiles/Forever-Shady-S.jpg
