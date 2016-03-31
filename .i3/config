@@ -31,7 +31,7 @@ exec --no-startup-id unity-settings-daemon
 
 # give me a background image
 exec --no-startup-id xsetroot -solid '# 000000'
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/Forever_by_Shady_S.jpg
+exec --no-startup-id feh --bg-fill ~/dotfiles/Forever-Shady-S.jpg
 
 # audio controls
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse set Master 5%- unmute"

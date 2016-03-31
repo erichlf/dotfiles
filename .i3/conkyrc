@@ -4,7 +4,7 @@ out_to_console yes
 background no
 max_text_width 0
 # Update interval in seconds
-update_interval 2.0
+update_interval 10.0
 total_run_times 0
 double_buffer yes
 
