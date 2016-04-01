@@ -59,7 +59,7 @@ set history=1000
 set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
 
-set number "show line numbers
+set rnu "show relative line numbers
 
 set textwidth=80 "line wrapping
 
