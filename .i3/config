@@ -260,4 +260,4 @@ exec pidgin
 exec pybliographic ~/Research/Complete.bib
 exec xmodmap ~/.Xmodmap
 
-exec --no-startup-id feh --bg-fill ~/dotfiles/Forever-Shady-S.jpg
+exec --no-startup-id i3-msg "exec sleep 3 && feh --bg-fill ~/dotfiles/Forever-Shady-S.jpg"
