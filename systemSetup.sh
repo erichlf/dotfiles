@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+sudo apt-get install dialog git
+
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
@@ -10,7 +12,12 @@ declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
                       .pentadactyl .screenrc texmf .vim .vimrc .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
 
-PWD=$HOME/dotfiles
+DOTFILES_DIR=$HOME/dotfiles
+
+############################# grab dotfiles ####################################
+# dotfiles already exist since I am running this script!
+# git clone git@github.com:erichlf/dotfiles.git
+(cd $HOME/dotfiles && git submodule init && git submodule update)
 
 cmd=(dialog --backtitle "system setup" --menu "Welcome to Erich's system
 setup.\nWhat would you like to do?" 14 50 16)
@@ -34,11 +41,6 @@ options=(1  "Fresh system setup"
          17 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-
-############################# grab dotfiles ####################################
-# dotfiles already exist since I am running this script!
-# git clone git@github.com:erichlf/dotfiles.git
-(cd $HOME/dotfiles && git submodule init && git submodule update)
 
 function ask(){
   read -p "$1 [$2] " answer
@@ -66,7 +68,7 @@ function get_update(){
 }
 
 function get_install(){
-  sudo apt-get install -y --force-yes $@
+  sudo apt-get install -y $@
 
   return 0
 }
@@ -79,13 +81,13 @@ function sudo_rule(){
 function sym_links(){
   cd $HOME
   for FILE in ${DOTFILES[@]}; do ln -s -f $HOME/dotfiles/$FILE; done
-  cd $PWD
+  cd $DOTFILES_DIR
 }
 
 function update_submodules(){
   cd $HOME/dotfiles
   git submodules update --init --recursive
-  cd $PWD
+  cd $DOTFILES_DIR
 }
 
 #setup my networks
@@ -119,7 +121,7 @@ function dev_utils(){
   get_update
 
   get_install vim vim-gtk openssh-server editorconfig global subversion git \
-              screen libgnome-keyring-dev paraview openjdk-7-jdk xvfb \
+              screen libgnome-keyring-dev paraview openjdk-8-jdk xvfb \
               build-essential cmake
 
 #  wget http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/1/eclipse-cpp-mars-1-linux-gtk-x86_64.tar.gz
@@ -143,7 +145,7 @@ function dev_utils(){
     sudo make
     cd $HOME
     git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-    cd $PWD
+    cd $DOTFILES_DIR
   fi
 
   cd $HOME
@@ -152,14 +154,14 @@ function dev_utils(){
     git clone https://github.com/powerline/fonts powerlineFonts
   fi
   cd powerlineFonts
-  ./install.sh
+  bash install.sh
   cd $HOME
   rm -rf powerlineFonts
-  cd $PWD
+  cd $DOTFILES_DIR
 
   #cd $HOME/dotfiles/.vim/bundle/YouCompleteMe
-  #./install.py --clang-completer
-  #cd $PWD
+  #bash install.py --clang-completer
+  #cd $DOTFILES_DIR
 }
 
 # install latex
@@ -176,12 +178,12 @@ function MOOSE(){
   cd $HOME/Downloads
   wget http://mooseframework.org/static/media/uploads/files/$moose -O $moose
   sudo dpkg -i $moose
-  cd $PWD
+  cd $DOTFILES_DIR
 }
 
 # install my own development environment
 function dev_framework(){
-  get_install cmake gcc g++ clang ctags# libparpack2-dev
+  get_install cmake gcc g++ clang ctags # libparpack2-dev
 }
 
 # install python development
@@ -206,7 +208,7 @@ function FEniCS(){
 #  get_install fenics python-dolfin-adjoint
   get_install freeglut3-dev
   curl -s http://fenicsproject.org/fenics-install.sh | bash
-  cd $PWD
+  cd $DOTFILES_DIR
 }
 
 ############################# my base system ###################################
@@ -238,7 +240,7 @@ function base_sys(){
       git fetch
       git pull origin
   fi
-  ./autogen.sh
+  bash autogen.sh
   make
   sudo make install
   sudo ldconfig
@@ -248,7 +250,7 @@ function base_sys(){
   cabal install yeganesh
 
 #  gsettings set org.gnome.desktop.background show-desktop-icons false
-  cd $PWD
+  cd $DOTFILES_DIR
 }
 
 ############################ usi requirements ##################################
@@ -256,13 +258,13 @@ function base_sys(){
 function USI_setup(){
   get_install network-manager-vpnc smbclient foomatic-db
 
-  #sudo gpasswd -a ${USER} lpadmin
-  #cups_status=`sudo service cups status | grep process | wc -l`
-  #if [ $cups_status != 0 ]; then
-  #    sudo service cups stop
-  #fi
-  #sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
-  #sudo service cups start
+  sudo gpasswd -a ${USER} lpadmin
+  cups_status=`sudo service cups status | grep process | wc -l`
+  if [ $cups_status != 0 ]; then
+      sudo service cups stop
+  fi
+  sudo cp $HOME/dotfiles/private/printers.conf /etc/cups/
+  sudo service cups start
 }
 
 ################################ extras ########################################
@@ -276,29 +278,35 @@ function extras(){
   fi
 
   #nuvolaplayer3 requires webkit
-  if no_ppa_exists webkit-team
-  then
-      add_ppa webkit-team/ppa
-  fi
+#  if no_ppa_exists webkit-team
+#  then
+#      add_ppa webkit-team/ppa
+#  fi
 
   #fix facebook for pidgin
-  if [ ! -f /etc/apt/sources.list.d/jgeboski.list ]; then
-      echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release ./ \
-          | sudo tee /etc/apt/sources.list.d/jgeboski.list
-      wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release/Release.key
-      sudo apt-key add Release.key
-      rm Release.key
-  fi
+#  if [ ! -f /etc/apt/sources.list.d/jgeboski.list ]; then
+#      echo deb http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release bash  \
+#          | sudo tee /etc/apt/sources.list.d/jgeboski.list
+#      wget http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$release/Release.key
+#      sudo apt-key add Release.key
+#      rm Release.key
+#  fi
 
-  if [ ! -f /etc/apt/sources.list.d/syncthing-release.list ]; then
-      curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-      echo "deb http://apt.syncthing.net/ syncthing release" \
-          | sudo tee /etc/apt/sources.list.d/syncthing-release.list
+#  if [ ! -f /etc/apt/sources.list.d/syncthing-release.list ]; then
+#      curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+#      echo "deb http://apt.syncthing.net/ syncthing release" \
+#          | sudo tee /etc/apt/sources.list.d/syncthing-release.list
+#  fi
+
+  #grive
+  if no_ppa_exists nilarimogard/webupd8
+  then
+      add_ppa nilarimogard/webupd8
   fi
 
   get_update
   get_install transgui nuvolaplayer3 zathura zathura-djvu zathura-ps pidgin \
-              purple-facebook pidgin-extprefs flashplugin-installer syncthing
+              pidgin-extprefs grive flashplugin-installer # syncthing purple-facebook
 }
 
 ######################## fix the terminal font for 4k ##########################
@@ -356,71 +364,71 @@ do
        update_sys
        sudo apt-get autoremove
        sudo_rules
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     2)
        sym_links
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     3)
        update_submodules
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     4)
        network_connections
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     5)
        dev_utils
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     6)
        LaTeX
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     7)
        MOOSE
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     8)
        FEniCS
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     9)
        dev_framework
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     10)
        python_framework
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     11)
        base_sys
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     12)
        USI_setup
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     13)
        extras
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     14)
        nvidia_drivers
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     15)
        crapware
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     16)
        update_sys
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
     17)
        sudo_rules
-       ./$PWD/systemSetup.sh
+       bash $DOTFILES_DIR/systemSetup.sh
        ;;
   esac
 done
