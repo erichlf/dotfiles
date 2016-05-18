@@ -120,7 +120,7 @@ function dev_utils(){
 
   get_update
 
-  get_install vim vim-gtk openssh-server editorconfig global subversion git \
+  get_install vim vim-gtk-py2 openssh-server editorconfig global subversion git \
               screen libgnome-keyring-dev paraview openjdk-8-jdk xvfb \
               build-essential cmake
 
