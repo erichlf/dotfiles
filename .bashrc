@@ -74,6 +74,7 @@ PS1=$PS1_string"\n└→ \[\e[0m\]"
 [ -f ~/.commacd.bash ] && source ~/.commacd.bash
 
 if [[ "$-" == *i* ]]; then
+    # up and down does autocomplete from history
     bind '"\e[A":history-search-backward'
     bind '"\e[B":history-search-forward'
 
