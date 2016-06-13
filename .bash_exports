@@ -3,6 +3,7 @@ export LC_ALL="en_US.UTF-8"
 export PROMPT_COMMAND='history -a'
 export KRB5_CONFIG=$HOME/.pdckrb/krb5.conf
 export CHPL_HOME=$HOME/bin/chapel-1.11.0
+export TERM=xterm  # this is to fix some annoying things with screen
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`
