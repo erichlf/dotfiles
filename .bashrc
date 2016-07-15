@@ -65,6 +65,9 @@ elif [ -f ~/.git-completion ]; then
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
 fi
+
+. ~/dotfiles/git-prompt.sh
+
 PS1=$PS1_string"\$(type -t __git_ps1 >& /dev/null && __git_ps1)\n└→ \[\e[0m\]"
 
 [ -f ~/.commacd.bash ] && source ~/.commacd.bash
