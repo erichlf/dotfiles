@@ -32,3 +32,14 @@ if [ -d /opt/eclipse ] ; then
     export ECLIPSE_HOME=/opt/eclipse
     export PATH="$PATH:$ECLIPSE_HOME"
 fi
+
+if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* ]]; then
+    module load sierra_python
+    export NCARG_ROOT=/projects/ccsm/ncl
+fi
+
+export PATH="$PATH:~/.local/bin"
+
+if [ -d $HOME/anaconda2 ]; then
+    export PATH="$HOME/anaconda2/bin:$PATH"
+fi

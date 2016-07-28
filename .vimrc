@@ -203,7 +203,7 @@ runtime! projects/**/*.vim
 
 let g:base16_shell_path='~/dotfiles/base16-shell'
 let base16colorspace=256
-colorscheme base16-ashes
+colorscheme desert "base16-ashes
 "gvim specific options
 if has("gui_running")
     set go-=T "remove the toolbar

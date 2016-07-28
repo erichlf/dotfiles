@@ -1,40 +1,40 @@
 [submodule ".vim/bundle/nerdcommenter"]
     path = .vim/bundle/nerdcommenter
-    url = https://github.com/scrooloose/nerdcommenter.git
+    url = git@github.com:scrooloose/nerdcommenter.git
 [submodule ".vim/bundle/python-mode"]
     path = .vim/bundle/python-mode
-    url = https://github.com/klen/python-mode
+    url = git@github.com:klen/python-mode
 [submodule ".vim/bundle/vim-airline"]
     path = .vim/bundle/vim-airline
-    url = https://github.com/bling/vim-airline.git
+    url = git@github.com:bling/vim-airline.git
 [submodule ".vim/bundle/vim-fugitive"]
     path = .vim/bundle/vim-fugitive
-    url = https://github.com/tpope/vim-fugitive.git
+    url = git@github.com:tpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-latex-suite"]
     path = .vim/bundle/vim-latex-suite
-    url = https://github.com/gerw/vim-latex-suite.git
+    url = git@github.com:gerw/vim-latex-suite.git
 [submodule ".vim/bundle/vim-sensible"]
     path = .vim/bundle/vim-sensible
-    url = https://github.com/tpope/vim-sensible.git
+    url = git@github.com:tpope/vim-sensible.git
 [submodule ".vim/bundle/editorconfig-vim"]
     path = .vim/bundle/editorconfig-vim
-    url = https://github.com/editorconfig/editorconfig-vim.git
+    url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule ".vim/bundle/vim-clang-format"]
     path = .vim/bundle/vim-clang-format
-    url = https://github.com/rhysd/vim-clang-format.git
+    url = git@github.com:rhysd/vim-clang-format.git
     ignore = dirty
 [submodule ".vim/bundle/base16-vim"]
     path = .vim/bundle/base16-vim
-    url = https://github.com/chriskempson/base16-vim.git
+    url = git@github.com:chriskempson/base16-vim.git
 [submodule "base16-shell"]
     path = base16-shell
-    url = https://github.com/chriskempson/base16-shell.git
+    url = git@github.com:chriskempson/base16-shell.git
 [submodule "base16-xresources"]
     path = base16-xresources
-    url = https://github.com/chriskempson/base16-xresources.git
+    url = git@github.com:chriskempson/base16-xresources.git
 [submodule ".vim/bundle/i3-vim-syntax"]
     path = .vim/bundle/i3-vim-syntax
-    url = https://github.com/PotatoesMaster/i3-vim-syntax.git
+    url = git@github.com:PotatoesMaster/i3-vim-syntax.git
 [submodule "private"]
     path = private
     url = git@bitbucket.org:erichlf/dotfiles-private.git
@@ -43,7 +43,7 @@
     url = git://github.com/jiangmiao/auto-pairs.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
+	url = git@github.com:scrooloose/nerdtree.git
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = git@github.com:majutsushi/tagbar.git
@@ -55,10 +55,10 @@
 	url = git@github.com:terryma/vim-multiple-cursors.git
 [submodule ".vim/bundle/--force"]
 	path = .vim/bundle/--force
-	url = https://github.com/vim-scripts/vim-bufferline
+	url = git@github.com:vim-scripts/vim-bufferline
 [submodule ".vim/bundle/vim-bufferline"]
 	path = .vim/bundle/vim-bufferline
-	url = https://github.com/bling/vim-bufferline
+	url = git@github.com:bling/vim-bufferline
 [submodule ".vim/bundle/YouCompleteMe"]
 	path = .vim/bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git

@@ -81,3 +81,4 @@ if [[ "$-" == *i* ]]; then
     BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-ashes.dark.sh"
     [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 fi
+
