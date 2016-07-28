@@ -40,8 +40,4 @@ if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == 
     fi
 fi
 
-if [ -f /usr/local/uvcdat/2.2/bin/setup_runtime.sh ]; then
-    source /usr/local/uvcdat/2.2/bin/setup_runtime.sh
-fi
-
 export PATH="$PATH:~/.local/bin"
