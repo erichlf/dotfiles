@@ -33,9 +33,11 @@ if [ -d /opt/eclipse ] ; then
     export PATH="$PATH:$ECLIPSE_HOME"
 fi
 
-if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* ]]; then
-    module load sierra_python
-    export NCARG_ROOT=/projects/ccsm/ncl
+if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == "edison"* ]]; then
+    module load python/2.7
+    if [ -d /projects/ccsm/ncl ]; then
+        export NCARG_ROOT=/projects/ccsm/ncl
+    fi
 fi
 
 export PATH="$PATH:~/.local/bin"
