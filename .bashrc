@@ -1,5 +1,8 @@
 # If not running interactively, don't do anything
 # [ -z "$PS1" ] && return
+if [ -f $HOME/.local_bashrc ]; then
+    source $HOME/.local_bashrc
+fi
 
 # make sure tab completion is working for apt and sudo
 complete -cf sudo
