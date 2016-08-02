@@ -41,3 +41,10 @@ if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == 
 fi
 
 export PATH="$PATH:~/.local/bin"
+
+NAMESERVER=$(cat /etc/resolv.conf  | grep -v '^#' | grep nameserver | awk '{print $2}')  
+if [[ $NAMESERVER == *"134.253.181.25"* ]]; then
+    export https_proxy="https://wwwproxy.sandia.gov:80"
+    export http_proxy="http://wwwproxy.sandia.gov:80"
+fi
+

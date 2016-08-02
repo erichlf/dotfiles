@@ -126,7 +126,7 @@ set t_Co=256
 set hidden
 
 " The following is for editor-config:
-let g:EditorConfig_core_mode = 'external_command'
+" let g:EditorConfig_core_mode = 'external_command'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " The following is for vim-latex:
