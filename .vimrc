@@ -420,8 +420,7 @@ function! SetCursorPosition()
 endfunction
 
 "spell check when writing commit logs
-set spell
-autocmd filetype svn,*commit* setlocal spell
+autocmd filetype latex,tex,md,markdown,svn,*commit* setlocal spell
 
 "http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 "hacks from above (the url, not jesus) to delete fugitive buffers when we
