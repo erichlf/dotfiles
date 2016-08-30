@@ -41,6 +41,16 @@ if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == 
     if [ -d /projects/ccsm/ncl ]; then
         export NCARG_ROOT=/projects/ccsm/ncl
     fi
+    export https_proxy="https://wwwproxy.sandia.gov:80"
+    export http_proxy="http://wwwproxy.sandia.gov:80"
+fi
+
+if [[ $(hostname) == "climate"* ]]; then
+    module load sems-openmpi
+    module load sems-intel
+    module load sems-netcdf
+    export https_proxy="https://wwwproxy.sandia.gov:80"
+    export http_proxy="http://wwwproxy.sandia.gov:80"
 fi
 
 export PATH="$PATH:~/.local/bin"
