@@ -133,9 +133,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:tex_flavor = 'pdflatex'
 let g:tex_BibtexFlavor = 'bibtex' "biber
 let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_ViewRule_ps = 'zathura'
-let g:livepreview_previewer = 'zathura'
+let g:Tex_ViewRule_pdf = 'preview'
+let g:Tex_ViewRule_ps = 'preview'
+let g:livepreview_previewer = 'preview'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_IgnoredWarnings =
     \'Marginpar'."\n".
