@@ -36,6 +36,7 @@ if [ -d /opt/eclipse ] ; then
 fi
 
 if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == "edison"* ]]; then
+    source /projects/sems/modulefiles/utils/sems-modules-init.sh
     module load python/2.7
     if [ -d /projects/ccsm/ncl ]; then
         export NCARG_ROOT=/projects/ccsm/ncl
