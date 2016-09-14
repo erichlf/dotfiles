@@ -185,7 +185,7 @@ let g:airline#extensions#tagbar#enabled = 0
 let g:NERDTreeMouseMode = 2
 let g:NERDTreeWinSize = 25
 
-autocmd vimenter * NERDTree " start nerdtree automatically
+" autocmd vimenter * NERDTree " start nerdtree automatically
 " close window if nerdtree is the only thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
