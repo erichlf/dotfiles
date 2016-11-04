@@ -1,6 +1,8 @@
-source /projects/sems/modulefiles/utils/sems-modules-init.sh
-module load python/2.7
 export https_proxy="https://wwwproxy.sandia.gov:80"
 export http_proxy="http://wwwproxy.sandia.gov:80"
 
 source ~/git-completion.bash
+
+module load python/2.7.10 cmake/3.4.3 git/2.2.2
+export PYTHON_LIBRARY=$PYTHON_ROOT/lib/python2.7/
+export PYTHON_INCLUDE_DIR=$PYTHON_ROOT/include/python2.7/
