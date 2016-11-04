@@ -1,0 +1,4 @@
+module load python/2.7
+
+export ACME_INPUTDATA=/project/projectdirs/acme/inputdata
+export SCRATCH=/scratch1/scratchdirs/erichlf

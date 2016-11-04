@@ -1,8 +1,6 @@
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export LC_ALL="en_US.UTF-8"
 export PROMPT_COMMAND='history -a'
-export KRB5_CONFIG=$HOME/.pdckrb/krb5.conf
-export CHPL_HOME=$HOME/bin/chapel-1.11.0
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
@@ -13,44 +11,12 @@ if [[ "$unamestr" == 'Darwin' ]]; then
     export CLICOLOR=1
 fi
 
-if [ -f $CHPL_HOME/util/chplenv/chpl_platform.py ]; then
-    export CHPL_HOST_PLATFORM=`$CHPL_HOME/util/chplenv/chpl_platform.py`
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d $HOME/bin ] ; then
     export PATH="$HOME/bin:$PATH"
     if [ -d $HOME/bin/lib ] ; then
         export LD_LIBRARY_PATH="$HOME/bin/lib/:$LD_LIBRARY_PATH"
     fi
-fi
-
-if [ -d $CHPL_HOME ] ; then
-    export PATH="$PATH:$CHPL_HOME/bin/$CHPL_HOST_PLATFORM"
-    export MANPATH="$MANPATH:$CHPL_HOME/man"
-fi
-
-if [ -d /opt/eclipse ] ; then
-    export ECLIPSE_HOME=/opt/eclipse
-    export PATH="$PATH:$ECLIPSE_HOME"
-fi
-
-if [[ $(hostname) == "redsky"* || $(hostname) == "skybridge"* || $(hostname) == "edison"* ]]; then
-    source /projects/sems/modulefiles/utils/sems-modules-init.sh
-    module load python/2.7
-    if [ -d /projects/ccsm/ncl ]; then
-        export NCARG_ROOT=/projects/ccsm/ncl
-    fi
-    export https_proxy="https://wwwproxy.sandia.gov:80"
-    export http_proxy="http://wwwproxy.sandia.gov:80"
-fi
-
-if [[ $(hostname) == "climate"* ]]; then
-    module load sems-openmpi
-    module load sems-intel
-    module load sems-netcdf
-    export https_proxy="https://wwwproxy.sandia.gov:80"
-    export http_proxy="http://wwwproxy.sandia.gov:80"
 fi
 
 export PATH="$PATH:~/.local/bin"
@@ -61,5 +27,8 @@ if [[ $NAMESERVER == *"134.253.181.25"* ]]; then
     export http_proxy="http://wwwproxy.sandia.gov:80"
 fi
 
-# Setting PATH for Python 3.5
-# export PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+# load our local settings
+[ -f $HOME/.skybridgerc ] && source $HOME/.skybridgerc
+[ -f $HOME/.edisonrc ] && source $HOME/.edisonrc
+[ -f $HOME/.riderc ] && source $HOME/.riderc
+[ -f $HOME/.climaterc ] && source $HOME/.climaterc

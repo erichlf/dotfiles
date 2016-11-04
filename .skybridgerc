@@ -1,0 +1,8 @@
+source /projects/sems/modulefiles/utils/sems-modules-init.sh
+module load python/2.7
+export NCARG_ROOT=/projects/ccsm/ncl
+export https_proxy="https://wwwproxy.sandia.gov:80"
+export http_proxy="http://wwwproxy.sandia.gov:80"
+
+export ACME_INPUTDATA=/projects/ccsm/inputdata
+export SCRATCH=/gscratch/elfost
