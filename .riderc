@@ -3,6 +3,6 @@ export http_proxy="http://wwwproxy.sandia.gov:80"
 
 source ~/git-completion.bash
 
-module load python/2.7.10 cmake/3.4.3 git/2.2.2
+module load python cmake git
 export PYTHON_LIBRARY=$PYTHON_ROOT/lib/python2.7/
 export PYTHON_INCLUDE_DIR=$PYTHON_ROOT/include/python2.7/
