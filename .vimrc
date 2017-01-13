@@ -93,6 +93,7 @@ set expandtab
 set shiftround
 set smartcase
 set autoindent
+autocmd FileType make setlocal noexpandtab
 
 "swap files have been quite annoying lately
 set nobackup
@@ -203,7 +204,7 @@ runtime! projects/**/*.vim
 
 let g:base16_shell_path='~/dotfiles/base16-shell'
 let base16colorspace=256
-colorscheme desert "base16-ashes
+colorscheme base16-chalk
 "gvim specific options
 if has("gui_running")
     set go-=T "remove the toolbar
@@ -340,7 +341,7 @@ function! StatuslineTabWarning()
     return b:statusline_tab_warning
 endfunction
 
-autocmd BufWritePre * retab
+" autocmd BufWritePre * retab
 
 "recalculate the long line warning when idle and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
