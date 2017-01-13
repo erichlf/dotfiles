@@ -5,7 +5,7 @@ module.exports = {
     cursorShape: 'BLOCK',
     bell: false,
     base16: {
-      scheme: 'chalk'
+      scheme: 'ashes'
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
