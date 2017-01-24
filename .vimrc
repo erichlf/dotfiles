@@ -4,10 +4,6 @@ filetype plugin on
 "auto reload when saving
 autocmd! bufwritepost .vimrc source %
 
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-set shellslash
-
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -68,6 +64,8 @@ nmap <A-Left> <C-w>h
 nmap <A-Down> <C-w>j
 nmap <A-Up> <C-w>k
 nmap <A-Right> <C-w>l
+
+set clipboard=unnamedplus
 
 "display tabs and trailing spaces
 set list
