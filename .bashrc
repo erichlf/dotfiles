@@ -81,7 +81,7 @@ if [[ "$-" == *i* ]]; then
     bind '"\e[B":history-search-forward'
 
     # Base16 Shell
-    BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-ashes.dark.sh"
+    BASE16_SHELL="$HOME/dotfiles/base16-shell/scripts/base16-ashes.sh"
     [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 fi
 

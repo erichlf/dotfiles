@@ -130,12 +130,13 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " The following is for vim-latex:
 let g:tex_flavor = 'pdflatex'
-let g:tex_BibtexFlavor = 'bibtex' "biber
+let g:tex_BibtexFlavor = 'biber' "biber
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'preview'
 let g:Tex_ViewRule_ps = 'preview'
 let g:livepreview_previewer = 'preview'
 let g:Tex_MultipleCompileFormats = 'pdf'
+let g:Tex_CompileRule_pdf = 'arara -v $*'
 let g:Tex_IgnoredWarnings =
     \'Marginpar'."\n".
     \'Underfull'."\n".
@@ -200,7 +201,7 @@ nnoremap <Leader>bd :b#\|bd #<CR>
 "source project specific config files
 runtime! projects/**/*.vim
 
-let g:base16_shell_path='~/dotfiles/base16-shell'
+let g:base16_shell_path='~/dotfiles/base16-shell/scripts'
 let base16colorspace=256
 colorscheme base16-ashes
 "gvim specific options
