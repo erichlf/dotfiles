@@ -65,7 +65,7 @@ nmap <A-Down> <C-w>j
 nmap <A-Up> <C-w>k
 nmap <A-Right> <C-w>l
 
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 "display tabs and trailing spaces
 set list

@@ -37,7 +37,7 @@
     url = git@github.com:PotatoesMaster/i3-vim-syntax.git
 [submodule "private"]
     path = private
-    url = git@bitbucket.org:erichlf/dotfiles-private.git
+    url = git@gitlab.com:erichlf/dotfiles-private.git
 [submodule ".vim/bundle/auto-pairs"]
     path = .vim/bundle/auto-pairs
     url = git://github.com/jiangmiao/auto-pairs.git
@@ -62,3 +62,5 @@
 [submodule ".vim/bundle/YouCompleteMe"]
 	path = .vim/bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git
+[submodule "Submod"]
+	url = git@gitlab.com:erichlf/dotfiles-private
