@@ -32,3 +32,4 @@ fi
 [ -f $HOME/.edisonrc ] && source $HOME/.edisonrc
 [ -f $HOME/.riderc ] && source $HOME/.riderc
 [ -f $HOME/.climaterc ] && source $HOME/.climaterc
+[ -f $HOME/.anvilrc ] && source $HOME/.anvilrc
