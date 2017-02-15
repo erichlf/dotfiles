@@ -1,4 +1,4 @@
 module load python
 
 export ACME_INPUTDATA=/home/ccsm-data/inputdata
-export SCRATCH=/lcrc/group/acme/elfost
+export SCRATCH=/lcrc/project/ACME/elfost
