@@ -1,20 +1,18 @@
 "3.16.0 (created: 2017/02/01 00:55:15)
 
-source! /home/erich/.vimperatorrc.local
+" source! /home/erich/.vimperatorrc.local
 
 " vim: set ft=vimperator:
-set gui=nonavigation
+set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
 
 " I don't like the way vimperator moves through history
 nmap > :forward<CR>
 nmap < :back<CR>
 
 " or tabs
-nmap ( gT 
-nmap ) gt
+nmap <A-left> gT
+nmap <A-right> gt
 
 " remap of d so that I don't accidentally close tabs
 map d <Nop>
 nmap dd :tabclose<CR>
-" noremap D DD
-" map D <Nop>
