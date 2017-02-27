@@ -1,6 +1,6 @@
 "3.16.0 (created: 2017/02/01 00:55:15)
 
-" source! /home/erich/.vimperatorrc.local
+source! ~/.vimperatorrc.local
 
 " vim: set ft=vimperator:
 set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
@@ -19,7 +19,15 @@ nmap <A-right> gt
 " remap of d so that I don't accidentally close tabs
 map d <Nop>
 nmap dd :tabclose<CR>
-nmap dd! :tabclose!<CR>
+nmap DD :tabclose!<CR>
 
-" Pass through all keys (like CTRL-Z) on Gmail and Google Reader:"
-autocmd LocationChange .* :js modes.passAllKeys = /mail\.google\.com|www\.google\.com\/reader\/view/.test(buffer.URL)
+" Pass through all keys (like CTRL-Z) on GMail, GReader, GTaks, and GCalendar:"
+" Libly must be loaded before other plugins
+source ~/.vimperator/plugin/_libly.js
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+lazy fmaps -u='mail.google.com/mail' c / j k n p o u e x s r a # [  ] ? gi gs gt gd ga gc
+lazy fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / j,n k,p n,j p,k o u e x s r a # [  ] ? gi gs gt gd ga gc
+lazy fmaps -u='github\.com/[^/]+/.+' -events=vkeydown s,t gc gi gp gw
+lazy fmaps -u='duckduckgo\.com/\?q=' -events=vkeydown l j k <enter> s,d gm,m gt,t
+lazy fmaps -u 'www\.google\.com/calendar -events=vkeypress j k T,t a D,d w m x c e z / + q s ?
+lazy fmaps -u='calendar\.google\.com/.*' -events=vkeypress k p j n r t 1 d 2 w 3 m 4 x 5 a c e <backspace> <delete> <ctrl> z s / <shift> = + q ?
