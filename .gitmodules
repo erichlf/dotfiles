@@ -64,3 +64,6 @@
 	url = git@github.com:Valloric/YouCompleteMe.git
 [submodule "Submod"]
 	url = git@gitlab.com:erichlf/dotfiles-private
+[submodule ".vimperator/colors"]
+	path = .vimperator/colors
+	url = git@github.com:vimpr/vimperator-colors.git

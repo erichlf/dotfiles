@@ -4,6 +4,9 @@
 
 " vim: set ft=vimperator:
 set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
+set tabnumbers
+set noerrorbells
+colorscheme darkness
 
 " I don't like the way vimperator moves through history
 nmap > :forward<CR>
@@ -16,3 +19,6 @@ nmap <A-right> gt
 " remap of d so that I don't accidentally close tabs
 map d <Nop>
 nmap dd :tabclose<CR>
+
+" Pass through all keys (like CTRL-Z) on Gmail and Google Reader:"
+autocmd LocationChange .* :js modes.passAllKeys = /mail\.google\.com|www\.google\.com\/reader\/view/.test(buffer.URL)
