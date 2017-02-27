@@ -10,8 +10,8 @@ nmap > :forward<CR>
 nmap < :back<CR>
 
 " or tabs
-nmap ( :tabmove -1<CR>
-nmap ) :tabmove +1<CR>
+nmap ( gT 
+nmap ) gt
 
 " remap of d so that I don't accidentally close tabs
 map d <Nop>
