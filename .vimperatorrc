@@ -6,7 +6,7 @@
 set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
 set tabnumbers
 set noerrorbells
-colorscheme darkness
+colorscheme seaweed
 
 " I don't like the way vimperator moves through history
 nmap > :forward<CR>
