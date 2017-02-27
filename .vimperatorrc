@@ -6,6 +6,7 @@ source! ~/.vimperatorrc.local
 set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
 set tabnumbers
 set noerrorbells
+set statuslinevisibility=hidden
 colorscheme seaweed
 
 " I don't like the way vimperator moves through history
