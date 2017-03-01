@@ -22,6 +22,14 @@ map d <Nop>
 nmap dd :tabclose<CR>
 nmap DD :tabclose!<CR>
 
+" some search shortcuts
+map w <Nop>
+nmap w :open wikipedia 
+map W <Nop>
+nmap W :tabopn wikipedia 
+nmap s :open google 
+nmap S :tabopen google 
+
 " Pass through all keys (like CTRL-Z) on GMail, GReader, GTaks, and GCalendar:"
 " Libly must be loaded before other plugins
 source ~/.vimperator/plugin/_libly.js
