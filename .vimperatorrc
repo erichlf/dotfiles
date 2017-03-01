@@ -27,6 +27,7 @@ map w <Nop>
 nmap w :open wikipedia 
 map W <Nop>
 nmap W :tabopn wikipedia 
+map s <Nop>
 nmap s :open google 
 nmap S :tabopen google 
 
