@@ -189,9 +189,6 @@ let g:NERDTreeWinSize = 25
 " close window if nerdtree is the only thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"tagbar settings
-autocmd vimenter * Tagbar " start tagbar automatically
-
 "explorer mappings
 nnoremap <f2> :NERDTreeToggle<CR>
 nnoremap <f3> :TagbarToggle<CR>
@@ -376,7 +373,7 @@ endfunction
 
 "return a list containing the lengths of the long lines in this buffer
 function! s:LongLines()
-    let threshold = (&tw ? &tw : 80)
+    let threshold = (&tw ? &tw : 81)
     let spaces = repeat(" ", &ts)
     let line_lens = map(getline(1,'$'), 'len(substitute(v:val, "\\t", spaces, "g"))')
     return filter(line_lens, 'v:val > threshold')
