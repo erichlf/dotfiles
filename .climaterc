@@ -1,6 +1,7 @@
 module load sems-openmpi
 module load sems-intel
 module load sems-netcdf
+module load sems-python/2.7.9
 export https_proxy="https://wwwproxy.sandia.gov:80"
 export http_proxy="http://wwwproxy.sandia.gov:80"
 
