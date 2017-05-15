@@ -7,7 +7,7 @@ set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
 set tabnumbers
 set noerrorbells
 set statuslinevisibility=hidden
-colorscheme seaweed
+colorscheme darkness
 
 " I don't like the way vimperator moves through history
 nmap > :forward<CR>
@@ -24,12 +24,12 @@ nmap DD :tabclose!<CR>
 
 " some search shortcuts
 map w <Nop>
-nmap w :open wikipedia 
+nmap w :open wikipedia
 map W <Nop>
-nmap W :tabopn wikipedia 
+nmap W :tabopn wikipedia
 map s <Nop>
-nmap s :open google 
-nmap S :tabopen google 
+nmap s :open google
+nmap S :tabopen google
 
 " Pass through all keys (like CTRL-Z) on GMail, GReader, GTaks, and GCalendar:"
 " Libly must be loaded before other plugins
