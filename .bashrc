@@ -1,8 +1,8 @@
 # If not running interactively, don't do anything
 # [ -z "$PS1" ] && return
-if [ -f $HOME/.local_bashrc ]; then
-    source $HOME/.local_bashrc
-fi
+#if [ -f $HOME/.local_bashrc ]; then
+#    source $HOME/.local_bashrc
+#fi
 
 # make sure tab completion is working for apt and sudo
 complete -cf sudo
@@ -31,7 +31,6 @@ alias debug="set -o nounset; set -o xtrace"
 
 ulimit -S -c 0      # Don't want coredumps.
 set -o notify
-set -o noclobber
 set -o ignoreeof
 
 # Enable options:
@@ -68,7 +67,7 @@ elif [ -f ~/.git-completion ]; then
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
 fi
-
+# for some reason this needs to be called outside the conditionals
 . ~/dotfiles/git-prompt.sh
 
 PS1=$PS1_string"\$(type -t __git_ps1 >& /dev/null && __git_ps1)\n└→ \[\e[0m\]"
