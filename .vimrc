@@ -199,8 +199,10 @@ nnoremap <Leader>bd :b#\|bd #<CR>
 runtime! projects/**/*.vim
 
 let g:base16_shell_path='~/dotfiles/base16-shell/scripts'
-let base16colorspace=256
-colorscheme base16-ashes
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+        source ~/.vimrc_background
+    endif
 "gvim specific options
 if has("gui_running")
     set go-=T "remove the toolbar
