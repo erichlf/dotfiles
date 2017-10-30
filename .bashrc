@@ -9,26 +9,6 @@ complete -cf sudo
 complete -cf apt-get
 complete -cf git
 
-#-------------------------------------------------------------
-# Source global definitions (if any)
-#-------------------------------------------------------------
-[ -f /etc/bashrc ] && source /etc/bashrc
-
-#-------------------------------------------------------------
-# add .bash_exports
-#-------------------------------------------------------------
-[ -f $HOME/.bash_exports ] && source $HOME/.bash_exports
-
-#-------------------------------------------------------------
-# add .bash_aliases
-#-------------------------------------------------------------
-[ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases
-
-#-------------------------------------------------------------
-# Some settings
-#-------------------------------------------------------------
-alias debug="set -o nounset; set -o xtrace"
-
 ulimit -S -c 0      # Don't want coredumps.
 set -o notify
 set -o ignoreeof
@@ -49,6 +29,10 @@ shopt -u nocaseglob    # I want things to be case sensitive
 shopt -u mailwarn
 unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
 
+# up and down does autocomplete from history
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -67,20 +51,18 @@ elif [ -f ~/.git-completion ]; then
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
 fi
-# for some reason this needs to be called outside the conditionals
-. ~/dotfiles/git-prompt.sh
 
 PS1=$PS1_string"\$(type -t __git_ps1 >& /dev/null && __git_ps1)\n└→ \[\e[0m\]"
 
-[ -f ~/.commacd.bash ] && source ~/.commacd.bash
+#-------------------------------------------------------------
+# add .bash_exports
+#-------------------------------------------------------------
+[ -f $HOME/.bash_exports ] && source $HOME/.bash_exports
 
-if [[ "$-" == *i* ]]; then
-    # up and down does autocomplete from history
-    bind '"\e[A":history-search-backward'
-    bind '"\e[B":history-search-forward'
+#-------------------------------------------------------------
+# add .bash_aliases
+#-------------------------------------------------------------
+[ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases
 
-    # Base16 Shell
-    BASE16_SHELL="$HOME/dotfiles/base16-shell/scripts/base16-ashes.sh"
-    [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-fi
-
+BASE16_SHELL=$HOME/dotfiles/base16-shell/
+[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
