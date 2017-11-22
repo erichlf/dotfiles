@@ -52,7 +52,7 @@ elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
 fi
 
-PS1=$PS1_string"\$(type -t __git_ps1 >& /dev/null && __git_ps1)\n└→ \[\e[0m\]"
+PS1=$PS1_string"$(type -t __git_ps1 >& /dev/null && __git_ps1)\n└→ \[\e[0m\]"
 
 #-------------------------------------------------------------
 # add .bash_exports
