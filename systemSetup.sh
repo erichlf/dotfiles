@@ -79,7 +79,7 @@ function sym_links(){
   cd $HOME
   for FILE in ${DOTFILES[@]}; do ln -sf $HOME/dotfiles/$FILE; done
   mkdir -p $HOME/.config/nvim/
-  ln -sf $HOME/dotfiles/.vimrc $HOME/.config/nvim/init.vim
+  ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
   cd $DOTFILES_DIR
 
   return 0
