@@ -65,5 +65,5 @@
 	path = .vimperator/colors
 	url = git@github.com:vimpr/vimperator-colors.git
 [submodule "VimCompletesMe"]
-	path = VimCompletesMe
+	path = .vim/bun/VimCompletesMe
 	url = https://github.com/ajh17/VimCompletesMe.git
