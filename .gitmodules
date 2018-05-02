@@ -59,11 +59,11 @@
 [submodule ".vim/bundle/vim-bufferline"]
 	path = .vim/bundle/vim-bufferline
 	url = git@github.com:bling/vim-bufferline
-[submodule ".vim/bundle/YouCompleteMe"]
-	path = .vim/bundle/YouCompleteMe
-	url = git@github.com:Valloric/YouCompleteMe.git
 [submodule "Submod"]
 	url = git@gitlab.com:erichlf/dotfiles-private
 [submodule ".vimperator/colors"]
 	path = .vimperator/colors
 	url = git@github.com:vimpr/vimperator-colors.git
+[submodule "VimCompletesMe"]
+	path = VimCompletesMe
+	url = https://github.com/ajh17/VimCompletesMe.git

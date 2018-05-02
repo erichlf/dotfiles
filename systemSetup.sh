@@ -134,8 +134,9 @@ function dev_utils(){
 
 # install latex
 function LaTeX(){
-  get_install texlive texlive-bibtex-extra texlive-science latex-beamer \
-              texlive-latex-extra texlive-math-extra pybliographer
+  get_install texlive texlive-generic-recommended texlive-bibtex-extra \
+              texlive-science latex-beamer texlive-latex-extra \
+              texlive-math-extra pybliographer
 
   return 0
 }
