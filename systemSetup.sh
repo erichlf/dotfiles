@@ -8,8 +8,7 @@ codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
-                      .git-completion .gitconfig .gitexcludes .i3 .pentadactylrc
-                      .pentadactyl .screenrc texmf .vim .vimrc .Xmodmap
+                      .gitconfig .gitexcludes texmf .vim .vimrc .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
 
 DOTFILES_DIR=$HOME/dotfiles
@@ -105,7 +104,7 @@ function dev_utils(){
   get_update
 
   get_install neovim openssh-server editorconfig global git \
-              screen build-essential cmake
+              git-completion screen build-essential cmake
 
   #setup credential helper for git
   keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
