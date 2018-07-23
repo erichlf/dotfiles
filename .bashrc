@@ -46,8 +46,8 @@ if [ -f /etc/bash_completion.d/git-prompt ]; then
     . /etc/bash_completion.d/git-prompt
 elif [ -f /etc/bash_completion.d/git ]; then
     . /etc/bash_completion.d/git
-elif [ -f ~/.git-completion ]; then
-    . ~/.git-completion
+elif [ -f ~/dotfiles/.git-completion ]; then
+    . ~/dotfiles/.git-completion
 elif [ -f /opt/etc/bash_completion.d/git-prompt.sh ]; then
     . /opt/etc/bash_completion.d/git-prompt.sh
 fi
