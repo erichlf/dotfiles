@@ -53,4 +53,4 @@ PS1="\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e
 [ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases
 
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
-[ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+[ "${-#*i}" != "$-" ] && [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
