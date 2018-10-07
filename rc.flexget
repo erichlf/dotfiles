@@ -1,13 +1,24 @@
 #!/bin/sh
 
 # main variables
-DAEMON=/usr/bin/flexget
+PACKAGE="flexget"
+DNAME="FlexGet"
+
+INSTALL_DIR="/usr/local/${PACKAGE}"
+PYTHON_DIR="/usr/local/python"
+PATH="${INSTALL_DIR}/bin:${INSTALL_DIR}/env/bin:${PYTHON_DIR}/bin:${PATH}"
+USER="erichlf"
+PYTHON="${INSTALL_DIR}/env/bin/python"
+#PYTHON="/usr/bin/python"
+DAEMON="${INSTALL_DIR}/env/bin/flexget"
+#DAEMON=/usr/bin/flexget
 CONFIG=/volume1/homes/erichlf/.flexget/config.yml
+LOGFILE=/var/log/flexget.log
 
 DESC=flexget
 
 start_flexget () {
-    $DAEMON -c $CONFIG daemon start -d
+    $DAEMON -c $CONFIG --logfile $LOGFILE daemon start -d
 }
 
 stop_flexget () {
@@ -15,7 +26,8 @@ stop_flexget () {
 }
 
 restart_flexget () {
-    $DAEMON daemon restart
+    $DAEMON daemon stop
+    $DAEMON -c $CONFIG --logfile $LOGFILE daemon start -d
 }
 
 case "$1" in
