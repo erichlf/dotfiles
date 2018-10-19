@@ -24,3 +24,7 @@
     untracked = cyan
 [credential]
 	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+[diff]
+	tool = bc
+[difftool "bc"]
+	path = /snap/bin/bcompare
