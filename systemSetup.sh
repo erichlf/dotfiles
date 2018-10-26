@@ -188,7 +188,7 @@ function base_sys(){
 ################################ extras ########################################
 function extras(){
   get_update
-  get_install transgui calibre snapd
+  get_install chromium-browser transgui calibre snapd
   sudo snap install gitter-desktop bcompare
 
   return 0
@@ -196,7 +196,7 @@ function extras(){
 
 ######################## remove things I never use #############################
 function crapware(){
-  sudo apt-get remove -y transmission-gtk libreoffice libreoffice-* thunderbird \
+  sudo apt-get remove -y transmission-gtk thunderbird \
 
   return 0
 }
