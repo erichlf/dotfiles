@@ -188,7 +188,8 @@ function base_sys(){
 ################################ extras ########################################
 function extras(){
   get_update
-  get_install transgui calibre
+  get_install transgui calibre snapd
+  sudo snap install gitter-desktop bcompare
 
   return 0
 }
