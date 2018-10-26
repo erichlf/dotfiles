@@ -28,18 +28,6 @@ set background=dark
 set noerrorbells
 set novisualbell
 set vb t_vb=
-
-"activate pathogen
-filetype off
-
-call pathogen#infect()
-call pathogen#helptags()
-
-filetype plugin indent on
-syntax on
-
-au BufNewFile,BufRead *.md set ft=md
-
 "force save file which requires root permission
 cmap w!! %!sudo tee > /dev/null %
 
@@ -123,6 +111,17 @@ set t_Co=256
 "hide buffers when not displayed
 set hidden
 
+"activate pathogen
+filetype off
+
+call pathogen#infect()
+call pathogen#helptags()
+
+filetype plugin indent on
+syntax on
+
+au BufNewFile,BufRead *.md set ft=md
+
 " The following is for editor-config:
 " let g:EditorConfig_core_mode = 'external_command'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -131,9 +130,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:tex_flavor = 'pdflatex'
 let g:tex_BibtexFlavor = 'biber' "biber
 let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'open -a Preview.app'
-let g:Tex_ViewRule_ps = 'open -a Preview.app'
-let g:livepreview_previewer = 'open -a Preview.app'
+let g:Tex_ViewRule_pdf = 'xdg-open'
+let g:Tex_ViewRule_ps = 'xdg-open'
+let g:livepreview_previewer = 'xdg-open'
 let g:Tex_MultipleCompileFormats = 'pdf'
 let g:Tex_CompileRule_pdf = 'arara -v $*'
 let g:Tex_IgnoredWarnings =
