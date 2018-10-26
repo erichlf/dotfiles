@@ -76,7 +76,7 @@ function sudo_rule(){
 #create my links
 function sym_links(){
   cd $HOME
-  for FILE in ${DOTFILES[@]}; do ln -sf $HOME/dotfiles/$FILE; done
+  for FILE in ${DOTFILES[@]}; do ln -sf $HOME/dotfiles/$FILE $HOME/$(basename $FILE); done
   mkdir -p $HOME/.config/nvim/
   ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
   cd $DOTFILES_DIR
@@ -133,9 +133,17 @@ function dev_utils(){
 
 # install latex
 function LaTeX(){
+  year=2017
+  if no_ppa_exists jonathonf/texlive-${year}
+  then
+    add_ppa jonathonf/texlive-${year}
+  fi
+  get_update
   get_install texlive texlive-generic-recommended texlive-bibtex-extra \
-              texlive-science latex-beamer texlive-latex-extra \
-              texlive-math-extra pybliographer
+              texlive-science texlive-latex-extra pybliographer
+
+  tlmgr option repository ftp://tug.org/historic/systems/texlive/${year}/tlnet-final
+  tlmgr install arara
 
   return 0
 }
@@ -149,8 +157,7 @@ function dev_framework(){
 
 # install python development
 function python_framework(){
-  get_install python-scipy python-numpy python-matplotlib ipython \
-              ipython-notebook python-sympy cython
+  get_install python-scipy python-numpy python-matplotlib ipython
 
   return 0
 }
@@ -159,7 +166,7 @@ function python_framework(){
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
   cd $HOME
-  get_install curl htop feh bikeshed nfs-common autofs
+  get_install curl htop nfs-common autofs
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
@@ -180,14 +187,8 @@ function base_sys(){
 
 ################################ extras ########################################
 function extras(){
-  #grive
-  if no_ppa_exists nilarimogard/webupd8
-  then
-      add_ppa nilarimogard/webupd8
-  fi
-
   get_update
-  get_install transgui grive
+  get_install transgui calibre
 
   return 0
 }
