@@ -106,17 +106,6 @@ function dev_utils(){
   get_install neovim openssh-server editorconfig global git \
               git-completion screen build-essential cmake
 
-  #setup credential helper for git
-  keyring=/usr/share/doc/git/contrib/credential/gnome-keyring
-  if [ ! -f $keyring/git-credential-gnome-keyring ]
-  then
-    cd $keyring
-    sudo make
-    cd $HOME
-    git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-    cd $DOTFILES_DIR
-  fi
-
   cd $HOME
   if [ ! -d powerlineFonts ]
   then
@@ -133,16 +122,9 @@ function dev_utils(){
 
 # install latex
 function LaTeX(){
-  year=2017
-  if no_ppa_exists jonathonf/texlive-${year}
-  then
-    add_ppa jonathonf/texlive-${year}
-  fi
-  get_update
   get_install texlive texlive-generic-recommended texlive-bibtex-extra \
-              texlive-science texlive-latex-extra pybliographer
+              texlive-science texlive-latex-extra xzdec
 
-  tlmgr option repository ftp://tug.org/historic/systems/texlive/${year}/tlnet-final
   tlmgr install arara
 
   return 0
@@ -157,7 +139,7 @@ function dev_framework(){
 
 # install python development
 function python_framework(){
-  get_install python-scipy python-numpy python-matplotlib ipython
+  get_install python-scipy python-numpy python-matplotlib ipython python-pip
 
   return 0
 }
@@ -189,6 +171,8 @@ function base_sys(){
 function extras(){
   get_update
   get_install chromium-browser transgui calibre snapd
+  # need dnspython to email books from calibre
+  sudo pip install dnspython
   sudo snap install gitter-desktop bcompare
 
   return 0
