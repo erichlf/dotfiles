@@ -143,6 +143,8 @@ function dev_framework(){
 # install python development
 function python_framework(){
   get_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
+  # need dnspython and unrar are needed by calibre
+  sudo -H pip install wheel dnspython unrar
 
   return 0
 }
@@ -174,8 +176,6 @@ function base_sys(){
 function extras(){
   get_update
   get_install chromium-browser transgui calibre snapd
-  # need dnspython to email books from calibre
-  sudo pip install dnspython unrar
   sudo snap install gitter-desktop bcompare
 
   return 0
