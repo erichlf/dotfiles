@@ -122,10 +122,13 @@ function dev_utils(){
 
 # install latex
 function LaTeX(){
-  get_install texlive texlive-generic-recommended texlive-bibtex-extra \
-              texlive-science texlive-latex-extra xzdec
+  cd /tmp
+  wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu
+  sudo ./install-tl-ubuntu
 
   tlmgr install arara
+
+  cd $DOTFILES_DIR
 
   return 0
 }
@@ -148,7 +151,7 @@ function python_framework(){
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
   cd $HOME
-  get_install curl htop nfs-common autofs
+  get_install wget curl htop nfs-common autofs
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
@@ -207,11 +210,11 @@ do
   case $choice in
     1)
        sym_links
+       base_sys
        dev_utils
-       LaTeX
        dev_framework
        python_framework
-       base_sys
+       LaTeX
        extras
        crapware
        update_sys
