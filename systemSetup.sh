@@ -142,7 +142,7 @@ function dev_framework(){
 
 # install python development
 function python_framework(){
-  get_install python-scipy python-numpy python-matplotlib ipython python-pip
+  get_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
 
   return 0
 }
@@ -175,7 +175,7 @@ function extras(){
   get_update
   get_install chromium-browser transgui calibre snapd
   # need dnspython to email books from calibre
-  sudo pip install dnspython
+  sudo pip install dnspython unrar
   sudo snap install gitter-desktop bcompare
 
   return 0
