@@ -4,5 +4,6 @@
 .vim/plugin/eclim.vim
 .vim/.netrwhist
 .vim/doc/tags
+.vim/undofiles
 .ropeproject
 .pentadactyl/info

@@ -67,6 +67,12 @@ function get_install(){
   return 0
 }
 
+function pip_install(){
+  sudo -H pip install $@
+
+  return 0
+}
+
 function sudo_rule(){
   echo "$USER ALL = NOPASSWD: $@" | sudo tee -a /etc/sudoers
 
@@ -77,8 +83,6 @@ function sudo_rule(){
 function sym_links(){
   cd $HOME
   for FILE in ${DOTFILES[@]}; do ln -sf $HOME/dotfiles/$FILE $HOME/$(basename $FILE); done
-  mkdir -p $HOME/.config/nvim/
-  ln -sf $HOME/dotfiles/init.vim $HOME/.config/nvim/init.vim
   cd $DOTFILES_DIR
 
   return 0
@@ -106,8 +110,11 @@ function dev_utils(){
   get_install neovim openssh-server editorconfig global git \
               git-completion screen build-essential cmake powerline
 
-  cd $HOME
+  cd $HOME/.config/
+  ln -s $DOTFILES_DIR/powerline
   cd $DOTFILES_DIR
+
+  pip_install powerline-gitstatus
 
   return 0
 }
@@ -136,7 +143,7 @@ function dev_framework(){
 function python_framework(){
   get_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
   # need dnspython and unrar are needed by calibre
-  sudo -H pip install wheel dnspython unrar
+  pip_install wheel dnspython unrar
 
   return 0
 }
@@ -203,9 +210,9 @@ do
     1)
        sym_links
        base_sys
-       dev_utils
        dev_framework
        python_framework
+       dev_utils
        LaTeX
        extras
        crapware
