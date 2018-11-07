@@ -175,8 +175,6 @@ map <Leader>b Oimport ipdb; ipdb.set_trace() #BREAKPOINT<C-c>
 "airline stuff
 set guifont=Source\ Code\ Pro\ for\ Powerline
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tagbar#enabled = 0
 
 "nerdtree settings
 let g:NERDTreeMouseMode = 2

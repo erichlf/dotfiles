@@ -40,8 +40,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     source /etc/bash_completion
 fi
 
-PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
-
 #-------------------------------------------------------------
 # add .bash_exports
 #-------------------------------------------------------------
@@ -54,3 +52,12 @@ PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e
 
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
 [ "${-#*i}" != "$-" ] && [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+if [ -f `which powerline-daemon` ]; then
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+    source /usr/share/powerline/bindings/bash/powerline.sh
+else
+    PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
+fi

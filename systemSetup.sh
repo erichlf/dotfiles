@@ -104,17 +104,9 @@ function dev_utils(){
   get_update
 
   get_install neovim openssh-server editorconfig global git \
-              git-completion screen build-essential cmake
+              git-completion screen build-essential cmake powerline
 
   cd $HOME
-  if [ ! -d powerlineFonts ]
-  then
-    git clone https://github.com/powerline/fonts powerlineFonts
-  fi
-  cd powerlineFonts
-  bash install.sh
-  cd $HOME
-  rm -rf powerlineFonts
   cd $DOTFILES_DIR
 
   return 0
