@@ -53,7 +53,7 @@ fi
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
 [ "${-#*i}" != "$-" ] && [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-if [ -f `which powerline-daemon` ]; then
+if [ -x "$(command -v powerline-daemon)" ]; then
     powerline-daemon -q
     POWERLINE_BASH_CONTINUATION=1
     POWERLINE_BASH_SELECT=1
