@@ -53,11 +53,17 @@ fi
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
 [ "${-#*i}" != "$-" ] && [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
+if [ -e /usr/share/powerline/bindings/bash/powerline.sh ]; then
+    POWERLINE_SCRIPT=/usr/share/powerline/bindings/bash/powerline.sh
+else
+    POWERLINE_SCRIPT=/volume1/\@appstore/py3k/usr/local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
+fi
+
 if [ -x "$(command -v powerline-daemon)" ]; then
     powerline-daemon -q
     POWERLINE_BASH_CONTINUATION=1
     POWERLINE_BASH_SELECT=1
-    source /usr/share/powerline/bindings/bash/powerline.sh
+    source $POWERLINE_SCRIPT
 else
     PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
 fi
