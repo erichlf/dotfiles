@@ -37,7 +37,8 @@
     url = git@github.com:PotatoesMaster/i3-vim-syntax.git
 [submodule "private"]
     path = private
-    url = git@gitlab.com:erichlf/dotfiles-private.git
+	url = git@github.com:erichlf/dotfiles-private.git
+	branch = master
 [submodule ".vim/bundle/auto-pairs"]
     path = .vim/bundle/auto-pairs
     url = git://github.com/jiangmiao/auto-pairs.git
@@ -59,8 +60,6 @@
 [submodule ".vim/bundle/vim-bufferline"]
 	path = .vim/bundle/vim-bufferline
 	url = git@github.com:bling/vim-bufferline
-[submodule "Submod"]
-	url = git@gitlab.com:erichlf/dotfiles-private
 [submodule ".vimperator/colors"]
 	path = .vimperator/colors
 	url = git@github.com:vimpr/vimperator-colors.git
