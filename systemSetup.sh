@@ -107,11 +107,13 @@ function dev_utils(){
 
   get_update
 
-  get_install neovim openssh-server editorconfig global git \
-              git-completion screen build-essential cmake powerline
+  get_install vim openssh-server editorconfig global git \
+              git-completion screen build-essential cmake powerline \
+              fonts-powerline freeglut3-dev libopencv-dev \
+              libopencv-contrib-dev libopencv-photo-dev
 
   cd $HOME/.config/
-  ln -s $DOTFILES_DIR/powerline
+  ln -sf $DOTFILES_DIR/powerline
   cd $DOTFILES_DIR
 
   pip_install powerline-gitstatus
@@ -152,7 +154,7 @@ function python_framework(){
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
   cd $HOME
-  get_install wget curl htop nfs-common autofs
+  get_install wget curl htop cifs-utils nfs-common autofs
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
