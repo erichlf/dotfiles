@@ -30,8 +30,10 @@ shopt -u mailwarn
 unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
 
 # up and down does autocomplete from history
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
+if [[ $- == *i* ]]; then
+    bind '"\e[A":history-search-backward'
+    bind '"\e[B":history-search-forward'
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
