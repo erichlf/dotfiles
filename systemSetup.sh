@@ -29,10 +29,11 @@ options=(1  "Fresh system setup"
          6  "Install development framework"
          7  "Install python framework"
          8  "Install base system"
-         9  "Install my extras"
-         10 "Remove crapware"
-         11 "Update system"
-         12 "sudo rules")
+         9  "Install CRL development framework"
+         10 "Install my extras"
+         11 "Remove crapware"
+         12 "Update system"
+         13 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -173,10 +174,21 @@ function base_sys(){
   return 0
 }
 
+############################ crl framework #####################################
+function crl_framework() {
+  # install ROS
+  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+  sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+  get_update
+  get_install ros-melodic-desktop-full python-rosinstall python-rosdep \
+              mercurial openvpn
+}
+
 ################################ extras ########################################
 function extras(){
   get_update
-  get_install chromium-browser transgui calibre snapd
+  get_install chromium-browser snapd
   sudo snap install gitter-desktop bcompare
 
   return 0
@@ -216,6 +228,7 @@ do
        python_framework
        dev_utils
        LaTeX
+       crl_framework
        extras
        crapware
        update_sys
@@ -252,18 +265,22 @@ do
        bash $DOTFILES_DIR/systemSetup.sh
        ;;
     9)
+       crl_framework
+       bash $DOTFILE_FIR/systemSetup.sh
+       ;;
+    10)
        extras
        bash $DOTFILES_DIR/systemSetup.sh
        ;;
-    10)
+    11)
        crapware
        bash $DOTFILES_DIR/systemSetup.sh
        ;;
-    11)
+    12)
        update_sys
        bash $DOTFILES_DIR/systemSetup.sh
        ;;
-    12)
+    13)
        sudo_rules
        bash $DOTFILES_DIR/systemSetup.sh
        ;;
