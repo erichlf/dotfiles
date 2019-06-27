@@ -29,13 +29,18 @@ options=(1  "Fresh system setup"
          6  "Install development framework"
          7  "Install python framework"
          8  "Install base system"
-         9  "Install CRL development framework"
-         10 "Install my extras"
-         11 "Remove crapware"
-         12 "Update system"
-         13 "sudo rules")
+         9  "Setup Internet Connections"
+         10 "Install CRL development framework"
+         11 "Install my extras"
+         12 "Remove crapware"
+         13 "Update system"
+         14 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+
+function run_me() {
+  bash $DOTFILES_DIR/systemSetup.sh
+}
 
 function ask(){
   read -p "$1 [$2] " answer
@@ -119,6 +124,8 @@ function dev_utils(){
 
   pip_install powerline-gitstatus
 
+  sudo update-alternatives --config editor
+
   return 0
 }
 
@@ -173,6 +180,15 @@ function base_sys(){
 
   return 0
 }
+
+######################### internet connections #################################
+function network_connections() {
+    for CONNECTION in $DOTFILES_DIR/private/system-connections/*; do
+        sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
+        sudo chown root:root "/etc/NetworkManager/system-connections/$(basename $CONNECTION)"
+    done
+}
+
 
 ############################ crl framework #####################################
 function crl_framework() {
@@ -229,60 +245,65 @@ do
        dev_utils
        LaTeX
        crl_framework
+       network_connections
        extras
        crapware
        update_sys
        sudo apt-get autoremove
        sudo_rules
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     2)
        sym_links
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     3)
        update_submodules
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     4)
        dev_utils
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     5)
        LaTeX
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     6)
        dev_framework
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     7)
        python_framework
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     8)
        base_sys
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
     9)
-       crl_framework
-       bash $DOTFILE_FIR/systemSetup.sh
+       network_connections
+       run_me
        ;;
     10)
-       extras
-       bash $DOTFILES_DIR/systemSetup.sh
+       crl_framework
+       run_me
        ;;
     11)
-       crapware
-       bash $DOTFILES_DIR/systemSetup.sh
+       extras
+       run_me
        ;;
     12)
-       update_sys
-       bash $DOTFILES_DIR/systemSetup.sh
+       crapware
+       run_me
        ;;
     13)
+       update_sys
+       run_me
+       ;;
+    14)
        sudo_rules
-       bash $DOTFILES_DIR/systemSetup.sh
+       run_me
        ;;
   esac
 done
