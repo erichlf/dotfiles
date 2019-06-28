@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-sudo apt-get install dialog git
+sudo apt install dialog git vim
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
@@ -64,11 +64,11 @@ function add_ppa(){
 }
 
 function get_update(){
-  sudo apt-get update 1>/dev/null
+  sudo apt update 1>/dev/null
 }
 
 function get_install(){
-  sudo apt-get install -y $@
+  sudo apt install -y $@
 
   return 0
 }
@@ -113,7 +113,7 @@ function dev_utils(){
 
   get_update
 
-  get_install vim openssh-server editorconfig global git \
+  get_install openssh-server editorconfig global git \
               git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev
@@ -212,7 +212,7 @@ function extras(){
 
 ######################## remove things I never use #############################
 function crapware(){
-  sudo apt-get remove -y transmission-gtk thunderbird \
+  sudo apt remove -y transmission-gtk thunderbird \
 
   return 0
 }
@@ -220,7 +220,7 @@ function crapware(){
 ########################## update and upgrade ##################################
 function update_sys(){
   get_update
-  sudo apt-get -y dist-upgrade
+  sudo apt -y dist-upgrade
 
   return 0
 }
@@ -249,7 +249,7 @@ do
        extras
        crapware
        update_sys
-       sudo apt-get autoremove
+       sudo apt autoremove
        sudo_rules
        run_me
        ;;
