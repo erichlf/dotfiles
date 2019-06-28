@@ -205,7 +205,7 @@ function crl_framework() {
 function extras(){
   get_update
   get_install chromium-browser snapd
-  sudo snap install gitter-desktop bcompare
+  sudo snap install gitter-desktop
 
   return 0
 }
