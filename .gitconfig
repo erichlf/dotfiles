@@ -3,6 +3,7 @@
     email = erichlf@gmail.com
 [core]
     editor = vim
+    autocrlf = false
 [push]
     default = simple
 [color]
@@ -34,4 +35,9 @@
     path = /usr/bin/bcompare
     trustExitCode = true
 [difftool]
-	prompt = false
+    prompt = false
+[alias]
+    diffall = difftool -d
+    diffeach = "!f(){\
+                    git diff --name-only "$@" | while read filename; do git difftool "$@" --no-prompt "$filename" & done \
+                }; f"
