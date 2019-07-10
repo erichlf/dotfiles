@@ -113,7 +113,7 @@ function dev_utils(){
 
   get_update
 
-  get_install openssh-server editorconfig global git \
+  get_install meld openssh-server editorconfig global git \
               git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev
@@ -205,7 +205,7 @@ function crl_framework() {
 function extras(){
   get_update
   get_install chromium-browser snapd
-  sudo snap install gitter-desktop
+  sudo snap install vlc
 
   return 0
 }

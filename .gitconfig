@@ -26,16 +26,15 @@
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 [diff]
-    tool = bc3
-[diff "tool.bc3"]
-    path = /usr/bin/bcompare
+    tool = meld
 [merge]
-    tool = bc3
-[merge "tool.bc3"]
-    path = /usr/bin/bcompare
+    tool = meld
+[merge "tool.meld"]
     trustExitCode = true
 [difftool]
     prompt = false
+[difftool "meld"]
+    cmd = meld -n "$LOCAL" "$REMOTE"
 [alias]
     diffall = difftool -d
     diffeach = "!f(){\
