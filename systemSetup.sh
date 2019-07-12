@@ -198,7 +198,8 @@ function crl_framework() {
 
   get_update
   get_install ros-melodic-desktop-full python-rosinstall python-rosdep \
-              mercurial openvpn libturbojpeg-dev
+              mercurial openvpn libturbojpeg-dev libgstreamer1.0-dev \
+              libgstreamer-plugins-base1.0-dev
 }
 
 ################################ extras ########################################
