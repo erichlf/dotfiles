@@ -189,6 +189,8 @@ function base_sys(){
   echo '/media/NFS /etc/auto.nfs' \
     | sudo tee /etc/auto.master
 
+  sudo_rule /usr/bin/google-drive-ocamlfuse
+
   sudo systemctl start autofs
 
   cd $DOTFILES_DIR
@@ -245,7 +247,6 @@ function update_sys(){
 function sudo_rules(){
   sudo_rule /sbin/shutdown
   sudo_rule /sbin/reboot
-  sudo_rule /usr/bin/tee brightness
 
   return 0
 }
