@@ -1,2 +1,3 @@
 /media/NFS /etc/auto.nfs --browse
 /media/CRL /etc/auto.crl --browse
+/media/Google /etc/auto.gdrive --browse

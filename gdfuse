@@ -1,0 +1,10 @@
+#!/bin/bash
+label=$1
+location=$2
+CONFIG=$(echo $* | sed 's/.\+config=\(.\+\)/\1/')
+USER=$(echo $CONFIG | sed "s/\/home\/\(.\+\)\/\.gdfuse\/.\+\/config/\1/")
+FUSE=$(echo $* | sed 's/.\+-o \(.\+\),config=.\+/\1/')
+sudo -i -u $USER bash << EOF
+sudo google-drive-ocamlfuse -config $CONFIG -label $label $location -o $FUSE
+EOF
+exit 0

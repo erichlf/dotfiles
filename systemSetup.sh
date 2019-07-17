@@ -16,7 +16,7 @@ DOTFILES_DIR=$HOME/dotfiles
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
-(cd $HOME/dotfiles && git submodule init && git submodule update)
+(cd $DOTFILES_DIR && git submodule init && git submodule update)
 
 cmd=(dialog --backtitle "system setup" --menu "Welcome to Erich's system
 setup.\nWhat would you like to do?" 14 50 16)
@@ -88,14 +88,14 @@ function sudo_rule(){
 #create my links
 function sym_links(){
   cd $HOME
-  for FILE in ${DOTFILES[@]}; do ln -sf $HOME/dotfiles/$FILE $HOME/$(basename $FILE); done
+  for FILE in ${DOTFILES[@]}; do ln -sf $DOTFILES_DIR/$FILE $HOME/$(basename $FILE); done
   cd $DOTFILES_DIR
 
   return 0
 }
 
 function update_submodules(){
-  cd $HOME/dotfiles
+  cd $DOTFILES_DIR
   git submodule update --init --recursive
   cd $DOTFILES_DIR
 
@@ -162,19 +162,34 @@ function python_framework(){
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
   cd $HOME
-  get_install wget curl htop cifs-utils nfs-common autofs
+  if no_ppa_exists alessandro-strada
+  then
+      add_ppa alessandro-strada/ppa
+  fi
+  get_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
   fi
+  if [ ! -d /media/CRL ]; then
+    sudo mkdir /media/CRL
+  fi
+  if [ ! -d /media/Google ]; then
+    sudo mkdir /media/Google
+  fi
 
-  sudo cp $HOME/dotfiles/private/auto.nfs /etc/
+  sudo cp $DOTFILES_DIR/gdfuse /usr/bin/
+  sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
+  sudo cp $DOTFILES_DIR/private/auto.crl /etc/
+  sudo cp $DOTFILES_DIR/private/auto.gdrive /etc/
   ln -s -f /media/NFS/Media-NAS
+  ln -s -f /media/CRL
+  ln -s -f /media/Google
 
   echo '/media/NFS /etc/auto.nfs' \
     | sudo tee /etc/auto.master
 
-  sudo service autofs start
+  sudo systemctl start autofs
 
   cd $DOTFILES_DIR
 
