@@ -63,11 +63,11 @@ function add_ppa(){
   return 0
 }
 
-function get_update(){
+function apt_update(){
   sudo apt update 1>/dev/null
 }
 
-function get_install(){
+function apt_install(){
   sudo apt install -y $@
 
   return 0
@@ -111,12 +111,16 @@ function dev_utils(){
       add_ppa git-core/ppa
   fi
 
-  get_update
+  apt_update
 
-  get_install meld openssh-server editorconfig global git \
+  apt_install meld openssh-server editorconfig global git \
               git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev
+
+  wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
+  apt_install ./slack-desktop-*.deb
+  rm slack-desktop-*.deb
 
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
@@ -144,14 +148,14 @@ function LaTeX(){
 
 # install my own development environment
 function dev_framework(){
-  get_install cmake gcc g++ clang ctags # libparpack2-dev
+  apt_install cmake gcc g++ clang ctags # libparpack2-dev
 
   return 0
 }
 
 # install python development
 function python_framework(){
-  get_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
+  apt_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
   # need dnspython and unrar are needed by calibre
   pip_install wheel dnspython unrar
 
@@ -166,7 +170,7 @@ function base_sys(){
   then
       add_ppa alessandro-strada/ppa
   fi
-  get_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse
+  apt_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
@@ -213,16 +217,16 @@ function crl_framework() {
   sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
   sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-  get_update
-  get_install ros-melodic-desktop-full python-rosinstall python-rosdep \
+  apt_update
+  apt_install ros-melodic-desktop-full python-rosinstall python-rosdep \
               mercurial openvpn libturbojpeg-dev libgstreamer1.0-dev \
               libgstreamer-plugins-base1.0-dev
 }
 
 ################################ extras ########################################
 function extras(){
-  get_update
-  get_install chromium-browser snapd
+  apt_update
+  apt_install chromium-browser snapd
   sudo snap install vlc
 
   return 0
@@ -237,7 +241,7 @@ function crapware(){
 
 ########################## update and upgrade ##################################
 function update_sys(){
-  get_update
+  apt_update
   sudo apt -y dist-upgrade
 
   return 0
