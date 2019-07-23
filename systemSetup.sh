@@ -214,8 +214,10 @@ function network_connections() {
 ############################ crl framework #####################################
 function crl_framework() {
   # install ROS
-  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-  sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+  if [ ! -f /etc/apt/sources.list.d/ros-latest.list ]; then
+    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+    sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+  fi
 
   apt_update
   apt_install ros-melodic-desktop-full python-rosinstall python-rosdep \
@@ -242,7 +244,7 @@ function crapware(){
 ########################## update and upgrade ##################################
 function update_sys(){
   apt_update
-  sudo apt -y dist-upgrade
+  sudo apt-get -y dist-upgrade
 
   return 0
 }
