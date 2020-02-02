@@ -74,7 +74,7 @@ function apt_install(){
 }
 
 function pip_install(){
-  sudo -H pip install $@
+  sudo -H pip3 install $@
 
   return 0
 }
@@ -102,6 +102,15 @@ function update_submodules(){
   return 0
 }
 
+# install python development
+function python_framework(){
+  apt_install python3-setuptools python3-scipy python3-numpy python3-matplotlib ipython python3-pip
+  # need dnspython and unrar are needed by calibre
+  pip_install wheel dnspython unrar
+
+  return 0
+}
+
 ############################# developer tools ##################################
 # install development utilities
 function dev_utils(){
@@ -118,9 +127,11 @@ function dev_utils(){
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev
 
+  python_framework
+
+  cd /tmp
   wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
   apt_install ./slack-desktop-*.deb
-  rm slack-desktop-*.deb
 
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
@@ -137,8 +148,10 @@ function dev_utils(){
 function LaTeX(){
   cd /tmp
   wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu
+  sudo chmod +x install-tl-ubuntu
   sudo ./install-tl-ubuntu
 
+  PATH=/usr/local/texlive/20*/bin/x86_64-linux:$PATH
   tlmgr install arara
 
   cd $DOTFILES_DIR
@@ -149,15 +162,6 @@ function LaTeX(){
 # install my own development environment
 function dev_framework(){
   apt_install cmake gcc g++ clang ctags # libparpack2-dev
-
-  return 0
-}
-
-# install python development
-function python_framework(){
-  apt_install python-setuptools python-scipy python-numpy python-matplotlib ipython python-pip
-  # need dnspython and unrar are needed by calibre
-  pip_install wheel dnspython unrar
 
   return 0
 }
@@ -220,7 +224,7 @@ function crl_framework() {
   fi
 
   apt_update
-  apt_install ros-melodic-desktop-full python-rosinstall python-rosdep \
+  apt_install ros-melodic-desktop-full python3-rosinstall python3-rosdep \
               mercurial openvpn libturbojpeg-dev libgstreamer1.0-dev \
               libgstreamer-plugins-base1.0-dev
 }
@@ -229,6 +233,7 @@ function crl_framework() {
 function extras(){
   apt_update
   apt_install chromium-browser snapd
+  snap connect chromium:removable-media
   sudo snap install vlc
 
   return 0
