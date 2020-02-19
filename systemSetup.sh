@@ -30,11 +30,10 @@ options=(1  "Fresh system setup"
          7  "Install python framework"
          8  "Install base system"
          9  "Setup Internet Connections"
-         10 "Install CRL development framework"
-         11 "Install my extras"
-         12 "Remove crapware"
-         13 "Update system"
-         14 "sudo rules")
+         10 "Install my extras"
+         11 "Remove crapware"
+         12 "Update system"
+         13 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -106,7 +105,7 @@ function update_submodules(){
 function python_framework(){
   apt_install python3-setuptools python3-scipy python3-numpy python3-matplotlib ipython python3-pip
   # need dnspython and unrar are needed by calibre
-  pip_install wheel dnspython unrar
+  pip_install wheel dnspython unrar pylint
 
   return 0
 }
@@ -130,7 +129,7 @@ function dev_utils(){
   python_framework
 
   cd /tmp
-  wget https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
+  wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.3.2-amd64.deb
   apt_install ./slack-desktop-*.deb
 
   cd $HOME/.config/
@@ -161,7 +160,7 @@ function LaTeX(){
 
 # install my own development environment
 function dev_framework(){
-  apt_install cmake gcc g++ clang ctags # libparpack2-dev
+  apt_install cmake gcc g++ clang ctags cscope
 
   return 0
 }
@@ -179,19 +178,14 @@ function base_sys(){
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
   fi
-  if [ ! -d /media/CRL ]; then
-    sudo mkdir /media/CRL
-  fi
   if [ ! -d /media/Google ]; then
     sudo mkdir /media/Google
   fi
 
   sudo cp $DOTFILES_DIR/gdfuse /usr/bin/
   sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
-  sudo cp $DOTFILES_DIR/private/auto.crl /etc/
   sudo cp $DOTFILES_DIR/private/auto.gdrive /etc/
   ln -s -f /media/NFS/Media-NAS
-  ln -s -f /media/CRL
   ln -s -f /media/Google
 
   echo '/media/NFS /etc/auto.nfs' \
@@ -215,26 +209,12 @@ function network_connections() {
 }
 
 
-############################ crl framework #####################################
-function crl_framework() {
-  # install ROS
-  if [ ! -f /etc/apt/sources.list.d/ros-latest.list ]; then
-    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-    sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-  fi
-
-  apt_update
-  apt_install ros-melodic-desktop-full python3-rosinstall python3-rosdep \
-              mercurial openvpn libturbojpeg-dev libgstreamer1.0-dev \
-              libgstreamer-plugins-base1.0-dev
-}
-
 ################################ extras ########################################
 function extras(){
   apt_update
   apt_install chromium-browser snapd
-  snap connect chromium:removable-media
-  sudo snap install vlc
+  #snap connect chromium:removable-media
+  #sudo snap install vlc
 
   return 0
 }
@@ -272,7 +252,6 @@ do
        python_framework
        dev_utils
        LaTeX
-       crl_framework
        network_connections
        extras
        crapware
@@ -314,22 +293,18 @@ do
        run_me
        ;;
     10)
-       crl_framework
-       run_me
-       ;;
-    11)
        extras
        run_me
        ;;
-    12)
+    11)
        crapware
        run_me
        ;;
-    13)
+    12)
        update_sys
        run_me
        ;;
-    14)
+    13)
        sudo_rules
        run_me
        ;;
