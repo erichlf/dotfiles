@@ -46,12 +46,16 @@ set showmode "show current mode down the bottom
 set nu "show line numbers
 set rnu "show relative line numbers
 
-set textwidth=80 "line wrapping
+set textwidth=110 "line wrapping
 
 nmap <A-Left> <C-w>h
 nmap <A-Down> <C-w>j
 nmap <A-Up> <C-w>k
 nmap <A-Right> <C-w>l
+
+" sloppy typing
+command! Q q
+command! W w
 
 set clipboard=unnamed
 

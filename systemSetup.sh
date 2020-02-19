@@ -27,13 +27,14 @@ options=(1  "Fresh system setup"
          4  "Install development utilities"
          5  "Install LaTeX"
          6  "Install development framework"
-         7  "Install python framework"
+         7  "Install python3 framework"
          8  "Install base system"
-         9  "Setup Internet Connections"
-         10 "Install my extras"
-         11 "Remove crapware"
-         12 "Update system"
-         13 "sudo rules")
+         9 "Install Seegrid tools"
+         10 "Setup Internet Connections"
+         11 "Install my extras"
+         12 "Remove crapware"
+         13 "Update system"
+         14 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -72,7 +73,7 @@ function apt_install(){
   return 0
 }
 
-function pip_install(){
+function pip3_install(){
   sudo -H pip3 install $@
 
   return 0
@@ -87,7 +88,7 @@ function sudo_rule(){
 #create my links
 function sym_links(){
   cd $HOME
-  for FILE in ${DOTFILES[@]}; do ln -sf $DOTFILES_DIR/$FILE $HOME/$(basename $FILE); done
+  for FILE in ${DOTFILES[@]}; do ln -sf $DOTFILES_DIR/$FILE $HOME/; done
   cd $DOTFILES_DIR
 
   return 0
@@ -101,11 +102,11 @@ function update_submodules(){
   return 0
 }
 
-# install python development
-function python_framework(){
-  apt_install python3-setuptools python3-scipy python3-numpy python3-matplotlib ipython python3-pip
+# install python3 development
+function python3_framework(){
+  apt_install python3-setuptools python3-scipy python3-numpy python3-matplotlib python3-ipython python3-pip
   # need dnspython and unrar are needed by calibre
-  pip_install wheel dnspython unrar pylint
+  pip3_install wheel dnspython unrar pylint
 
   return 0
 }
@@ -119,24 +120,22 @@ function dev_utils(){
       add_ppa git-core/ppa
   fi
 
+  curl -s https://packagecloud.io/install/repositories/slacktechnologies/slack/script.deb.sh | sudo bash
+
   apt_update
 
-  apt_install meld openssh-server editorconfig global git \
+  apt_install slack-desktop meld openssh-server editorconfig global git \
               git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev
 
-  python_framework
-
-  cd /tmp
-  wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.3.2-amd64.deb
-  apt_install ./slack-desktop-*.deb
+  python3_framework
 
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
   cd $DOTFILES_DIR
 
-  pip_install powerline-gitstatus
+  pip3_install powerline-gitstatus
 
   sudo update-alternatives --config editor
 
@@ -173,7 +172,7 @@ function base_sys(){
   then
       add_ppa alessandro-strada/ppa
   fi
-  apt_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse
+  apt_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
@@ -183,13 +182,11 @@ function base_sys(){
   fi
 
   sudo cp $DOTFILES_DIR/gdfuse /usr/bin/
+  sudo cp $DOTFILES_DIR/auto.master /etc/
   sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
   sudo cp $DOTFILES_DIR/private/auto.gdrive /etc/
   ln -s -f /media/NFS/Media-NAS
   ln -s -f /media/Google
-
-  echo '/media/NFS /etc/auto.nfs' \
-    | sudo tee /etc/auto.master
 
   sudo_rule /usr/bin/google-drive-ocamlfuse
 
@@ -202,19 +199,42 @@ function base_sys(){
 
 ######################### internet connections #################################
 function network_connections() {
-    for CONNECTION in $DOTFILES_DIR/private/system-connections/*; do
-        sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
-        sudo chown root:root "/etc/NetworkManager/system-connections/$(basename $CONNECTION)"
-    done
+  apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
+  sudo /etc/init.d/networking restart
+
+  for CONNECTION in $DOTFILES_DIR/private/system-connections/*; do
+      sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
+      sudo chown root:root "/etc/NetworkManager/system-connections/$(basename $CONNECTION)"
+  done
 }
 
+################################ seegrid #######################################
+function seegrid(){
+  apt_update
+  apt_install docker.io python3-yaml python3-git git-lfs rabbitmq-server
+
+  sudo usermod -a -G docker $USERNAME
+  sudo systemctl daemon-reload
+  sudo systemctl restart docker
+
+  newgrp docker
+
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+
+
+  return 0
+}
 
 ################################ extras ########################################
 function extras(){
+  if [ ! -f /etc/apt/sources.list.d/google.list ]; then
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  fi
+
   apt_update
-  apt_install chromium-browser snapd
-  #snap connect chromium:removable-media
-  #sudo snap install vlc
+  apt_install chromium-browser chrome-gnome-shell
 
   return 0
 }
@@ -249,11 +269,11 @@ do
        sym_links
        base_sys
        dev_framework
-       python_framework
+       python3_framework
        dev_utils
-       LaTeX
        network_connections
        extras
+       seegrid
        crapware
        update_sys
        sudo apt autoremove
@@ -281,7 +301,7 @@ do
        run_me
        ;;
     7)
-       python_framework
+       python3_framework
        run_me
        ;;
     8)
@@ -289,22 +309,26 @@ do
        run_me
        ;;
     9)
-       network_connections
+       seegrid
        run_me
        ;;
     10)
-       extras
+       network_connections
        run_me
        ;;
     11)
-       crapware
+       extras
        run_me
        ;;
     12)
-       update_sys
+       crapware
        run_me
        ;;
     13)
+       update_sys
+       run_me
+       ;;
+    14)
        sudo_rules
        run_me
        ;;

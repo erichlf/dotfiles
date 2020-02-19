@@ -7,3 +7,5 @@
 .vim/undofiles
 .ropeproject
 .pentadactyl/info
+texmf/texmf
+tags

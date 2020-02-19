@@ -23,6 +23,7 @@ if [ -d $HOME/bin ] ; then
 fi
 
 export PATH="$PATH:~/.local/bin"
+[ -d $HOME/workspace/Seegrid/build-configs ] && export PATH="$HOME/workspace/Seegrid/build-configs:$PATH"
 
 NAMESERVER=$(cat /etc/resolv.conf  | grep -v '^#' | grep nameserver | awk '{print $2}')
 if [[ $NAMESERVER == *"134.253.181.25"* ]]; then

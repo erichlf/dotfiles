@@ -1,6 +1,7 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
+	signingkey = B052B44F7F5DB221
 [core]
     editor = vim
     autocrlf = false
@@ -40,3 +41,12 @@
     diffeach = "!f(){\
                     git diff --name-only "$@" | while read filename; do git difftool "$@" --no-prompt "$filename" & done \
                 }; f"
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[includeIf "gitdir:~/workspace/Seegrid/"]
+  path = ~/workspace/Seegrid/.gitconfig
+[commit]
+	gpgSign = true

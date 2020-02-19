@@ -6,20 +6,18 @@ end_of_line = lf
 char_set = utf-8
 trim_trailing_whitespace = true
 indent_style = space
-indent_size = 4
-tab_width = 4
-max_line_length = 80
+indent_size = 2
+tab_width = 2
+max_line_length = 110
 
 [.pentadactylrc]
 trim_trailing_whitespace = false
 
-[*.{c,C}]
-indent_size = 2
-tab_width = 2
-
-[*.tex]
-indent_size = 2
-tab_width = 2
+[CMakeLists.txt]
+indent_size = 4
+tab_width = 4
 
 [compile,*.mk,Makefile]
+indent_size = 4
+tab_width = 4
 indent_style = tab
