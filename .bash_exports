@@ -24,16 +24,3 @@ fi
 
 export PATH="$PATH:~/.local/bin"
 [ -d $HOME/workspace/Seegrid/build-configs ] && export PATH="$HOME/workspace/Seegrid/build-configs:$PATH"
-
-NAMESERVER=$(cat /etc/resolv.conf  | grep -v '^#' | grep nameserver | awk '{print $2}')
-if [[ $NAMESERVER == *"134.253.181.25"* ]]; then
-    export https_proxy="https://wwwproxy.sandia.gov:80"
-    export http_proxy="http://wwwproxy.sandia.gov:80"
-fi
-
-# load our local settings
-[ -f $HOME/.skybridgerc ] && source $HOME/.skybridgerc
-[ -f $HOME/.edisonrc ] && source $HOME/.edisonrc
-[ -f $HOME/.riderc ] && source $HOME/.riderc
-[ -f $HOME/.climaterc ] && source $HOME/.climaterc
-[ -f $HOME/.anvilrc ] && source $HOME/.anvilrc

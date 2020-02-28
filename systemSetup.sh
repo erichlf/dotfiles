@@ -7,7 +7,7 @@ sudo apt install dialog git vim
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc .bash_exports .commacd.bash .editorconfig
+declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
                       .gitconfig .gitexcludes
                       texmf .vim .vimrc .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
