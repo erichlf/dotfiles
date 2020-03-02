@@ -48,6 +48,11 @@ set rnu "show relative line numbers
 
 set textwidth=110 "line wrapping
 
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
 nmap <A-Left> <C-w>h
 nmap <A-Down> <C-w>j
 nmap <A-Up> <C-w>k
