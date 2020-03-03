@@ -153,6 +153,10 @@ let g:Tex_IgnoredWarnings =
 let g:Tex_IgnoreLevel = 6
 let g:Tex_UseMakefile = 0
 
+" ale settings
+nmap <silent> <A-Up> <Plug>(ale_next_wrap)
+nmap <silent> <A-Down> <Plug>(ale_previous_wrap)
+
 " youcompleteme settings
 let g:ycm_confirm_extra_conf = 0
 
@@ -226,11 +230,6 @@ noremap Q gq
 
 " make Y consistent with C and D
 nnoremap Y y$
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 function! StatuslineTrailingSpaceWarning()
     if !exists(" b:statusline_trailing_space_warning")
