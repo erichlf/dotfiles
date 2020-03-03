@@ -54,9 +54,6 @@
 [submodule ".vim/bundle/--force"]
 	path = .vim/bundle/--force
 	url = git@github.com:vim-scripts/vim-bufferline
-[submodule ".vim/bundle/vim-bufferline"]
-	path = .vim/bundle/vim-bufferline
-	url = git@github.com:bling/vim-bufferline
 [submodule ".vimperator/colors"]
 	path = .vimperator/colors
 	url = git@github.com:vimpr/vimperator-colors.git
