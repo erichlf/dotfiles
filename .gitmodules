@@ -81,3 +81,9 @@
 [submodule ".vim/bundle/ale"]
 	path = .vim/bundle/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule ".vim/bundle/vim-wintabs"]
+	path = .vim/bundle/vim-wintabs
+	url = https://github.com/zefei/vim-wintabs
+[submodule ".vim/bundle/vim-wintabs-powerline"]
+	path = .vim/bundle/vim-wintabs-powerline
+	url = https://github.com/zefei/vim-wintabs-powerline

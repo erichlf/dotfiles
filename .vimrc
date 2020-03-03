@@ -157,9 +157,6 @@ let g:Tex_UseMakefile = 0
 nmap <silent> <A-Up> <Plug>(ale_next_wrap)
 nmap <silent> <A-Down> <Plug>(ale_previous_wrap)
 
-" youcompleteme settings
-let g:ycm_confirm_extra_conf = 0
-
 let g:clang_format#command = '~/bin/clang-format'
 let g:clang_format#detect_style_format = 1
 let g:clang_format#auto_formatexpr = 1
