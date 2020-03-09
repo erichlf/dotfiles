@@ -9,3 +9,5 @@
 .pentadactyl/info
 texmf/texmf
 tags
+.vim/bundle/client
+.vim/bundle/server

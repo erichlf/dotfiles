@@ -25,17 +25,15 @@ setup.\nWhat would you like to do?" 14 50 16)
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
          3  "Update dotfile submodules"
-         4  "Install development utilities"
+         4  "Install development tools"
          5  "Install LaTeX"
-         6  "Install development framework"
-         7  "Install python3 framework"
-         8  "Install base system"
-         9 "Install Seegrid tools"
-         10 "Setup Internet Connections"
-         11 "Install my extras"
-         12 "Remove crapware"
-         13 "Update system"
-         14 "sudo rules")
+         6  "Install base system"
+         7  "Install Seegrid tools"
+         8  "Setup Internet Connections"
+         9  "Install my extras"
+         10 "Remove crapware"
+         11 "Update system"
+         12 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -103,18 +101,17 @@ function update_submodules(){
   return 0
 }
 
-# install python3 development
-function python3_framework(){
-  apt_install python3-setuptools python3-scipy python3-numpy python3-matplotlib python3-ipython python3-pip
+############################# developer tools ##################################
+# install development utilities
+function dev_tools(){
+  apt_install build-essential cmake gcc g++ clang ctags cscope
+
+  apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
+              python3-matplotlib python3-ipython python3-pip
+
   # need dnspython and unrar are needed by calibre
   pip3_install wheel dnspython unrar pylint
 
-  return 0
-}
-
-############################# developer tools ##################################
-# install development utilities
-function dev_utils(){
   #latest git
   if no_ppa_exists git-core
   then
@@ -140,6 +137,22 @@ function dev_utils(){
 
   sudo update-alternatives --config editor
 
+  # install ycm specifics
+  sudo apt install gnupg ca-certificates
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+
+  sudo add-apt-repository ppa:longsleep/golang-backports
+
+  sudo apt update
+
+  sudot apt install mono-devel golang-go nodejs npm
+
+  cd ~/.vim/bundle/YouCompleteMe
+  python3 install.py --all
+
+  cd $DOTFILES_DIR
+
   return 0
 }
 
@@ -154,13 +167,6 @@ function LaTeX(){
   tlmgr install arara
 
   cd $DOTFILES_DIR
-
-  return 0
-}
-
-# install my own development environment
-function dev_framework(){
-  apt_install cmake gcc g++ clang ctags cscope
 
   return 0
 }
@@ -269,9 +275,7 @@ do
     1)
        sym_links
        base_sys
-       dev_framework
-       python3_framework
-       dev_utils
+       dev_tools
        network_connections
        extras
        seegrid
@@ -290,7 +294,7 @@ do
        run_me
        ;;
     4)
-       dev_utils
+       dev_tools
        run_me
        ;;
     5)
@@ -298,38 +302,30 @@ do
        run_me
        ;;
     6)
-       dev_framework
-       run_me
-       ;;
-    7)
-       python3_framework
-       run_me
-       ;;
-    8)
        base_sys
        run_me
        ;;
-    9)
+    7)
        seegrid
        run_me
        ;;
-    10)
+    8)
        network_connections
        run_me
        ;;
-    11)
+    9)
        extras
        run_me
        ;;
-    12)
+    10)
        crapware
        run_me
        ;;
-    13)
+    11)
        update_sys
        run_me
        ;;
-    14)
+    12)
        sudo_rules
        run_me
        ;;

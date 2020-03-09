@@ -288,7 +288,6 @@ augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
-" tab completion
 function! SuperTab()
     if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
     return "\<Tab>"

@@ -57,9 +57,6 @@
 [submodule ".vimperator/colors"]
 	path = .vimperator/colors
 	url = git@github.com:vimpr/vimperator-colors.git
-[submodule ".vim/bundle/VimCompletesMe"]
-	path = .vim/bundle/VimCompletesMe
-	url = https://github.com/ajh17/VimCompletesMe.git
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/bundle/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
@@ -84,3 +81,6 @@
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git
