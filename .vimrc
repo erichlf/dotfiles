@@ -126,6 +126,12 @@ syntax on
 
 au BufNewFile,BufRead *.md set ft=md
 
+" YouCompleteMe settings
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_auto_trigger = 1
+let g:ycm_confirm_extra_config = 0
+let g:ycm_use_clangd = 1
+
 " The following is for editor-config:
 " let g:EditorConfig_core_mode = 'external_command'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -288,11 +294,11 @@ augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
-function! SuperTab()
-    if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
-    return "\<Tab>"
-    else
-    return "\<C-n>"
-    endif
-endfunction
-imap <Tab> <C-R>=SuperTab()<CR>
+"function! SuperTab()
+    "if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
+    "return "\<Tab>"
+    "else
+    "return "\<C-n>"
+    "endif
+"endfunction
+"imap <Tab> <C-R>=SuperTab()<CR>
