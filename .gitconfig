@@ -29,6 +29,7 @@
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 [diff]
     tool = meld
+    submodule = log
 [merge]
     tool = meld
 [merge "tool.meld"]
@@ -42,6 +43,7 @@
     diffeach = "!f(){\
                     git diff --name-only "$@" | while read filename; do git difftool "$@" --no-prompt "$filename" & done \
                 }; f"
+    prettylog = log --graph --pretty=format:\"%C(auto)%d %h %C(magenta)%(trailers:key=Refs,separator= ) %C(cyan)%cn %C(auto)%s\"
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
