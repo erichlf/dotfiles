@@ -83,6 +83,7 @@ set expandtab
 set shiftround
 set smartcase
 set autoindent
+set smartindent
 autocmd FileType make setlocal noexpandtab
 
 " swap files have been quite annoying lately

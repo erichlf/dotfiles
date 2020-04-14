@@ -125,7 +125,7 @@ function dev_tools(){
   apt_install tmux slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
-              libopencv-contrib-dev libopencv-photo-dev
+              libopencv-contrib-dev libopencv-photo-dev xclip
 
   python3_framework
 
