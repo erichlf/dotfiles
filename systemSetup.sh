@@ -7,7 +7,7 @@ sudo apt install dialog git vim
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
+declare -a DOTFILES=( .atom .bashrc .bash_exports .editorconfig
                       .gitconfig .gitexcludes
                       texmf .vim .vimrc .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
@@ -63,7 +63,7 @@ function add_ppa(){
 }
 
 function apt_update(){
-  sudo apt update 1>/dev/null
+  apt_update 1>/dev/null
 }
 
 function apt_install(){
@@ -138,18 +138,28 @@ function dev_tools(){
   sudo update-alternatives --config editor
 
   # install ycm specifics
-  sudo apt install gnupg ca-certificates
+  apt_install gnupg ca-certificates
   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
   echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 
-  sudo add-apt-repository ppa:longsleep/golang-backports
+  if no_ppa_exists longsleep/golang-backports
+  then
+      add_ppa longsleep/golang-backports
+  fi
 
-  sudo apt update
+  apt_update
 
-  sudot apt install mono-devel golang-go nodejs npm
+  apt_install mono-devel golang-go nodejs npm
 
   cd ~/.vim/bundle/YouCompleteMe
   python3 install.py --all
+
+  if no_ppa_exists webupd8team/atom
+  then
+      add_ppa webupd8team/atom
+  fi
+
+  apt_install atom
 
   cd $DOTFILES_DIR
 

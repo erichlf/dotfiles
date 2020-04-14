@@ -1,0 +1,31 @@
+"*":
+  "atom-include-path":
+    defaultInputValue: "Project root"
+  core:
+    audioBeep: false
+    projectHome: "/home/seegrid.local/efoster/workspace"
+    telemetryConsent: "limited"
+  editor:
+    showInvisibles: true
+    tabLength: 4
+    tabType: "soft"
+  "exception-reporting":
+    userId: "817c8254-7fd9-42b0-a7e3-7a33895ee5fb"
+  "ide-cpp":
+    clangdPath: "/usr/bin/clangd-9"
+  "linter-clang": {}
+  "linter-ui-default": {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false
+  "x-terminal":
+    spawnPtySettings:
+      projectCwd: true
+    terminalSettings:
+      colors:
+        theme: "Base16 Tomorrow Dark"
+      copyOnSelect: true
+      fontSize: 12
+    xtermAddons:
+      webgl: true

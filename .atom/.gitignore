@@ -1,0 +1,10 @@
+.atom-socket*
+packages/
+nohup.out
+blob-store
+compile-cache
+dev
+storage
+.apm
+.node-gyp
+.npm
