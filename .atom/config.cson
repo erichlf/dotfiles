@@ -1,4 +1,26 @@
 "*":
+  "atom-clang":
+    defaultCFlags: [
+      "-std=c99"
+      "-Wall"
+      "-Wextra"
+      "-D_REENTRANT"
+      "-D_GNU_SOURCE"
+      "-I /opt/local/include"
+      "-I /home/seegrid.local/efoster/workspace/Seegrid/blue"
+    ]
+    defaultCXXFlags: [
+      "-std=c++11"
+      "-Wall"
+      "-Wextra"
+      "-D_REENTRANT"
+      "-D_GNU_SOURCE"
+      "-fexceptions"
+      "-I /opt/local/include"
+      "-I /home/seegrid.local/efoster/workspace/Seegrid/blue"
+    ]
+    includeDeprecated: false
+    linterEnabled: true
   "atom-include-path":
     defaultInputValue: "Project root"
   core:
