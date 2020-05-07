@@ -25,6 +25,9 @@
     defaultInputValue: "Project root"
   core:
     audioBeep: false
+    disabledPackages: [
+      "ide-c-cpp"
+    ]
     projectHome: "/home/seegrid.local/efoster/workspace"
     telemetryConsent: "limited"
   editor:

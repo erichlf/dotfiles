@@ -53,3 +53,5 @@
   path = ~/workspace/Seegrid/.gitconfig
 [commit]
 	gpgSign = true
+[grep]
+	lineNumber = true
