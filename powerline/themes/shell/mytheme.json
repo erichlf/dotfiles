@@ -19,7 +19,11 @@
 			},
 			{
 				"function": "powerline_gitstatus.gitstatus",
-				"priority": 30
+				"priority": 40
+			},
+			{
+				"function": "powerline.segments.shell.last_status",
+				"priority": 10
 			}
 		]
 	}
