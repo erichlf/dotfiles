@@ -46,6 +46,7 @@
     showOnStartup: false
   "x-terminal":
     spawnPtySettings:
+      command: "/bin/bash"
       projectCwd: true
     terminalSettings:
       colors:
