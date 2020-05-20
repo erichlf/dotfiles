@@ -17,23 +17,22 @@ DOTFILES_DIR=$HOME/dotfiles
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
-(cd $DOTFILES_DIR && git submodule init && git submodule update)
+(cd $DOTFILES_DIR && git submodule update --init --recursive)
 
 cmd=(dialog --backtitle "system setup" --menu "Welcome to Erich's system
 setup.\nWhat would you like to do?" 14 50 16)
 
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
-         3  "Update dotfile submodules"
-         4  "Install development tools"
-         5  "Install LaTeX"
-         6  "Install base system"
-         7  "Install Seegrid tools"
-         8  "Setup Internet Connections"
-         9  "Install my extras"
-         10 "Remove crapware"
-         11 "Update system"
-         12 "sudo rules")
+         3  "Install development tools"
+         4  "Install LaTeX"
+         5  "Install base system"
+         6  "Install Seegrid tools"
+         7  "Setup Internet Connections"
+         8  "Install my extras"
+         9 "Remove crapware"
+         10 "Update system"
+         11 "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -93,18 +92,10 @@ function sym_links(){
   return 0
 }
 
-function update_submodules(){
-  cd $DOTFILES_DIR
-  git submodule update --init --recursive
-  cd $DOTFILES_DIR
-
-  return 0
-}
-
 ############################# developer tools ##################################
 # install development utilities
 function dev_tools(){
-  apt_install build-essential cmake gcc g++ clang ctags cscope
+  apt_install build-essential cmake gcc g++ clang ctags cscope \
 
   apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
               python3-matplotlib python3-ipython python3-pip
@@ -122,7 +113,12 @@ function dev_tools(){
 
   apt_update
 
-  apt_install tmux slack-desktop meld openssh-server editorconfig global \
+  if no_ppai_exists kelleyk
+  then
+      add_ppa kelleyk/emacs
+  fi
+  apt_install libtool-bin libvterm emacs26 \
+              tmux slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev xclip
@@ -142,17 +138,12 @@ function dev_tools(){
   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
   echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 
-  if no_ppa_exists longsleep/golang-backports
-  then
-      add_ppa longsleep/golang-backports
-  fi
-
-  apt_update
-
-  apt_install mono-devel golang-go nodejs npm
-
   cd ~/.vim/bundle/YouCompleteMe
   python3 install.py --all
+  cd $DOTFILES_DIR
+
+  cd ycmd
+  python3 build.py --all
 
   if no_ppa_exists webupd8team/atom
   then
@@ -300,42 +291,38 @@ do
        run_me
        ;;
     3)
-       update_submodules
-       run_me
-       ;;
-    4)
        dev_tools
        run_me
        ;;
-    5)
+    4)
        LaTeX
        run_me
        ;;
-    6)
+    5)
        base_sys
        run_me
        ;;
-    7)
+    6)
        seegrid
        run_me
        ;;
-    8)
+    7)
        network_connections
        run_me
        ;;
-    9)
+    8)
        extras
        run_me
        ;;
-    10)
+    9)
        crapware
        run_me
        ;;
-    11)
+    10)
        update_sys
        run_me
        ;;
-    12)
+    11)
        sudo_rules
        run_me
        ;;

@@ -84,3 +84,10 @@
 [submodule ".vim/bundle/YouCompleteMe"]
 	path = .vim/bundle/YouCompleteMe
 	url = https://github.com/ycm-core/YouCompleteMe.git
+[submodule ".emacs.d"]
+	path = .emacs.d
+	url = https://github.com/syl20bnr/spacemacs
+	branch = develop
+[submodule "ycmd"]
+	path = ycmd
+	url = https://github.com/ycm-core/ycmd.git
