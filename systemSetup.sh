@@ -1,15 +1,16 @@
 #!/bin/bash
 set -e
 
-sudo apt install dialog git vim
+sudo apt install dialog git
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .atom .bashrc .bash_exports .editorconfig
+declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
                       .gitconfig .gitexcludes
-                      texmf .vim .vimrc .Xmodmap
+                      .spacemacs .emacs.d
+                      texmf .Xmodmap
                       .Xresources .xsessionrc private/.bash_aliases )
 
 DOTFILES_DIR=$HOME/dotfiles
@@ -30,7 +31,7 @@ options=(1  "Fresh system setup"
          6  "Install Seegrid tools"
          7  "Setup Internet Connections"
          8  "Install my extras"
-         9 "Remove crapware"
+         9  "Remove crapware"
          10 "Update system"
          11 "sudo rules")
 
@@ -95,7 +96,7 @@ function sym_links(){
 ############################# developer tools ##################################
 # install development utilities
 function dev_tools(){
-  apt_install build-essential cmake gcc g++ clang ctags cscope \
+  apt_install build-essential cmake gcc g++ clang clang-format ctags cscope \
 
   apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
               python3-matplotlib python3-ipython python3-pip
@@ -118,7 +119,7 @@ function dev_tools(){
       add_ppa kelleyk/emacs
   fi
   apt_install libtool-bin libvterm emacs26 \
-              tmux slack-desktop meld openssh-server editorconfig global \
+               slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev xclip
@@ -133,24 +134,7 @@ function dev_tools(){
 
   sudo update-alternatives --config editor
 
-  # install ycm specifics
   apt_install gnupg ca-certificates
-  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-  echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-
-  cd ~/.vim/bundle/YouCompleteMe
-  python3 install.py --all
-  cd $DOTFILES_DIR
-
-  cd ycmd
-  python3 build.py --all
-
-  if no_ppa_exists webupd8team/atom
-  then
-      add_ppa webupd8team/atom
-  fi
-
-  apt_install atom
 
   cd $DOTFILES_DIR
 
@@ -230,6 +214,10 @@ function seegrid(){
   sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
+  cd /tmp
+  wget https://zoom.us/client/latest/zoom_amd64.deb
+  sudo apt install ./zoom_amd64.deb
+  cd $DOTFILES_DIR
 
   return 0
 }

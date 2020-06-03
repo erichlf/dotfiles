@@ -6,7 +6,7 @@ export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
-export EDITOR=`which vim`
+export EDITOR=`which emacs`
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`

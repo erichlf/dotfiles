@@ -1,2 +1,10 @@
 tags*
 .ropeproject
+.dir-locals.el
+.clang-format
+.clang_complete
+.clangd
+.ccls-cache
+cc_args.py
+compile_commands.json
+.#*
