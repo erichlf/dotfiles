@@ -7,7 +7,8 @@
     autocrlf = false
     excludesfile = ~/.gitexcludes
 [push]
-    default = simple
+    default = upstream
+    recurseSubmodules = check
 [color]
     branch = auto
     diff = auto
@@ -27,13 +28,27 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-[diff]
-    tool = meld
-    submodule = log
 [merge]
     tool = meld
 [merge "tool.meld"]
     trustExitCode = true
+    conflictstyle = diff3
+    ff = false
+[pull]
+    rebase = merges
+    recurseSubmodules = yes
+[rebase]
+    autoSquash = true
+[submodule]
+    recurse = true
+[status]
+    submodulesummary = 1
+[diff]
+    tool = meld
+    submodule = log
+    compactionHeuristic = true
+[diff "jpg"]
+    textconv = exif
 [difftool]
     prompt = false
 [difftool "meld"]
