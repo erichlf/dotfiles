@@ -84,7 +84,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+    dotspacemacs-excluded-packages '(evil-escape)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -509,6 +509,9 @@ before packages are loaded."
   (add-hook 'prog-mode-hook 'turn-on-fci-mode)
   (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
   (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
+  (global-git-commit-mode t)  ;; use emacs for git commits
+  (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
+  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
