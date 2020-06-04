@@ -63,7 +63,7 @@ function add_ppa(){
 }
 
 function apt_update(){
-  apt_update 1>/dev/null
+  sudo apt update 1>/dev/null
 }
 
 function apt_install(){
@@ -118,13 +118,11 @@ function dev_tools(){
   then
       add_ppa kelleyk/emacs
   fi
-  apt_install libtool-bin libvterm emacs26 \
-               slack-desktop meld openssh-server editorconfig global \
+  apt_install libtool-bin emacs26 \
+              slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev xclip
-
-  python3_framework
 
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
