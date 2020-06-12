@@ -38,15 +38,15 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (auto-completion :variables
-            auto-completion-enable-help-tooltip t
+            auto-completion-tab-key-behavior 'complete
+            auto-completion-enable-help-tooltip 'manual  ;; use M-h to bring up tool-tip
             auto-completion-enable-snippets-in-popup t
             auto-completion-enable-sort-by-usage t)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-backend 'lsp-clangd
             c-c++-adopt-subprojects t
-            c-c++-lsp-enable-semantic-highlight 'rainbow
-            c-c++-enable-auto-newline t)
+            c-c++-lsp-enable-semantic-highlight 'rainbow)
      (debug :variables debug-additional-debuggers '("gdb"))
      (docker :variable docker-dockerfile-backend 'lsp)
      colors
