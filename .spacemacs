@@ -549,44 +549,44 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
-  '(hl-todo-keyword-faces
-     (quote
-       (("TODO" . "#dc752f")
-         ("NEXT" . "#dc752f")
-         ("THEM" . "#2d9574")
-         ("PROG" . "#4f97d7")
-         ("OKAY" . "#4f97d7")
-         ("DONT" . "#f2241f")
-         ("FAIL" . "#f2241f")
-         ("DONE" . "#86dc2f")
-         ("NOTE" . "#b1951d")
-         ("KLUDGE" . "#b1951d")
-         ("HACK" . "#b1951d")
-         ("TEMP" . "#b1951d")
-         ("FIXME" . "#dc752f")
-         ("XXX+" . "#dc752f")
-         ("\\?\\?\\?+" . "#dc752f"))))
-  '(org-agenda-files
-     (quote
-       ("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org")))
-  '(org-capture-templates
-     (quote
-       (("t" "Ticket")
-         ("tf" "Feature" entry
-           (file+headline "~/org/tasks.org" "Tickets")
-           "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/5]
+ '(hl-todo-keyword-faces
+   (quote
+    (("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f"))))
+ '(org-agenda-files
+   (quote
+    ("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org")))
+ '(org-capture-templates
+   (quote
+    (("t" "Ticket")
+     ("tf" "Feature" entry
+      (file+headline "~/org/tasks.org" "Tickets")
+      "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/5]
 %(dotspacemacs/ticket-steps)")
-         ("tb" "Bug" entry
-           (file+headline "~/org/tasks.org" "Tickets")
-           "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/6]
+     ("tb" "Bug" entry
+      (file+headline "~/org/tasks.org" "Tickets")
+      "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/6]
 ** TODO Triage
 %(dotspacemacs/ticket-steps)")
-         ("r" "Code Review" entry
-           (file+headline "~/org/tasks.org" "Code Reviews")
-           "* TODO [[%x][%(dotspacemacs/get-ticket \"%x\")]]"))))
-  '(package-selected-packages
-     (quote
-       (org-gcal persist calfw dockerfile-mode docker tablist docker-tramp web-beautify tide typescript-mode tern prettier-js nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode simple-httpd helm-gtags ggtags counsel-gtags counsel swiper ivy add-node-modules-path posframe dap-mode bui zenburn-theme zen-and-art-theme yasnippet-snippets yapfify xterm-color white-sand-theme vterm underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-magit toxi-theme terminal-here tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme rebecca-theme realgud test-simple loc-changes load-relative rainbow-mode rainbow-identifiers railscasts-theme pytest pyenv-mode py-isort purple-haze-theme professional-theme planet-theme pippel pipenv pyvenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme multi-term monokai-theme monochrome-theme molokai-theme moe-theme modus-vivendi-theme modus-operandi-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-section magit-gitflow magit-popup madhat2r-theme lush-theme lsp-ui lsp-treemacs lsp-python-ms live-py-mode light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme importmagic epc ctable concurrent htmlize heroku-theme hemisu-theme helm-rtags helm-pydoc helm-org-rifle helm-org helm-lsp helm-gitignore helm-git-grep helm-company helm-c-yasnippet hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-c-style gnuplot gitignore-templates gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gist gh marshal logito pcache gh-md gandalf-theme fuzzy forge ghub closql emacsql-sqlite emacsql treepy flyspell-correct-helm flyspell-correct flycheck-ycmd flycheck-rtags flycheck-pos-tip pos-tip flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-org evil-magit magit git-commit with-editor transient espresso-theme eshell-z eshell-prompt-extras esh-help dracula-theme doom-themes django-theme disaster darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme cpp-auto-include company-ycmd ycmd request-deferred deferred company-rtags rtags company-reftex company-c-headers company-auctex company-anaconda company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode clues-theme chocolate-theme autothemer cherry-blossom-theme ccls lsp-mode markdown-mode dash-functional busybee-theme bubbleberry-theme browse-at-remote blacken birds-of-paradise-plus-theme badwolf-theme auto-yasnippet yasnippet auto-dictionary auctex apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
+     ("r" "Code Review" entry
+      (file+headline "~/org/tasks.org" "Code Reviews")
+      "* TODO [[%x][%(dotspacemacs/get-ticket \"%x\")]]"))))
+ '(package-selected-packages
+   (quote
+    (org-gcal persist calfw dockerfile-mode docker tablist docker-tramp web-beautify tide typescript-mode tern prettier-js nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode simple-httpd helm-gtags ggtags counsel-gtags counsel swiper ivy add-node-modules-path posframe dap-mode bui zenburn-theme zen-and-art-theme yasnippet-snippets yapfify xterm-color white-sand-theme vterm underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-magit toxi-theme terminal-here tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme rebecca-theme realgud test-simple loc-changes load-relative rainbow-mode rainbow-identifiers railscasts-theme pytest pyenv-mode py-isort purple-haze-theme professional-theme planet-theme pippel pipenv pyvenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme multi-term monokai-theme monochrome-theme molokai-theme moe-theme modus-vivendi-theme modus-operandi-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-section magit-gitflow magit-popup madhat2r-theme lush-theme lsp-ui lsp-treemacs lsp-python-ms live-py-mode light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme importmagic epc ctable concurrent htmlize heroku-theme hemisu-theme helm-rtags helm-pydoc helm-org-rifle helm-org helm-lsp helm-gitignore helm-git-grep helm-company helm-c-yasnippet hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-c-style gnuplot gitignore-templates gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gist gh marshal logito pcache gh-md gandalf-theme fuzzy forge ghub closql emacsql-sqlite emacsql treepy flyspell-correct-helm flyspell-correct flycheck-ycmd flycheck-rtags flycheck-pos-tip pos-tip flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-org evil-magit magit git-commit with-editor transient espresso-theme eshell-z eshell-prompt-extras esh-help dracula-theme doom-themes django-theme disaster darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme cpp-auto-include company-ycmd ycmd request-deferred deferred company-rtags rtags company-reftex company-c-headers company-auctex company-anaconda company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode clues-theme chocolate-theme autothemer cherry-blossom-theme ccls lsp-mode markdown-mode dash-functional busybee-theme bubbleberry-theme browse-at-remote blacken birds-of-paradise-plus-theme badwolf-theme auto-yasnippet yasnippet auto-dictionary auctex apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

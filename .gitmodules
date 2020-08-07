@@ -12,3 +12,6 @@
 	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
 	branch = develop
+[submodule "google-calendar"]
+	path = google-calendar
+	url = https://github.com/mhkc/google-calendar-layer.git
