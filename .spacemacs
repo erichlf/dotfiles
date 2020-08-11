@@ -495,6 +495,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq byte-compile-warnings '(cl-functions))
   )
 
 (defun dotspacemacs/user-load ()
@@ -510,7 +511,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode)  ;; fill column indicator
+  (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; fill column indicator
   (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)  ;; increment number
   (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
   (global-git-commit-mode t)  ;; use emacs for git commits
