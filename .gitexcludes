@@ -8,4 +8,6 @@ tags*
 cc_args.py
 compile_commands.json
 .#*
-org-gcal
+.org-gcal-token
+org-gcal---sync-tokens
+persist
