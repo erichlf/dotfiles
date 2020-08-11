@@ -533,7 +533,12 @@ before packages are loaded."
 
 (defun dotspacemacs/ticket-steps ()
   "Provides a string that has my standard ticket process"
-  (setq steps "** TODO Implement\n** TODO Code Review\n** TODO Branch Test\n** TODO Integrate\n** TODO Integration Test")
+  (setq steps "** TODO Implement
+** TODO Code Review
+** TODO Branch Test
+** TODO Integrate
+** TODO Integration Test
+** TODO Sign Off")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -574,11 +579,17 @@ This function is called at the very end of Spacemacs initialization."
     (("t" "Ticket")
      ("tf" "Feature" entry
       (file+headline "~/org/tasks.org" "Tickets")
-      "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/5]
+      "* TODO %^{TITLE} ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/6]
+   :PROPERTIES:
+   :CUSTOM_ID: %\\1
+   :END:
 %(dotspacemacs/ticket-steps)")
      ("tb" "Bug" entry
       (file+headline "~/org/tasks.org" "Tickets")
-      "* TODO %? ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/6]
+      "* TODO %^{TITLE} ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/7]
+   :PROPERTIES:
+   :CUSTOM_ID: %\\1
+   :END:
 ** TODO Triage
 %(dotspacemacs/ticket-steps)")
      ("r" "Code Review" entry
