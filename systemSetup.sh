@@ -114,16 +114,29 @@ function dev_tools(){
 
   apt_update
 
-  if no_ppai_exists kelleyk
+  # add repo for latest emacs
+  if no_ppa_exists kelleyk
   then
-      add_ppa kelleyk/emacs
+    add_ppa kelleyk/emacs
   fi
+
   apt_install libtool-bin emacs26 \
               slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev xclip
 
+  # setup links for google-calendar plugin
+  cd $DOTFILES_DIR/.emacs.d/private/local/
+  ln -sf $DOTFILES_DIR/google-calendar
+  # setup links for snippets
+  cd $DOTFILES_DIR/.emacs.d/private/snippets
+  for S in $DOTFILES_DIR/snippets/*
+  do
+    ln -sf $S
+  done
+
+  # setup link for powerline
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
   cd $DOTFILES_DIR
