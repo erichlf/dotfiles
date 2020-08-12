@@ -68,6 +68,7 @@ This function should only modify configuration layer settings."
          shell-default-shell 'vterm
          shell-default-width 35
          shell-default-position 'right)
+       slack
        spell-checking
        syntax-checking
        themes-megapack
@@ -523,6 +524,15 @@ before packages are loaded."
        (,(password-store-get "calendar/personal") . "~/org/personal.org")))
   (setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
   (setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
+  (setq alert-default-style 'libnotify)
+  (slack-register-team
+    :name "seegrid"
+    :default t
+    :client-id (password-store-get "email/seegrid-uid")
+    :client-secret (password-store-get "email/seegrid-pass")
+    :token (password-store-get "secrets/slack-token")
+    :full-and-display-names t
+    :subscribed-channels '(eng_truck_sw eng_gp8_s8 rock_updates emergency-notices))
   )
 
 (defun dotspacemacs/get-ticket (link)

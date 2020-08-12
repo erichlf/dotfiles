@@ -127,7 +127,7 @@ function dev_tools(){
               libopencv-contrib-dev libopencv-photo-dev xclip
 
   # setup links for google-calendar plugin
-  cd $DOTFILES_DIR/.emacs.d/private/local/
+  cd $DOTFILES_DIR/.emacs.d/private/
   ln -sf $DOTFILES_DIR/google-calendar
   # setup links for snippets
   cd $DOTFILES_DIR/.emacs.d/private/snippets
