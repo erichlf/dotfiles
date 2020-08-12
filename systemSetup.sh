@@ -175,7 +175,13 @@ function base_sys(){
   then
       add_ppa alessandro-strada/ppa
   fi
-  apt_install wget curl htop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool
+
+  if no_ppa_exists bashtop-monitor
+  then
+     add_ppa bashtop-monitor/bashtop
+  fi
+
+  apt_install wget curl bashtop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
