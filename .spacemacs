@@ -547,31 +547,29 @@ before packages are loaded."
          (match-string 1 link)))
   )
 
-(defun dotspacemacs/ticket-steps ()
+(defun dotspacemacs/ticket-steps (ticketType link)
   "Provides a string that has my standard ticket process"
+  (interactive)
+  (setq title
+    (read-string "TITLE: "))
+  (if (equal ticketType "bug")
+    (setq numSteps 7)
+    (setq numSteps 6))
+  (setq header (format "* TODO %s ([[%s][%s]]) [0/%i]
+   :PROPERTIES:
+   :CUSTOM_ID: %s
+   :END:\n" title link (dotspacemacs/get-ticket link) numSteps title))
+  (setq triage "** TODO Triage\n")
   (setq steps "** TODO Implement
 ** TODO Code Review
 ** TODO Branch Test
 ** TODO Integrate
 ** TODO Integration Test
 ** TODO Sign Off")
-  )
-
-(defun dotspacemacs/ticket-create (type title link)
-  "Provides the TODO list for a ticket"
-  (if (eq type "bug") ((setq num "7")
-                      (setq triage "** TODO Triage\n"))
-                     (setq num "6"))
-  (concat "* TODO " title " ([[" link "][" (dotspacemacs/get-ticket link) "]]) [0/" num "]
-   :PROPERTIES:
-   :CUSTOM_ID: " title "
-   :END:\n" triage
-"** TODO Implement
-** TODO Code Review
-** TODO Branch Test
-** TODO Integrate
-** TODO Integration Test
-** TODO Sign Off")
+  (if (equal ticketType "bug")
+    (s-concat header triage steps)
+    (s-concat header steps)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -626,19 +624,10 @@ This function is called at the very end of Spacemacs initialization."
        (("t" "Ticket")
          ("tf" "Feature" entry
            (file+headline "~/org/tasks.org" "Tickets")
-           "* TODO %^{TITLE} ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/6]
-   :PROPERTIES:
-   :CUSTOM_ID: %\\1
-   :END:
-%(dotspacemacs/ticket-steps)")
+           "%(dotspacemacs/ticket-steps \"\" \"%x\")")
          ("tb" "Bug" entry
            (file+headline "~/org/tasks.org" "Tickets")
-           "* TODO %^{TITLE} ([[%x][%(dotspacemacs/get-ticket \"%x\")]]) [0/7]
-   :PROPERTIES:
-   :CUSTOM_ID: %\\1
-   :END:
-** TODO Triage
-%(dotspacemacs/ticket-steps)")
+           "%(dotspacemacs/ticket-steps \"bug\" \"%x\")")
          ("r" "Code Review" entry
            (file+headline "~/org/tasks.org" "Code Reviews")
            "* TODO [[%x][%(dotspacemacs/get-ticket \"%x\")]]"))))
