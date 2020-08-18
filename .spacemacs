@@ -518,13 +518,35 @@ before packages are loaded."
   (global-git-commit-mode t)  ;; use emacs for git commits
   (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
+  ;; setup using org-gcal to use my google calendars
   (setq org-gcal-file-alist
      `((,(password-store-get "calendar/seegrid") . "~/org/seegrid.org")
        (,(password-store-get "calendar/family") . "~/org/family.org")
        (,(password-store-get "calendar/personal") . "~/org/personal.org")))
   (setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
   (setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
-  (setq alert-default-style 'libnotify)
+  ;; setup org-agenda to keep track of unread messages
+  (alert-define-style
+    'my/alert-style :title
+    "Make Org headings for messages I receive - Style"
+    :notifier
+    (lambda (info)
+      (write-region
+        (s-concat
+          "* TODO "
+          (plist-get info :title)
+          " : "
+          (format "%s %s" (plist-get info :title) (plist-get info :message))
+          "\n"
+          (format "SCHEDULED: <%s>" (format-time-string "%Y-%m-%d %H:%M"))
+          "\n")
+        nil
+        "~/org/slack.org"
+        t)))
+  (setq alert-default-style 'message)
+  (add-to-list 'alert-user-configuration
+    '(((:category . "slack")) my/alert-style nil))
+  ;; setup slack
   (slack-register-team
     :name "seegrid"
     :default t
@@ -533,11 +555,14 @@ before packages are loaded."
     :token (password-store-get "secrets/slack-token")
     :full-and-display-names t
     :subscribed-channels '(eng_truck_sw eng_gp8_s8 rock_updates emergency-notices))
-  (setq slack-prefer-current-team t)
-  (slack-start)
+  (setq slack-prefer-current-team t)  ;; stop asking me which team to use
+  (slack-start)  ;; start slack when opening emacs
+  ;; display a nice timestamp in slack
   (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
   (setq lui-time-stamp-only-when-changed-p t)
   (setq lui-time-stamp-position 'right)
+  ;; don't display messages or scheduled items if done
+  (setq org-agenda-skip-scheduled-if-done t)
   )
 
 (defun dotspacemacs/get-ticket (link)
@@ -608,17 +633,13 @@ This function is called at the very end of Spacemacs initialization."
  '(linum-format " %7d ")
   '(org-agenda-custom-commands
      (quote
-       (("N" "Agenda and all TODOs"
-          ((agenda "" nil)
-            (alltodo "" nil))
-          nil)
-         ("n" "Agenda and Main Tasks"
+       (("n" "Agenda and Main Tasks"
            ((agenda "" nil)
              (tags-todo "LEVEL=2" nil))
            nil nil))))
   '(org-agenda-files
      (quote
-       ("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org")))
+       ("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org" "~/org/slack.org")))
   '(org-capture-templates
      (quote
        (("t" "Ticket")
