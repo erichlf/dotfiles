@@ -49,6 +49,7 @@ This function should only modify configuration layer settings."
          c-c++-adopt-subprojects t
          c-c++-lsp-enable-semantic-highlight 'rainbow)
        colors
+       csv
        (docker :variable
          docker-dockerfile-backend 'lsp)
        emacs-lisp
@@ -56,6 +57,7 @@ This function should only modify configuration layer settings."
        github
        google-calendar
        helm
+       html
        latex
        lsp
        markdown
@@ -83,7 +85,12 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+      (org-page :location (recipe
+                            :fetcher github
+                            :repo "sillykelvin/org-page"
+                            :files ("*.el" "doc" "themes")))
+                                        )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -557,12 +564,22 @@ before packages are loaded."
     :subscribed-channels '(eng_truck_sw eng_gp8_s8 rock_updates emergency-notices))
   (setq slack-prefer-current-team t)  ;; stop asking me which team to use
   (slack-start)  ;; start slack when opening emacs
+  (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
   ;; display a nice timestamp in slack
   (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
   (setq lui-time-stamp-only-when-changed-p t)
   (setq lui-time-stamp-position 'right)
   ;; don't display messages or scheduled items if done
   (setq org-agenda-skip-scheduled-if-done t)
+  ;; org-page
+  (require 'org-page)
+  (setq op/repository-directory "~/workspace/erichlf.github.io")
+  (setq op/site-domain "https://erichlf.github.io")
+  (setq op/personal-github-link "https://github.com/erichlf")
+  (setq op/site-main-title "That Stuff I Found Along the Way")
+  (setq op/site-sub-title "")
+  (setq user-full-name "Erich L Foster")
+  (setq user-mail-address "erichlf@gmail.com")
   )
 
 (defun dotspacemacs/get-ticket (link)
@@ -634,9 +651,9 @@ This function is called at the very end of Spacemacs initialization."
   '(org-agenda-custom-commands
      (quote
        (("n" "Agenda and Main Tasks"
-           ((agenda "" nil)
-             (tags-todo "LEVEL=2" nil))
-           nil nil))))
+          ((agenda "" nil)
+            (tags-todo "LEVEL=2" nil))
+          nil nil))))
   '(org-agenda-files
      (quote
        ("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org" "~/org/slack.org")))
