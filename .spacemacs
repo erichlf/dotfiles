@@ -460,7 +460,7 @@ It should only modify the values of Spacemacs settings."
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
    ;; (default "%I@%S")
-   dotspacemacs-frame-title-format "%I@%S"
+   dotspacemacs-frame-title-format "%t@%a"
 
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
@@ -569,6 +569,8 @@ before packages are loaded."
   (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
   (setq lui-time-stamp-only-when-changed-p t)
   (setq lui-time-stamp-position 'right)
+  (progn (find-file "~/org/slack.org") (auto-save-mode))
+  (progn (find-file "~/org/slack.org_archive") (auto-save-mode))
   ;; don't display messages or scheduled items if done
   (setq org-agenda-skip-scheduled-if-done t)
   ;; org-page
@@ -578,8 +580,11 @@ before packages are loaded."
   (setq op/personal-github-link "https://github.com/erichlf")
   (setq op/site-main-title "That Stuff I Found Along the Way")
   (setq op/site-sub-title "")
+  (setq op/personal-disqus-shortname (password-store-get "secrets/disqus-user"))
   (setq user-full-name "Erich L Foster")
   (setq user-mail-address "erichlf@gmail.com")
+  ;; projectile
+  (setq projectile-project-search-path '("~/workspace"))
   )
 
 (defun dotspacemacs/get-ticket (link)
