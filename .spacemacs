@@ -532,18 +532,23 @@ before packages are loaded."
        (,(password-store-get "calendar/personal") . "~/org/personal.org")))
   (setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
   (setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
+  ;; org-agenda
+  (setq org-log-into-drawer t)  ;; log state changes to a drawer
+  (setq org-agenda-show-outline-path t)  ;; show items path in echo area
   ;; setup org-agenda to keep track of unread messages
   (alert-define-style
     'my/alert-style :title
     "Make Org headings for messages I receive - Style"
     :notifier
     (lambda (info)
+      (when (get-buffer "slack.org") (with-current-buffer "slack.org" (save-buffer)))
       (write-region
         (s-concat
-          "* TODO "
+          "** TODO "
           (plist-get info :title)
           " : "
-          (format "%s %s" (plist-get info :title) (plist-get info :message))
+          (format "%s %s" (plist-get info :title)
+                          (s-truncate 127 (plist-get info :message)))
           "\n"
           (format "SCHEDULED: <%s>" (format-time-string "%Y-%m-%d %H:%M"))
           "\n")
@@ -563,6 +568,9 @@ before packages are loaded."
     :full-and-display-names t
     :subscribed-channels '(eng_truck_sw eng_gp8_s8 rock_updates emergency-notices))
   (setq slack-prefer-current-team t)  ;; stop asking me which team to use
+  (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
+  (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
+  (evil-define-key 'insert slack-thread-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
   (slack-start)  ;; start slack when opening emacs
   (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
   ;; display a nice timestamp in slack
@@ -585,6 +593,7 @@ before packages are loaded."
   (setq user-mail-address "erichlf@gmail.com")
   ;; projectile
   (setq projectile-project-search-path '("~/workspace"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!)" "|" "DONE(d!)" "WON'T FIX(w!)")))
   )
 
 (defun dotspacemacs/get-ticket (link)
