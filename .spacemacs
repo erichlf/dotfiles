@@ -535,6 +535,7 @@ before packages are loaded."
   ;; org-agenda
   (setq org-log-into-drawer t)  ;; log state changes to a drawer
   (setq org-agenda-show-outline-path t)  ;; show items path in echo area
+  (setq org-agenda-log-mode-items (quote (closed state clocked)))
   ;; setup org-agenda to keep track of unread messages
   (alert-define-style
     'my/alert-style :title
@@ -544,13 +545,13 @@ before packages are loaded."
       (when (get-buffer "slack.org") (with-current-buffer "slack.org" (save-buffer)))
       (write-region
         (s-concat
-          "** TODO "
+          "* TODO "
           (plist-get info :title)
           " : "
           (format "%s %s" (plist-get info :title)
                           (s-truncate 127 (plist-get info :message)))
           "\n"
-          (format "SCHEDULED: <%s>" (format-time-string "%Y-%m-%d %H:%M"))
+          (format "<%s>" (format-time-string "%Y-%m-%d %H:%M"))
           "\n")
         nil
         "~/org/slack.org"
@@ -577,10 +578,13 @@ before packages are loaded."
   (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
   (setq lui-time-stamp-only-when-changed-p t)
   (setq lui-time-stamp-position 'right)
-  (progn (find-file "~/org/slack.org") (auto-save-mode))
   (progn (find-file "~/org/slack.org_archive") (auto-save-mode))
+  (progn (find-file "~/org/slack.org") (auto-save-mode))
   ;; don't display messages or scheduled items if done
   (setq org-agenda-skip-scheduled-if-done t)
+  ;; add a way to mark item as done and archive it all in one
+  (defun my/org-agenda-todo-archive () (interactive) (org-agenda-todo 'done) (org-agenda-archive))
+  (add-hook 'org-agenda-mode-hook (lambda () (local-set-key (kbd "T") 'my/org-agenda-todo-archive)))
   ;; org-page
   (require 'org-page)
   (setq op/repository-directory "~/workspace/erichlf.github.io")
