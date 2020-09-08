@@ -44,10 +44,12 @@ This function should only modify configuration layer settings."
          auto-completion-enable-snippets-in-popup t
          auto-completion-enable-sort-by-usage t)
        (c-c++ :variables
-         c-c++-default-mode-for-headers 'c++-mode
-         c-c++-backend 'lsp-clangd
          c-c++-adopt-subprojects t
-         c-c++-lsp-enable-semantic-highlight 'rainbow)
+         c-c++-backend 'lsp-clangd
+         c-c++-default-mode-for-headers 'c++-mode
+         c-c++-enable-clang-support t
+         c-c++-lsp-enable-semantic-highlight 'rainbow
+         clang-format-style "file")
        colors
        csv
        (docker :variable
@@ -90,7 +92,7 @@ This function should only modify configuration layer settings."
                             :fetcher github
                             :repo "sillykelvin/org-page"
                             :files ("*.el" "doc" "themes")))
-                                        )
+                                       )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -471,7 +473,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+    dotspacemacs-whitespace-cleanup 'trailing
 
    ;; If non nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfer with mode specific
@@ -525,6 +527,10 @@ before packages are loaded."
   (global-git-commit-mode t)  ;; use emacs for git commits
   (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
+  (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
+  (whitespace-mode 't)  ;; turn on whitespace minor mode
+  (setq c-basic-offset 4)  ;; tabulate to 4 spaces
+  (setq indent-tabs-mode nil)  ;; don't use tabs
   ;; setup using org-gcal to use my google calendars
   (setq org-gcal-file-alist
      `((,(password-store-get "calendar/seegrid") . "~/org/seegrid.org")
@@ -535,7 +541,7 @@ before packages are loaded."
   ;; org-agenda
   (setq org-log-into-drawer t)  ;; log state changes to a drawer
   (setq org-agenda-show-outline-path t)  ;; show items path in echo area
-  (setq org-agenda-log-mode-items (quote (closed state clocked)))
+  (setq org-agenda-log-mode-items (quote (state clocked)))
   ;; setup org-agenda to keep track of unread messages
   (alert-define-style
     'my/alert-style :title
@@ -574,6 +580,8 @@ before packages are loaded."
   (evil-define-key 'insert slack-thread-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
   (slack-start)  ;; start slack when opening emacs
   (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
+  ;; keep my slack status as active
+  (run-with-timer (* 30 60) nil #'(slack-start))
   ;; display a nice timestamp in slack
   (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
   (setq lui-time-stamp-only-when-changed-p t)
@@ -670,7 +678,7 @@ This function is called at the very end of Spacemacs initialization."
      (quote
        (("n" "Agenda and Main Tasks"
           ((agenda "" nil)
-            (tags-todo "LEVEL=2" nil))
+            (tags-todo "LEVEL>1" nil))
           nil nil))))
   '(org-agenda-files
      (quote
