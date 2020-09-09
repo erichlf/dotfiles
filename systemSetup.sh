@@ -181,7 +181,12 @@ function base_sys(){
      add_ppa bashtop-monitor/bashtop
   fi
 
-  apt_install wget curl bashtop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool
+  apt_install wget curl bashtop iftop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool \
+              nautilus-dropbox
+
+  dropbox start -i
+
+  ln -s ~/DropBox/org ~/org
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
