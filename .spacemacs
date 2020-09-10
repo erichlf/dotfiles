@@ -562,7 +562,8 @@ This function is called at the very end of Spacemacs initialization."
      (quote
        (("n" "Agenda and Main Tasks"
           ((agenda "" nil)
-            (tags-todo "LEVEL>1" nil))
+            (tags-todo "LEVEL>1"
+              ((org-agenda-prefix-format "%l%l"))))
           nil nil))))
   '(org-agenda-files
      (quote

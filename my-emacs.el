@@ -94,7 +94,7 @@
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
 (global-git-commit-mode t)  ;; use emacs for git commits
 (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
-(add-hook 'c-mode-common-hook `my/set-c-ctyle)
+(add-hook 'c-mode-common-hook `my/set-c-ctyle)  ;; apply my c-style
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
 (whitespace-mode 't)  ;; turn on whitespace minor mode
 
@@ -119,7 +119,7 @@
     (when (get-buffer "slack.org") (with-current-buffer "slack.org" (save-buffer)))
     (write-region
       (s-concat
-        "* TODO "
+        "* UNREAD "
         (plist-get info :title)
         " : "
         (format "%s %s" (plist-get info :title)
@@ -154,11 +154,10 @@
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
 (setq lui-time-stamp-position 'right)
-(add-hook 'focus-out-hook 'my/save-slack)
+;; (add-hook 'focus-out-hook 'my/save-slack)
 ;; don't display messages or scheduled items if done
 (setq org-agenda-skip-scheduled-if-done t)
 ;; add a way to mark item as done and archive it all in one
-(defun my/org-agenda-todo-archive () (interactive) (org-agenda-todo 'done) (org-agenda-archive))
 (add-hook 'org-agenda-mode-hook (lambda () (local-set-key (kbd "T") 'my/org-agenda-todo-archive)))
 
 ;; org-page
@@ -174,20 +173,31 @@
 
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
+
+;; General org settings
 (setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!)" "|" "DONE(d!)" "WON'T FIX(w!)")))
+(setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
 
 ;; my functions follow
 (defun my/save-slack ()
   "Save slack buffers"
   (interactive)
   (save-excursion
-    (dolist (buf ("slack.org_archive" "slack.org"))
+    (dolist (buf '("slack.org_archive" "slack.org"))
       (set-buffer buf)
       (if (and (buffer-file-name) (buffer-modified-p))
         (basic-save-buffer)
         )
       )
     )
+  )
+
+(defun my/org-agenda-todo-archive ()
+  "Mark an agenda item as done, archive it, and save the slack buffers"
+  (interactive)
+  (org-agenda-todo 'done)
+  (org-agenda-archive)
+  (my/save-slack)
   )
 
 (defun my/get-ticket (link)
