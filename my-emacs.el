@@ -141,7 +141,7 @@
   :client-secret (password-store-get "email/seegrid-pass")
   :token (password-store-get "secrets/slack-token")
   :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_gp8_s8 rock_updates emergency-notices))
+  :subscribed-channels '(eng_truck_sw eng_gp8_s8 truck_sw_coordination rock_updates emergency-notices))
 (setq slack-prefer-current-team t)  ;; stop asking me which team to use
 (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
@@ -149,7 +149,7 @@
 (slack-start)  ;; start slack when opening emacs
 (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
 ;; keep my slack status as active
-(run-with-timer (* 30 60) nil #'(slack-start))
+(run-with-timer (* 30 60) (* 30 60) #'slack-start)
 ;; display a nice timestamp in slack
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
