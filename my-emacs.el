@@ -177,6 +177,16 @@
 ;; General org settings
 (setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!)" "|" "DONE(d!)" "WON'T FIX(w!)")))
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
+(setq org-agenda-clockreport-parameter-plist
+  (quote (:hidefiles t :link t :maxlevel 4 :fileskip0 t :compact t :formula %)))
+(org-clock-persistence-insinuate)  ;; Resume clocking task when emacs is restarted
+(setq org-clock-persist t)  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(setq org-clock-in-resume t)  ;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-persist-query-resume nil)  ;; Do not prompt to resume an active clock, just resume it
+(setq org-clock-out-when-done t)  ;; Clock out when moving task to a done state
+(setq org-clock-report-include-clocking-task t)  ;; Include current clocking task in clock reports
+(setq org-pretty-entities t)  ;; use pretty things for the clocktable
+(setq org-babel-python-command "python3")  ;; use python3 in org-mode code
 
 ;; my functions follow
 (defun my/save-slack ()
