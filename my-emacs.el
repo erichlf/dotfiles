@@ -61,7 +61,9 @@
 (slack-start)  ;; start slack when opening emacs
 (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
 ;; keep my slack status as active
-(run-with-timer (* 30 60) (* 30 60) #'slack-start)
+(run-with-timer 0 (* 30 60) (lambda ()
+                              (slack-ws--reconnect (oref slack-current-team :id) t)
+                              (slack-im-list-update)))
 ;; display a nice timestamp in slack
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
