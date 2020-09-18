@@ -92,7 +92,9 @@ This function should only modify configuration layer settings."
                             :fetcher github
                             :repo "sillykelvin/org-page"
                             :files ("*.el" "doc" "themes")))
-                                       )
+      (org-roam :location (recipe
+                            :fetcher github
+                            :repo "jethrokuan/org-roam")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

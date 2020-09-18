@@ -1,92 +1,3 @@
-;; define the seegrid coding style
-(defconst my/seegrid-c-style ()
-  '("Seegrid C/C++ Programming Style"
-     (c-basic-offset . 4)     ; Guessed value
-     (c-offsets-alist
-          (block-close . 0)       ; Guessed value
-          (case-label . 0)        ; Guessed value
-          (defun-block-intro . +) ; Guessed value
-          (defun-close . 0)       ; Guessed value
-          (defun-open . 0)        ; Guessed value
-          (inline-close . 0)      ; Guessed value
-          (innamespace . 0)       ; Guessed value
-          (member-init-cont . 0)  ; Guessed value
-          (member-init-intro . +) ; Guessed value
-          (statement . 0)             ; Guessed value
-          (statement-block-intro . +) ; Guessed value
-          (statement-case-intro . +) ; Guessed value
-          (statement-case-open . +)  ; Guessed value
-          (statement-cont . +)    ; Guessed value
-          (topmost-intro . 0)     ; Guessed value
-          (access-label . -)
-          (annotation-top-cont . 0)
-          (annotation-var-cont . +)
-          (arglist-close . c-lineup-close-paren)
-          (arglist-cont c-lineup-gcc-asm-reg 0)
-          (arglist-cont-nonempty . c-lineup-arglist)
-          (arglist-intro . +)
-          (block-open . 0)
-          (brace-entry-open . 0)
-          (brace-list-close . 0)
-          (brace-list-entry . c-lineup-under-anchor)
-          (brace-list-intro . +)
-          (brace-list-open . 0)
-          (c . c-lineup-C-comments)
-          (catch-clause . 0)
-          (class-close . 0)
-          (class-open . 0)
-          (comment-intro . c-lineup-comment)
-          (composition-close . 0)
-          (composition-open . 0)
-          (cpp-define-intro c-lineup-cpp-define +)
-          (cpp-macro . -1000)
-          (cpp-macro-cont . +)
-          (do-while-closure . 0)
-          (else-clause . 0)
-          (extern-lang-close . 0)
-          (extern-lang-open . 0)
-          (friend . 0)
-          (func-decl-cont . +)
-          (inclass . +)
-          (incomposition . +)
-          (inexpr-class . +)
-          (inexpr-statement . +)
-          (inextern-lang . +)
-          (inher-cont . c-lineup-multi-inher)
-          (inher-intro . +)
-          (inlambda . c-lineup-inexpr-block)
-          (inline-open . +)
-          (inmodule . +)
-          (knr-argdecl . 0)
-          (knr-argdecl-intro . +)
-          (label . 2)
-          (lambda-intro-cont . +)
-          (module-close . 0)
-          (module-open . 0)
-          (namespace-close . 0)
-          (namespace-open . 0)
-          (objc-method-args-cont . c-lineup-ObjC-method-args)
-          (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
-          (objc-method-intro . [0])
-          (stream-op . c-lineup-streamop)
-          (string . -1000)
-          (substatement . +)
-          (substatement-label . 2)
-          (substatement-open . +)
-          (template-args-cont c-lineup-template-args +)
-          (topmost-intro-cont . c-lineup-topmost-intro-cont)
-       )
-     )
-  )
-
-;; function to load my c-style
-(defun my/set-c-ctyle ()
-  (interactive)
-  (make-local-variable 'c-tab-always-indent)
-  (setq c-tab-always-indent t)
-  (c-add-style "seegrid" my/seegrid-c-style t)
-  )
-
 ;; programming settings
 (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; toggle fill column indicator on
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
@@ -105,6 +16,7 @@
       (,(password-store-get "calendar/personal") . "~/org/personal.org")))
 (setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
 (setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
+
 ;; org-agenda
 (setq org-log-into-drawer t)  ;; log state changes to a drawer
 (setq org-agenda-show-outline-path t)  ;; show items path in echo area
@@ -188,6 +100,20 @@
 (setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (setq org-babel-python-command "python3")  ;; use python3 in org-mode code
 
+;; org-roam
+(use-package org-roam
+  :ensure t
+  :hook (after-init . org-roam-mode)
+  :custom (org-roam-directory "~/org/notes/")
+  :bind (:map org-roam-mode-map
+          (("C-c n l" . org-roam)
+           ("C-c n f" . org-roam-find-file)
+           ("C-c n g" . org-roam-graph-show))
+         :map org-mode-map
+          (("C-c n i" . org-roam-insert))
+          (("C-c n I" . org-roam-insert-immediate))))
+(add-to-list 'exec-path (executable-find "sqlite3"))
+
 ;; my functions follow
 (defun my/save-slack ()
   "Save slack buffers"
@@ -237,4 +163,93 @@
     (s-concat header triage steps)
     (s-concat header steps)
     )
+  )
+
+;; function to load my c-style
+(defun my/set-c-ctyle ()
+  (interactive)
+  (make-local-variable 'c-tab-always-indent)
+  (setq c-tab-always-indent t)
+  (c-add-style "seegrid" my/seegrid-c-style t)
+  )
+
+;; define the seegrid coding style
+(defconst my/seegrid-c-style ()
+  '("Seegrid C/C++ Programming Style"
+     (c-basic-offset . 4)     ; Guessed value
+     (c-offsets-alist
+          (block-close . 0)       ; Guessed value
+          (case-label . 0)        ; Guessed value
+          (defun-block-intro . +) ; Guessed value
+          (defun-close . 0)       ; Guessed value
+          (defun-open . 0)        ; Guessed value
+          (inline-close . 0)      ; Guessed value
+          (innamespace . 0)       ; Guessed value
+          (member-init-cont . 0)  ; Guessed value
+          (member-init-intro . +) ; Guessed value
+          (statement . 0)             ; Guessed value
+          (statement-block-intro . +) ; Guessed value
+          (statement-case-intro . +) ; Guessed value
+          (statement-case-open . +)  ; Guessed value
+          (statement-cont . +)    ; Guessed value
+          (topmost-intro . 0)     ; Guessed value
+          (access-label . -)
+          (annotation-top-cont . 0)
+          (annotation-var-cont . +)
+          (arglist-close . c-lineup-close-paren)
+          (arglist-cont c-lineup-gcc-asm-reg 0)
+          (arglist-cont-nonempty . c-lineup-arglist)
+          (arglist-intro . +)
+          (block-open . 0)
+          (brace-entry-open . 0)
+          (brace-list-close . 0)
+          (brace-list-entry . c-lineup-under-anchor)
+          (brace-list-intro . +)
+          (brace-list-open . 0)
+          (c . c-lineup-C-comments)
+          (catch-clause . 0)
+          (class-close . 0)
+          (class-open . 0)
+          (comment-intro . c-lineup-comment)
+          (composition-close . 0)
+          (composition-open . 0)
+          (cpp-define-intro c-lineup-cpp-define +)
+          (cpp-macro . -1000)
+          (cpp-macro-cont . +)
+          (do-while-closure . 0)
+          (else-clause . 0)
+          (extern-lang-close . 0)
+          (extern-lang-open . 0)
+          (friend . 0)
+          (func-decl-cont . +)
+          (inclass . +)
+          (incomposition . +)
+          (inexpr-class . +)
+          (inexpr-statement . +)
+          (inextern-lang . +)
+          (inher-cont . c-lineup-multi-inher)
+          (inher-intro . +)
+          (inlambda . c-lineup-inexpr-block)
+          (inline-open . +)
+          (inmodule . +)
+          (knr-argdecl . 0)
+          (knr-argdecl-intro . +)
+          (label . 2)
+          (lambda-intro-cont . +)
+          (module-close . 0)
+          (module-open . 0)
+          (namespace-close . 0)
+          (namespace-open . 0)
+          (objc-method-args-cont . c-lineup-ObjC-method-args)
+          (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
+          (objc-method-intro . [0])
+          (stream-op . c-lineup-streamop)
+          (string . -1000)
+          (substatement . +)
+          (substatement-label . 2)
+          (substatement-open . +)
+          (template-args-cont c-lineup-template-args +)
+          (topmost-intro-cont . c-lineup-topmost-intro-cont)
+       )
+     )
   )
