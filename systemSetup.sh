@@ -182,7 +182,7 @@ function base_sys(){
   fi
 
   apt_install wget curl bashtop iftop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool \
-              nautilus-dropbox
+              nautilus-dropbox pass
 
   dropbox start -i
 
