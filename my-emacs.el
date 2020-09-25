@@ -89,8 +89,9 @@
 (setq projectile-project-search-path '("~/workspace"))
 
 ;; General org settings
-(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!)" "|" "DONE(d!)" "WON'T FIX(w!)")))
-(setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
+(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!/@)" "|" "HANDED OFF (h!/@)" "DONE(d!)" "WON'T FIX(w!/@)")))
+(setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
+                                ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
 (setq org-agenda-clockreport-parameter-plist
   (quote (:hidefiles t :link t :maxlevel 4 :fileskip0 t :compact t :formula %)))
 (org-clock-persistence-insinuate)  ;; Resume clocking task when emacs is restarted
@@ -99,6 +100,7 @@
 (setq org-clock-persist-query-resume nil)  ;; Do not prompt to resume an active clock, just resume it
 (setq org-clock-out-when-done t)  ;; Clock out when moving task to a done state
 (setq org-clock-report-include-clocking-task t)  ;; Include current clocking task in clock reports
+(setq org-clock-idle-time 30)  ;; detect idle time and ask what to do with it
 (setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (setq org-babel-python-command "python3")  ;; use python3 in org-mode code
 
@@ -150,7 +152,7 @@
   (interactive)
   (setq title
     (read-string "TITLE: "))
-  (setq header (format "* TODO %s ([[%s][%s]]) [/]
+  (setq header (format "\n* TODO %s ([[%s][%s]]) [/]
    :PROPERTIES:
    :CUSTOM_ID: %s
    :END:\n" title link (my/get-ticket link) title))
@@ -160,7 +162,7 @@
 ** TODO Branch Test
 ** TODO Integrate
 ** TODO Integration Test
-** TODO Sign Off")
+** TODO Sign Off\n")
   (if (equal ticketType "bug")
     (s-concat header triage steps)
     (s-concat header steps)
