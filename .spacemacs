@@ -90,7 +90,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
       (org-page :location (recipe
                             :fetcher github
-                            :repo "sillykelvin/org-page"
+                            :repo "erichlf/org-page"
                             :files ("*.el" "doc" "themes")))
       (org-roam :location (recipe
                             :fetcher github

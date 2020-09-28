@@ -81,9 +81,10 @@
 (setq op/personal-github-link "https://github.com/erichlf")
 (setq op/site-main-title "That Stuff I Found Along the Way")
 (setq op/site-sub-title "")
+(setq op/repository-html-branch "main")
 (setq op/personal-disqus-shortname (password-store-get "secrets/disqus-user"))
 (setq user-full-name "Erich L Foster")
-(setq user-mail-address "erichlf@gmail.com")
+(setq user-mail-address "")
 
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
