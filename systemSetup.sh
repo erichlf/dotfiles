@@ -139,6 +139,10 @@ function dev_tools(){
   # setup link for powerline
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
+
+  # install git-subrepo
+  git clone https://github.com/ingydotnet/git-subrepo
+
   cd $DOTFILES_DIR
 
   pip3_install powerline-gitstatus

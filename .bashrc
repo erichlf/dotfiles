@@ -52,6 +52,11 @@ fi
 #-------------------------------------------------------------
 [ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases
 
+#-------------------------------------------------------------
+# add git-subrepo
+#-------------------------------------------------------------
+[ -f $HOME/.config/git-subrepo/.rc ] && source $HOME/.config/git-subrepo/.rc
+
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
 [ "${-#*i}" != "$-" ] && [ -n "$PS1"  ] && [ -s $BASE16_SHELL/profile_helper.sh  ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
