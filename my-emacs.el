@@ -61,9 +61,9 @@
 (slack-start)  ;; start slack when opening emacs
 (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
 ;; keep my slack status as active
-(run-with-timer 0 (* 30 60) (lambda ()
-                              (slack-ws--reconnect (oref slack-current-team :id) t)
-                              (slack-im-list-update)))
+(run-with-timer (* 30 60) (* 30 60) (lambda ()
+                                      (slack-ws--reconnect (oref slack-current-team :id) t)
+                                      (slack-im-list-update)))
 ;; display a nice timestamp in slack
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
@@ -90,7 +90,7 @@
 (setq projectile-project-search-path '("~/workspace"))
 
 ;; General org settings
-(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s!/@)" "|" "HANDED OFF (h!/@)" "DONE(d!)" "WON'T FIX(w!/@)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "HANDED OFF (h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
                                 ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
 (setq org-agenda-clockreport-parameter-plist
@@ -148,26 +148,27 @@
       (match-string 1 link)))
   )
 
-(defun my/ticket-steps (ticketType link)
+(defun my/ticket-steps (link)
   "Provides a string that has my standard ticket process"
   (interactive)
+  (setq priority
+    (read-string "PRIORITY: "))
   (setq title
     (read-string "TITLE: "))
-  (setq header (format "\n* TODO %s ([[%s][%s]]) [/]
+  (setq ticket
+    (my/get-ticket link))
+  (setq header (format "\n* TODO [#%s] %s ([[%s][%s]]) [/]
    :PROPERTIES:
    :CUSTOM_ID: %s
-   :END:\n" title link (my/get-ticket link) title))
-  (setq triage "** TODO Triage\n")
+   :ORDERED: t
+   :END:\n" priority title link ticket ticket))
   (setq steps "** TODO Implement
 ** TODO Code Review
 ** TODO Branch Test
 ** TODO Integrate
 ** TODO Integration Test
 ** TODO Sign Off\n")
-  (if (equal ticketType "bug")
-    (s-concat header triage steps)
-    (s-concat header steps)
-    )
+  (s-concat header steps)
   )
 
 ;; function to load my c-style
