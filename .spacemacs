@@ -94,7 +94,11 @@ This function should only modify configuration layer settings."
                             :files ("*.el" "doc" "themes")))
       (org-roam :location (recipe
                             :fetcher github
-                            :repo "jethrokuan/org-roam")))
+                            :repo "jethrokuan/org-roam"))
+      (logview :location (recipe
+                           :fetcher github
+                           :repo "doublep/logview"))
+                                       )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

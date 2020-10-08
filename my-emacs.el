@@ -119,6 +119,25 @@
           (("C-c n I" . org-roam-insert-immediate))))
 (add-to-list 'exec-path (executable-find "sqlite3"))
 
+(setq logview-additional-timestamp-formats
+     '(("SEEGRID" (regexp . "[0-9]\\{10\\} [ 0-9]\\{6\\}")))
+  )
+(setq logview-additional-level-mappings
+     '(("SEEGRID"
+        (error "ERROR")
+        (warning "WARN")
+        (information "INFO")
+        (debug "DEBUG")
+        (trace)
+        (aliases))))
+(setq logview-additional-submodes
+     '(("SEEGRID"
+         (format . "[TIMESTAMP THREAD LEVEL]")
+         (levels . "SEEGRID")
+         (timestamp "SEEGRID")
+         (aliases)))
+  )
+
 ;; my functions follow
 (defun my/save-slack ()
   "Save slack buffers"
