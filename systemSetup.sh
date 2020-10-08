@@ -110,7 +110,12 @@ function dev_tools(){
       add_ppa git-core/ppa
   fi
 
+  # setup slack repo
   curl -s https://packagecloud.io/install/repositories/slacktechnologies/slack/script.deb.sh | sudo bash
+
+  # setup klogg repo
+  apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys 379CE192D401AB61
+  echo deb https://dl.bintray.com/variar/deb stable utils | sudo tee -a /etc/apt/sources.list
 
   apt_update
 
@@ -120,7 +125,7 @@ function dev_tools(){
     add_ppa kelleyk/emacs
   fi
 
-  apt_install libtool-bin emacs26 \
+  apt_install libtool-bin emacs26 klogg \
               slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
