@@ -64,7 +64,7 @@ This function should only modify configuration layer settings."
        lsp
        markdown
        multiple-cursors
-       org
+       (org :variables org-enable-roam-support t)
        pass
        python
        semantic
@@ -92,9 +92,6 @@ This function should only modify configuration layer settings."
                             :fetcher github
                             :repo "erichlf/org-page"
                             :files ("*.el" "doc" "themes")))
-      (org-roam :location (recipe
-                            :fetcher github
-                            :repo "jethrokuan/org-roam"))
       (logview :location (recipe
                            :fetcher github
                            :repo "doublep/logview"))

@@ -53,7 +53,7 @@
   :client-secret (password-store-get "email/seegrid-pass")
   :token (password-store-get "secrets/slack-token")
   :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_gp8_s8 truck_sw_coordination rock_updates emergency-notices))
+  :subscribed-channels '(eng_truck_sw eng_gp8_s8 truck_sw_coordination rock_updates emergency-notices covid_19_communications))
 (setq slack-prefer-current-team t)  ;; stop asking me which team to use
 (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
@@ -61,9 +61,9 @@
 (slack-start)  ;; start slack when opening emacs
 (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
 ;; keep my slack status as active
-(run-with-timer (* 30 60) (* 30 60) (lambda ()
-                                      (slack-ws--reconnect (oref slack-current-team :id) t)
-                                      (slack-im-list-update)))
+;; (run-with-timer (* 30 60) (* 30 60) (lambda ()
+;;                                       (slack-ws--reconnect (oref slack-current-team :id) t)
+;;                                       (slack-im-list-update)))
 ;; display a nice timestamp in slack
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
@@ -89,8 +89,8 @@
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
 
-;; General org settings
-(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "HANDED OFF (h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
+;; org-agenda
+(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "HANDED OFF(h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
                                 ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
 (setq org-agenda-clockreport-parameter-plist
@@ -104,41 +104,52 @@
 (setq org-clock-idle-time 30)  ;; detect idle time and ask what to do with it
 (setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (setq org-babel-python-command "python3")  ;; use python3 in org-mode code
+(setq org-pretty-entities t)  ;; use pretty things for the clocktable
+(add-hook 'org-after-todo-state-change-hook 'my/org-todo-state-change-clock)
 
 ;; org-roam
-(use-package org-roam
-  :ensure t
-  :hook (after-init . org-roam-mode)
-  :custom (org-roam-directory "~/org/notes/")
-  :bind (:map org-roam-mode-map
-          (("C-c n l" . org-roam)
-           ("C-c n f" . org-roam-find-file)
-           ("C-c n g" . org-roam-graph-show))
-         :map org-mode-map
-          (("C-c n i" . org-roam-insert))
-          (("C-c n I" . org-roam-insert-immediate))))
-(add-to-list 'exec-path (executable-find "sqlite3"))
+(setq org-roam-directory "~/org/notes")
 
+;; logview
+(setq logview-guess-lines 1250)  ;; sometimes our headers are very long
 (setq logview-additional-timestamp-formats
-     '(("SEEGRID" (regexp . "[0-9]\\{10\\} [ 0-9]\\{6\\}")))
+  '(("SEEGRID" (regexp . "[0-9]\\{10\\} [ 0-9]\\{6\\}")))
   )
 (setq logview-additional-level-mappings
-     '(("SEEGRID"
-        (error "ERROR")
-        (warning "WARN")
-        (information "INFO")
-        (debug "DEBUG")
-        (trace)
-        (aliases))))
+  '(("SEEGRID"
+      (error "ERROR")
+      (warning "WARN")
+      (information "INFO")
+      (debug "DEBUG")
+      (trace)
+      (aliases))))
 (setq logview-additional-submodes
-     '(("SEEGRID"
-         (format . "[TIMESTAMP THREAD LEVEL]")
-         (levels . "SEEGRID")
-         (timestamp "SEEGRID")
-         (aliases)))
+  '(("SEEGRID"
+      (format . "[TIMESTAMP THREAD LEVEL] MESSAGE")
+      (levels . "SEEGRID")
+      (timestamp "SEEGRID")
+      (aliases))
+    ("PLATINUM"
+      (format . "[TIMESTAMP THREAD LEVEL NAME] MESSAGE")
+      (levels . "SEEGRID")
+      (timestamp "SEEGRID")
+      (aliases))
+    ("TEST"
+      (format . "[TIMESTAMP THREAD NAME LEVEL] MESSAGE")
+      (levels . "SEEGRID")
+      (timestamp "SEEGRID")
+      (aliases)))
   )
 
 ;; my functions follow
+(defun my/org-todo-state-change-clock ()
+  "Clock in or out of tasks when state changes"
+  (when (string= org-state "IN PROGRESS")
+    (org-clock-in))
+  (when (string= org-state "HANDED OFF")
+    (org-clock-out-if-current))
+  )
+
 (defun my/save-slack ()
   "Save slack buffers"
   (interactive)
