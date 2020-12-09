@@ -8,6 +8,7 @@
 (add-hook 'c-mode-common-hook `my/set-c-ctyle)  ;; apply my c-style
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
 (whitespace-mode 't)  ;; turn on whitespace minor mode
+(add-to-list 'auto-mode-alist '("\\.tcc" . c++-mode))  ;; template files
 
 ;; setup using org-gcal to use my google calendars
 (setq org-gcal-file-alist

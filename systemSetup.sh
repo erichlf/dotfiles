@@ -141,6 +141,15 @@ function dev_tools(){
     ln -sf $S
   done
 
+  # setup emacs daemon
+  mkdir -p $HOME/.local/share/applications/
+  ln -s $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
+  ln -s /usr/share/emacs/*/etc/emacs.icon $HOME/.local/share/applications/emacs.icon
+  mkdir -p $HOME/.config/systemd/user
+  ln -s $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
+  systemctl --user enable --now emacs
+
+
   # setup link for powerline
   cd $HOME/.config/
   ln -sf $DOTFILES_DIR/powerline
