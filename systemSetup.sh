@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-sudo apt install dialog git
+sudo apt install dialog git software-properties-common
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
+declare -a DOTFILES=( .bashrc .bash_exports 
                       .gitconfig .gitexcludes
                       .spacemacs .emacs.d
-                      texmf .Xmodmap
-                      .Xresources .xsessionrc private/.bash_aliases )
+                      private/.bash_aliases
+		      flexget )
 
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -25,15 +25,10 @@ setup.\nWhat would you like to do?" 14 50 16)
 
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
-         3  "Install development tools"
-         4  "Install LaTeX"
-         5  "Install base system"
-         6  "Install Seegrid tools"
-         7  "Setup Internet Connections"
-         8  "Install my extras"
-         9  "Remove crapware"
-         10 "Update system"
-         11 "sudo rules")
+	 3  "Install developer tools"
+         4  "Install base system"
+	 5  "Update system"
+	 6  "Add sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -96,13 +91,7 @@ function sym_links(){
 ############################# developer tools ##################################
 # install development utilities
 function dev_tools(){
-  apt_install build-essential cmake gcc g++ clang clang-format ctags cscope \
-
-  apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
-              python3-matplotlib python3-ipython python3-pip
-
-  # need dnspython and unrar are needed by calibre
-  pip3_install wheel dnspython unrar pylint
+  apt_install python3-pip
 
   #latest git
   if no_ppa_exists git-core
@@ -110,44 +99,17 @@ function dev_tools(){
       add_ppa git-core/ppa
   fi
 
-  # setup slack repo
-  curl -s https://packagecloud.io/install/repositories/slacktechnologies/slack/script.deb.sh | sudo bash
-
-  # setup klogg repo
-  apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-  echo deb https://dl.bintray.com/variar/deb stable utils | sudo tee -a /etc/apt/sources.list
-
-  apt_update
-
   # add repo for latest emacs
   if no_ppa_exists kelleyk
   then
     add_ppa kelleyk/emacs
   fi
 
-  apt_install libtool-bin emacs26 klogg \
-              slack-desktop meld openssh-server editorconfig global \
-              git git-completion screen build-essential cmake powerline \
-              fonts-powerline freeglut3-dev libopencv-dev \
-              libopencv-contrib-dev libopencv-photo-dev xclip
+  apt_update
 
-  # setup links for google-calendar plugin
-  cd $DOTFILES_DIR/.emacs.d/private/
-  ln -sf $DOTFILES_DIR/google-calendar
-  # setup links for snippets
-  cd $DOTFILES_DIR/.emacs.d/private/snippets
-  for S in $DOTFILES_DIR/snippets/*
-  do
-    ln -sf $S
-  done
+  apt_install emacs27 git git-completion powerline \
+              fonts-powerline xclip
 
-  # setup emacs daemon
-  mkdir -p $HOME/.local/share/applications/
-  ln -s $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
-  ln -s /usr/share/emacs/*/etc/emacs.icon $HOME/.local/share/applications/emacs.icon
-  mkdir -p $HOME/.config/systemd/user
-  ln -s $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
-  systemctl --user enable --now emacs
   # install source code pro fonts
   mkdir -p /tmp/adodefont
   cd /tmp/adodefont
@@ -179,21 +141,6 @@ function dev_tools(){
   return 0
 }
 
-# install latex
-function LaTeX(){
-  cd /tmp
-  wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu
-  sudo chmod +x install-tl-ubuntu
-  sudo ./install-tl-ubuntu
-
-  PATH=/usr/local/texlive/20*/bin/x86_64-linux:$PATH
-  tlmgr install arara
-
-  cd $DOTFILES_DIR
-
-  return 0
-}
-
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
@@ -214,81 +161,27 @@ function base_sys(){
      add_ppa bashtop-monitor/bashtop
   fi
 
-  apt_install wget curl bashtop iftop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool \
-              1password pass
-
-  if [ ! -d /media/NFS ]; then
-    sudo mkdir /media/NFS
-  fi
-  if [ ! -d /media/Google ]; then
-    sudo mkdir /media/Google
-  fi
+  apt_install wget curl bashtop iftop cifs-utils nfs-common autofs google-drive-ocamlfuse \
+              pass
 
   sudo cp $DOTFILES_DIR/gdfuse /usr/bin/
   sudo cp $DOTFILES_DIR/auto.master /etc/
   sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
   sudo cp $DOTFILES_DIR/private/auto.gdrive /etc/
-  ln -s -f /media/NFS/Media-NAS
-  ln -s -f /media/Google
 
   sudo_rule /usr/bin/google-drive-ocamlfuse
 
   sudo systemctl start autofs
 
+  pip3_install flexget transmissionrpc
+
+  cd /etc/lib/systemd/system/
+  ln -sf $DOTFILES_DIR/flexget/flexget.service
+
+  sudo systemctl enable flexget
+  sudo systemctl start flexget
+
   cd $DOTFILES_DIR
-
-  return 0
-}
-
-######################### internet connections #################################
-function network_connections() {
-  apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
-  sudo /etc/init.d/networking restart
-
-  for CONNECTION in $DOTFILES_DIR/private/system-connections/*; do
-      sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
-      sudo chown root:root "/etc/NetworkManager/system-connections/$(basename $CONNECTION)"
-  done
-}
-
-################################ seegrid #######################################
-function seegrid(){
-  apt_update
-  apt_install docker.io python3-yaml python3-git git-lfs rabbitmq-server
-
-  sudo usermod -a -G docker $USERNAME
-  sudo systemctl daemon-reload
-  sudo systemctl restart docker
-
-  newgrp docker
-
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
-
-  cd /tmp
-  wget https://zoom.us/client/latest/zoom_amd64.deb
-  sudo apt install ./zoom_amd64.deb
-  cd $DOTFILES_DIR
-
-  return 0
-}
-
-################################ extras ########################################
-function extras(){
-  if [ ! -f /etc/apt/sources.list.d/google.list ]; then
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  fi
-
-  apt_update
-  apt_install chromium-browser chrome-gnome-shell
-
-  return 0
-}
-
-######################## remove things I never use #############################
-function crapware(){
-  sudo apt remove -y transmission-gtk thunderbird \
 
   return 0
 }
@@ -316,10 +209,6 @@ do
        sym_links
        base_sys
        dev_tools
-       network_connections
-       extras
-       seegrid
-       crapware
        update_sys
        sudo apt autoremove
        sudo_rules
@@ -334,34 +223,14 @@ do
        run_me
        ;;
     4)
-       LaTeX
-       run_me
-       ;;
-    5)
        base_sys
        run_me
        ;;
-    6)
-       seegrid
-       run_me
-       ;;
-    7)
-       network_connections
-       run_me
-       ;;
-    8)
-       extras
-       run_me
-       ;;
-    9)
-       crapware
-       run_me
-       ;;
-    10)
+    5)
        update_sys
        run_me
        ;;
-    11)
+    6)
        sudo_rules
        run_me
        ;;
