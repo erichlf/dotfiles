@@ -18,34 +18,10 @@
 (setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
 (setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
 
-;; org-agenda
-(setq org-log-into-drawer t)  ;; log state changes to a drawer
-(setq org-agenda-show-outline-path t)  ;; show items path in echo area
-(setq org-agenda-log-mode-items (quote (state clocked)))
-
-;; setup org-agenda to keep track of unread messages in slack
-(alert-define-style
-  'my/alert-style :title
-  "Make Org headings for messages I receive - Style"
-  :notifier
-  (lambda (info)
-    (when (get-buffer "slack.org") (with-current-buffer "slack.org" (save-buffer)))
-    (write-region
-      (s-concat
-        "* UNREAD "
-        (plist-get info :title)
-        " : "
-        (format "%s %s" (plist-get info :title)
-                        (s-truncate 127 (plist-get info :message)))
-        "\n"
-        (format "<%s>" (format-time-string "%Y-%m-%d %H:%M"))
-        "\n")
-      nil
-      "~/org/slack.org"
-      t)))
-(setq alert-default-style 'message)
+;; slack
+(setq alert-log-messages 'message)
 (add-to-list 'alert-user-configuration
-  '(((:category . "slack")) my/alert-style nil))
+  '(((:category . "slack")) notifications nil))
 ;; setup slack
 (slack-register-team
   :name "seegrid"
@@ -54,26 +30,17 @@
   :client-secret (password-store-get "email/seegrid-pass")
   :token (password-store-get "secrets/slack-token")
   :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_gp8_s8 truck_sw_coordination rock_updates emergency-notices covid_19_communications))
+  :subscribed-channels '(eng_truck_sw eng_list_vsm_team truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp))
 (setq slack-prefer-current-team t)  ;; stop asking me which team to use
 (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-thread-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
 (slack-start)  ;; start slack when opening emacs
 (define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
-;; keep my slack status as active
-;; (run-with-timer (* 30 60) (* 30 60) (lambda ()
-;;                                       (slack-ws--reconnect (oref slack-current-team :id) t)
-;;                                       (slack-im-list-update)))
 ;; display a nice timestamp in slack
 (setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
 (setq lui-time-stamp-only-when-changed-p t)
 (setq lui-time-stamp-position 'right)
-;; (add-hook 'focus-out-hook 'my/save-slack)
-;; don't display messages or scheduled items if done
-(setq org-agenda-skip-scheduled-if-done t)
-;; add a way to mark item as done and archive it all in one
-(add-hook 'org-agenda-mode-hook (lambda () (local-set-key (kbd "T") 'my/org-agenda-todo-archive)))
 
 ;; org-page
 (require 'org-page)
@@ -91,6 +58,11 @@
 (setq projectile-project-search-path '("~/workspace"))
 
 ;; org-agenda
+(setq org-log-into-drawer t)  ;; log state changes to a drawer
+(setq org-agenda-show-outline-path t)  ;; show items path in echo area
+(setq org-agenda-log-mode-items (quote (state clocked)))
+(setq org-clock-report-include-clocking-task t)  ;; add current item to clock table
+(setq org-agenda-skip-scheduled-if-done t)  ;; don't display messages or scheduled items if done
 (setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "HANDED OFF(h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
                                 ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))

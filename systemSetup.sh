@@ -125,7 +125,7 @@ function dev_tools(){
     add_ppa kelleyk/emacs
   fi
 
-  apt_install libtool-bin emacs26 klogg \
+  apt_install libtool-bin emacs27 klogg \
               slack-desktop meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
