@@ -16,5 +16,5 @@
 	path = google-calendar
 	url = https://github.com/mhkc/google-calendar-layer.git
 [submodule "flexget"]
-	path = flexget
+	path = .flexget
 	url = git@github.com:erichlf/flexget

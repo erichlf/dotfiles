@@ -11,7 +11,7 @@ declare -a DOTFILES=( .bashrc .bash_exports
                       .gitconfig .gitexcludes
                       .spacemacs .emacs.d
                       private/.bash_aliases
-		      flexget )
+		      .flexget )
 
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -93,21 +93,7 @@ function sym_links(){
 function dev_tools(){
   apt_install python3-pip
 
-  #latest git
-  if no_ppa_exists git-core
-  then
-      add_ppa git-core/ppa
-  fi
-
-  # add repo for latest emacs
-  if no_ppa_exists kelleyk
-  then
-    add_ppa kelleyk/emacs
-  fi
-
-  apt_update
-
-  apt_install emacs27 git git-completion powerline \
+  apt_install emacs git git-completion powerline \
               fonts-powerline xclip
 
   # install source code pro fonts
@@ -173,7 +159,7 @@ function base_sys(){
 
   sudo systemctl start autofs
 
-  pip3_install flexget transmissionrpc
+  pip3_install flexget transmission-rpc
 
   cd /etc/lib/systemd/system/
   ln -sf $DOTFILES_DIR/flexget/flexget.service
