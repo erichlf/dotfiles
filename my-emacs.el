@@ -42,6 +42,8 @@
 (setq lui-time-stamp-only-when-changed-p t)
 (setq lui-time-stamp-position 'right)
 
+(require 'org-tempo)
+
 ;; org-page
 (require 'org-page)
 (setq op/repository-directory "~/workspace/erichlf.github.io")
@@ -63,9 +65,10 @@
 (setq org-agenda-log-mode-items (quote (state clocked)))
 (setq org-clock-report-include-clocking-task t)  ;; add current item to clock table
 (setq org-agenda-skip-scheduled-if-done t)  ;; don't display messages or scheduled items if done
-(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "HANDED OFF(h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(i!)" "STALLED(s@/!)" "|" "WATCH LISTED(l!)" "HANDED OFF(h@/!)" "DONE(d!)" "WON'T FIX(w@/!)")))
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
-                                ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f") ("WON'T FIX" . "#86dc2f")))
+                                ("WATCH LISTED" . "#86dc2f") ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f")
+                                ("WON'T FIX" . "#86dc2f")))
 (setq org-agenda-clockreport-parameter-plist
   (quote (:hidefiles t :link t :maxlevel 4 :fileskip0 t :compact t :formula %)))
 (org-clock-persistence-insinuate)  ;; Resume clocking task when emacs is restarted
