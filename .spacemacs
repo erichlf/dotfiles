@@ -91,9 +91,6 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-      (evil-magit :location (recipe
-                              :fetcher github
-                              :repo "emacs-evil/evil-magit"))
       (org-page :location (recipe
                             :fetcher github
                             :repo "erichlf/org-page"
@@ -183,7 +180,7 @@ It should only modify the values of Spacemacs settings."
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update nil
+   dotspacemacs-check-for-update 'true
 
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
@@ -259,7 +256,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+                               :size 9.0
                                :weight normal
                                :width normal
                                :powerline-scale 0.8 )
@@ -545,50 +542,64 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(ansi-color-names-vector
-     ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
+ '(ansi-color-names-vector
+   ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
  '(evil-want-Y-yank-to-eol nil)
  '(fringe-mode 6 nil (fringe))
-  '(hl-todo-keyword-faces
-     '(("TODO" . "#dc752f")
-        ("NEXT" . "#dc752f")
-        ("THEM" . "#2d9574")
-        ("PROG" . "#4f97d7")
-        ("OKAY" . "#4f97d7")
-        ("DONT" . "#f2241f")
-        ("FAIL" . "#f2241f")
-        ("DONE" . "#86dc2f")
-        ("NOTE" . "#b1951d")
-        ("KLUDGE" . "#b1951d")
-        ("HACK" . "#b1951d")
-        ("TEMP" . "#b1951d")
-        ("FIXME" . "#dc752f")
-        ("XXX+" . "#dc752f")
-        ("\\?\\?\\?+" . "#dc752f")))
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
  '(linum-format " %7d ")
-  '(org-agenda-custom-commands
-     '(("n" "Agenda and Main Tasks"
-         ((agenda "" nil)
-           (tags-todo "LEVEL=2"
-             ((org-agenda-prefix-format "%l%l"))))
-         nil nil)))
-  '(org-agenda-files
-     '("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org" "~/org/slack.org"))
-  '(org-capture-templates
-     '(("t" "Ticket" entry
-         (file+headline "~/org/tasks.org" "Tickets")
-         "%(my/ticket-steps \"%x\")")
-        ("r" "Code Review" entry
-          (file+headline "~/org/tasks.org" "Code Reviews")
-          "* TODO [[%x][%(my/get-ticket \"%x\")]]
+ '(org-agenda-custom-commands
+   '(("n" "Agenda and Main Tasks"
+      ((agenda "" nil)
+       (tags-todo "LEVEL=2"
+                  ((org-agenda-prefix-format "%l%l"))))
+      nil nil)))
+ '(org-agenda-files
+   '("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org" "~/org/slack.org"))
+ '(org-capture-templates
+   '(("t" "Ticket" entry
+      (file+headline "~/org/tasks.org" "Tickets")
+      "%(my/ticket-steps \"%x\")")
+     ("r" "Code Review" entry
+      (file+headline "~/org/tasks.org" "Code Reviews")
+      "* TODO [[%x][%(my/get-ticket \"%x\")]]
 ")
-        ("T" "Triage" entry
-          (file+headline "~/org/tasks.org" "[[https://confluence.dev.seegrid.com/display/TRUCK/Prioritization+and+triage+rotation][Triage]]")
-          "* TODO [[%x][%(my/get-ticket \"%x\")]]
+     ("T" "Triage" entry
+      (file+headline "~/org/tasks.org" "[[https://confluence.dev.seegrid.com/display/TRUCK/Prioritization+and+triage+rotation][Triage]]")
+      "* TODO [[%x][%(my/get-ticket \"%x\")]]
 ")))
-  '(package-selected-packages
-     '(protobuf-mode dap-mode bui zenburn-theme zen-and-art-theme yapfify yaml-mode xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin planet-theme pip-requirements phoenix-dark-mono-theme persp-mode pcre2el paradox spinner orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro org-plus-contrib org-mime org-gcal persist alert request-deferred deferred log4e gntp org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-popup magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat django-theme disaster diminish define-word darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-statistics company-quickhelp pos-tip company-c-headers company-auctex company-anaconda company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme calfw busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex apropospriate-theme anti-zenburn-theme anaconda-mode pythonic f dash s ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup phoenix-dark-pink-theme))
- '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
+ '(package-selected-packages
+   '(protobuf-mode dap-mode bui zenburn-theme zen-and-art-theme yapfify yaml-mode xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin planet-theme pip-requirements phoenix-dark-mono-theme persp-mode pcre2el paradox spinner orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro org-plus-contrib org-mime org-gcal persist alert request-deferred deferred log4e gntp org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-popup magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat django-theme disaster diminish define-word darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-statistics company-quickhelp pos-tip company-c-headers company-auctex company-anaconda company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme calfw busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex apropospriate-theme anti-zenburn-theme anaconda-mode pythonic f dash s ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup phoenix-dark-pink-theme))
+ '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
+ '(safe-local-variable-values
+   '((projectile-project-compilation-cmd . "dm build ./waf --run-cache-cleanup install")
+     (projectile-project-compilation-cmd . "dm build ./waf configure")
+     (directory-abbrev-alist quote
+                             (("^/checkout/src" . "/home/seegrid.local/efoster/workspace/Seegrid/blue")))
+     (directory-abbrev-alist
+      ("^/checkout/src" . "/home/seegrid.local/efoster/workspace/Seegrid/blue"))
+     (projectile-project-test-cmd . "dm unit_test ")
+     (projectile-project-configure-cmd . "dm build ./waf configure")
+     (projectile-project-compile-cmd . "dm build ./waf configure")
+     (directory-abbrev-alist quote
+                             (("^/checkout/src" . "~/workspace/Seegrid/blue")))
+     (setq projectile-project-configure-cmd . "dm build ./waf configure")
+     (setq projectile-project-compilation-cmd . "dm build ./waf --run-cache-cleanup install"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

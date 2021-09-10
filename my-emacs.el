@@ -30,7 +30,7 @@
   :client-secret (password-store-get "email/seegrid-pass")
   :token (password-store-get "secrets/slack-token")
   :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_list_vsm_team truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp))
+  :subscribed-channels '(eng_truck_sw eng_lift_vsm_team eng_lift_sw truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp))
 (setq slack-prefer-current-team t)  ;; stop asking me which team to use
 (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
@@ -58,6 +58,7 @@
 
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
+;; (setq directory-abbrev-alist '(("\\`/checkout/src" . "~/workspace/Seegrid/blue")))
 
 ;; org-agenda
 (setq org-log-into-drawer t)  ;; log state changes to a drawer
@@ -116,6 +117,9 @@
       (timestamp "SEEGRID")
       (aliases)))
   )
+
+;; misc
+(setq doc-view-continuous 't)
 
 ;; my functions follow
 (defun my/org-todo-state-change-clock ()

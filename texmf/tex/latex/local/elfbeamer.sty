@@ -3,18 +3,18 @@
 %below are my standard includes for beamer. I don't like ugly preambles so I
 %made this style file instead.  It also includes a bunch of shortcuts and
 %various configurations
+\RequirePackage{listings}
 \RequirePackage{tikz,amsmath,nicefrac} % for math AMS fonts
 \usetikzlibrary{calc}
 \RequirePackage{graphicx} % to include figures
 \RequirePackage{hyperref, newlfont}
-\RequirePackage{animate}
+% \RequirePackage{animate}
 \RequirePackage{multimedia}
 \RequirePackage[compatibility=false]{caption}
 \RequirePackage{subcaption}
 \RequirePackage{etoolbox}
 \RequirePackage[ruled,noline]{algorithm2e}
 \RequirePackage{algorithmic}
-\RequirePackage{listings}
 \RequirePackage{fancyvrb,verbatim}
 \RequirePackage{pdfpages}
 \RequirePackage{upquote}
@@ -35,14 +35,14 @@
     stepnumber=1, %line number every line
     numbersep=5pt,
     tabsize=2, %set tabs to two spaces
-    basicstyle=\small, % print whole listing small
+    % basicstyle=\small, % print whole listing small
     keywordstyle=\bfseries,% green keywords
     stringstyle=\ttfamily % typewriter type for strings
 }
 
 \lstset{ % Python style for highlighting
   language=Python,
-  basicstyle=\tiny,
+  % basicstyle=\tiny,
   otherkeywords={self},             % Add keywords here
   keywordstyle=\color{deepblue},
   commentstyle=\color{deepgreen},    % Custom highlighting style
