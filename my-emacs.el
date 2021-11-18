@@ -10,14 +10,6 @@
 (whitespace-mode 't)  ;; turn on whitespace minor mode
 (add-to-list 'auto-mode-alist '("\\.tcc" . c++-mode))  ;; template files
 
-;; setup using org-gcal to use my google calendars
-(setq org-gcal-file-alist
-    `((,(password-store-get "calendar/seegrid") . "~/org/seegrid.org")
-      (,(password-store-get "calendar/family") . "~/org/family.org")
-      (,(password-store-get "calendar/personal") . "~/org/personal.org")))
-(setq org-gcal-client-id (password-store-get "secrets/org-gcal-client-id"))
-(setq org-gcal-client-secret (password-store-get "secrets/org-gcal-client-secret"))
-
 ;; slack
 (setq alert-log-messages 'message)
 (add-to-list 'alert-user-configuration
