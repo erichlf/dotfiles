@@ -22,7 +22,7 @@
   :client-secret (password-store-get "email/seegrid-pass")
   :token (password-store-get "secrets/slack-token")
   :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_lift_vsm_team eng_lift_sw truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp))
+  :subscribed-channels '(eng_truck_sw eng_lift_vsm_team eng_lift_sw truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp truck_triage))
 (setq slack-prefer-current-team t)  ;; stop asking me which team to use
 (evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
 (evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
