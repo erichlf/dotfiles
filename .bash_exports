@@ -11,7 +11,7 @@ export VISUAL='emacsclient -c -a emacs'
 export WAF_CACHE_SIZE=50000000  # cache of about 50GB.
 export WAFLNCACHE=~/workspace/Seegrid/waf-cache
 export dockerclean='docker image prune -a --filter "until=12h"'
-export ARTIFACTORY_TOKEN='pass secrets/artifactory'
+export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`
