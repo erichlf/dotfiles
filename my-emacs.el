@@ -1,6 +1,10 @@
 ;; programming settings
 (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; toggle fill column indicator on
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
+;; update copyright when saving and fix the years to match my pattern
+(add-hook 'before-save-hook #'copyright-update)  ;; update copyrights on save
+(setq copyright-year-ranges t)  ;; fix up the years so that we get a dash
+(setq copyright-query nil)  ;; don't ask to update copyright
 (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)  ;; increment number
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
 (global-git-commit-mode t)  ;; use emacs for git commits
@@ -9,30 +13,6 @@
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
 (whitespace-mode 't)  ;; turn on whitespace minor mode
 (add-to-list 'auto-mode-alist '("\\.tcc" . c++-mode))  ;; template files
-
-;; slack
-(setq alert-log-messages 'message)
-(add-to-list 'alert-user-configuration
-  '(((:category . "slack")) notifications nil))
-;; setup slack
-(slack-register-team
-  :name "seegrid"
-  :default t
-  :client-id (password-store-get "email/seegrid-uid")
-  :client-secret (password-store-get "email/seegrid-pass")
-  :token (password-store-get "secrets/slack-token")
-  :full-and-display-names t
-  :subscribed-channels '(eng_truck_sw eng_lift_vsm_team eng_lift_sw truck_sw_coordination rock_updates emergency-notices covid_19_communications cpp truck_triage))
-(setq slack-prefer-current-team t)  ;; stop asking me which team to use
-(evil-define-key 'insert slack-mode-map (kbd ":") nil)  ;; don't insert emoji
-(evil-define-key 'insert slack-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
-(evil-define-key 'insert slack-thread-message-buffer-mode-map (kbd ":") nil)  ;; don't insert emoji
-(slack-start)  ;; start slack when opening emacs
-(define-key slack-mode-map (kbd "C-c C-d") #'slack-message-delete)
-;; display a nice timestamp in slack
-(setq lui-time-stamp-format "[%Y-%m-%d %H:%M]")
-(setq lui-time-stamp-only-when-changed-p t)
-(setq lui-time-stamp-position 'right)
 
 (require 'org-tempo)
 
@@ -114,6 +94,10 @@
 (setq doc-view-continuous 't)
 
 ;; my functions follow
+(defun my-copyright-update ()
+  (copyright-update)
+  (copyright-fix-years))
+
 (defun my/org-todo-state-change-clock ()
   "Clock in or out of tasks when state changes"
   (when (string= org-state "IN PROGRESS")

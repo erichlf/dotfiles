@@ -53,12 +53,12 @@ This function should only modify configuration layer settings."
        cmake
        colors
        csv
+       dash
        (docker :variable
          docker-dockerfile-backend 'lsp)
        emacs-lisp
        git
        github
-       google-calendar
        helm
        html
        latex
@@ -75,7 +75,6 @@ This function should only modify configuration layer settings."
          shell-default-shell 'vterm
          shell-default-width 35
          shell-default-position 'right)
-       slack
        spell-checking
        syntax-checking
        themes-megapack
@@ -223,10 +222,10 @@ It should only modify the values of Spacemacs settings."
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
    ;; (default `text-mode')
-   dotspacemacs-new-empty-buffer-major-mode 'text-mode
+   dotspacemacs-new-empty-buffer-major-mode 'org-mode
 
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -419,12 +418,12 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil `smartparens-strict-mode' will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc...
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
 
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
@@ -479,7 +478,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-    dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-whitespace-cleanup 'trailing
 
    ;; If non nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfer with mode specific
