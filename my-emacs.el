@@ -2,7 +2,7 @@
 (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; toggle fill column indicator on
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
 ;; update copyright when saving and fix the years to match my pattern
-(add-hook 'before-save-hook #'copyright-update)  ;; update copyrights on save
+(add-hook 'before-save-hook #'my-copyright-update)  ;; update copyrights on save
 (setq copyright-year-ranges t)  ;; fix up the years so that we get a dash
 (setq copyright-query nil)  ;; don't ask to update copyright
 (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)  ;; increment number
@@ -50,10 +50,9 @@
 (setq org-clock-persist-query-resume nil)  ;; Do not prompt to resume an active clock, just resume it
 (setq org-clock-out-when-done t)  ;; Clock out when moving task to a done state
 (setq org-clock-report-include-clocking-task t)  ;; Include current clocking task in clock reports
-(setq org-clock-idle-time 30)  ;; detect idle time and ask what to do with it
+(setq org-clock-idle-time 90)  ;; detect idle time and ask what to do with it
 (setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (setq org-babel-python-command "python3")  ;; use python3 in org-mode code
-(setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (add-hook 'org-after-todo-state-change-hook 'my/org-todo-state-change-clock)
 
 ;; org-roam
@@ -96,7 +95,7 @@
 ;; my functions follow
 (defun my-copyright-update ()
   (copyright-update)
-  (copyright-fix-years))
+  (save-excursion (copyright-fix-years)))
 
 (defun my/org-todo-state-change-clock ()
   "Clock in or out of tasks when state changes"

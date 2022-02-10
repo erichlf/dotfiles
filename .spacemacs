@@ -234,7 +234,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(phoenix-dark-pink :disable t
+   dotspacemacs-themes '(phoenix-dark-pink
                          phoenix-dark-mono
                          purple-haze
                          spacemacs-dark
