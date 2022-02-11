@@ -7,7 +7,7 @@
 (setq copyright-query nil)  ;; don't ask to update copyright
 (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)  ;; increment number
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
-(global-git-commit-mode t)  ;; use emacs for git commits
+(setq global-git-commit-mode t)  ;; use emacs for git commits
 (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
 (add-hook 'c-mode-common-hook `my/set-c-ctyle)  ;; apply my c-style
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
