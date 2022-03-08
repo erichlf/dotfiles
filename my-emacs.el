@@ -9,10 +9,13 @@
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
 (setq global-git-commit-mode t)  ;; use emacs for git commits
 (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
-(add-hook 'c-mode-common-hook `my/set-c-ctyle)  ;; apply my c-style
+(add-hook 'c-mode-common-hook 'my/set-c-ctyle)  ;; apply my c-style
+(add-hook 'python-mode-hook (flycheck-mode 0))
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
 (whitespace-mode 't)  ;; turn on whitespace minor mode
 (add-to-list 'auto-mode-alist '("\\.tcc" . c++-mode))  ;; template files
+
+(setq toggle-scroll-bar -1)  ;; don't show scroll bar
 
 (require 'org-tempo)
 
@@ -30,7 +33,7 @@
 
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
-;; (setq directory-abbrev-alist '(("\\`/checkout/src" . "~/workspace/Seegrid/blue")))
+(setq directory-abbrev-alist '(("^/checkout/src" . "home/seegrid.local/efoster/workspace/Seegrid/blue")))
 
 ;; org-agenda
 (setq org-log-into-drawer t)  ;; log state changes to a drawer
@@ -56,7 +59,8 @@
 (add-hook 'org-after-todo-state-change-hook 'my/org-todo-state-change-clock)
 
 ;; org-roam
-(setq org-roam-directory "~/org/notes")
+;; (setq org-roam-directory "~/org/notes")
+;; (org-roam-setup)
 
 ;; logview
 (setq logview-guess-lines 1250)  ;; sometimes our headers are very long

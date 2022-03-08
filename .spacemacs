@@ -65,11 +65,11 @@ This function should only modify configuration layer settings."
        lsp
        markdown
        multiple-cursors
-       (org :variables org-enable-roam-support t)
+       org
        pass
        (plantuml :variables plantuml-jar-path "~/.local/bin/plantuml.jar")
        protobuf
-       python
+       (python :variables python-backend 'lsp)
        semantic
        (shell :variables
          shell-default-shell 'vterm
@@ -179,7 +179,7 @@ It should only modify the values of Spacemacs settings."
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update 'true
+   dotspacemacs-check-for-update t
 
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
@@ -418,7 +418,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil `smartparens-strict-mode' will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smartparens-strict-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc...

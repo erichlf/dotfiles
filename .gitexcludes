@@ -10,3 +10,5 @@ compile_commands.json
 .org-gcal-token
 org-gcal---sync-tokens
 persist
+.org-generic-id-locations
+logview-cache.extmap
