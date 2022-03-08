@@ -11,7 +11,8 @@ declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
                       .gitconfig .gitexcludes
                       .spacemacs .emacs.d
                       texmf .Xmodmap
-                      .Xresources .xsessionrc private/.bash_aliases )
+                      .Xresources .xsessionrc private/.bash_aliases
+                      private/.ssh/config )
 
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -86,9 +87,19 @@ function sudo_rule(){
 
 #create my links
 function sym_links(){
-  cd $HOME
-  for FILE in ${DOTFILES[@]}; do ln -sf $DOTFILES_DIR/$FILE $HOME/; done
-  cd $DOTFILES_DIR
+  for FILE in ${DOTFILES[@]}; do
+    DIR=$(basename $(dirname $FILE));
+    if [[ "$DIR" -ne "$DOTFILES" && "$DIR" -ne "private" ]]; then
+      DEST="$HOME/$DIR"
+      if [[ ! -d "$HOME/$DIR" ]]; then
+        mkdir "$HOME/$DIR";
+      fi
+    else
+      DEST=$HOME
+    fi
+
+    ln -sf "$DOTFILES_DIR/$FILE" "$DEST/";
+  done
 
   return 0
 }
@@ -269,6 +280,9 @@ function seegrid(){
   wget https://zoom.us/client/latest/zoom_amd64.deb
   sudo apt install ./zoom_amd64.deb
   cd $DOTFILES_DIR
+
+  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
+  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
   return 0
 }
