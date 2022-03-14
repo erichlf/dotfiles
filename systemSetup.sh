@@ -88,10 +88,12 @@ function sudo_rule(){
 #create my links
 function sym_links(){
   for FILE in ${DOTFILES[@]}; do
+    echo $FILE
     DIR=$(basename $(dirname $FILE));
-    if [[ "$DIR" -ne "$DOTFILES" && "$DIR" -ne "private" ]]; then
+    echo $DIR
+    if [[ "$DIR" != "$DOTFILES" && "$DIR" != "private" ]]; then
       DEST="$HOME/$DIR"
-      if [[ ! -d "$HOME/$DIR" ]]; then
+      if [ ! -d "$HOME/$DIR" ]; then
         mkdir "$HOME/$DIR";
       fi
     else
@@ -100,6 +102,7 @@ function sym_links(){
 
     ln -sf "$DOTFILES_DIR/$FILE" "$DEST/";
   done
+  exit
 
   return 0
 }

@@ -78,7 +78,9 @@ This function should only modify configuration layer settings."
        spell-checking
        syntax-checking
        themes-megapack
-       treemacs
+       (treemacs :variables
+         treemacs-use-git-mode 'simple
+         treemacs-use-all-the-icons-theme t)
        yaml
       )
 
