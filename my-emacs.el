@@ -33,7 +33,7 @@
 
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
-(setq directory-abbrev-alist '(("^/checkout/src" . "home/seegrid.local/efoster/workspace/Seegrid/blue")))
+(setq directory-abbrev-alist '(("^/checkout/src" . "/home/seegrid.local/efoster/workspace/Seegrid/blue")))
 
 ;; org-agenda
 (setq org-log-into-drawer t)  ;; log state changes to a drawer

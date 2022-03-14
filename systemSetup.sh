@@ -7,11 +7,17 @@ sudo apt install dialog git
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc .bash_exports .editorconfig
-                      .gitconfig .gitexcludes
-                      .spacemacs .emacs.d
-                      texmf .Xmodmap
-                      .Xresources .xsessionrc private/.bash_aliases
+declare -a DOTFILES=( .bashrc 
+                      .bash_exports 
+                      .editorconfig
+                      .gitconfig 
+                      .gitexcludes
+                      .spacemacs 
+                      .emacs.d
+                      texmf 
+                      .Xmodmap
+                      .Xresources .xsessionrc 
+                      private/.bash_aliases
                       private/.ssh/config )
 
 DOTFILES_DIR=$HOME/dotfiles
@@ -79,6 +85,12 @@ function pip3_install(){
   return 0
 }
 
+function snap_install(){
+  sudo snap install $@
+
+  return 0
+}
+
 function sudo_rule(){
   echo "$USER ALL = NOPASSWD: $@" | sudo tee -a /etc/sudoers
 
@@ -118,29 +130,13 @@ function dev_tools(){
   # need dnspython and unrar are needed by calibre
   pip3_install wheel dnspython unrar pylint
 
-  #latest git
-  if no_ppa_exists git-core
-  then
-      add_ppa git-core/ppa
-  fi
-
-  # setup slack repo
-  curl -s https://packagecloud.io/install/repositories/slacktechnologies/slack/script.deb.sh | sudo bash
-
-  # setup klogg repo
-  apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-  echo deb https://dl.bintray.com/variar/deb stable utils | sudo tee -a /etc/apt/sources.list
-
-  apt_update
-
-  # add repo for latest emacs
   if no_ppa_exists kelleyk
   then
     add_ppa kelleyk/emacs
   fi
 
-  apt_install libtool-bin emacs27 klogg \
-              slack-desktop meld openssh-server editorconfig global \
+  apt_install libtool-bin emacs27 \
+              meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
               libopencv-contrib-dev libopencv-photo-dev xclip
@@ -157,10 +153,10 @@ function dev_tools(){
 
   # setup emacs daemon
   mkdir -p $HOME/.local/share/applications/
-  ln -s $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
-  ln -s /usr/share/emacs/*/etc/emacs.icon $HOME/.local/share/applications/emacs.icon
+  ln -sf $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
+  ln -sf /usr/share/emacs/*/etc/emacs.icon $HOME/.local/share/applications/emacs.icon
   mkdir -p $HOME/.config/systemd/user
-  ln -s $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
+  ln -sf $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
   systemctl --user enable --now emacs
   # install source code pro fonts
   mkdir -p /tmp/adodefont
@@ -178,7 +174,7 @@ function dev_tools(){
   ln -sf $DOTFILES_DIR/powerline
 
   # install git-subrepo
-  git clone https://github.com/ingydotnet/git-subrepo
+  [ ! -d "$HOME/.config/git-subrepo" ] && git clone https://github.com/ingydotnet/git-subrepo
 
   cd $DOTFILES_DIR
 
@@ -213,39 +209,20 @@ function LaTeX(){
 function base_sys(){
   cd $HOME
 
-  # setup repo for 1password
-  sudo apt-key --keyring /usr/share/keyrings/1password.gpg adv --keyserver keyserver.ubuntu.com \
-       --recv-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password.gpg] https://downloads.1password.com/linux/debian edge main' | sudo tee /etc/apt/sources.list.d/1password.list
+  snap_install 1password
 
-  if no_ppa_exists alessandro-strada
-  then
-      add_ppa alessandro-strada/ppa
-  fi
+  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweak-tool \
+              pass
 
-  if no_ppa_exists bashtop-monitor
-  then
-     add_ppa bashtop-monitor/bashtop
-  fi
-
-  apt_install wget curl bashtop iftop cifs-utils nfs-common autofs google-drive-ocamlfuse gnome-tweak-tool \
-              1password pass
+  snap_install btop
 
   if [ ! -d /media/NFS ]; then
     sudo mkdir /media/NFS
   fi
-  if [ ! -d /media/Google ]; then
-    sudo mkdir /media/Google
-  fi
 
-  sudo cp $DOTFILES_DIR/gdfuse /usr/bin/
   sudo cp $DOTFILES_DIR/auto.master /etc/
   sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
-  sudo cp $DOTFILES_DIR/private/auto.gdrive /etc/
   ln -s -f /media/NFS/Media-NAS
-  ln -s -f /media/Google
-
-  sudo_rule /usr/bin/google-drive-ocamlfuse
 
   sudo systemctl start autofs
 
@@ -287,7 +264,9 @@ function seegrid(){
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
-  return 0
+  snap_install slack-desktop
+  
+   return 0
 }
 
 ################################ extras ########################################
@@ -313,7 +292,7 @@ function crapware(){
 ########################## update and upgrade ##################################
 function update_sys(){
   apt_update
-  sudo apt-get -y dist-upgrade
+  sudo apt-get -y upgrade
 
   return 0
 }
@@ -333,12 +312,10 @@ do
        sym_links
        base_sys
        dev_tools
-       network_connections
        extras
-       seegrid
        crapware
        update_sys
-       sudo apt autoremove
+       sudo apt -y autoremove
        sudo_rules
        run_me
        ;;
