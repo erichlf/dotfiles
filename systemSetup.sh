@@ -7,16 +7,16 @@ sudo apt install dialog git
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc 
-                      .bash_exports 
+declare -a DOTFILES=( .bashrc
+                      .bash_exports
                       .editorconfig
-                      .gitconfig 
+                      .gitconfig
                       .gitexcludes
-                      .spacemacs 
+                      .spacemacs
                       .emacs.d
-                      texmf 
+                      texmf
                       .Xmodmap
-                      .Xresources .xsessionrc 
+                      .Xresources .xsessionrc
                       private/.bash_aliases
                       private/.ssh/config )
 
@@ -135,7 +135,12 @@ function dev_tools(){
     add_ppa kelleyk/emacs
   fi
 
-  apt_install libtool-bin emacs27 \
+  if no_ppa_exists linuxuprising
+  then
+    add_ppa linuxuprising/guake
+  fi
+
+  apt_install libtool-bin emacs27 guake\
               meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
@@ -265,7 +270,7 @@ function seegrid(){
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
   snap_install slack-desktop
-  
+
    return 0
 }
 
