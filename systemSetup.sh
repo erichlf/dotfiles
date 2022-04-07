@@ -189,6 +189,12 @@ function dev_tools(){
 
   apt_install gnupg ca-certificates
 
+  # set up coredumps
+  ulimit -S -c unlimited
+  sudo sed -i"" -E "s/#(\*p[:blank:]+soft[:blank:]+core[:blank:]+)0/\1unlimited" /etc/security/limits.conf
+  sudo mkdir /var/coredumps
+  sudo sysctl -w kernel.core_pattern=/var/coredumps/core-%e-%s-%u-%g-%p-%t
+
   cd $DOTFILES_DIR
 
   return 0
