@@ -15,3 +15,9 @@
 [submodule "google-calendar"]
 	path = google-calendar
 	url = https://github.com/mhkc/google-calendar-layer.git
+[submodule "ohmyzsh"]
+	path = .oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "zsh2000"]
+	path = zsh2000
+	url = https://github.com/maverick9000/zsh2000.git

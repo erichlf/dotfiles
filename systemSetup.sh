@@ -10,15 +10,17 @@ release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 declare -a DOTFILES=( .bashrc
                       .bash_exports
                       .editorconfig
+                      .emacs.d
                       .gitconfig
                       .gitexcludes
+                      .oh-my-zsh
                       .spacemacs
-                      .emacs.d
                       texmf
                       .Xmodmap
                       .Xresources .xsessionrc
                       private/.bash_aliases
-                      private/.ssh/config )
+                      private/.ssh/config
+                      .zshrc )
 
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -223,7 +225,9 @@ function base_sys(){
   snap_install 1password
 
   apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweak-tool \
-              pass
+              pass zsh
+
+  curl -sSL https://get.rvm.io | bash
 
   snap_install btop
 
@@ -236,6 +240,8 @@ function base_sys(){
   ln -s -f /media/NFS/Media-NAS
 
   sudo systemctl start autofs
+
+  ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/themes
 
   cd $DOTFILES_DIR
 
