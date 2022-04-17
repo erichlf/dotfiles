@@ -42,6 +42,7 @@
 ;; projectile
 (setq projectile-project-search-path '("~/workspace"))
 (setq directory-abbrev-alist '(("^/checkout/src" . "/home/seegrid.local/efoster/workspace/Seegrid/blue")))
+(add-hook 'find-file-hook 'load-dir-settings)
 
 ;; org-agenda
 (setq org-log-into-drawer t)  ;; log state changes to a drawer
@@ -105,6 +106,20 @@
 (setq doc-view-continuous 't)
 
 ;; my functions follow
+
+;; work around for broken dir-locals loading
+(defun recursive-load-dir-settings (currentfile)
+  (let ((lds-dir (locate-dominating-file currentfile "settings.el")))
+    (when lds-dir
+      (progn
+        (load-file (concat lds-dir "settings.el"))
+        (recursive-load-dir-settings (file-truename(concat lds-dir "..")))))))
+
+(defun load-dir-settings()
+  (interactive)
+  (when buffer-file-name
+    (recursive-load-dir-settings buffer-file-name)))
+
 (defun my-copyright-update ()
   (copyright-update)
   (save-excursion (copyright-fix-years)))
