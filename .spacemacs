@@ -62,7 +62,25 @@ This function should only modify configuration layer settings."
        helm
        html
        latex
-       lsp
+       (lsp :variable
+       :ensure t
+       :commands lsp lsp-deferred
+       :init
+       (setq lsp-log-io t)
+       :hook (;; hooks for all modes for which I want to setup lsp
+               (c++-mode . lsp-deferred)
+               ;; which-key integration
+               (lsp-mode . lsp-enable-which-key-integration))
+       :config
+       (progn
+         (add-hook 'prog-mode-hook #'lsp)
+         (lsp-register-client
+           (make-lsp-client :new-connection (lsp-tramp-connection "/docker:docker_develop_1:/usr/bin/clangd-6.0")
+             :major-modes '(c++-mode)
+             :remote? t
+             :server-id 'clangd-remote
+             :priority 1))
+       ))
        markdown
        multiple-cursors
        org
