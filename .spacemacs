@@ -92,6 +92,7 @@ This function should only modify configuration layer settings."
        (shell :variables
          shell-default-shell 'ansi-term
          shell-default-term-shell "/usr/bin/zsh"
+         close-window-with-terminal t
          shell-default-width 35
          shell-default-position 'right)
        spell-checking

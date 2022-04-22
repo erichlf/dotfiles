@@ -14,3 +14,4 @@ persist
 logview-cache.extmap
 settings.el
 compile-commands.json
+__pycache__
