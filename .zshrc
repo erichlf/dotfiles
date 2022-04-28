@@ -90,6 +90,7 @@ plugins=(
   sudo
   ubuntu
   web-search
+  zsh-autosuggestions
   zsh-interactive-cd
 )
 
@@ -120,6 +121,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+autoload -U zmv
 
 # no point in rewriting my aliases
 source ~/.bash_aliases

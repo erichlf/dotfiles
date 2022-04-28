@@ -242,6 +242,7 @@ function base_sys(){
   sudo systemctl start autofs
 
   ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/themes
+  ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
   cd $DOTFILES_DIR
 
