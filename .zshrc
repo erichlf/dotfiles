@@ -122,7 +122,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-autoload -U zmv
+extensions=(
+  1password.plugin.zsh
+  zmv
+)
+
+for extension in $extensions; do
+  autoload -U $extension;
+done
 
 # no point in rewriting my aliases
 source ~/.bash_aliases
