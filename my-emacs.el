@@ -153,11 +153,32 @@
   (my/save-slack)
   )
 
+(defun my/get-ticket-num (link)
+  "Use a regular expression to determine the ticket number in a link"
+  (save-match-data
+    (and
+      (string-match "\\([A-Za-z-_]+-[0-9]+\\)" link)
+      (match-string 1 link)
+      )
+    )
+  )
+
+(defun my/get-code-review-num (link)
+  "Use a regular expression to determine the code review number in a link"
+  (save-match-data
+    (and
+      (string-match "/\\(A-Z-a-z-_]+\\)/pulls/\\([0-9]+\\)" link)
+      (setq project (match-string 1 link)
+        ticket  (match-string 2 link))
+      )
+    )
+  (concat project "#" ticket)
+  )
+
 (defun my/get-ticket (link)
   "Use a regular expression to determine the ticket in link"
-  (save-match-data
-    (and (string-match "/\\([A-Za-z]+-[0-9]+\\)\\($\\|\\?\\)" link)
-      (match-string 1 link)))
+  (setq ticket (my/get-ticket-num link))
+  (if ticket ticket (my/get-code-review-num link))
   )
 
 (defun my/ticket-steps (link)
