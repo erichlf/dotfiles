@@ -125,6 +125,8 @@ source $ZSH/oh-my-zsh.sh
 extensions=(
   1password.plugin.zsh
   zmv
+  zcp
+  zln
 )
 
 for extension in $extensions; do

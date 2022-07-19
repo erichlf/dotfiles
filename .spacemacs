@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
          docker-dockerfile-backend 'lsp)
        emacs-lisp
        git
-       github
+       graphviz
        helm
        html
        latex
