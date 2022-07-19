@@ -66,10 +66,13 @@
 (setq org-pretty-entities t)  ;; use pretty things for the clocktable
 (setq org-babel-python-command "python3")  ;; use python3 in org-mode code
 (add-hook 'org-after-todo-state-change-hook 'my/org-todo-state-change-clock)
+(org-babel-do-load-languages 'org-babel-load-languages '((dot . t)))
 
 ;; org-roam
 ;; (setq org-roam-directory "~/org/notes")
 ;; (org-roam-setup)
+
+(setq org-image-actual-width nil)
 
 ;; logview
 (setq logview-guess-lines 1250)  ;; sometimes our headers are very long
@@ -157,7 +160,7 @@
   "Use a regular expression to determine the ticket number in a link"
   (save-match-data
     (and
-      (string-match "\\([A-Za-z-_]+-[0-9]+\\)" link)
+      (string-match "\\([A-Za-z-_]+[0-9]+\\)" link)
       (match-string 1 link)
       )
     )
@@ -167,7 +170,7 @@
   "Use a regular expression to determine the code review number in a link"
   (save-match-data
     (and
-      (string-match "/\\(A-Z-a-z-_]+\\)/pulls/\\([0-9]+\\)" link)
+      (string-match "/\\([A-Z-a-z-_]+\\)/pulls/\\([0-9]+\\)" link)
       (setq project (match-string 1 link)
         ticket  (match-string 2 link))
       )
@@ -177,8 +180,9 @@
 
 (defun my/get-ticket (link)
   "Use a regular expression to determine the ticket in link"
+  (setq review (my/get-code-review-num link))
   (setq ticket (my/get-ticket-num link))
-  (if ticket ticket (my/get-code-review-num link))
+  (if review review ticket)
   )
 
 (defun my/ticket-steps (link)
