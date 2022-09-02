@@ -77,7 +77,8 @@
 ;; logview
 (setq logview-guess-lines 1250)  ;; sometimes our headers are very long
 (setq logview-additional-timestamp-formats
-  '(("SEEGRID" (regexp . "[0-9]\\{10\\} [ 0-9]\\{6\\}")))
+  '(("SEEGRID" (regexp . "[0-9]\\{10\\} [ 0-9]\\{6\\}"))
+    ("IRIS" (regexp . "[0-9]\\{10\\}.[ 0-9]\\{9\\}")))
   )
 (setq logview-additional-level-mappings
   '(("SEEGRID"
@@ -102,7 +103,12 @@
       (format . "[TIMESTAMP THREAD NAME LEVEL] MESSAGE")
       (levels . "SEEGRID")
       (timestamp "SEEGRID")
-      (aliases)))
+      (aliases))
+     ("IRIS"
+       (format . "[THREAD] [IGNORED[LEVEL] [TIMESTAMP] [NAME]: MESSAGE")
+       (levels . "SEEGRID")
+       (timestamp "IRIS")
+       (aliases)))
   )
 
 ;; misc
@@ -175,7 +181,7 @@
         ticket  (match-string 2 link))
       )
     )
-  (concat project "#" ticket)
+  (if ticket (concat project "#" ticket) ticket)
   )
 
 (defun my/get-ticket (link)
