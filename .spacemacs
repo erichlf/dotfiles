@@ -589,8 +589,7 @@ This function is called at the very end of Spacemacs initialization."
        (tags-todo "LEVEL=2"
                   ((org-agenda-prefix-format "%l%l"))))
       nil nil)))
- '(org-agenda-files
-   '("~/org/tasks.org" "~/org/personal.org" "~/org/family.org" "~/org/seegrid.org" "~/org/slack.org"))
+ '(org-agenda-files '("~/org/tasks.org"))
  '(org-capture-templates
    '(("t" "Ticket" entry
       (file+headline "~/org/tasks.org" "Tickets")

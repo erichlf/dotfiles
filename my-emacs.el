@@ -141,35 +141,11 @@
     (org-clock-out-if-current))
   )
 
-(defun my/save-slack ()
-  "Save slack buffers"
-  (interactive)
-  (save-excursion
-    (dolist (buf '("slack.org_archive" "slack.org"))
-      (set-buffer buf)
-      (if (and (buffer-file-name) (buffer-modified-p))
-        (basic-save-buffer)
-        )
-      )
-    )
-  )
-
-(defun my/org-agenda-todo-archive ()
-  "Mark an agenda item as done, archive it, and save the slack buffers"
-  (interactive)
-  (org-agenda-todo 'done)
-  (org-agenda-archive)
-  (my/save-slack)
-  )
-
 (defun my/get-ticket-num (link)
   "Use a regular expression to determine the ticket number in a link"
   (save-match-data
-    (and
-      (string-match "\\([A-Za-z-_]+[0-9]+\\)" link)
-      (match-string 1 link)
-      )
-    )
+    (and (string-match "/\\([A-Za-z]+-[0-9]+\\)\\($\\|\\?\\)" link)
+      (match-string 1 link)))
   )
 
 (defun my/get-code-review-num (link)
@@ -186,8 +162,8 @@
 
 (defun my/get-ticket (link)
   "Use a regular expression to determine the ticket in link"
-  (setq review (my/get-code-review-num link))
-  (setq ticket (my/get-ticket-num link))
+  (setq review (my/get-code-review-num link)
+    ticket (my/get-ticket-num link))
   (if review review ticket)
   )
 
