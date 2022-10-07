@@ -11,6 +11,7 @@ declare -a DOTFILES=( .bashrc
                       .bash_exports
                       .editorconfig
                       .emacs.d
+		      .flexget
                       .gitconfig
                       .gitexcludes
                       .oh-my-zsh

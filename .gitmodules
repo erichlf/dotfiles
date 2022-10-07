@@ -6,21 +6,27 @@
     url = git@github.com:chriskempson/base16-xresources.git
 [submodule "private"]
     path = private
-	url = git@github.com:erichlf/dotfiles-private.git
-	branch = master
+    url = git@github.com:erichlf/dotfiles-private.git
+    branch = master
 [submodule ".emacs.d"]
-	path = .emacs.d
-	url = https://github.com/syl20bnr/spacemacs
-	branch = develop
+    path = .emacs.d
+    url = https://github.com/syl20bnr/spacemacs
+    branch = develop
 [submodule "google-calendar"]
-	path = google-calendar
-	url = https://github.com/mhkc/google-calendar-layer.git
+    path = google-calendar
+    url = https://github.com/mhkc/google-calendar-layer.git
 [submodule "ohmyzsh"]
-	path = .oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh.git
+    path = .oh-my-zsh
+    url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule "zsh2000"]
-	path = zsh2000
-	url = https://github.com/maverick9000/zsh2000.git
+    path = zsh2000
+    url = https://github.com/maverick9000/zsh2000.git
 [submodule "zsh-autosuggestions"]
-	path = zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
+    path = zsh-autosuggestions
+    url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "flexget"]
+    path = .flexget 
+    url = git@github.com:erichlf/flexget.git
+[submodule ".flexget"]
+	path = .flexget
+	url = git@github.com:erichlf/flexget.git
