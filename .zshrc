@@ -135,6 +135,8 @@ done
 
 # no point in rewriting my aliases
 source ~/.bash_aliases
+source ~/.local/bin/google-cloud-sdk/path.zsh.inc
+source ~/.local/bin/google-cloud-sdk/completion.zsh.inc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

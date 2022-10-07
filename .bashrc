@@ -77,3 +77,9 @@ fi
 
 # we are in a docker container
 [ -f /ros_entrypoint.sh ] && source /ros_entrypoint.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/seegrid.local/efoster/.local/google-cloud-sdk/path.bash.inc' ]; then . '/home/seegrid.local/efoster/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/seegrid.local/efoster/.local/google-cloud-sdk/completion.bash.inc' ]; then . '/home/seegrid.local/efoster/Downloads/google-cloud-sdk/completion.bash.inc'; fi
