@@ -144,27 +144,26 @@
 (defun my/get-ticket-num (link)
   "Use a regular expression to determine the ticket number in a link"
   (save-match-data
-    (and (string-match "/\\([A-Za-z]+-[0-9]+\\)\\($\\|\\?\\)" link)
-      (match-string 1 link)))
+    (and
+      (string-match "\\([A-z-a-z_-]+-[0-9]+\\)" link)
+      (match-string 1 link)
+      ))
   )
 
-(defun my/get-code-review-num (link)
+(defun my/get-pr-num (link)
   "Use a regular expression to determine the code review number in a link"
   (save-match-data
     (and
-      (string-match "/\\([A-Z-a-z-_]+\\)/pulls/\\([0-9]+\\)" link)
+      (string-match "\\([A-z-a-z_-]+\\)/pulls/\\([0-9]+\\)" link)
       (setq project (match-string 1 link)
-        ticket  (match-string 2 link))
-      )
-    )
-  (if ticket (concat project "#" ticket) ticket)
+        ticket (match-string 2 link))
+      (if (> (length project) 0) (concat project "#" ticket) project)
+      ))
   )
 
 (defun my/get-ticket (link)
   "Use a regular expression to determine the ticket in link"
-  (setq review (my/get-code-review-num link)
-    ticket (my/get-ticket-num link))
-  (if review review ticket)
+  (if (equal (my/get-pr-num link) nil) (my/get-ticket-num link) (get-pr-num link))
   )
 
 (defun my/ticket-steps (link)
@@ -175,7 +174,7 @@
   (setq title
     (read-string "TITLE: "))
   (setq ticket
-    (my/get-ticket link))
+    (my/get-ticket-num link))
   (setq header (format "\n* TODO [#%s] %s ([[%s][%s]]) [/]
    :PROPERTIES:
    :CUSTOM_ID: %s
