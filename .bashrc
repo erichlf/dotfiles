@@ -4,6 +4,10 @@
 #    source $HOME/.local_bashrc
 #fi
 
+#if [ -f "/opt/bin/zsh" ]; then
+#    exec zsh
+#fi
+
 # make sure tab completion is working for apt and sudo
 complete -cf sudo
 complete -cf apt-get
@@ -74,3 +78,5 @@ if [ -x "$(command -v powerline-daemon)" ]; then
 else
     PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
