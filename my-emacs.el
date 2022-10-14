@@ -1,3 +1,4 @@
+(setq tramp-terminal-type "tramp")
 ;; programming settings
 (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; toggle fill column indicator on
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word

@@ -11,9 +11,11 @@ export VISUAL='emacsclient -c -a emacs'
 export WAF_CACHE_SIZE=50000000  # cache of about 50GB.
 export WAFCACHE=~/workspace/Seegrid/waf-cache
 export dockerclean='docker image prune -a --filter "until=12h"'
-export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
+[ $(which pass) ] && export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
 
-export IRIS_WS=$HOME/workspace/Seegrid/Iris
+export SEEGRID_WS=$HOME/workspace/Seegrid
+export BLUE_DIR=$SEEGRID_WS/blue
+export IRIS_WS=$SEEGRID_WS/Iris
 export IRIS_DEVOPS_PATH=$IRIS_WS/devops
 
 # check if we are on OSX and then set CLICOLOR

@@ -135,6 +135,7 @@ done
 
 # no point in rewriting my aliases
 source ~/.bash_aliases
+source ~/.bash_exports
 source ~/.local/bin/google-cloud-sdk/path.zsh.inc
 source ~/.local/bin/google-cloud-sdk/completion.zsh.inc
 
