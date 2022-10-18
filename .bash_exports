@@ -1,7 +1,7 @@
 export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=10000
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
-export LC_ALL="en_US.UTF-8"
+[ -f /usr/share/X11/locale/en_US.UTF-8 ] && export LC_ALL="en_US.UTF-8"
 export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
