@@ -10,7 +10,8 @@
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
 (setq global-git-commit-mode t)  ;; use emacs for git commits
 (xterm-mouse-mode -1)  ;; normal copy paste with mouse in terminal
-(add-hook 'c-mode-common-hook 'my/set-c-ctyle)  ;; apply my c-style
+(add-hook 'c-mode-initialize-hook 'my/c-mode-initialize-hook)  ;; create my c-style
+(add-hook 'c-mode-common-hook 'my/c-mode-common-hook)  ;; apply my c-style
 (add-hook 'python-mode-hook (flycheck-mode 0))
 (setq whitespace-style (quote (face empty tabs lines-tail trailing)))  ;; display annoying whitespaces
 (whitespace-mode 't)  ;; turn on whitespace minor mode
@@ -190,96 +191,87 @@
   (s-concat header steps)
   )
 
-;; function to load my c-style
-(defun my/set-c-ctyle ()
-  (interactive)
-  (make-local-variable 'c-tab-always-indent)
-  (setq c-tab-always-indent t)
-  (c-add-style "seegrid" my/seegrid-iris-c-style t)
-  )
-
 ;; define the seegrid coding style
-(defconst my/seegrid-iris-c-style ()
-  '("Seegrid IRIS C/C++ Programming Style"
-               (c-basic-offset . 2)     ; Guessed value
-               (c-offsets-alist
-                (arglist-cont . 0)      ; Guessed value
-                (arglist-intro . ++)    ; Guessed value
-                (block-close . 0)       ; Guessed value
-                (catch-clause . 0)      ; Guessed value
-                (defun-block-intro . +) ; Guessed value
-                (defun-close . 0)       ; Guessed value
-                (defun-open . 0)        ; Guessed value
-                (else-clause . 0)       ; Guessed value
-                (inline-close . 0)      ; Guessed value
-                (innamespace . 0)       ; Guessed value
-                (member-init-cont . 0)  ; Guessed value
-                (member-init-intro . ++) ; Guessed value
-                (namespace-close . 0)    ; Guessed value
-                (namespace-open . 0)     ; Guessed value
-                (statement . 0)             ; Guessed value
-                (statement-block-intro . +) ; Guessed value
-                (statement-cont . ++)   ; Guessed value
-                (substatement-open . 0) ; Guessed value
-                (topmost-intro . 0)     ; Guessed value
-                (topmost-intro-cont . 0) ; Guessed value
-                (access-label . -)
-                (annotation-top-cont . 0)
-                (annotation-var-cont . +)
-                (arglist-close . c-lineup-close-paren)
-                (arglist-cont-nonempty . c-lineup-arglist)
-                (block-open . 0)
-                (brace-entry-open . 0)
-                (brace-list-close . 0)
-                (brace-list-entry . 0)
-                (brace-list-intro . +)
-                (brace-list-open . 0)
-                (c . c-lineup-C-comments)
-                (case-label . 0)
-                (class-close . 0)
-                (class-open . 0)
-                (comment-intro . c-lineup-comment)
-                (composition-close . 0)
-                (composition-open . 0)
-                (cpp-define-intro c-lineup-cpp-define +)
-                (cpp-macro . -1000)
-                (cpp-macro-cont . +)
-                (do-while-closure . 0)
-                (extern-lang-close . 0)
-                (extern-lang-open . 0)
-                (friend . 0)
-                (func-decl-cont . +)
-                (inclass . +)
-                (incomposition . +)
-                (inexpr-class . +)
-                (inexpr-statement . +)
-                (inextern-lang . +)
-                (inher-cont . c-lineup-multi-inher)
-                (inher-intro . +)
-                (inlambda . 0)
-                (inline-open . +)
-                (inmodule . +)
-                (knr-argdecl . 0)
-                (knr-argdecl-intro . +)
-                (label . 2)
-                (lambda-intro-cont . +)
-                (module-close . 0)
-                (module-open . 0)
-                (objc-method-args-cont . c-lineup-ObjC-method-args)
-                (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
-                (objc-method-intro .
-                                   [0])
-                (statement-case-intro . +)
-                (statement-case-open . 0)
-                (stream-op . c-lineup-streamop)
-                (string . -1000)
-                (substatement . +)
-                (substatement-label . 2)
-                (template-args-cont c-lineup-template-args +))))
+(defconst seegrid-iris-c-style
+  '((c-basic-offset . 2)     ; Guessed value
+    (c-offsets-alist
+    (arglist-cont . 0)      ; Guessed value
+    (arglist-intro . ++)    ; Guessed value
+    (block-close . 0)       ; Guessed value
+    (catch-clause . 0)      ; Guessed value
+    (defun-block-intro . +) ; Guessed value
+    (defun-close . 0)       ; Guessed value
+    (defun-open . 0)        ; Guessed value
+    (else-clause . 0)       ; Guessed value
+    (inline-close . 0)      ; Guessed value
+    (innamespace . 0)       ; Guessed value
+    (member-init-cont . 0)  ; Guessed value
+    (member-init-intro . ++) ; Guessed value
+    (namespace-close . 0)    ; Guessed value
+    (namespace-open . 0)     ; Guessed value
+    (statement . 0)             ; Guessed value
+    (statement-block-intro . +) ; Guessed value
+    (statement-cont . ++)   ; Guessed value
+    (substatement-open . 0) ; Guessed value
+    (topmost-intro . 0)     ; Guessed value
+    (topmost-intro-cont . 0) ; Guessed value
+    (access-label . -)
+    (annotation-top-cont . 0)
+    (annotation-var-cont . +)
+    (arglist-close . c-lineup-close-paren)
+    (arglist-cont-nonempty . c-lineup-arglist)
+    (block-open . 0)
+    (brace-entry-open . 0)
+    (brace-list-close . 0)
+    (brace-list-entry . 0)
+    (brace-list-intro . +)
+    (brace-list-open . 0)
+    (c . c-lineup-C-comments)
+    (case-label . 0)
+    (class-close . 0)
+    (class-open . 0)
+    (comment-intro . c-lineup-comment)
+    (composition-close . 0)
+    (composition-open . 0)
+    (cpp-define-intro c-lineup-cpp-define +)
+    (cpp-macro . -1000)
+    (cpp-macro-cont . +)
+    (do-while-closure . 0)
+    (extern-lang-close . 0)
+    (extern-lang-open . 0)
+    (friend . 0)
+    (func-decl-cont . +)
+    (inclass . +)
+    (incomposition . +)
+    (inexpr-class . +)
+    (inexpr-statement . +)
+    (inextern-lang . +)
+    (inher-cont . c-lineup-multi-inher)
+    (inher-intro . +)
+    (inlambda . 0)
+    (inline-open . +)
+    (inmodule . +)
+    (knr-argdecl . 0)
+    (knr-argdecl-intro . +)
+    (label . 2)
+    (lambda-intro-cont . +)
+    (module-close . 0)
+    (module-open . 0)
+    (objc-method-args-cont . c-lineup-ObjC-method-args)
+    (objc-method-call-cont c-lineup-ObjC-method-call-colons c-lineup-ObjC-method-call +)
+    (objc-method-intro .
+                        [0])
+    (statement-case-intro . +)
+    (statement-case-open . 0)
+    (stream-op . c-lineup-streamop)
+    (string . -1000)
+    (substatement . +)
+    (substatement-label . 2)
+    (template-args-cont c-lineup-template-args +)))
+  "Seegrid IRIS C/C++ Programming Style")
 
-(defconst my/seegrid-blue-c-style ()
-  '("Seegrid BLUE C/C++ Programming Style"
-     (c-basic-offset . 4)     ; Guessed value
+(defconst seegrid-blue-c-style
+  '((c-basic-offset . 4)     ; Guessed value
      (c-offsets-alist
           (block-close . 0)       ; Guessed value
           (case-label . 0)        ; Guessed value
@@ -352,7 +344,19 @@
           (substatement-label . 2)
           (substatement-open . +)
           (template-args-cont c-lineup-template-args +)
-          (topmost-intro-cont . c-lineup-topmost-intro-cont)
-       )
-     )
+          (topmost-intro-cont . c-lineup-topmost-intro-cont)))
+  "Seegrid BLUE C/C++ Programming Style")
+
+;; function to load my c-style
+(defun my/c-mode-initialize-hook ()
+  (interactive)
+  (make-local-variable 'c-tab-always-indent)
+  (setq c-tab-always-indent t)
+  (c-add-style "seegrid-iris" seegrid-iris-c-style t)
+  (c-add-style "seegrid-blue" seegrid-blue-c-style t)
+  (setq c-default-style "seegrid-iris")
+  )
+
+(defun my/c-mode-common-hook (style)
+  (c-set-style style)
   )
