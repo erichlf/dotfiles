@@ -171,6 +171,8 @@ function base_sys(){
 
   cd $DOTFILES_DIR
 
+  pip3 install flexget libtorrent transmission-rpc
+
   return 0
 }
 
