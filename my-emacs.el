@@ -1,11 +1,11 @@
+(setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
+(global-set-key (kbd "C-c q") #'chatgpt-query)
+(setq python-interpreter "python3")
+
 (setq tramp-terminal-type "tramp")
 ;; programming settings
 (add-hook 'prog-mode-hook 'spacemacs/toggle-fill-column-indicator)  ;; toggle fill column indicator on
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))  ;; underscore as part of word
-;; update copyright when saving and fix the years to match my pattern
-(add-hook 'before-save-hook #'my-copyright-update)  ;; update copyrights on save
-(setq copyright-year-ranges t)  ;; fix up the years so that we get a dash
-(setq copyright-query nil)  ;; don't ask to update copyright
 (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)  ;; increment number
 (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)  ;; decrement number
 (setq global-git-commit-mode t)  ;; use emacs for git commits
@@ -116,8 +116,10 @@
 ;; misc
 (setq doc-view-continuous 't)
 
-;; my functions follow
+;; color while compiling
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
+;; my functions follow
 ;; work around for broken dir-locals loading
 (defun recursive-load-dir-settings (currentfile)
   (let ((lds-dir (locate-dominating-file currentfile "settings.el")))
@@ -147,7 +149,7 @@
   "Use a regular expression to determine the ticket number in a link"
   (save-match-data
     (and
-      (string-match "\\([A-z-a-z_-]+-[0-9]+\\)" link)
+      (string-match "\\([A-Za-z_-]+-[0-9]+\\)" link)
       (match-string 1 link)
       ))
   )
@@ -156,32 +158,38 @@
   "Use a regular expression to determine the code review number in a link"
   (save-match-data
     (and
-      (string-match "\\([A-z-a-z_-]+\\)/pulls/\\([0-9]+\\)" link)
-      (setq project (match-string 1 link)
-        ticket (match-string 2 link))
-      (if (> (length project) 0) (concat project "#" ticket) project)
-      ))
-  )
+      (string-match "\\([0-9A-Za-z_.-]+\\)/pulls/\\([0-9]+\\)" link)
+      (let ((project (match-string 1 link))
+             (pr-number (match-string 2 link)))
+        (concat project "#" pr-number)))))
 
 (defun my/get-ticket (link)
   "Use a regular expression to determine the ticket in link"
-  (if (equal (my/get-pr-num link) nil) (my/get-ticket-num link) (get-pr-num link))
-  )
+  (let ((pr-num (my/get-pr-num link)))
+    (if (equal pr-num nil)
+      (my/get-ticket-num link)
+      pr-num)))
+
+(defun my/get-ticket-title (link)
+  "Use a regular expression to determine the ticket title in a link"
+  (save-match-data
+    (and
+      (string-match "\\([A-Za-z_-]+-[0-9]+\\)\\/\\(.+\\)" link)
+      (subst-char-in-string "-" " " (match-string 2 link))
+      )))
 
 (defun my/ticket-steps (link)
   "Provides a string that has my standard ticket process"
   (interactive)
-  (setq priority
-    (read-string "PRIORITY: "))
   (setq title
-    (read-string "TITLE: "))
+    (my/get-ticket-title link))
   (setq ticket
     (my/get-ticket-num link))
-  (setq header (format "\n* TODO [#%s] %s ([[%s][%s]]) [/]
+  (setq header (format "\n* TODO %s ([[%s][%s]]) [/]
    :PROPERTIES:
    :CUSTOM_ID: %s
    :ORDERED: t
-   :END:\n" priority title link ticket ticket))
+   :END:\n" title link ticket ticket))
   (setq steps "** TODO Implement
 ** TODO Code Review
 ** TODO Branch Test

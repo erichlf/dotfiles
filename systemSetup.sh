@@ -124,6 +124,10 @@ function sym_links(){
 ############################# developer tools ##################################
 # install development utilities
 function dev_tools(){
+  if [ ! -d "$HOME/workspace" ]; then
+    mkdir "$HOME/workspace"
+  fi
+
   apt_install build-essential cmake gcc g++ clang clang-format ctags cscope \
 
   apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
@@ -142,7 +146,7 @@ function dev_tools(){
     add_ppa linuxuprising/guake
   fi
 
-  apt_install libtool-bin emacs27 guake\
+  apt_install libtool-bin guake emacs28 \
               meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
@@ -158,16 +162,18 @@ function dev_tools(){
     ln -sf $S
   done
 
-  # setup emacs daemon
-  mkdir -p $HOME/.local/share/applications/
+  if [ ! -d $HOME/.local/share/applications ]; then
+    mkdir -p $HOME/.local/share/applications/
+  fi
   ln -sf $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
-  ln -sf /usr/share/emacs/*/etc/emacs.icon $HOME/.local/share/applications/emacs.icon
-  mkdir -p $HOME/.config/systemd/user
+  if [ ! =d $HOME/.config/systemd/user ]; then
+    mkdir -p $HOME/.config/systemd/user
+  fi
   ln -sf $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
   systemctl --user enable --now emacs
   # install source code pro fonts
-  mkdir -p /tmp/adodefont
-  cd /tmp/adodefont
+  mkdir -p /tmp/adobefont
+  cd /tmp/adobefont
   wget -q --show-progress -O source-code-pro.zip https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
   unzip -q source-code-pro.zip -d source-code-pro
   fontpath=/usr/local/share/fonts/
@@ -274,6 +280,12 @@ function seegrid(){
   sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
+  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+  sudo apt install curl # if you haven't already installed curl
+  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+  sudo apt-get update
+  sudo apt-get install python3-vcstool
+  
   cd /tmp
   wget https://zoom.us/client/latest/zoom_amd64.deb
   sudo apt install ./zoom_amd64.deb

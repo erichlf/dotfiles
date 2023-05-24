@@ -14,9 +14,11 @@ export dockerclean='docker image prune -a --filter "until=12h"'
 [ $(which pass) ] && export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
 
 export SEEGRID_WS=$HOME/workspace/Seegrid
-export BLUE_DIR=$SEEGRID_WS/blue
+export META_DIR=$SEEGRID_WS/vehicle-metapackage
+export BLUE_PATH=$META_DIR/submodules/blue
 export IRIS_WS=$SEEGRID_WS/Iris
 export IRIS_DEVOPS_PATH=$IRIS_WS/devops
+export DATA_ROOT=$IRIS_WS/Data
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`
