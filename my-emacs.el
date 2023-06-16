@@ -29,6 +29,30 @@
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+;; org-templates
+
+(setq ansi-color-names-vector
+  ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
+(setq evil-want-Y-yank-to-eol nil)
+;; (setq fringe-mode 6 nil (fringe))
+(setq hl-todo-keyword-faces
+  '(("TODO" . "#dc752f")
+    ("NEXT" . "#dc752f")
+    ("THEM" . "#2d9574")
+    ("PROG" . "#4f97d7")
+    ("OKAY" . "#4f97d7")
+    ("DONT" . "#f2241f")
+    ("FAIL" . "#f2241f")
+    ("DONE" . "#86dc2f")
+    ("NOTE" . "#b1951d")
+    ("KLUDGE" . "#b1951d")
+    ("HACK" . "#b1951d")
+    ("TEMP" . "#b1951d")
+    ("FIXME" . "#dc752f")
+    ("XXX+" . "#dc752f")
+    ("\\?\\?\\?+" . "#dc752f")))
+(setq linum-format " %7d ")
+
 ;; org-page
 (require 'org-page)
 (setq op/repository-directory "~/workspace/erichlf.github.io")
@@ -56,6 +80,23 @@
 (setq org-todo-keyword-faces '(("TODO" . "#dc752f") ("IN PROGRESS" . "#4f97d7") ("STALLED" . "#f2241f")
                                 ("WATCH LISTED" . "#86dc2f") ("HANDED OFF" . "#86dc2f") ("DONE" . "#86dc2f")
                                 ("WON'T FIX" . "#86dc2f")))
+(setq org-agenda-custom-commands
+  '(("n" "Agenda and Main Tasks"
+      ((agenda "" nil)
+        (tags-todo "LEVEL=2"
+          ((org-agenda-prefix-format "%l%l"))))
+      nil nil)))
+(setq org-agenda-files '("~/org/tasks.org"))
+(setq org-capture-templates
+  '(("t" "Ticket" entry
+      (file+headline "~/org/tasks.org" "Tickets")
+      "%(my/ticket-steps \"%x\")")
+     ("r" "Code Review" entry
+       (file+headline "~/org/tasks.org" "Code Reviews")
+       "* TODO [[%x][%(my/get-ticket \"%x\")]]")
+     ("T" "Triage" entry
+       (file+headline "~/org/tasks.org" "Triage")
+       "* TODO [[%x][%(my/get-ticket \"%x\")]]")))
 (setq org-agenda-clockreport-parameter-plist
   (quote (:hidefiles t :link t :maxlevel 4 :fileskip0 t :compact t :formula %)))
 (org-clock-persistence-insinuate)  ;; Resume clocking task when emacs is restarted
