@@ -1,9 +1,6 @@
 [submodule "base16-shell"]
     path = base16-shell
     url = git@github.com:chriskempson/base16-shell.git
-[submodule "base16-xresources"]
-    path = base16-xresources
-    url = git@github.com:chriskempson/base16-xresources.git
 [submodule "private"]
     path = private
 	url = git@github.com:erichlf/dotfiles-private.git
