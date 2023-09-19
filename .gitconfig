@@ -1,7 +1,7 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-	signingkey = B052B44F7F5DB221
+	signingkey = 08A7E764EC1713A9 
 [core]
     editor = emacs
     autocrlf = false

@@ -128,7 +128,7 @@ function dev_tools(){
     mkdir "$HOME/workspace"
   fi
 
-  apt_install build-essential cmake gcc g++ clang clang-format ctags cscope \
+  apt_install build-essential cmake gcc g++ clang clang-format
 
   apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
               python3-matplotlib python3-ipython python3-pip
@@ -146,7 +146,7 @@ function dev_tools(){
     add_ppa linuxuprising/guake
   fi
 
-  apt_install libtool-bin guake emacs28 \
+  apt_install libtool-bin guake vim emacs28 \
               meld openssh-server editorconfig global \
               git git-completion screen build-essential cmake powerline \
               fonts-powerline freeglut3-dev libopencv-dev \
@@ -166,7 +166,7 @@ function dev_tools(){
     mkdir -p $HOME/.local/share/applications/
   fi
   ln -sf $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
-  if [ ! =d $HOME/.config/systemd/user ]; then
+  if [ ! -d $HOME/.config/systemd/user ]; then
     mkdir -p $HOME/.config/systemd/user
   fi
   ln -sf $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
@@ -198,10 +198,10 @@ function dev_tools(){
   apt_install gnupg ca-certificates
 
   # set up coredumps
-  ulimit -S -c unlimited
-  sudo sed -i"" -E "s/#(\*p[:blank:]+soft[:blank:]+core[:blank:]+)0/\1unlimited" /etc/security/limits.conf
-  sudo mkdir /var/coredumps
-  sudo sysctl -w kernel.core_pattern=/var/coredumps/core-%e-%s-%u-%g-%p-%t
+  #ulimit -S -c unlimited
+  #sudo sed -i"" -E "s/#(\*p[:blank:]+soft[:blank:]+core[:blank:]+)0/\1unlimited" /etc/security/limits.conf
+  #sudo mkdir /var/coredumps
+  #sudo sysctl -w kernel.core_pattern=/var/coredumps/core-%e-%s-%u-%g-%p-%t
 
   cd $DOTFILES_DIR
 
@@ -230,7 +230,7 @@ function base_sys(){
 
   snap_install 1password
 
-  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweak-tool \
+  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweaks \
               pass zsh
 
   curl -sSL https://get.rvm.io | bash
@@ -301,14 +301,15 @@ function seegrid(){
 
 ################################ extras ########################################
 function extras(){
-  if [ ! -f /etc/apt/sources.list.d/google.list ]; then
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  fi
+  cd /tmp
 
   apt_update
-  apt_install chromium-browser chrome-gnome-shell
+  apt_install wget chrome-gnome-shell
 
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+  cd $DOTFILES_DIR
   return 0
 }
 
