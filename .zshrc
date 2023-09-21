@@ -82,6 +82,7 @@ plugins=(
   docker
   docker-compose
   emacs
+  fzf
   git
   man
   pass

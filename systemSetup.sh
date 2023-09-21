@@ -126,8 +126,7 @@ function base_sys(){
 
   snap_install 1password
 
-  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweaks \
-              pass zsh
+  apt_install wget curl iftop cifs-utils nfs-common gnome-tweaks zsh fzf
 
   curl -sSL https://get.rvm.io | bash
 
@@ -249,6 +248,10 @@ function dev_tools(){
   wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
   apt_install code
+
+  [[ ! -e $HOME/.config/Code/User ]] && mkdir -p $HOME/.config/Code/User
+  cd $HOME/.config/Code/User
+  for file in $DOTFILES_DIR/VSCode/User/*; do ln -sf $file; done
 
   cd $DOTFILES_DIR
 
