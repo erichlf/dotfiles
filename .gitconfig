@@ -68,8 +68,8 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
-[includeIf "gitdir:~/workspace/Seegrid/"]
-  path = ~/workspace/Seegrid/.gitconfig
+[includeIf "gitdir:~/workspace/SAM_XL/"]
+  path = ~/workspace/SAM_XL/.gitconfig
 [commit]
 	gpgSign = true
 [grep]

@@ -73,9 +73,3 @@ if [ -x "$(command -v powerline-daemon)" ]; then
 else
     PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/seegrid.local/efoster/.local/google-cloud-sdk/path.bash.inc' ]; then . '/home/seegrid.local/efoster/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/seegrid.local/efoster/.local/google-cloud-sdk/completion.bash.inc' ]; then . '/home/seegrid.local/efoster/Downloads/google-cloud-sdk/completion.bash.inc'; fi

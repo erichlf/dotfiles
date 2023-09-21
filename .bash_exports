@@ -8,17 +8,7 @@ export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
 export EDITOR='emacsclient -t -a emacs'
 export VISUAL='emacsclient -c -a emacs'
-export WAF_CACHE_SIZE=50000000  # cache of about 50GB.
-export WAFCACHE=~/workspace/Seegrid/waf-cache
 export dockerclean='docker image prune -a --filter "until=12h"'
-[ $(which pass) ] && export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
-
-export SEEGRID_WS=$HOME/workspace/Seegrid
-export META_DIR=$SEEGRID_WS/vehicle-metapackage
-export BLUE_PATH=$META_DIR/submodules/blue
-export IRIS_WS=$SEEGRID_WS/Iris
-export IRIS_DEVOPS_PATH=$IRIS_WS/devops
-export DATA_ROOT=$IRIS_WS/Data
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`
@@ -35,4 +25,3 @@ if [ -d $HOME/bin ] ; then
 fi
 
 export PATH="$PATH:~/.local/bin"
-[ -d $HOME/workspace/Seegrid/build-configs ] && export PATH="$HOME/workspace/Seegrid/build-configs:$PATH"
