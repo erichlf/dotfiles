@@ -28,6 +28,9 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
 [merge]
     ff = false
     tool = meld
@@ -71,3 +74,5 @@
 	gpgSign = true
 [grep]
 	lineNumber = true
+[credential "https://dev.azure.com"]
+	useHttpPath = true

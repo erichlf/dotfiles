@@ -35,14 +35,12 @@ setup.\nWhat would you like to do?" 14 50 16)
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
          3  "Install development tools"
-         4  "Install LaTeX"
-         5  "Install base system"
-         6  "Install Seegrid tools"
-         7  "Setup Internet Connections"
-         8  "Install my extras"
-         9  "Remove crapware"
-         10 "Update system"
-         11 "sudo rules")
+         4  "Install base system"
+         5  "Install my extras"
+         6  "Install LaTeX"
+         7  "Remove crapware"
+         8  "Update system"
+         9  "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -121,6 +119,31 @@ function sym_links(){
   return 0
 }
 
+############################# my base system ###################################
+#bikeshed contains utilities such as purge-old-kernels
+function base_sys(){
+  cd $HOME
+
+  snap_install 1password
+
+  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweaks \
+              pass zsh
+
+  curl -sSL https://get.rvm.io | bash
+
+  snap_install btop
+
+  ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/custom/themes
+  ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
+
+  apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
+  sudo /etc/init.d/networking restart
+
+  cd $DOTFILES_DIR
+
+  return 0
+}
+
 ############################# developer tools ##################################
 # install development utilities
 function dev_tools(){
@@ -147,10 +170,9 @@ function dev_tools(){
   fi
 
   apt_install libtool-bin guake vim emacs28 \
-              meld openssh-server editorconfig global \
-              git git-completion screen build-essential cmake powerline \
-              fonts-powerline freeglut3-dev libopencv-dev \
-              libopencv-contrib-dev libopencv-photo-dev xclip
+              meld openssh-server global \
+              git git-completion build-essential cmake powerline \
+              fonts-powerline freeglut3-dev xclip
 
   # setup links for google-calendar plugin
   cd $DOTFILES_DIR/.emacs.d/private/
@@ -203,7 +225,35 @@ function dev_tools(){
   #sudo mkdir /var/coredumps
   #sudo sysctl -w kernel.core_pattern=/var/coredumps/core-%e-%s-%u-%g-%p-%t
 
+  apt_update
+  apt_install docker.io python3-yaml python3-git git-lfs
+
+  sudo usermod -a -G docker $USERNAME
+  sudo systemctl daemon-reload
+  sudo systemctl restart docker
+
+  newgrp docker
+
+  apt_install docker-compose
+
+  # install nodejs and npm so that we can then install devcontainers
+  # curl -sL https://deb.nodesource.com/setup_18.x | sudo bash
+  # apt_install nodejs npm
+  # sudo npm install -g @devcontainers/cli
+
+  # install vs code and git-credential-manager for using devcontainer and development
+  wget "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb" -O /tmp/gcmcore.deb
+  sudo dpkg -i /tmp/gcmcore.deb
+  git-credential-manager configure
+
+  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+  apt_install code
+
   cd $DOTFILES_DIR
+
+  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
+  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
   return 0
 }
@@ -221,82 +271,6 @@ function LaTeX(){
   cd $DOTFILES_DIR
 
   return 0
-}
-
-############################# my base system ###################################
-#bikeshed contains utilities such as purge-old-kernels
-function base_sys(){
-  cd $HOME
-
-  snap_install 1password
-
-  apt_install wget curl iftop cifs-utils nfs-common autofs gnome-tweaks \
-              pass zsh
-
-  curl -sSL https://get.rvm.io | bash
-
-  snap_install btop
-
-  if [ ! -d /media/NFS ]; then
-    sudo mkdir /media/NFS
-  fi
-
-  sudo cp $DOTFILES_DIR/auto.master /etc/
-  sudo cp $DOTFILES_DIR/private/auto.nfs /etc/
-  ln -s -f /media/NFS/Media-NAS
-
-  sudo systemctl start autofs
-
-  ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/custom/themes
-  ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
-
-  cd $DOTFILES_DIR
-
-  return 0
-}
-
-######################### internet connections #################################
-function network_connections() {
-  apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
-  sudo /etc/init.d/networking restart
-
-  for CONNECTION in $DOTFILES_DIR/private/system-connections/*; do
-      sudo cp "$CONNECTION" /etc/NetworkManager/system-connections/
-      sudo chown root:root "/etc/NetworkManager/system-connections/$(basename $CONNECTION)"
-  done
-}
-
-################################ seegrid #######################################
-function seegrid(){
-  apt_update
-  apt_install docker.io python3-yaml python3-git git-lfs rabbitmq-server
-
-  sudo usermod -a -G docker $USERNAME
-  sudo systemctl daemon-reload
-  sudo systemctl restart docker
-
-  newgrp docker
-
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
-
-  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-  sudo apt install curl # if you haven't already installed curl
-  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install python3-vcstool
-  
-  cd /tmp
-  wget https://zoom.us/client/latest/zoom_amd64.deb
-  sudo apt install ./zoom_amd64.deb
-  cd $DOTFILES_DIR
-
-  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
-  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
-
-  snap_install slack-desktop
-
-   return 0
 }
 
 ################################ extras ########################################
@@ -359,34 +333,26 @@ do
        run_me
        ;;
     4)
-       LaTeX
-       run_me
-       ;;
-    5)
        base_sys
        run_me
        ;;
-    6)
-       seegrid
-       run_me
-       ;;
-    7)
-       network_connections
-       run_me
-       ;;
-    8)
+    5)
        extras
        run_me
        ;;
-    9)
+    6)
+       LaTeX
+       run_me
+       ;;
+    7)
        crapware
        run_me
        ;;
-    10)
+    8)
        update_sys
        run_me
        ;;
-    11)
+    9)
        sudo_rules
        run_me
        ;;
