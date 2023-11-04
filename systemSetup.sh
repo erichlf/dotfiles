@@ -9,19 +9,14 @@ release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 declare -a DOTFILES=( .bashrc
                       .bash_exports
-                      .editorconfig
-                      .emacs.d
                       .fzf
                       .gitconfig
                       .gitexcludes
                       .oh-my-zsh
                       .profile
-                      .spacemacs
-                      texmf
-                      .Xmodmap
-                      .Xresources .xsessionrc
                       private/.bash_aliases
                       private/.ssh/config
+                      .vimrc
                       .zshrc )
 
 DOTFILES_DIR=$HOME/dotfiles
@@ -99,7 +94,7 @@ function install_tools(){
        python3-multiprocessing python3-ncurses python3-openssl \
        python3-pip python3-pkg-resources python3-pydoc \
        python3-setuptools python3-sqlite3 python3-unittest \
-       python3-urllib python3-xml rename terminfo tree vim zlib \
+       python3-urllib python3-xml rename terminfo tree vim-full zlib \
        zoneinfo-asia zoneinfo-europe zsh
 }
 
