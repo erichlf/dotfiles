@@ -6,21 +6,9 @@ export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
-export EDITOR='emacsclient -t -a emacs'
-export VISUAL='emacsclient -c -a emacs'
-export WAF_CACHE_SIZE=50000000  # cache of about 50GB.
-export WAFCACHE=~/workspace/Seegrid/waf-cache
+export EDITOR='vim'
+export VISUAL='vim'
 export dockerclean='docker image prune -a --filter "until=12h"'
-export ARTIFACTORY_TOKEN=$(pass secrets/artifactory)
-
-export IRIS_WS=$HOME/workspace/Seegrid/Iris
-export IRIS_DEVOPS_PATH=$IRIS_WS/devops
-
-# check if we are on OSX and then set CLICOLOR
-unamestr=`uname`
-if [[ "$unamestr" == 'Darwin' ]]; then
-    export CLICOLOR=1
-fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d $HOME/bin ] ; then
@@ -31,4 +19,3 @@ if [ -d $HOME/bin ] ; then
 fi
 
 export PATH="$PATH:~/.local/bin"
-[ -d $HOME/workspace/Seegrid/build-configs ] && export PATH="$HOME/workspace/Seegrid/build-configs:$PATH"

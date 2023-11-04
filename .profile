@@ -9,8 +9,10 @@ export TERM=${TERM:-cons25}
 # export PAGER=more
 
 # PS1="`hostname`> "
-
 if [[ -x /opt/bin/zsh ]]; then
   export SHELL=/opt/bin/zsh
   exec /opt/bin/zsh
+else
+  export SHELL=/bin/bash
+  exec /bin/bash
 fi

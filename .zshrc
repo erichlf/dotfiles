@@ -1,3 +1,4 @@
+[[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -136,5 +137,6 @@ source ~/.bash_aliases
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
