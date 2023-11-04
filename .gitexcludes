@@ -1,6 +1,5 @@
 .ropeproject
 .dir-locals.el
-.clang-format
 .clang_complete
 .clangd
 .ccls-cache

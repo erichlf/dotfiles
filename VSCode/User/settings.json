@@ -47,5 +47,10 @@
         }
     ],
     "tabnine.experimentalAutoImports": true,
-    "editor.lineNumbers": "relative"
+    "editor.lineNumbers": "relative",
+    "cmake.configureOnOpen": true,
+    "easycode-canary.userEmail": "erichlf@gmail.com",
+    "easycode.model": "gpt-3.5-turbo",
+    "easycode.userEmail": "erichlf@gmail.com",
+    "easycode.useActiveViewContext": true
 }

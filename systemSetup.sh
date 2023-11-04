@@ -150,7 +150,7 @@ function dev_tools(){
     mkdir "$HOME/workspace"
   fi
 
-  apt_install build-essential cmake gcc g++ clang clang-format
+  apt_install build-essential cmake gcc g++ clang clang-format clang-tools
 
   apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
               python3-matplotlib python3-ipython python3-pip
