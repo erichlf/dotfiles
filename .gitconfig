@@ -70,3 +70,6 @@
 	gpgSign = true
 [grep]
 	lineNumber = true
+[safe]
+	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget/private
+	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget
