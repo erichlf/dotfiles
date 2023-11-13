@@ -9,6 +9,7 @@ export PATH=$NCARG_ROOT/bin:$PATH
 export EDITOR='emacsclient -t -a emacs'
 export VISUAL='emacsclient -c -a emacs'
 export dockerclean='docker image prune -a --filter "until=12h"'
+export HALCONROOT=$HOME/MVTec/HALCON-23.05-Progress
 
 # check if we are on OSX and then set CLICOLOR
 unamestr=`uname`
