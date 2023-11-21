@@ -138,6 +138,15 @@ function base_sys(){
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
   sudo /etc/init.d/networking restart
 
+  # install driver for fingerprint scanner, enable it, and enroll left and right
+  # index fingers
+  wget "http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom/libfprint-2-tod1-broadcom_5.12.018-0ubuntu1~22.04.01_amd64.deb" -O /tmp/broadcom-fingerprint.deb
+  sudo install libfprint-2-tod1 fprintd libpam-frintd
+  sudo dpkg -i /tmp/broadcom-fingerprint.deb
+  sudo fprintd-enroll -f left-index-finger
+  sudo fprintd-enroll -f right-index-finger
+  sudo pam-auth-update --enable fprintd
+
   cd $DOTFILES_DIR
 
   return 0
