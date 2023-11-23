@@ -147,6 +147,12 @@ function base_sys(){
   sudo fprintd-enroll -f right-index-finger
   sudo pam-auth-update --enable fprintd
 
+  # fix keyboard function keys
+  sudo apt reinstall -y libgdk-pixbuf2.0-0
+  echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
+  echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
+  sudo update-initramfs -u
+
   cd $DOTFILES_DIR
 
   return 0

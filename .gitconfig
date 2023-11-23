@@ -1,7 +1,7 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-	signingkey = 08A7E764EC1713A9 
+    signingkey = 08A7E764EC1713A9 
 [core]
     editor = emacs
     autocrlf = false
@@ -28,9 +28,9 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-	helper = 
-	helper = /usr/local/bin/git-credential-manager
-	credentialStore = secretservice
+    helper = 
+    helper = /usr/local/bin/git-credential-manager
+    credentialStore = secretservice
 [merge]
     ff = false
     tool = meld
@@ -64,15 +64,19 @@
                 }; f"
     prettylog = log --graph --pretty=format:\"%C(auto)%d %h %C(magenta)%(trailers:key=Refs,separator= ) %C(cyan)%cn %C(auto)%s\"
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-[includeIf "gitdir:~/workspace/SAM_XL/"]
-  path = ~/workspace/SAM_XL/.gitconfig
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+[includeIf "gitdir:~/workspace/SAM_XL/src/**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
+[includeIf "hasconfig:remote.*.url:git@gitlab.tudelft.nl:**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
+[includeIf "hasconfig:remote.*.url:https://gitlab.tudelft.nl/**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
 [commit]
-	gpgSign = true
+    gpgSign = true
 [grep]
-	lineNumber = true
+    lineNumber = true
 [credential "https://dev.azure.com"]
-	useHttpPath = true
+    useHttpPath = true
