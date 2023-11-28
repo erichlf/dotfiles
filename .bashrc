@@ -73,3 +73,4 @@ if [ -x "$(command -v powerline-daemon)" ]; then
 else
     PS1='\[\e[0;1m\]┌─[\[\e[32;1m\]\u\[\e[34;1m\]@\[\e[31;1m\]\H\[\e[0;1m\]:\[\e[33;1m\]\w\[\e[0;1m\]]$(type -t __git_ps1 >& /dev/null && __git_ps1)'$'\n└→ \[\e[0m\]'
 fi
+
