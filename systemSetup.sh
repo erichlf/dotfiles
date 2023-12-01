@@ -13,6 +13,7 @@ declare -a DOTFILES=( .bashrc
                       .emacs.d
                       .gitconfig
                       .gitexcludes
+                      .oh-my-bash
                       .oh-my-zsh
                       .spacemacs
                       texmf

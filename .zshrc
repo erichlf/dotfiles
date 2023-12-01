@@ -135,8 +135,8 @@ for extension in $extensions; do
 done
 
 # no point in rewriting my aliases
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_exports ] && source ~/.bash_exports
+[ -f ~/.aliases ] && source ~/.aliases
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [ -d $HOME/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
