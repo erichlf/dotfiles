@@ -21,3 +21,6 @@
 [submodule ".oh-my-bash"]
 	path = .oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash.git
+[submodule ".vim"]
+	path = .vim
+	url = https://gitlab.com/SpaceVim/SpaceVim.git

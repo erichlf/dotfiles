@@ -1,0 +1,20 @@
+[options]
+    enable_statusline_mode = true
+    enable_tabline_filetype_icon = true
+    enable_os_fileformat_icon = true
+    statusline_unicode_symbols = true
+    line_on_the_fly = false
+
+[[layers]]
+  name = "colorscheme"
+  [options]
+	colorscheme = "gruvbox"
+	colorscheme_bg = "dark"
+
+[[layers]]
+    name = 'core'
+    enable_filetree_gitstatus = true
+    enable_filetree_filetypeicon = true
+
+[options]
+    bootstrap_before = 'myspacevim#before'

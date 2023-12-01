@@ -3,8 +3,8 @@
     email = erichlf@gmail.com
     signingkey = 08A7E764EC1713A9 
 [core]
-    editor = emacs
-    autocrlf = false
+    editor = nvim
+	autocrlf = input
     excludesfile = ~/.gitexcludes
 [push]
     default = upstream

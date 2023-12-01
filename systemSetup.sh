@@ -16,7 +16,9 @@ declare -a DOTFILES=( .bashrc
                       .oh-my-bash
                       .oh-my-zsh
                       .spacemacs
+		      .SpaceVim.d
                       texmf
+                      .vim
                       .Xmodmap
                       .Xresources .xsessionrc
                       private/.bash_aliases
