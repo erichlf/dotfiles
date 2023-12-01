@@ -1,4 +1,6 @@
 [options]
+    colorscheme = "dracula"
+    colorscheme_bg = "dark"
     enable_statusline_mode = true
     enable_tabline_filetype_icon = true
     enable_os_fileformat_icon = true
@@ -19,3 +21,7 @@
     name = "shell"
     default_position = "top"
     default_height = 30
+
+[[layers]]
+    name = "colorscheme"
+    random_theme = "false"
