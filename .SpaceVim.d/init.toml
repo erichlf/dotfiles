@@ -6,15 +6,16 @@
     line_on_the_fly = false
 
 [[layers]]
-  name = "colorscheme"
-  [options]
-	colorscheme = "gruvbox"
-	colorscheme_bg = "dark"
-
-[[layers]]
     name = 'core'
     enable_filetree_gitstatus = true
     enable_filetree_filetypeicon = true
 
-[options]
-    bootstrap_before = 'myspacevim#before'
+[[layers]]
+    name = "autocomplete"
+    auto-completion-return-key-behavior = "complete"
+    auto-completion-tab-key-behavior = "cycle"
+
+[[layers]]
+    name = "shell"
+    default_position = "top"
+    default_height = 30
