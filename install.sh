@@ -9,6 +9,10 @@ git submodule update
 
 cd $HOME
 
+# spacevim setup
+ln -sf $DOTFILES/SpaceVim $HOME/.vim
+ln -sf $DOTFILES/.SpaceVim.d $HOME/.SpaceVim.d
+
 # setup git
 ln -sf $DOTFILES/.gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/.gitexcludes $HOME/.gitexcludes

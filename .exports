@@ -19,3 +19,5 @@ if [ -d $HOME/bin ] ; then
 fi
 
 export PATH="$PATH:~/.local/bin"
+export VIMRUNTIME=/share/CACHEDEV1_DATA/.qpkg/HD_Station/usr/share/vim/vim80
+
