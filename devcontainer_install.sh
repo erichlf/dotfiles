@@ -24,3 +24,13 @@ cat $DOTFILES/.bashrc >> $HOME/.bashrc
 ln -sf $DOTFILES/.aliases $HOME/.aliases
 ln -sf $DOTFILES/.oh-my-bash $HOME/.oh-my-bash
 
+# setup starship
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+unzip DroidSansMono.zip -d ~/.fonts
+fc-cache -fv
+
+curl -sS https://starship.rs/install.sh -o starship.sh 
+chmod +x starship.sh
+sudo ./starship.sh -y
+starship preset pastel-powerline > $HOME/.config/starship.toml
+rm -f starship.sh

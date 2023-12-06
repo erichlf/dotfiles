@@ -135,6 +135,18 @@ function base_sys(){
 
   snap_install btop
 
+  # setup starship
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+  unzip DroidSansMono.zip -d $HOME/.fonts
+  fc-cache -fv
+  rm -f DroidSansMono.zip
+
+  curl -sS https://starship.rs/install.sh -o starship.sh 
+  chmod +x starship.sh
+  ./starship.sh --bin-dir $HOME/.local/bin/ -y
+  starship preset pastel-powerline > $HOME/.config/starship.toml
+  rm -f starship.sh
+
   ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/custom/themes
   ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
@@ -188,8 +200,8 @@ function dev_tools(){
 
   apt_install libtool-bin guake vim emacs28 \
               meld openssh-server global \
-              git git-completion build-essential cmake powerline \
-              fonts-powerline freeglut3-dev xclip
+              git git-completion build-essential cmake \
+              freeglut3-dev xclip
 
   # setup links for google-calendar plugin
   cd $DOTFILES_DIR/.emacs.d/private/
