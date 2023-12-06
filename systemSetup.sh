@@ -203,6 +203,9 @@ function dev_tools(){
               git git-completion build-essential cmake \
               freeglut3-dev xclip
 
+  # restore guake config
+  guake --restore-preferences guake.conf
+
   # setup links for google-calendar plugin
   cd $DOTFILES_DIR/.emacs.d/private/
   ln -sf $DOTFILES_DIR/google-calendar
