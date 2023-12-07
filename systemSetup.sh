@@ -206,16 +206,6 @@ function dev_tools(){
   # restore guake config
   guake --restore-preferences guake.conf
 
-  # setup links for google-calendar plugin
-  cd $DOTFILES_DIR/.emacs.d/private/
-  ln -sf $DOTFILES_DIR/google-calendar
-  # setup links for snippets
-  cd $DOTFILES_DIR/.emacs.d/private/snippets
-  for S in $DOTFILES_DIR/snippets/*
-  do
-    ln -sf $S
-  done
-
   if [ ! -d $HOME/.local/share/applications ]; then
     mkdir -p $HOME/.local/share/applications/
   fi
@@ -223,8 +213,7 @@ function dev_tools(){
   if [ ! -d $HOME/.config/systemd/user ]; then
     mkdir -p $HOME/.config/systemd/user
   fi
-  ln -sf $DOTFILES_DIR/emacs.service $HOME/.config/systemd/user/emacs.service
-  systemctl --user enable --now emacs
+
   # install source code pro fonts
   mkdir -p /tmp/adobefont
   cd /tmp/adobefont
@@ -236,16 +225,10 @@ function dev_tools(){
   rm -rf source-code-pro{,.zip}
   cd $DOTFILES_DIR
 
-  # setup link for powerline
-  cd $HOME/.config/
-  ln -sf $DOTFILES_DIR/powerline
-
   # install git-subrepo
   [ ! -d "$HOME/.config/git-subrepo" ] && git clone https://github.com/ingydotnet/git-subrepo
 
   cd $DOTFILES_DIR
-
-  pip3_install powerline-gitstatus
 
   sudo update-alternatives --config editor
 
@@ -267,6 +250,12 @@ function dev_tools(){
   newgrp docker
 
   apt_install docker-compose
+
+  # install vscode
+  apt_install software-properties-common apt-transport-https -y
+  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+  apt_install code
 
   # install nodejs and npm so that we can then install devcontainers
   # curl -sL https://deb.nodesource.com/setup_18.x | sudo bash
