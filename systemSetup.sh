@@ -8,20 +8,16 @@ codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 declare -a DOTFILES=( .bashrc
-                      .bash_exports
-                      .editorconfig
+                      .exports
                       .emacs.d
                       .gitconfig
                       .gitexcludes
                       .oh-my-bash
                       .oh-my-zsh
                       .spacemacs
-		      .SpaceVim.d
-                      texmf
+                      .SpaceVim.d
                       .vim
-                      .Xmodmap
-                      .Xresources .xsessionrc
-                      private/.bash_aliases
+                      .aliases
                       private/.ssh/config
                       .zshrc )
 
