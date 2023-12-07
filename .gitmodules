@@ -5,9 +5,6 @@
 [submodule "ohmyzsh"]
 	path = .oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule "zsh2000"]
-	path = zsh2000
-	url = https://github.com/maverick9000/zsh2000.git
 [submodule "zsh-autosuggestions"]
 	path = zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions

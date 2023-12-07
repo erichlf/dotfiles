@@ -143,8 +143,8 @@ function base_sys(){
   starship preset pastel-powerline > $HOME/.config/starship.toml
   rm -f starship.sh
 
-  ln -s $DOTFILES_DIR/zsh2000/zsh2000.zsh-theme $DOTFILES_DIR/.oh-my-zsh/custom/themes
   ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
+  ln -s $DOTFILES_DIR/zsh-syntaxhigh-lighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
   sudo /etc/init.d/networking restart
