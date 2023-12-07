@@ -1,7 +1,6 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-	signingkey = B052B44F7F5DB221
 [core]
     editor = vim
     autocrlf = false
@@ -67,7 +66,7 @@
 [includeIf "gitdir:~/workspace/Seegrid/"]
   path = ~/workspace/Seegrid/.gitconfig
 [commit]
-	gpgSign = true
+	gpgSign = false
 [grep]
 	lineNumber = true
 [safe]
