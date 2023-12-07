@@ -13,21 +13,21 @@ cd $HOME
 mkdir -p $HOME/.termux
 
 # termux settings
-ln -sf $DOTFILES/termux.properties $HOME/.termux/termux.properties
+ln -sf $DOTFILES/termux.properties $HOME/.termux/
 
 # spacevim setup
 ln -sf $DOTFILES/SpaceVim $HOME/.vim
-ln -sf $DOTFILES/.SpaceVim.d $HOME/.SpaceVim.d
+ln -sf $DOTFILES/.SpaceVim.d $HOME/
 
 # setup git
-ln -sf $DOTFILES/.gitconfig $HOME/.gitconfig
-ln -sf $DOTFILES/.gitexcludes $HOME/.gitexcludes
+ln -sf $DOTFILES/.gitconfig $HOME/
+ln -sf $DOTFILES/.gitexcludes $HOME/
 
 # oh-my-bash & plugins
-ln -sf $DOTFILES/.bashrc $HOME/.bashrc
-ln -sf $DOTFILES/.aliases $HOME/.aliases
-ln -sf $DOTFILES/.exports $HOME/.exports
-ln -sf $DOTFILES/.oh-my-bash $HOME/.oh-my-bash
+ln -sf $DOTFILES/.bashrc $HOME/
+ln -sf $DOTFILES/.aliases $HOME/
+ln -sf $DOTFILES/.exports $HOME/
+ln -sf $DOTFILES/.oh-my-bash $HOME/
 
 # setup starship
 curl -sSL https://github.com/prateekpunetha/termux-setup/raw/main/fonts/font.ttf -o $HOME/.termux/font.ttf
