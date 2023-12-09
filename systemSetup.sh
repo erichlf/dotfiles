@@ -301,8 +301,8 @@ function extras(){
   apt_update
   apt_install wget chrome-gnome-shell
 
-  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  sudo dpkg -i google-chrome-stable_current_amd64.deb
+  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_5.2.2623.39-1_amd64.deb
+  sudo dpkg -i vivaldi-stable*.deb
 
   cd $DOTFILES_DIR
   return 0
