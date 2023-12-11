@@ -1,6 +1,6 @@
 #!/bin/bash
  
-pkg install getconf termux-tools vim rsync openssh termux-api which -y
+pkg install getconf termux-tools vim rsync openssh termux-api which make -y
 
 DOTFILES=$HOME/dotfiles
 
@@ -28,6 +28,11 @@ ln -sf $DOTFILES/.bashrc $HOME/
 ln -sf $DOTFILES/.aliases $HOME/
 ln -sf $DOTFILES/.exports $HOME/
 ln -sf $DOTFILES/.oh-my-bash $HOME/
+
+# setup ble.sh
+git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
+make -C ble.sh install PREFIX=$HOME/.local
+rm -rf ble.sh
 
 # setup starship
 curl -sSL https://github.com/prateekpunetha/termux-setup/raw/main/fonts/font.ttf -o $HOME/.termux/font.ttf
