@@ -4,9 +4,6 @@ case $- in
     *) return;;
 esac
 
-# initialize ble.sh
-source $HOME/.local/share/blesh/ble.sh --noattach
-
 # Path to your oh-my-bash installation.
 export OSH="${HOME}/.oh-my-bash"
 
@@ -150,5 +147,3 @@ source "$OSH"/oh-my-bash.sh
 # start up staship
 eval "$(starship init bash)"
 
-# ble.sh
-[[ ${BLE_VERSION-} ]] && ble-attach
