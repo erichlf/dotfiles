@@ -1,6 +1,12 @@
 #!/bin/bash
  
-pkg install getconf termux-tools vim rsync openssh termux-api which make -y
+pkg install getconf termux-tools vim \
+  rsync openssh termux-api which make \
+  zsh fzf python-pip -y
+
+pip install pygments
+
+chsh -s zsh
 
 DOTFILES=$HOME/dotfiles
 
@@ -23,16 +29,14 @@ ln -sf $DOTFILES/.SpaceVim.d $HOME/
 ln -sf $DOTFILES/.gitconfig $HOME/
 ln -sf $DOTFILES/.gitexcludes $HOME/
 
-# oh-my-bash & plugins
-ln -sf $DOTFILES/.bashrc $HOME/
+# oh-my-zsh & plugins
+ln -sf $DOTFILES/.zshrc $HOME/
 ln -sf $DOTFILES/.aliases $HOME/
 ln -sf $DOTFILES/.exports $HOME/
-ln -sf $DOTFILES/.oh-my-bash $HOME/
+ln -sf $DOTFILES/.oh-my-zsh $HOME/
+ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
+ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
 
-# setup ble.sh
-git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-make -C ble.sh install PREFIX=$HOME/.local
-rm -rf ble.sh
 
 # setup starship
 curl -sSL https://github.com/prateekpunetha/termux-setup/raw/main/fonts/font.ttf -o $HOME/.termux/font.ttf
