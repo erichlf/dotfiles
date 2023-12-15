@@ -33,7 +33,7 @@ rm DroidSansMono.zip
 
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
-sudo ./starship.sh -y
+sudo ./starship.sh -y --bin-dir $HOME/.local/bin
 starship preset pastel-powerline > $HOME/.config/starship.toml
 rm -f starship.sh
  
