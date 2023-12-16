@@ -11,9 +11,6 @@
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".oh-my-bash"]
-	path = .oh-my-bash
-	url = https://github.com/ohmybash/oh-my-bash.git
 [submodule ".vim"]
 	path = .vim
 	url = https://gitlab.com/SpaceVim/SpaceVim.git

@@ -7,18 +7,16 @@ sudo apt install dialog git
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-declare -a DOTFILES=( .bashrc
-                      .exports
+declare -a DOTFILES=( .aliases
                       .emacs.d
+                      .exports
                       .gitconfig
                       .gitexcludes
-                      .oh-my-bash
                       .oh-my-zsh
+                      private/.ssh/config
                       .spacemacs
                       .SpaceVim.d
                       .vim
-                      .aliases
-                      private/.ssh/config
                       .zshrc )
 
 DOTFILES_DIR=$HOME/dotfiles
@@ -131,12 +129,6 @@ function base_sys(){
 
   snap_install btop
 
-  # setup ble.sh
-  apt_install gawk
-  git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-  make -C ble.sh install PREFIX=$HOME/.local
-  rm -rf ble.sh
-
   # setup starship
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
   unzip DroidSansMono.zip -d $HOME/.fonts
@@ -150,7 +142,7 @@ function base_sys(){
   rm -f starship.sh
 
   ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
-  ln -s $DOTFILES_DIR/zsh-syntaxhigh-lighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
+  ln -s $DOTFILES_DIR/zsh-syntax-highlighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
   sudo /etc/init.d/networking restart
