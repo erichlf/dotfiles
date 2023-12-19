@@ -55,6 +55,10 @@ function ask(){
   esac
 }
 
+function link(){
+  ln -sf $@
+}
+
 function no_ppa_exists(){
   ppa_added=`grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v list.save | grep -v deb-src | grep deb | grep $1 | wc -l`
   [ $ppa_added == 0 ];
@@ -67,11 +71,11 @@ function add_ppa(){
 }
 
 function apt_update(){
-  sudo apt update 1>/dev/null
+  sudo apt-get update 1>/dev/null
 }
 
 function apt_install(){
-  sudo apt install -y $@
+  sudo apt-get install -y $@
 
   return 0
 }
@@ -98,20 +102,8 @@ function sudo_rule(){
 function sym_links(){
   for FILE in ${DOTFILES[@]}; do
     echo $FILE
-    DIR=$(basename $(dirname $FILE));
-    echo $DIR
-    if [[ "$DIR" != "$DOTFILES" && "$DIR" != "private" ]]; then
-      DEST="$HOME/$DIR"
-      if [ ! -d "$HOME/$DIR" ]; then
-        mkdir "$HOME/$DIR";
-      fi
-    else
-      DEST=$HOME
-    fi
-
-    ln -sf "$DOTFILES_DIR/$FILE" "$DEST/";
+    link "$DOTFILES_DIR/$FILE" "$HOME/";
   done
-  exit
 
   return 0
 }
@@ -125,6 +117,8 @@ function base_sys(){
 
   apt_install wget curl iftop cifs-utils nfs-common gnome-tweaks zsh fzf
 
+  chsh -s /usr/bin/zsh
+
   curl -sSL https://get.rvm.io | bash
 
   snap_install btop
@@ -137,15 +131,16 @@ function base_sys(){
 
   curl -sS https://starship.rs/install.sh -o starship.sh 
   chmod +x starship.sh
+  mkdir -p $HOME/.local/bin
   ./starship.sh --bin-dir $HOME/.local/bin/ -y
   starship preset pastel-powerline > $HOME/.config/starship.toml
   rm -f starship.sh
 
-  ln -s $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
-  ln -s $DOTFILES_DIR/zsh-syntax-highlighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
+  link $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
+  link $DOTFILES_DIR/zsh-syntax-highlighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
-  sudo /etc/init.d/networking restart
+  # sudo /etc/init.d/networking restart
 
   # install driver for fingerprint scanner, enable it, and enroll left and right
   # index fingers
@@ -203,7 +198,7 @@ function dev_tools(){
   if [ ! -d $HOME/.local/share/applications ]; then
     mkdir -p $HOME/.local/share/applications/
   fi
-  ln -sf $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
+  link $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
   if [ ! -d $HOME/.config/systemd/user ]; then
     mkdir -p $HOME/.config/systemd/user
   fi
@@ -237,7 +232,7 @@ function dev_tools(){
   apt_update
   apt_install docker.io python3-yaml python3-git git-lfs
 
-  sudo usermod -a -G docker $USERNAME
+  sudo usermod -a -G docker $USER
   sudo systemctl daemon-reload
   sudo systemctl restart docker
 
@@ -267,7 +262,7 @@ function dev_tools(){
 
   [[ ! -e $HOME/.config/Code/User ]] && mkdir -p $HOME/.config/Code/User
   cd $HOME/.config/Code/User
-  for file in $DOTFILES_DIR/VSCode/User/*; do ln -sf $file; done
+  for file in $DOTFILES_DIR/VSCode/User/*; do link $file; done
 
   cd $DOTFILES_DIR
 
