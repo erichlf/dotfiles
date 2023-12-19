@@ -133,7 +133,7 @@ function base_sys(){
   chmod +x starship.sh
   mkdir -p $HOME/.local/bin
   ./starship.sh --bin-dir $HOME/.local/bin/ -y
-  starship preset pastel-powerline > $HOME/.config/starship.toml
+  link $DOTFILES_DIR/starship.toml $HOME/.config/
   rm -f starship.sh
 
   link $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
