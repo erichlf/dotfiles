@@ -18,6 +18,9 @@ if [ -d $HOME/bin ] ; then
     fi
 fi
 
-export PATH="$PATH:~/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+[ -d $HOME/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
+
 export VIMRUNTIME=/share/CACHEDEV1_DATA/.qpkg/HD_Station/usr/share/vim/vim80
 
