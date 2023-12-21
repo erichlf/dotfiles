@@ -103,7 +103,7 @@ format = '[$all_status$ahead_behind ]($style)'
 
 [git_state]
 style = "bg:#FCA17D"
-format = '[\($state( $progress_current/$progress_total)\)]($style) '
+format = '[\($state( $progress_current/$progress_total)\)]($style)'
 
 [golang]
 symbol = " "
