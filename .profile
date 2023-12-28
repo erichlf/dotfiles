@@ -1,13 +1,7 @@
-source /opt/etc/profile
+# Setting PATH for Python 3.9
+# The original version is saved in .profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
+export PATH="/opt/homebrew/bin:$PATH"
 
-# umask 022
+exec zsh
 
-# export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/syno/sbin:/usr/syno/bin:/usr/local/sbin:/usr/local/bin:/opt/bin:/opt/sbin
-
-export TERM=${TERM:-cons25}
-
-# export PAGER=more
-
-# PS1="`hostname`> "
-export SHELL=/opt/bin/zsh
-exec /opt/bin/zsh

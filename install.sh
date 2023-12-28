@@ -2,15 +2,21 @@
 
 DOTFILES=$(pwd)
 
-sudo busybox --install /opt/bin/
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-sudo opkg install findutils gawk git git-http grep htop make \
-  python3 python3-pip rename tree vim-full zsh
+brew install vim fzf starship gpg
+
+chsh -s /bin/zsh
 
 git submodule init
 git submodule update
 
 cd $HOME
+
+# setup gpg keys agen
+mkdir -p $HOME/.gnupg
+ln -sf $DOTFILES/gpg.conf $HOME/.gnupg/
+ln -sf $DOTFILES/gpg-agent.conf $HOME/.gnupg
 
 # spacevim setup
 ln -sf $DOTFILES/SpaceVim $HOME/.vim
@@ -20,7 +26,7 @@ ln -sf $DOTFILES/.SpaceVim.d $HOME/
 ln -sf $DOTFILES/.gitconfig $HOME/
 ln -sf $DOTFILES/.gitexcludes $HOME/
 
-# oh-my-bash & plugins
+# oh-my-zsh & plugins
 ln -sf $DOTFILES/.profile $HOME/
 ln -sf $DOTFILES/.zshrc $HOME/
 ln -sf $DOTFILES/.aliases $HOME/
@@ -29,22 +35,12 @@ ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -sf $DOTFILES/.oh-my-zsh $HOME/
 
-# setup fzf
-mkdir -p $HOME/.local/bin
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-./$HOME/.fzf/install --bin
-cp $HOME/fzf/bin* $HOME/.local/bin/
+# hyper config
+ln -sf $DOTFILES/.hyper.js $HOME/ 
 
 # setup starship
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-unzip DroidSansMono.zip -d $HOME/.fonts
-fc-cache -fv
-rm DroidSansMono.zip
+brew tap homebrew/cask-fonts
+brew install --cask font-droid-sans-mono-nerd-font
 
-curl -sS https://starship.rs/install.sh -o starship.sh 
-chmod +x starship.sh
-sudo ./starship.sh -y 
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/starship.toml $HOME/.config/
-rm -f starship.sh
-
