@@ -113,14 +113,7 @@ function sym_links(){
 function base_sys(){
   cd $HOME
 
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
-  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-
-  apt_install 1password wget curl iftop cifs-utils nfs-common gnome-tweaks zsh fzf
+  apt_install wget curl iftop cifs-utils nfs-common gnome-tweaks zsh fzf
 
   chsh -s /usr/bin/zsh
 
@@ -301,6 +294,21 @@ function extras(){
 
   wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_5.2.2623.39-1_amd64.deb
   sudo dpkg -i vivaldi-stable*.deb
+
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+
+  apt_install 1password
+
+  # add 1password support to vivaldi
+  sudo mkdir -p /etc/1password
+  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers 
+  sudo chown root:root /etc/1password/custom_allowed_browsers
+  sudo chmod 755 /etc/1password/custom_allowed_browsers
 
   cd $DOTFILES_DIR
   return 0
