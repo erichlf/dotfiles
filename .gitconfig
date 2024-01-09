@@ -73,3 +73,5 @@
 [safe]
 	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget/private
 	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget
+	directory = /share/CACHEDEV1_DATA/Container/flexget/.flexget/private
+	directory = /share/CACHEDEV1_DATA/Container/flexget/.flexget
