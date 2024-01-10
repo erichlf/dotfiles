@@ -267,6 +267,15 @@ function dev_tools(){
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
+  # setup sam xl mounts
+  sudo cp -f $DOTFILES_DIR/private/auto.master /etc/
+  sudo cp -f $DOTFILES_DIR/private/auto.tudeflt /etc/
+
+  apt_install davfs2 autofs
+
+  # it is assumed that credentials are placed in /etc/davfs2/secrets
+  sudo systemctl restart autofs
+
   return 0
 }
 
