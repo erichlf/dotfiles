@@ -43,7 +43,7 @@ rm DroidSansMono.zip
 
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
-sudo ./starship.sh -y 
+sudo ./starship.sh -y -b ~$USER/.local/bin 
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/starship.toml $HOME/.config/
 rm -f starship.sh
