@@ -319,6 +319,14 @@ function extras(){
   sudo chown root:root /etc/1password/custom_allowed_browsers
   sudo chmod 755 /etc/1password/custom_allowed_browsers
 
+  # install signal desktop
+  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
+  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+    sudo tee /etc/apt/sources.list.d/signal-xenial.list
+  apt_update 
+  apt_install signal-desktop
+
   cd $DOTFILES_DIR
   return 0
 }
