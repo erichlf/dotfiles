@@ -2,42 +2,31 @@
  
 pkg install getconf termux-tools vim \
   rsync openssh termux-api which make \
-  zsh fzf python-pip -y
+  zsh fzf python-pip stow -y
 
 pip install pygments
 
 chsh -s zsh
 
-DOTFILES=$HOME/dotfiles
+DOTFILES_DIR=$HOME/dotfiles
 
-cd $DOTFILES
+cd $DOTFILES_DIR
 
 git submodule init
 git submodule update
 
-cd $HOME
+mkdir -p $HOME/.config
 mkdir -p $HOME/.termux
 
-# termux settings
-ln -sf $DOTFILES/termux.properties $HOME/.termux/
-
-# spacevim setup
-ln -sf $DOTFILES/SpaceVim $HOME/.vim
-ln -sf $DOTFILES/.SpaceVim.d $HOME/
-
-# setup git
-ln -sf $DOTFILES/.gitconfig $HOME/
-ln -sf $DOTFILES/.gitexcludes $HOME/
-
-# oh-my-zsh & plugins
-ln -sf $DOTFILES/.zshrc $HOME/
-ln -sf $DOTFILES/.aliases $HOME/
-ln -sf $DOTFILES/.exports $HOME/
-ln -sf $DOTFILES/.oh-my-zsh $HOME/
-ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
-ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
-
-
+stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
+stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
+stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow starship
+# this relies on my-home being stowed already
+stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
+stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.termux/ --restow termux
+# if the adopt made a local change then undo that
+git checkout HEAD -- starship zsh my-home private
+ 
 # setup starship
 curl -sSL https://github.com/prateekpunetha/termux-setup/raw/main/fonts/font.ttf -o $HOME/.termux/font.ttf
 termux-reload-settings
@@ -45,8 +34,6 @@ termux-reload-settings
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
 ./starship.sh -y --bin-dir /data/data/com.termux/files/usr/bin
-mkdir -p $HOME/.config
-ln -sf $DOTFILES/starship.toml $HOME/.config/
 rm -f starship.sh
 
 yes | pkg remove nano
