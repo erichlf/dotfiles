@@ -3,14 +3,14 @@
 	url = git@github.com:erichlf/dotfiles-private.git
 	branch = master
 [submodule "ohmyzsh"]
-	path = .oh-my-zsh
+	path = my-home/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule "zsh-autosuggestions"]
-	path = zsh-autosuggestions
+	path = zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh-syntax-highlighting"]
-	path = zsh-syntax-highlighting
+	path = zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule ".vim"]
-	path = .vim
+	path = my-home/.vim
 	url = https://gitlab.com/SpaceVim/SpaceVim.git

@@ -1,23 +1,11 @@
 #!/bin/bash
 set -e
 
-sudo apt install dialog git
+sudo apt install dialog git stow
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
-
-declare -a DOTFILES=( .aliases
-                      .emacs.d
-                      .exports
-                      .gitconfig
-                      .gitexcludes
-                      .oh-my-zsh
-                      private/.ssh/config
-                      .spacemacs
-                      .SpaceVim.d
-                      .vim
-                      .zshrc )
 
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -53,10 +41,6 @@ function ask(){
     n|N ) return 1;;
     * ) ask "$1" "$2";;
   esac
-}
-
-function link(){
-  ln -sf $@
 }
 
 function no_ppa_exists(){
@@ -100,10 +84,13 @@ function sudo_rule(){
 
 #create my links
 function sym_links(){
-  for FILE in ${DOTFILES[@]}; do
-    echo $FILE
-    link "$DOTFILES_DIR/$FILE" "$HOME/";
-  done
+  stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
+  stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
+  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow staship
+  # this relies on my-home being stowed already
+  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
+  # if the adopt made a local change then undo that
+  git checkout HEAD -- starship zsh my-home private
 
   return 0
 }
@@ -131,11 +118,7 @@ function base_sys(){
   chmod +x starship.sh
   mkdir -p $HOME/.local/bin
   ./starship.sh --bin-dir $HOME/.local/bin/ -y
-  link $DOTFILES_DIR/starship.toml $HOME/.config/
   rm -f starship.sh
-
-  link $DOTFILES_DIR/zsh-autosuggestions $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
-  link $DOTFILES_DIR/zsh-syntax-highlighting $DOTFILES_DIR/.oh-my-zsh/custom/plugins/
 
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
   # sudo /etc/init.d/networking restart
@@ -175,31 +158,18 @@ function dev_tools(){
   # need dnspython and unrar are needed by calibre
   pip3_install wheel dnspython unrar pylint
 
-  if no_ppa_exists kelleyk
-  then
-    add_ppa kelleyk/emacs
-  fi
-
   if no_ppa_exists linuxuprising
   then
     add_ppa linuxuprising/guake
   fi
 
-  apt_install libtool-bin guake vim emacs28 \
+  apt_install libtool-bin guake vim \
               meld openssh-server global \
               git git-completion build-essential cmake \
               freeglut3-dev xclip
 
   # restore guake config
   guake --restore-preferences guake.conf
-
-  if [ ! -d $HOME/.local/share/applications ]; then
-    mkdir -p $HOME/.local/share/applications/
-  fi
-  link $DOTFILES_DIR/emacsclient.desktop $HOME/.local/share/applications/emacsclient.desktop
-  if [ ! -d $HOME/.config/systemd/user ]; then
-    mkdir -p $HOME/.config/systemd/user
-  fi
 
   # install source code pro fonts
   mkdir -p /tmp/adobefont
@@ -221,12 +191,6 @@ function dev_tools(){
 
   apt_install gnupg ca-certificates
 
-  # set up coredumps
-  #ulimit -S -c unlimited
-  #sudo sed -i"" -E "s/#(\*p[:blank:]+soft[:blank:]+core[:blank:]+)0/\1unlimited" /etc/security/limits.conf
-  #sudo mkdir /var/coredumps
-  #sudo sysctl -w kernel.core_pattern=/var/coredumps/core-%e-%s-%u-%g-%p-%t
-
   apt_update
   apt_install docker.io python3-yaml python3-git git-lfs
 
@@ -244,11 +208,6 @@ function dev_tools(){
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
   apt_install code
 
-  # install nodejs and npm so that we can then install devcontainers
-  # curl -sL https://deb.nodesource.com/setup_18.x | sudo bash
-  # apt_install nodejs npm
-  # sudo npm install -g @devcontainers/cli
-
   # install vs code and git-credential-manager for using devcontainer and development
   wget "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb" -O /tmp/gcmcore.deb
   sudo dpkg -i /tmp/gcmcore.deb
@@ -257,12 +216,6 @@ function dev_tools(){
   wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
   apt_install code
-
-  [[ ! -e $HOME/.config/Code/User ]] && mkdir -p $HOME/.config/Code/User
-  cd $HOME/.config/Code/User
-  for file in $DOTFILES_DIR/VSCode/User/*; do link $file; done
-
-  cd $DOTFILES_DIR
 
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
