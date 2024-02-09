@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-sudo apt install dialog git stow
+sudo apt install -y dialog git stow
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
@@ -86,7 +86,8 @@ function sudo_rule(){
 function sym_links(){
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
-  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow staship
+  mkdir -p $HOME/.config
+  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow starship
   # this relies on my-home being stowed already
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
   # if the adopt made a local change then undo that
