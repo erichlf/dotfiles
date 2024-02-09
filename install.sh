@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+THIS=$0
+
 sudo apt install -y dialog git stow
 
 # get the version of ubuntu
@@ -30,7 +32,7 @@ options=(1  "Fresh system setup"
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
 function run_me() {
-  bash $DOTFILES_DIR/systemSetup.sh
+  bash $THIS
 }
 
 function ask(){
