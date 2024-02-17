@@ -272,6 +272,7 @@ function extras(){
   sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
   curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
 
+  apt_update
   apt_install 1password
 
   # add 1password support to vivaldi
