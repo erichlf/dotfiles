@@ -6,8 +6,8 @@ export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
-export EDITOR='emacsclient -t -a emacs'
-export VISUAL='emacsclient -c -a emacs'
+export EDITOR='vim'
+export VISUAL='vim'
 export dockerclean='docker image prune -a --filter "until=12h"'
 export HALCONROOT=$HOME/MVTec/HALCON-22.11-Steady
 export HALCONARCH="x64-linux"

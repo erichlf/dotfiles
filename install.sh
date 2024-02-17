@@ -24,10 +24,11 @@ options=(1  "Fresh system setup"
          3  "Install development tools"
          4  "Install base system"
          5  "Install my extras"
-         6  "Install LaTeX"
-         7  "Remove crapware"
-         8  "Update system"
-         9  "sudo rules")
+         6  "Latitude 7440 Hacks"
+         7  "Install LaTeX"
+         8  "Remove crapware"
+         9  "Update system"
+        10  "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -125,21 +126,6 @@ function base_sys(){
 
   apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
   # sudo /etc/init.d/networking restart
-
-  # install driver for fingerprint scanner, enable it, and enroll left and right
-  # index fingers
-  wget "http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom/libfprint-2-tod1-broadcom_5.12.018-0ubuntu1~22.04.01_amd64.deb" -O /tmp/broadcom-fingerprint.deb
-  sudo install libfprint-2-tod1 fprintd libpam-frintd
-  sudo dpkg -i /tmp/broadcom-fingerprint.deb
-  sudo fprintd-enroll -f left-index-finger
-  sudo fprintd-enroll -f right-index-finger
-  sudo pam-auth-update --enable fprintd
-
-  # fix keyboard function keys
-  sudo apt reinstall -y libgdk-pixbuf2.0-0
-  echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
-  echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
-  sudo update-initramfs -u
 
   cd $DOTFILES_DIR
 
@@ -250,6 +236,25 @@ function LaTeX(){
   return 0
 }
 
+########################## Computer Specific ####################################
+function latitude_7440(){
+  # install driver for fingerprint scanner, enable it, and enroll left and right
+  # index fingers
+  wget "http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom/libfprint-2-tod1-broadcom_5.12.018-0ubuntu1~22.04.01_amd64.deb" -O /tmp/broadcom-fingerprint.deb
+  sudo install libfprint-2-tod1 fprintd libpam-frintd
+  sudo dpkg -i /tmp/broadcom-fingerprint.deb
+  sudo fprintd-enroll -f left-index-finger
+  sudo fprintd-enroll -f right-index-finger
+  sudo pam-auth-update --enable fprintd
+
+  # fix keyboard function keys
+  sudo apt reinstall -y libgdk-pixbuf2.0-0
+  echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
+  echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
+  sudo update-initramfs -u
+
+}
+
 ################################ extras ########################################
 function extras(){
   cd /tmp
@@ -341,18 +346,22 @@ do
        run_me
        ;;
     6)
-       LaTeX
+       latitude_7440
        run_me
        ;;
     7)
-       crapware
+       LaTeX
        run_me
        ;;
     8)
-       update_sys
+       crapware
        run_me
        ;;
     9)
+       update_sys
+       run_me
+       ;;
+    10)
        sudo_rules
        run_me
        ;;
