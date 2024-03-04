@@ -24,11 +24,12 @@ options=(1  "Fresh system setup"
          3  "Install development tools"
          4  "Install base system"
          5  "Install my extras"
-         6  "Latitude 7440 Hacks"
-         7  "Install LaTeX"
-         8  "Remove crapware"
-         9  "Update system"
-        10  "sudo rules")
+         6  "Install TU Delft tools"
+         7  "Latitude 7440 Hacks"
+         8  "Install LaTeX"
+         9  "Remove crapware"
+        10  "Update system"
+        11  "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -171,9 +172,6 @@ function dev_tools(){
   rm -rf source-code-pro{,.zip}
   cd $DOTFILES_DIR
 
-  # install git-subrepo
-  [ ! -d "$HOME/.config/git-subrepo" ] && git clone https://github.com/ingydotnet/git-subrepo
-
   cd $DOTFILES_DIR
 
   sudo update-alternatives --config editor
@@ -191,7 +189,7 @@ function dev_tools(){
 
   apt_install docker-compose
 
-  # install vscode
+  install vscode
   apt_install software-properties-common apt-transport-https -y
   wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
@@ -208,6 +206,13 @@ function dev_tools(){
 
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
+}
+
+function tudelft(){
+  wget -O- https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --dearmor | sudo tee /usr/share/keyrings/eduvpn-v4.gpg >/dev/null
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ jammy main" | sudo tee /etc/apt/sources.list.d/eduvpn-v4.list
+  apt_update
+  apt_install eduvpn-client
 
   # setup sam xl mounts
   sudo cp -f $DOTFILES_DIR/private/auto.master /etc/
@@ -262,7 +267,7 @@ function extras(){
   apt_update
   apt_install wget chrome-gnome-shell
 
-  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_5.2.2623.39-1_amd64.deb
+  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
   sudo dpkg -i vivaldi-stable*.deb
 
   curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
@@ -347,22 +352,26 @@ do
        run_me
        ;;
     6)
-       latitude_7440
+       tudelft
        run_me
        ;;
     7)
-       LaTeX
+       latitude_7440
        run_me
        ;;
     8)
-       crapware
+       LaTeX
        run_me
        ;;
     9)
-       update_sys
+       crapware
        run_me
        ;;
     10)
+       update_sys
+       run_me
+       ;;
+    11)
        sudo_rules
        run_me
        ;;
