@@ -28,6 +28,7 @@ ln -sf $DOTFILES/.exports $HOME/
 ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -sf $DOTFILES/.oh-my-zsh $HOME/
+ln -sf $DOTFILES/.tmux.conf $HOME/
 
 # setup fzf
 mkdir -p $HOME/.local/bin
