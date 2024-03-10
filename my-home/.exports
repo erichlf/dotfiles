@@ -6,8 +6,8 @@ export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export dockerclean='docker image prune -a --filter "until=12h"'
 
 # set PATH so it includes user's private bin if it exists

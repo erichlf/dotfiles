@@ -1,4 +1,5 @@
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 alias emacs='emacsclient -c -a emacs'
 ls --color=auto &> /dev/null && alias ls='ls --color=auto'
 alias ll='ls -lh'
