@@ -4,6 +4,7 @@ sudo apt install -y \
   fzf \
   gawk \
   neovim \
+  python3-pip \
   rsync \
   stow \
   tmux \
