@@ -23,6 +23,7 @@ git submodule update
 mkdir -p $HOME/.config
 
 stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
+stow -v --adopt --dir $DOTFILES_DIR --target /etc/default/ --restow etc/default 
 stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
 stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow starship
 # this relies on my-home being stowed already
