@@ -1,6 +1,15 @@
 #!/bin/bash
  
-sudo apt install vim rsync zsh fzf stow wget unzip gawk -y
+sudo apt install -y \
+  fzf \
+  gawk \
+  neovim \
+  rsync \
+  stow \
+  tmux \
+  unzip \
+  wget \
+  zsh
 
 sudo usermod --shell /usr/bin/zsh $USER
 
