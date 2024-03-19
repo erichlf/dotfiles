@@ -14,3 +14,6 @@
 [submodule ".vim"]
 	path = my-home/.vim
 	url = https://gitlab.com/SpaceVim/SpaceVim.git
+[submodule "my-home/.tmux/plugins/tpm"]
+	path = my-home/.tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm

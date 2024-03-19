@@ -14,3 +14,4 @@ tags
 texmf/tex/latex/local/auto/
 texmf/tlpkg/
 texmf/web2c/
+my-home/.tmux/plugins/*

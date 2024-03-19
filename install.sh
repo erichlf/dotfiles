@@ -105,7 +105,16 @@ function sym_links(){
 function base_sys(){
   cd $HOME
 
-  apt_install wget curl iftop cifs-utils nfs-common gnome-tweaks zsh fzf
+  apt_install \
+    cifs-utils \
+    curl \
+    fzf \
+    gnome-tweaks \
+    iftop \
+    nfs-common \
+    tmux \
+    wget \
+    zsh 
 
   chsh -s /usr/bin/zsh
 
@@ -125,7 +134,10 @@ function base_sys(){
   ./starship.sh --bin-dir $HOME/.local/bin/ -y
   rm -f starship.sh
 
-  apt_install network-manager-openvpn network-manager-openvpn-gnome network-manager-vpnc
+  apt_install \
+    network-manager-openvpn \
+    network-manager-openvpn-gnome \
+    network-manager-vpnc
   # sudo /etc/init.d/networking restart
 
   cd $DOTFILES_DIR
@@ -140,23 +152,44 @@ function dev_tools(){
     mkdir "$HOME/workspace"
   fi
 
-  apt_install build-essential cmake gcc g++ clang clang-format clang-tools
-
-  apt_install python3-dev python3-setuptools python3-scipy python3-numpy \
-              python3-matplotlib python3-ipython python3-pip
+  apt_install \
+    build-essential \
+    clang \ 
+    clang-format \
+    clang-tools \
+    cmake \
+    gcc \
+    g++ \
+    python3-dev \
+    python3-setuptools \
+    python3-scipy \ 
+    python3-numpy \
+    python3-matplotlib \
+    python3-ipython \
+    python3-pip
 
   # need dnspython and unrar are needed by calibre
-  pip3_install wheel dnspython unrar pylint
+  pip3_install \
+    dnspython \
+    pylint \
+    unrar \
+    wheel
 
   if no_ppa_exists linuxuprising
   then
     add_ppa linuxuprising/guake
   fi
 
-  apt_install libtool-bin guake vim \
-              meld openssh-server global \
-              git git-completion build-essential cmake \
-              freeglut3-dev xclip
+  apt_install \
+    freeglut3-dev \
+    git-completion 
+    global \
+    libtool-bin \
+    guake \
+    meld \
+    openssh-server \
+    vim \
+    xclip
 
   # restore guake config
   guake --restore-preferences guake.conf
@@ -176,10 +209,17 @@ function dev_tools(){
 
   sudo update-alternatives --config editor
 
-  apt_install gnupg ca-certificates
+  apt_install \ 
+    gnupg \
+    ca-certificates
 
   apt_update
-  apt_install docker.io python3-yaml python3-git git-lfs
+  apt_install \
+    docker.io \
+    docker-compose \
+    git-lfs \
+    python3-git \
+    python3-yaml
 
   sudo usermod -a -G docker $USER
   sudo systemctl daemon-reload
@@ -187,10 +227,10 @@ function dev_tools(){
 
   newgrp docker
 
-  apt_install docker-compose
-
-  install vscode
-  apt_install software-properties-common apt-transport-https -y
+  # install vscode
+  apt_install \
+    apt-transport-https \
+    software-properties-common 
   wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
   apt_install code
@@ -218,7 +258,9 @@ function tudelft(){
   sudo cp -f $DOTFILES_DIR/private/auto.master /etc/
   sudo cp -f $DOTFILES_DIR/private/auto.tudeflt /etc/
 
-  apt_install davfs2 autofs
+  apt_install \
+    davfs2 \
+    autofs
 
   # it is assumed that credentials are placed in /etc/davfs2/secrets
   sudo systemctl restart autofs
@@ -265,7 +307,7 @@ function extras(){
   cd /tmp
 
   apt_update
-  apt_install wget chrome-gnome-shell
+  apt_install chrome-gnome-shell
 
   wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
   sudo dpkg -i vivaldi-stable*.deb
