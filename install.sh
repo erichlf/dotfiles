@@ -26,23 +26,23 @@ git submodule update
 cd $HOME
 
 # spacevim setup
-ln -sf $DOTFILES/SpaceVim $HOME/.vim
-ln -sf $DOTFILES/.SpaceVim.d $HOME/
+ln -sf $DOTFILES/my-home/SpaceVim $HOME/.vim
+ln -sf $DOTFILES/my-home/.SpaceVim.d $HOME/
 
 # setup git
-ln -sf $DOTFILES/.gitconfig $HOME/
-ln -sf $DOTFILES/.gitexcludes $HOME/
+ln -sf $DOTFILES/my-home/.gitconfig $HOME/
+ln -sf $DOTFILES/my-home/.gitexcludes $HOME/
 
 # oh-my-bash & plugins
-ln -sf $DOTFILES/.profile $HOME/
-ln -sf $DOTFILES/.zshrc $HOME/
-ln -sf $DOTFILES/.aliases $HOME/
-ln -sf $DOTFILES/.exports $HOME/
-ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
-ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
-ln -sf $DOTFILES/.oh-my-zsh $HOME/
-ln -sf $DOTFILES/.tmux.conf $HOME/
-ln -s $DOTFILES/.tmux $HOME/
+ln -sf $DOTFILES/my-home/.profile $HOME/
+ln -sf $DOTFILES/my-home/.zshrc $HOME/
+ln -sf $DOTFILES/my-home/.aliases $HOME/
+ln -sf $DOTFILES/my-home/.exports $HOME/
+ln -s $DOTFILES/zsh/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
+ln -s $DOTFILES/zsh/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
+ln -sf $DOTFILES/my-home/.oh-my-zsh $HOME/
+ln -sf $DOTFILES/my-home/.tmux.conf $HOME/
+ln -s $DOTFILES/my-home/.tmux $HOME/
 
 # setup fzf
 mkdir -p $HOME/.local/bin
@@ -58,8 +58,8 @@ rm DroidSansMono.zip
 
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
-sudo ./starship.sh -y -b ~$USER/.local/bin 
+sudo ./starship.sh -y -b $HOME/.local/bin 
 mkdir -p $HOME/.config
-ln -sf $DOTFILES/starship.toml $HOME/.config/
+ln -sf $DOTFILES/starship/starship.toml $HOME/.config/
 rm -f starship.sh
 
