@@ -94,15 +94,15 @@ format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
-style = "bg:#FCA17D"
+style = "fg:#282a36 bg:#FCA17D"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#FCA17D"
+style = "fg:#282a36 bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
 
 [git_state]
-style = "bg:#FCA17D"
+style = "fg:#282a36 bg:#FCA17D"
 format = '[\($state( $progress_current/$progress_total)\)]($style)'
 
 [golang]
