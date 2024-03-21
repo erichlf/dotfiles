@@ -4,8 +4,21 @@ DOTFILES=$(pwd)
 
 sudo busybox --install /opt/bin/
 
-sudo opkg install findutils gawk git git-http grep htop make \
-  python3 python3-pip rename tree vim-full zsh
+sudo opkg install \
+  findutils \
+  gawk \
+  git \
+  git-http \
+  grep \
+  htop \
+  make \
+  python3 \ 
+  python3-pip \
+  rename \
+  tmux \
+  tree \
+  vim-full \
+  zsh
 
 git submodule init
 git submodule update
@@ -29,6 +42,7 @@ ln -s $DOTFILES/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -s $DOTFILES/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
 ln -sf $DOTFILES/.oh-my-zsh $HOME/
 ln -sf $DOTFILES/.tmux.conf $HOME/
+ln -s $DOTFILES/.tmux $HOME/
 
 # setup fzf
 mkdir -p $HOME/.local/bin
