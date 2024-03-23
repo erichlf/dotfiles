@@ -38,8 +38,8 @@ ln -sf $DOTFILES/my-home/.profile $HOME/
 ln -sf $DOTFILES/my-home/.zshrc $HOME/
 ln -sf $DOTFILES/my-home/.aliases $HOME/
 ln -sf $DOTFILES/my-home/.exports $HOME/
-ln -s $DOTFILES/zsh/zsh-autosuggestions $DOTFILES/.oh-my-zsh/custom/plugins/
-ln -s $DOTFILES/zsh/zsh-syntax-highlighting $DOTFILES/.oh-my-zsh/custom/plugins/
+ln -s $DOTFILES/zsh/zsh-autosuggestions $DOTFILES/my-home/.oh-my-zsh/custom/plugins/
+ln -s $DOTFILES/zsh/zsh-syntax-highlighting $DOTFILES/my-home/.oh-my-zsh/custom/plugins/
 ln -sf $DOTFILES/my-home/.oh-my-zsh $HOME/
 ln -sf $DOTFILES/my-home/.tmux.conf $HOME/
 ln -s $DOTFILES/my-home/.tmux $HOME/
