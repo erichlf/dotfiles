@@ -50,12 +50,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
 ./$HOME/.fzf/install --bin
 cp $HOME/fzf/bin* $HOME/.local/bin/
 
-# setup starship
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-unzip DroidSansMono.zip -d $HOME/.fonts
-fc-cache -fv
-rm DroidSansMono.zip
+# install fonts
+curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+$HOME/.local/bin/getnf -i 17,18,26,55,56
 
+# setup starship
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
 sudo ./starship.sh -y -b $HOME/.local/bin 
