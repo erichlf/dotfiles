@@ -38,9 +38,10 @@ ln -sf $DOTFILES/.oh-my-zsh $HOME/
 # hyper config
 ln -sf $DOTFILES/.hyper.js $HOME/ 
 
-# setup starship
-brew tap homebrew/cask-fonts
-brew install --cask font-droid-sans-mono-nerd-font
+# install fonts
+curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+$HOME/.local/bin/getnf -i 17,18,26,55,56
 
+# setup starship
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/starship.toml $HOME/.config/
