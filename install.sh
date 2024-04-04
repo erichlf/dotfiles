@@ -91,7 +91,7 @@ function sym_links(){
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   mkdir -p $HOME/.config
-  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow starship
+  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow config
   # this relies on my-home being stowed already
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
   # if the adopt made a local change then undo that
@@ -106,6 +106,7 @@ function base_sys(){
   cd $HOME
 
   apt_install \
+    btop \
     cifs-utils \
     curl \
     fzf \
@@ -118,16 +119,16 @@ function base_sys(){
 
   chsh -s /usr/bin/zsh
 
+  # tool to figure out why my last command didn't work
+  snap_install thefuck --beta --classic
+
   curl -sSL https://get.rvm.io | bash
 
-  snap_install btop
+  # install fonts
+  curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+  $HOME/.local/bin/getnf -i 17,18,26,55,56
 
   # setup starship
-  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-  unzip DroidSansMono.zip -d $HOME/.fonts
-  fc-cache -fv
-  rm -f DroidSansMono.zip
-
   curl -sS https://starship.rs/install.sh -o starship.sh 
   chmod +x starship.sh
   mkdir -p $HOME/.local/bin
@@ -170,14 +171,22 @@ function dev_tools(){
 
   # need dnspython and unrar are needed by calibre
   pip3_install \
+    autoflake \
     dnspython \
+    isort \
     pylint \
     unrar \
-    wheel
+    wheel \
+    yapf
 
   if no_ppa_exists linuxuprising
   then
     add_ppa linuxuprising/guake
+  fi
+
+  if no_ppa_exists ppa-verse
+  then
+    add_ppa ppa-verse/neovim
   fi
 
   apt_install \
@@ -187,9 +196,12 @@ function dev_tools(){
     libtool-bin \
     guake \
     meld \
+    neovim \
     openssh-server \
-    vim \
     xclip
+
+  # install lunarvim
+  LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
 
   # restore guake config
   guake --restore-preferences guake.conf
@@ -218,6 +230,8 @@ function dev_tools(){
     docker.io \
     docker-compose \
     git-lfs \
+    jq \ # used by nvim-devcontainer-cli
+    nodejs \
     python3-git \
     python3-yaml
 
@@ -226,6 +240,11 @@ function dev_tools(){
   sudo systemctl restart docker
 
   newgrp docker
+  
+  # devcontainer cli
+  npm install -g @devcontainers/cli
+  # treesitter for vim
+  npm install -g neovim tree-sitter
 
   # install vscode
   apt_install \
@@ -239,10 +258,6 @@ function dev_tools(){
   wget "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb" -O /tmp/gcmcore.deb
   sudo dpkg -i /tmp/gcmcore.deb
   git-credential-manager configure
-
-  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-  apt_install code
 
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf

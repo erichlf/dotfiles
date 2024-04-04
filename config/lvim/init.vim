@@ -1,0 +1,5 @@
+require('user.colorscheme')
+require('user.lsp')
+require('user.options')
+require('user.plugins')
+require('user.which-key')
