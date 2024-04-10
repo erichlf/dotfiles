@@ -11,9 +11,6 @@
 [submodule "zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "SpaceVim"]
-	path = my-home/SpaceVim
-	url = https://gitlab.com/SpaceVim/SpaceVim.git
 [submodule ".tmux/plugins/tpm"]
 	path = my-home/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm

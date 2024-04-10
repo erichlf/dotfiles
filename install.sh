@@ -12,6 +12,7 @@ sudo opkg install \
   grep \
   htop \
   make \
+  neovim \
   python3 \ 
   python3-pip \
   rename \
@@ -25,9 +26,9 @@ git submodule update
 
 cd $HOME
 
-# spacevim setup
-ln -sf $DOTFILES/my-home/SpaceVim $HOME/.vim
-ln -sf $DOTFILES/my-home/.SpaceVim.d $HOME/
+# lunarvim setup
+LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+ln -sf $DOTFILES/config/lvim $HOME/.config/
 
 # setup git
 ln -sf $DOTFILES/my-home/.gitconfig $HOME/
@@ -52,13 +53,13 @@ cp $HOME/fzf/bin* $HOME/.local/bin/
 
 # install fonts
 curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
-$HOME/.local/bin/getnf -i 17,18,26,55,56
+$HOME/.local/bin/getnf -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono
 
 # setup starship
 curl -sS https://starship.rs/install.sh -o starship.sh 
 chmod +x starship.sh
 sudo ./starship.sh -y -b $HOME/.local/bin 
 mkdir -p $HOME/.config
-ln -sf $DOTFILES/starship/starship.toml $HOME/.config/
+ln -sf $DOTFILES/config/starship.toml $HOME/.config/
 rm -f starship.sh
 
