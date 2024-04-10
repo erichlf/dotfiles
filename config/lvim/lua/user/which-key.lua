@@ -41,6 +41,7 @@ mappings["bj"] = { "<CMD>BufferLinePick<CR>", "Jump" }
 mappings["bl"] = { "<CMD>BufferLineSortByExtension<CR>", "Sort by Language" }
 mappings["bL"] = { "<CMD>BufferLineCloseLeft<CR>", "Close All to Left" }
 mappings["bn"] = { "<CMD>BufferLineCycleNext<CR>", "Next" }
+mappings["bN"] = { "<CMD>tabnew<CR>", "New" }
 mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 mappings["bM"] = { "<CMD>BufferLineCloseOther<CR>", "Close All Other" }
@@ -53,7 +54,28 @@ mappings["<leader>"] = { "<cmd>FineCmdline<CR>", "Command" }
 mappings[";"] = { "<Plug>(comment_toggle_linewise_current)<CR>", "Toggle Comment" }
 vmappings[";"] =  { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment" }
 
+-- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
+
+-- Devcontainer
+-- TODO: get this to work when no terminal doesn't exist yet using 
+-- lvim.builtin.terminal.execs[3] and lvim.core.terminal._exec_toggle
+-- and this might be helpful
+-- local direction = exec[4] or lvim.builtin.terminal.direction
+-- local opts = {
+--   cmd = exec[1] or lvim.builtin.terminal.shell or vim.o.shell,
+--   keymap = exec[2],
+--   label = exec[3],
+--   count = i + 100,
+--   direction = direction,
+--   size = function()
+--     return get_dynamic_terminal_size(direction, exec[5])
+--   end,
+-- }
+mappings["De"] = {
+  "<CMD>103TermExec cmd='devcontainer exec --workspace . zsh' dir='.'<CR>",
+  "Bring Up Terminal in Devcontainer"
+}
 
 -- file  operations 
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }

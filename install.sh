@@ -126,7 +126,7 @@ function base_sys(){
 
   # install fonts
   curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
-  $HOME/.local/bin/getnf -i 17,18,26,55,56
+  $HOME/.local/bin/getnf -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono
 
   # setup starship
   curl -sS https://starship.rs/install.sh -o starship.sh 

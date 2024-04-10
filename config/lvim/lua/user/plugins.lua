@@ -42,7 +42,7 @@ lvim.plugins = {
       {
         "<leader>Du",
         "<CMD>DevcontainerUp<CR>",
-        desc = "Up the DevContainer",
+        desc = "Bring Up the DevContainer",
       },
       {
         "<leader>Dc",

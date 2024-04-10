@@ -54,8 +54,8 @@ lvim.builtin.telescope.on_config_done = function(telescope)
 end
 lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
 
-
 lvim.builtin.bufferline.options.middle_mouse_command = "bdelete! %d"
 lvim.builtin.bufferline.options.numbers = "ordinal"
 lvim.builtin.bufferline.options.separator_style = "slant" 
 
+lvim.builtin.project.patterns = { ".devcontainer", ".git", "!develop/.devcontainer" }
