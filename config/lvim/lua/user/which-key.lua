@@ -60,7 +60,7 @@ mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 -- Devcontainer
 lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
   "devcontainer exec --workspace-folder . zsh", 
-  "<leader>De", 
+  "<M-4>", 
   "Bring Up Terminal in Devcontainer", 
   "float", 
   nil 
