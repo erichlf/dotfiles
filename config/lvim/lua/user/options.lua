@@ -46,11 +46,13 @@ lvim.builtin.treesitter.highlight.enable = true
 -- auto install treesitter parsers
 lvim.builtin.treesitter.ensure_installed = { "cpp", "c", "lua", "python" }
 
+-- load telescope extensions
 lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "frecency")
   pcall(telescope.load_extension, "neoclip")
   -- any other extensions loading
   pcall(telescope.load_extension, "project")
+  pcall(telescope.load_extension, "media_files")
 end
 lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
 

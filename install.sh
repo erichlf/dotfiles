@@ -243,6 +243,7 @@ function dev_tools(){
     python3-git \
     python3-yaml
 
+  snap_install --edge chafa # needed by telescope-media-files 
   sudo usermod -a -G docker $USER
   sudo systemctl daemon-reload
   sudo systemctl restart docker

@@ -51,7 +51,7 @@ lvim.plugins = {
       -- },
       }
   },
-
+  
   -- fine command
   {
     'VonHeikemen/fine-cmdline.nvim',
@@ -81,6 +81,16 @@ lvim.plugins = {
     },
   },
 
+  -- images
+  {
+    "nvim-telescope/telescope-media-files.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
+  },
+
+  -- interface
+  {"stevearc/dressing.nvim"},
+
+
   -- python
   {"nvim-neotest/neotest"},
   {"nvim-neotest/neotest-python"},
@@ -91,6 +101,9 @@ lvim.plugins = {
   { 
     "nvim-telescope/telescope-project.nvim",
     event = "BufWinEnter",
+    -- init = function()
+    --   vim.cmd [[packadd telescope.nvim]]
+    -- end,
   },
   
   -- tmux
