@@ -44,11 +44,11 @@ lvim.plugins = {
         "<CMD>DevcontainerUp<CR>",
         desc = "Bring Up the DevContainer",
       },
-      {
-        "<leader>Dc",
-        "<CMD>DevcontainerConnect<CR>",
-        desc = "Connect to DevContainer",
-      },
+      -- {
+      --   "<leader>Dc",
+      --   "<CMD>DevcontainerConnect<CR>",
+      --   desc = "Connect to DevContainer",
+      -- },
       }
   },
 
