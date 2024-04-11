@@ -82,7 +82,6 @@ lvim.plugins = {
   },
 
   -- python
-  {"stevearc/dressing.nvim"},
   {"nvim-neotest/neotest"},
   {"nvim-neotest/neotest-python"},
   {"mfussenegger/nvim-dap-python"},
