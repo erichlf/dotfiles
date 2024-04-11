@@ -58,24 +58,17 @@ vmappings[";"] =  { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Commen
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
 -- Devcontainer
--- TODO: get this to work when no terminal doesn't exist yet using 
--- lvim.builtin.terminal.execs[3] and lvim.core.terminal._exec_toggle
--- and this might be helpful
--- local direction = exec[4] or lvim.builtin.terminal.direction
--- local opts = {
---   cmd = exec[1] or lvim.builtin.terminal.shell or vim.o.shell,
---   keymap = exec[2],
---   label = exec[3],
---   count = i + 100,
---   direction = direction,
---   size = function()
---     return get_dynamic_terminal_size(direction, exec[5])
---   end,
--- }
-mappings["De"] = {
-  "<CMD>103TermExec cmd='devcontainer exec --workspace . zsh' dir='.'<CR>",
-  "Bring Up Terminal in Devcontainer"
+lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
+  "devcontainer exec --workspace-folder . zsh", 
+  "<leader>De", 
+  "Bring Up Terminal in Devcontainer", 
+  "float", 
+  nil 
 }
+-- mappings["De"] = {
+--   "<CMD>103TermExec cmd='devcontainer exec --workspace . zsh' dir='.'<CR>",
+--   "Bring Up Terminal in Devcontainer"
+-- }
 
 -- file  operations 
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }
