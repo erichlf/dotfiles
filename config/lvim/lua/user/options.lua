@@ -44,7 +44,7 @@ lvim.format_on_save.enabled = false
 lvim.builtin.treesitter.highlight.enable = true
 
 -- auto install treesitter parsers
-lvim.builtin.treesitter.ensure_installed = { "cpp", "c", "lua", "python" }
+lvim.builtin.treesitter.ensure_installed = { "cpp", "c", "lua", "python", "yaml" }
 
 -- load telescope extensions
 lvim.builtin.telescope.on_config_done = function(telescope)

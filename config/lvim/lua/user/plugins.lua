@@ -26,9 +26,9 @@ lvim.plugins = {
       -- By default, if no extra config is added, following nvim_dotfiles are
       -- installed: "https://github.com/LazyVim/starter"
       -- This is an example for configuring other nvim_dotfiles inside the docker container
-      system_environment_repo = "\\-b devcontainer https://github.com/erichlf/dotfiles.git",
-      system_environment_directory = "dotfiles",
-      system_environment_install_command = "./install.sh",
+      setup_environment_repo = "\\-b devcontainer https://github.com/erichlf/dotfiles.git",
+      setup_environment_directory = "dotfiles",
+      setup_environment_install_command = "./install.sh",
       nvim_dotfiles_repo = "",
       nvim_dotfiles_branch = "",
       nvim_dotfiles_directory = "",
