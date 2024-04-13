@@ -61,3 +61,9 @@ lvim.builtin.bufferline.options.numbers = "ordinal"
 lvim.builtin.bufferline.options.separator_style = "slant" 
 
 lvim.builtin.project.patterns = { ".devcontainer", ".git", "!develop/.devcontainer" }
+
+-- local dashboard = require "alpha.themes.dashboard"
+-- local docker = lvim.icons.misc.Package
+-- table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries, 
+--   { "D", docker.."  Bringup Devcontainer", ":DevcontainerUp<CR>"}
+-- )

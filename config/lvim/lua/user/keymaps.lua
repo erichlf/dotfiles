@@ -17,10 +17,10 @@ local function vmap(l, r, opts)
 end
 
 -- navigation between window panes
-nmap("<A-Left>", "<C-W><Left>")
-nmap("<A-Right>", "<C-W><Right>")
-nmap("<A-Up>", "<C-W><Up>")
-nmap("<A-Down>", "<C-W><Down>")
+nmap("<C-h>", "<C-W><Left>")
+nmap("<C-j>", "<C-W><Down>")
+nmap("<C-k>", "<C-W><Up>")
+nmap("<C-l>", "<C-W><Right>")
 
 -- command
 -- nmap(":", "<cmd>FineCmdline<CR>", {noremap = true})

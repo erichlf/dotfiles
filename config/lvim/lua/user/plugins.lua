@@ -20,13 +20,13 @@ lvim.plugins = {
 
   -- devctontainer management
   {
-    "arnaupv/nvim-devcontainer-cli",
-    branch = "main",
+    "erichlf/nvim-devcontainer-cli",
+    branch = "root-from-devcontainer-dir",
     opts = {
       -- By default, if no extra config is added, following nvim_dotfiles are
       -- installed: "https://github.com/LazyVim/starter"
       -- This is an example for configuring other nvim_dotfiles inside the docker container
-      setup_environment_repo = "\\-b devcontainer https://github.com/erichlf/dotfiles.git",
+      setup_environment_repo = "\"https://github.com/erichlf/dotfiles.git -b devcontainer \"",
       setup_environment_directory = "dotfiles",
       setup_environment_install_command = "./install.sh",
       nvim_dotfiles_repo = "",
@@ -77,7 +77,7 @@ lvim.plugins = {
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>gL", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit" },
+      { "<leader>gL", "<CMD>LazyGitCurrentFile<CR>", desc = "LazyGit" },
     },
   },
 
@@ -117,11 +117,11 @@ lvim.plugins = {
       "TmuxNavigatePrevious",
     },
     keys = {
-      { "<M-Left>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<M-Down>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<M-Up>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<M-Right>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<M-Tab>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+      { "<C-h>", "<CMD><C-U>TmuxNavigateLeft<CR>" },
+      { "<C-j>", "<CMD><C-U>TmuxNavigateDown<CR>" },
+      { "<C-k>", "<CMD><C-U>TmuxNavigateUp<CR>" },
+      { "<C-l>", "<CMD><C-U>TmuxNavigateRight<CR>" },
+      { "<C-Tab>", "<CMD><C-U>TmuxNavigatePrevious<CR>" },
     },
   },
 
