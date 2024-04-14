@@ -101,23 +101,14 @@ lvim.plugins = {
   },
   
   -- tmux
-  {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<C-h>", "<CMD><C-U>TmuxNavigateLeft<CR>" },
-      { "<C-j>", "<CMD><C-U>TmuxNavigateDown<CR>" },
-      { "<C-k>", "<CMD><C-U>TmuxNavigateUp<CR>" },
-      { "<C-l>", "<CMD><C-U>TmuxNavigateRight<CR>" },
-      { "<C-Tab>", "<CMD><C-U>TmuxNavigatePrevious<CR>" },
-    },
-  },
+  { 
+    'alexghergh/nvim-tmux-navigation', 
+    config = function()
+      require'nvim-tmux-navigation'.setup {
+        disable_when_zoomed = true, -- defaults to false
+      }
+    end
+},
 
   -- rainbow brackets
   { "mrjones2014/nvim-ts-rainbow", },

@@ -17,14 +17,12 @@ local function vmap(l, r, opts)
 end
 
 -- navigation between window panes
-nmap("<C-h>", "<C-W><Left>")
-nmap("<C-j>", "<C-W><Down>")
-nmap("<C-k>", "<C-W><Up>")
-nmap("<C-l>", "<C-W><Right>")
-
--- command
--- nmap(":", "<cmd>FineCmdline<CR>", {noremap = true})
-nmap("<leader><leader>", "<cmd>FineCmdline<CR>", {desc = "Command", noremap = true})
+nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
+nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
+nmap("<C-k>", "<CMD>NvimTmuxNavigateUp<CR>")
+nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
+nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
+nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 
 -- comments
 nmap(";;", "<Plug>(comment_toggle_linewise)<CR>")
