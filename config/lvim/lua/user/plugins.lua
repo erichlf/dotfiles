@@ -23,9 +23,6 @@ lvim.plugins = {
     "erichlf/nvim-devcontainer-cli",
     branch = "root-from-devcontainer-dir",
     opts = {
-      -- By default, if no extra config is added, following nvim_dotfiles are
-      -- installed: "https://github.com/LazyVim/starter"
-      -- This is an example for configuring other nvim_dotfiles inside the docker container
       setup_environment_repo = "\"https://github.com/erichlf/dotfiles.git -b devcontainer \"",
       setup_environment_directory = "dotfiles",
       setup_environment_install_command = "./install.sh",
@@ -33,9 +30,6 @@ lvim.plugins = {
       nvim_dotfiles_branch = "",
       nvim_dotfiles_directory = "",
       nvim_dotfiles_install_command = "",
-      -- In case you want to change the way the devenvironment is setup, you can also provide your own setup
-      -- setup_environment_repo = "https://github.com/arnaupv/setup-environment",
-      -- setup_environment_install_command = "./install.sh -p 'nvim stow zsh'",
     },
     keys = {
       -- stylua: ignore

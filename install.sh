@@ -214,19 +214,6 @@ function dev_tools(){
   # restore guake config
   guake --restore-preferences guake.conf
 
-  # install source code pro fonts
-  mkdir -p /tmp/adobefont
-  cd /tmp/adobefont
-  wget -q --show-progress -O source-code-pro.zip https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
-  unzip -q source-code-pro.zip -d source-code-pro
-  fontpath=/usr/local/share/fonts/
-  sudo cp -v source-code-pro/*/OTF/*.otf $fontpath
-  fc-cache -f
-  rm -rf source-code-pro{,.zip}
-  cd $DOTFILES_DIR
-
-  cd $DOTFILES_DIR
-
   sudo update-alternatives --config editor
 
   apt_install \ 
@@ -325,7 +312,6 @@ function latitude_7440(){
   echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
   echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
   sudo update-initramfs -u
-
 }
 
 ################################ extras ########################################
