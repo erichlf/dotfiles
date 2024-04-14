@@ -35,6 +35,7 @@ mappings["8"] = { "<CMD>BufferLineGoToBuffer 8<CR>", "Select Buffer 8" }
 mappings["9"] = { "<CMD>BufferLineGoToBuffer 9<CR>", "Select Buffer 9" }
 
 mappings["b/"] = { "<CMD>Telescope buffers previewer=false<CR>", "Find" }
+mappings["bb"] = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" }
 mappings["bd"] = { "<CMD>BufferKill<CR>", "Close" }
 mappings["bD"] = { "<CMD>BufferSortByDirectory<CR>", "Sort by Directory" }
 mappings["bj"] = { "<CMD>BufferLinePick<CR>", "Jump" }
@@ -44,7 +45,7 @@ mappings["bn"] = { "<CMD>BufferLineCycleNext<CR>", "Next" }
 mappings["bN"] = { "<CMD>tabnew<CR>", "New" }
 mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
-mappings["bM"] = { "<CMD>BufferLineCloseOther<CR>", "Close All Other" }
+mappings["bM"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", "Close All Other" }
 
 -- command
 -- here and keymaps cause otherwise it doesn't load immediately
