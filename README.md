@@ -7,7 +7,7 @@ using oh-my-zsh. All dotfiles are installed via stow. `$DOTFILES/my-home`
 contains all the dotfiles that go directly in `$HOME`, while `$DOTFILES/config`
 contains all the dotfiles that go in `$HOME/config`. Additionally zsh plugins
 exist in `$DOTFILES/zsh`, which go in
-`$DOTFILES/my-home/.oh-my-zsh/custom/plugins`. And we don't talk about
+`$DOTFILES/my-home/dot-oh-my-zsh/custom/plugins`. And we don't talk about
 `$DOTFILES/private`.
 
 Honestly the most useful thing in hear for those that are looking would be

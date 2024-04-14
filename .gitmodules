@@ -3,7 +3,7 @@
 	url = git@github.com:erichlf/dotfiles-private.git
 	branch = master
 [submodule "ohmyzsh"]
-	path = my-home/.oh-my-zsh
+	path = my-home/dot-oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
 [submodule "zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
@@ -15,5 +15,5 @@
 	path = config/nvim
 	url = https://gitlab.com/SpaceVim/SpaceVim.git
 [submodule "my-home/.tmux/plugins/tpm"]
-	path = my-home/.tmux/plugins/tpm
+	path = my-home/dot-tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm

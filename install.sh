@@ -16,8 +16,12 @@ DOTFILES_DIR=$HOME/dotfiles
 # git clone git@github.com:erichlf/dotfiles.git
 (cd $DOTFILES_DIR && git submodule update --init --recursive)
 
-cmd=(dialog --backtitle "system setup" --menu "Welcome to Erich's system
-setup.\nWhat would you like to do?" 14 50 16)
+cmd=(dialog \
+  --clear \
+  --cancel-label "Exit" \
+  --backtitle "system setup" \
+  --menu "Welcome to Erich's system setup.\nWhat would you like to do?" \
+  14 50 16)
 
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
@@ -88,14 +92,13 @@ function sudo_rule(){
 
 #create my links
 function sym_links(){
-  stow -v --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
-  stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   mkdir -p $HOME/.config
+  stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
+  stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow config
   # this relies on my-home being stowed already
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
   # if the adopt made a local change then undo that
-  git checkout HEAD -- starship zsh my-home private
 
   return 0
 }
