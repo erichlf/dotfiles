@@ -24,6 +24,9 @@ nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
 nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
 nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 
+nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
+nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
+
 -- comments
 nmap(";;", "<Plug>(comment_toggle_linewise)<CR>")
 vmap(";", "<Plug>(comment_toggle_linewise_visual)<CR>")

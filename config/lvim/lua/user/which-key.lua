@@ -93,7 +93,7 @@ mappings["fW"] = { "<CMD>noautocmd wa<CR>", "Save All (noautocmd)" }
 mappings["fw"] = { "<CMD>noautocmd w<CR>", "Save Current (noautocmd)" }
 
 -- git
-mappings["gL"] = { "<CMD>LazyGit<CR>", "LazyGit" }
+mappings["gL"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }
 
 -- quiting 
 mappings["qq"] = { "<CMD>qa<CR>", "Quit without Saving" }
