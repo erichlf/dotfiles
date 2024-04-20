@@ -6,6 +6,7 @@ local vmappings = lvim.builtin.which_key.vmappings
 mappings["/"] = {} -- comment
 mappings[";"] = {} -- Dashboard
 mappings["b"]["b"] = {} -- previous buffer
+mappings["bf"] = {} -- buffer find
 mappings["c"] = {} -- close buffer 
 mappings["h"] = {} -- no highlight
 mappings["s"] = {} -- search
@@ -34,7 +35,7 @@ mappings["7"] = { "<CMD>BufferLineGoToBuffer 7<CR>", "Select Buffer 7" }
 mappings["8"] = { "<CMD>BufferLineGoToBuffer 8<CR>", "Select Buffer 8" }
 mappings["9"] = { "<CMD>BufferLineGoToBuffer 9<CR>", "Select Buffer 9" }
 
-mappings["b/"] = { "<CMD>Telescope buffers previewer=false<CR>", "Find" }
+mappings["b/"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find" }
 mappings["bb"] = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" }
 mappings["bd"] = { "<CMD>BufferKill<CR>", "Close" }
 mappings["bD"] = { "<CMD>BufferSortByDirectory<CR>", "Sort by Directory" }
@@ -66,16 +67,12 @@ lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
   "float", 
   nil 
 }
--- mappings["De"] = {
---   "<CMD>103TermExec cmd='devcontainer exec --workspace . zsh' dir='.'<CR>",
---   "Bring Up Terminal in Devcontainer"
--- }
 mappings["Dc"] = {
-  "<CMD>104TermExec cmd='colcon build --symlink-install --merge-install'<CR>",
+  "<CMD>DevcontainerExec 'colcon build --symlink-install --merge-install'<CR>",
   "ROS2 Build"
 }
 mappings["Dt"] = {
-  "<CMD>104TermExec cmd='source install/setup.zsh && colcon test --merge-install'<CR>",
+  "<CMD>DevcontainerExec 'source install/setup.zsh && colcon test --merge-install'<CR>",
   "ROS2 Test"
 }
 

@@ -21,15 +21,15 @@ lvim.plugins = {
   -- devctontainer management
   {
     "erichlf/nvim-devcontainer-cli",
-    branch = "root-from-devcontainer-dir",
+    -- dir = "/home/elfoster/workspace/nvim-devcontainer-cli",
+    -- dev = true,
+    branch = "DevContainerExec",
     opts = {
-      setup_environment_repo = "\"https://github.com/erichlf/dotfiles.git -b devcontainer \"",
-      setup_environment_directory = "dotfiles",
-      setup_environment_install_command = "./install.sh",
-      nvim_dotfiles_repo = "",
-      nvim_dotfiles_branch = "",
-      nvim_dotfiles_directory = "",
-      nvim_dotfiles_install_command = "",
+      interactive = true,
+      dotfiles_repository = "https://github.com/erichlf/dotfiles.git",
+      dotfiles_branch = "devcontainer",
+      dotfiles_targetPath = "~/dotfiles",
+      dotfiles_installCommand = "install.sh",
     },
     keys = {
       -- stylua: ignore
@@ -37,6 +37,11 @@ lvim.plugins = {
         "<leader>Du",
         "<CMD>DevcontainerUp<CR>",
         desc = "Bring Up the DevContainer",
+      },
+      {
+        "<leader>De",
+        "<CMD>DevcontainerExec<CR>",
+        desc = "Execute a command in the DevContainer",
       },
       -- {
       --   "<leader>Dc",
