@@ -27,6 +27,14 @@ nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
 nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
 
+lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
+  "devcontainer exec --workspace-folder . zsh", 
+  "<M-4>", 
+  "Bring Up Terminal in Devcontainer", 
+  "float", 
+  nil 
+}
+
 -- comments
 nmap(";;", "<Plug>(comment_toggle_linewise)<CR>")
 vmap(";", "<Plug>(comment_toggle_linewise_visual)<CR>")

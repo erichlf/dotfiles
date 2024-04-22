@@ -2,9 +2,9 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
+-- line numbering
 opt.number = true
 opt.relativenumber = true
-opt.number = true
 
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
@@ -56,14 +56,17 @@ lvim.builtin.telescope.on_config_done = function(telescope)
 end
 lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
 
+-- buffer line options
 lvim.builtin.bufferline.options.middle_mouse_command = "bdelete! %d"
 lvim.builtin.bufferline.options.numbers = "ordinal"
 lvim.builtin.bufferline.options.separator_style = "slant" 
 
+-- tell project where my projects start
 lvim.builtin.project.patterns = { ".devcontainer", ".git", "!develop/.devcontainer" }
 
--- local dashboard = require "alpha.themes.dashboard"
--- local docker = lvim.icons.misc.Package
--- table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries, 
---   { "D", docker.."  Bringup Devcontainer", ":DevcontainerUp<CR>"}
--- )
+-- add devcontainer button to dashboard
+table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
+  { "D", lvim.icons.misc.Package .. "  Bringup Devcontainer", "<CMD>lua require('devcontainer_cli.devcontainer_cli').up()<CR>" }
+)
+
+lvim.lsp.installer.setup.automatic_installation = true

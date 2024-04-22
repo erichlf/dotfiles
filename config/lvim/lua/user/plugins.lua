@@ -20,9 +20,9 @@ lvim.plugins = {
 
   -- devctontainer management
   {
-    "erichlf/nvim-devcontainer-cli",
-    -- dir = "/home/elfoster/workspace/nvim-devcontainer-cli",
-    -- dev = true,
+    -- "erichlf/nvim-devcontainer-cli",
+    dir = "/home/elfoster/workspace/nvim-devcontainer-cli",
+    dev = true,
     branch = "DevContainerExec",
     opts = {
       interactive = true,
@@ -43,12 +43,22 @@ lvim.plugins = {
         "<CMD>DevcontainerExec<CR>",
         desc = "Execute a command in the DevContainer",
       },
-      -- {
-      --   "<leader>Dc",
-      --   "<CMD>DevcontainerConnect<CR>",
-      --   desc = "Connect to DevContainer",
-      -- },
-      }
+      {
+        "<leader>Db", 
+        "<CMD>DevcontainerExec colcon build --symlink-install --merge-install<CR>",
+        desc = "ROS2 build in the DevContainer",
+      },
+      {
+        "<leader>Dt", 
+        "<CMD>DevcontainerExec source install/setup.zsh && colcon test --merge-install<CR>",
+        desc = "ROS2 test in the DevContainer",
+      },
+      {
+        "<leader>Dc",
+        "<CMD>DevcontainerConnect<CR>",
+        desc = "Connect to DevContainer",
+      },
+    }
   },
   
   -- fine command

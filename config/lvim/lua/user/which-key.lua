@@ -59,28 +59,6 @@ vmappings[";"] =  { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Commen
 -- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
--- Devcontainer
-lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
-  "devcontainer exec --workspace-folder . zsh", 
-  "<M-4>", 
-  "Bring Up Terminal in Devcontainer", 
-  "float", 
-  nil 
-}
-mappings["Dc"] = {
-  "<CMD>DevcontainerExec 'colcon build --symlink-install --merge-install'<CR>",
-  "ROS2 Build"
-}
-mappings["Dt"] = {
-  "<CMD>DevcontainerExec 'source install/setup.zsh && colcon test --merge-install'<CR>",
-  "ROS2 Test"
-}
-
--- function launch()
---   return "<CMD>104TermExec cmd='source install/setup.zsh && ros2 launch " .. vim.fn.input("Package:", "", "") .. vim.fn.input("Launcher:", "", "") .. "'<CMD>"
--- end
--- mappings["Dl"] = { launch(), "ROS2 Launch" }
-
 -- file  operations 
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }
 mappings["fe"] = { "<CMD>NvimTreeToggle<CR>", "Toggle Explorer" }
