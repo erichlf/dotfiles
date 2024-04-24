@@ -24,6 +24,7 @@ nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
 nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
 nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 
+-- navigation between buffers
 nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
 nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
 

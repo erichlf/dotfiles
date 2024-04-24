@@ -23,7 +23,7 @@ mappings["w"] = { name = "Windows" }
 mappings["+"] = { "<C-a>", "Increment Number" } -- increment
 mappings["-"] = { "<C-x>", "Decrement Number" } -- decrement
 
------------------------- buffers operations --------------------------------------------
+-- buffers operations 
 mappings["<Tab>"] = { "<CMD>edit #<CR>", "Previous Active Buffer" }
 mappings["1"] = { "<CMD>BufferLineGoToBuffer 1<CR>", "Select Buffer 1" }
 mappings["2"] = { "<CMD>BufferLineGoToBuffer 2<CR>", "Select Buffer 2" }
@@ -42,11 +42,11 @@ mappings["bD"] = { "<CMD>BufferSortByDirectory<CR>", "Sort by Directory" }
 mappings["bj"] = { "<CMD>BufferLinePick<CR>", "Jump" }
 mappings["bl"] = { "<CMD>BufferLineSortByExtension<CR>", "Sort by Language" }
 mappings["bL"] = { "<CMD>BufferLineCloseLeft<CR>", "Close All to Left" }
+mappings["bM"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", "Close All Other" }
 mappings["bn"] = { "<CMD>BufferLineCycleNext<CR>", "Next" }
 mappings["bN"] = { "<CMD>tabnew<CR>", "New" }
 mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
-mappings["bM"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", "Close All Other" }
 
 -- command
 -- here and keymaps cause otherwise it doesn't load immediately
@@ -59,7 +59,7 @@ vmappings[";"] =  { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Commen
 -- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
--- file  operations 
+-- file operations 
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }
 mappings["fe"] = { "<CMD>NvimTreeToggle<CR>", "Toggle Explorer" }
 mappings["fS"] = { "<CMD>wa<CR>", "Save All" }
@@ -76,6 +76,7 @@ mappings["qQ"] = { "<CMD>qa!<CR>", "Force Quit without Saving" }
 mappings["qx"] = { "<CMD>x<CR>", "Quit and Save" }
 
 -- search
+mappings["/b"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find Buffer" }
 mappings["/c"] = { "<cmd>Telescope colorscheme<CR>", "Colorscheme" }
 mappings["/f"] = { "<cmd>Telescope find_files<CR>", "Find File" }
 mappings["/h"] = { "<cmd>Telescope help_tags<CR>", "Find Help" }
@@ -88,7 +89,7 @@ mappings["/k"] = { "<cmd>Telescope keymaps<CR>", "Keymaps" }
 mappings["/C"] = { "<cmd>Telescope commands<CR>", "Commands" }
 mappings["/l"] = { "<cmd>Telescope resume<CR>", "Resume last search" }
 
--- window  operations 
+-- window operations 
 mappings["wd"] = { "<CMD>close<CR>", "Close" }
 mappings["wD"] = { "<CMD>other<CR>", "Close All Other" }
 mappings["ws"] = { "<CMD>split<CR>", "Split Horizontal" }
