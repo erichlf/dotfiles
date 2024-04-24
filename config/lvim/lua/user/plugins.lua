@@ -98,7 +98,15 @@ lvim.plugins = {
 
   -- interface
   {"stevearc/dressing.nvim"},
-
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = { },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
 
   -- python
   {"nvim-neotest/neotest"},
