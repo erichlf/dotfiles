@@ -36,5 +36,9 @@ lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs+1] = {
 }
 
 -- comments
-nmap(";;", "<Plug>(comment_toggle_linewise)<CR>")
-vmap(";", "<Plug>(comment_toggle_linewise_visual)<CR>")
+nmap(";;", "gcc", {remap=true})
+namp(";A", "gcA", {remap=true})
+namp(";p", "gcap", {remap=true})
+namp(";o", "gco", {remap=true})
+namp(";O", "gcO", {remap=true})
+vmap(";", "gc", {remap=true})
