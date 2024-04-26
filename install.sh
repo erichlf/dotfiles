@@ -10,11 +10,12 @@ codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
 DOTFILES_DIR=$(pwd)
+echo "$DOTFILES_DIR"
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
-(cd $DOTFILES_DIR && git submodule update --init --recursive)
+git submodule update --init --recursive
 
 cmd=( \
   dialog \
@@ -35,7 +36,7 @@ options=(1 "Fresh system setup"
          8 "Update system"
          9 "sudo rules")
 
-if [ CI ]; then 
+if [ $CI ]; then 
   choices=1
 else
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -62,6 +63,7 @@ function no_ppa_exists(){
 
 function add_ppa(){
   sudo add-apt-repository ppa:$1 -y
+  apt_update
 
   return 0
 }
@@ -101,6 +103,7 @@ function sym_links(){
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow config
   # if the adopt made a local change then undo that
+  git checkout HEAD -- config my-home private
 
   return 0
 }
@@ -108,23 +111,38 @@ function sym_links(){
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
-  cd $HOME
+  sudo add-apt-repository -y universe
+
+  echo "Setting up shell..."
+  if no_ppa_exists linuxuprising
+  then
+    add_ppa linuxuprising/guake
+  fi
 
   apt_install \
     btop \
     cifs-utils \
     curl \
+    dconf-cli \
+    dconf-editor \
     fzf \
     gnome-tweaks \
+    guake \
     iftop \
     nfs-common \
     tmux \
     wget \
     zsh 
 
+  guake --restore-preferences $DOTFILES_DIR/guake.conf
+
+  sudo chsh -s $(which zsh) $(whoami)
+
+  # memory for cd
   curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
-  chsh -s /usr/bin/zsh
+  # zsh plugin manager
+  [ ! -d $HOME/.zgen ] && git clone https://github.com/tarjoilija/zgen.git ${HOME}/.zgen
 
   # tool to figure out why my last command didn't work
   snap_install thefuck --beta --classic
@@ -142,35 +160,39 @@ function base_sys(){
   ./starship.sh --bin-dir $HOME/.local/bin/ -y
   rm -f starship.sh
 
+  echo "Setting up networking..."
   apt_install \
     network-manager-openvpn \
     network-manager-openvpn-gnome \
-    network-manager-vpnc
-  # sudo /etc/init.d/networking restart
+    network-manager-vpnc \
+    openssh-server
 
-  cd $DOTFILES_DIR
-
+  echo "Installing developer tools..."
   if [ ! -d "$HOME/workspace" ]; then
     mkdir "$HOME/workspace"
   fi
 
   apt_install \
     build-essential \
-    clang \ 
+    clang \
     clang-format \
     clang-tools \
     cmake \
     g++ \
     gcc \
+    git-completion \
+    global \
+    libtool-bin \
+    meld \
     python3-dev \
     python3-ipython \
     python3-matplotlib \
     python3-numpy \
-    python3-pip
-    python3-scipy \ 
-    python3-setuptools \
+    python3-pip \
+    python3-scipy \
+    python3-setuptools 
 
-  # need dnspython and unrar are needed by calibre
+  echo "Installing python linters..."
   pip3_install \
     autoflake \
     black \
@@ -181,29 +203,25 @@ function base_sys(){
     wheel \
     yapf
 
-  if no_ppa_exists linuxuprising
-  then
-    add_ppa linuxuprising/guake
-  fi
-
   if no_ppa_exists ppa-verse
   then
     add_ppa ppa-verse/neovim
   fi
 
+  echo "Installing VIM..."
   apt_install \
-    freeglut3-dev \
-    git-completion 
-    global \
-    guake \
-    libtool-bin \
-    meld \
+    git-lfs \
+    golang-go \
     neovim \
-    openssh-server \
+    nodejs \
+    python3-git \
+    python3-venv \
+    python3-yaml \
     xclip
-
-  # install zgen
-  [ ! -d $HOME/.zgen ] && git clone https://github.com/tarjoilija/zgen.git ${HOME}/.zgen
+  
+  # treesitter for vim
+  npm install -g neovim tree-sitter
+  snap_install --edge chafa # needed by telescope-media-files 
 
   # install lunarvim
   curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
@@ -216,39 +234,28 @@ function base_sys(){
   install lazygit $HOME/.local/bin
   cd -
 
-  # restore guake config
-  guake --restore-preferences guake.conf
-
   sudo update-alternatives --config editor
 
-  apt_install \ 
-    gnupg \
-    ca-certificates
+  echo "Setting up docker..."
+  apt_install \
+    ca-certificates \
+    containerd \
+    gnupg
 
   apt_update
   apt_install \
     docker-compose \
     docker.io \
-    git-lfs \
-    golang-go \ # used by gitlab nvim plugin
-    nodejs \
-    python3-git \
-    python3-venv \
-    python3-yaml
 
-  snap_install --edge chafa # needed by telescope-media-files 
   sudo usermod -a -G docker $USER
   sudo systemctl daemon-reload
   sudo systemctl restart docker
 
   newgrp docker
-  
-  # devcontainer cli
-  npm install -g @devcontainers/cli
-  # treesitter for vim
-  npm install -g neovim tree-sitter
 
-  # install vscode
+  echo "Installing vscode..."
+  npm install -g @devcontainers/cli
+
   apt_install \
     apt-transport-https \
     software-properties-common 
@@ -264,13 +271,14 @@ function base_sys(){
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
-  cd /tmp
-
+  echo "Installing extras..."
   apt_update
   apt_install chrome-gnome-shell
 
+  cd /tmp
   wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
   sudo dpkg -i vivaldi-stable*.deb
+  cd $DOTFILES_DIR
 
   curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
   echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
@@ -289,14 +297,8 @@ function base_sys(){
   sudo chmod 755 /etc/1password/custom_allowed_browsers
 
   # install signal desktop
-  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
-  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
-    sudo tee /etc/apt/sources.list.d/signal-xenial.list
-  apt_update 
-  apt_install signal-desktop
+  snap_install signal-desktop
 
-  cd $DOTFILES_DIR
   return 0
 }
 
@@ -346,15 +348,19 @@ function latitude_7440(){
 
 ######################## remove things I never use #############################
 function crapware(){
-  sudo apt-get remove -y \
-    thunderbird \ 
-    transmission-gtk \
+  echo "Removing crapware..."
+  pkgs="thunderbird transmission-gtk"
+  for pkg in $(echo $pkgs); do
+    echo "Removing $pkgsToRemove"
+    sudo apt-get --yes --purge remove $pkg || true
+  done
 
   return 0
 }
 
 ########################## update and upgrade ##################################
 function update_sys(){
+  echo "Updating system..."
   apt_update
   sudo apt-get -y upgrade
 
@@ -363,6 +369,7 @@ function update_sys(){
 
 ############################## annoyances ######################################
 function sudo_rules(){
+  echo "Setting sudo rules..."
   sudo_rule /sbin/shutdown
   sudo_rule /sbin/reboot
 

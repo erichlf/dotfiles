@@ -19,16 +19,17 @@ lvim.plugins = {
   },
 
   {
-    -- "erichlf/nvim-devcontainer-cli",
-    dir = "/home/elfoster/workspace/nvim-devcontainer-cli",
-    dev = true,
-    branch = "DevContainerExec",
+    "erichlf/devcontainer-cli.nvim",
+    -- dir = "/home/elfoster/workspace/devcontainer-cli.nvim",
+    -- dev = true,
+    -- branch = "AddShell",
     opts = {
-      interactive = true,
+      interactive = false,
       dotfiles_repository = "https://github.com/erichlf/dotfiles.git",
       dotfiles_branch = "devcontainer",
       dotfiles_targetPath = "~/dotfiles",
       dotfiles_installCommand = "install.sh",
+      shell = "zsh",
     },
     keys = {
       -- stylua: ignore

@@ -10,7 +10,6 @@ mappings["g"]["b"] = {} -- git new branch
 mappings["g"]["l"] = {} -- git blame
 mappings["bf"] = {}     -- buffer find
 mappings["c"] = {}      -- close buffer
-mappings["h"] = {}      -- no highlight
 mappings["s"] = {}      -- search
 mappings["w"] = {}      -- save
 vmappings["/"] = {}     -- comment
