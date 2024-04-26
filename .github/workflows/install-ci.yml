@@ -1,0 +1,17 @@
+name: "test-install"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  install:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - name: install
+        run: ./install.sh 1
+        env:
+          CI: true

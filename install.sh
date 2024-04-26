@@ -25,17 +25,21 @@ cmd=( \
   14 50 16 \
 )
 
-options=(1  "Fresh system setup"
-         2  "Create symbolic links"
-         2  "Install base system"
-         4  "Install TU Delft tools"
-         5  "Latitude 7440 Hacks"
-         6  "Install LaTeX"
-         7  "Remove crapware"
-         8  "Update system"
-         9  "sudo rules")
+options=(1 "Fresh system setup"
+         2 "Create symbolic links"
+         2 "Install base system"
+         4 "Install TU Delft tools"
+         5 "Latitude 7440 Hacks"
+         6 "Install LaTeX"
+         7 "Remove crapware"
+         8 "Update system"
+         9 "sudo rules")
 
-choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+if [ CI ]; then 
+  choices=1
+else
+  choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+fi
 
 function run_me() {
   bash $THIS
@@ -375,6 +379,7 @@ do
        update_sys
        sudo apt -y autoremove
        sudo_rules
+       [ $CI ] && exit
        run_me
        ;;
     2)
