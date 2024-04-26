@@ -16,24 +16,24 @@ DOTFILES_DIR=$HOME/dotfiles
 # git clone git@github.com:erichlf/dotfiles.git
 (cd $DOTFILES_DIR && git submodule update --init --recursive)
 
-cmd=(dialog \
+cmd=( \
+  dialog \
   --clear \
   --cancel-label "Exit" \
   --backtitle "system setup" \
   --menu "Welcome to Erich's system setup.\nWhat would you like to do?" \
-  14 50 16)
+  14 50 16 \
+)
 
 options=(1  "Fresh system setup"
          2  "Create symbolic links"
-         3  "Install development tools"
-         4  "Install base system"
-         5  "Install my extras"
-         6  "Install TU Delft tools"
-         7  "Latitude 7440 Hacks"
-         8  "Install LaTeX"
-         9  "Remove crapware"
-        10  "Update system"
-        11  "sudo rules")
+         2  "Install base system"
+         4  "Install TU Delft tools"
+         5  "Latitude 7440 Hacks"
+         6  "Install LaTeX"
+         7  "Remove crapware"
+         8  "Update system"
+         9  "sudo rules")
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -96,8 +96,6 @@ function sym_links(){
   stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow config
-  # this relies on my-home being stowed already
-  stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.oh-my-zsh/custom/plugins/ --restow zsh
   # if the adopt made a local change then undo that
 
   return 0
@@ -119,6 +117,8 @@ function base_sys(){
     tmux \
     wget \
     zsh 
+
+  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
   chsh -s /usr/bin/zsh
 
@@ -146,12 +146,6 @@ function base_sys(){
 
   cd $DOTFILES_DIR
 
-  return 0
-}
-
-############################# developer tools ##################################
-# install development utilities
-function dev_tools(){
   if [ ! -d "$HOME/workspace" ]; then
     mkdir "$HOME/workspace"
   fi
@@ -162,23 +156,24 @@ function dev_tools(){
     clang-format \
     clang-tools \
     cmake \
-    gcc \
     g++ \
+    gcc \
     python3-dev \
-    python3-setuptools \
-    python3-scipy \ 
-    python3-numpy \
-    python3-matplotlib \
     python3-ipython \
+    python3-matplotlib \
+    python3-numpy \
     python3-pip
+    python3-scipy \ 
+    python3-setuptools \
 
   # need dnspython and unrar are needed by calibre
   pip3_install \
     autoflake \
-    dnspython \
+    black \
+    flake8 \
     isort \
+    pep257 \
     pylint \
-    unrar \
     wheel \
     yapf
 
@@ -196,12 +191,15 @@ function dev_tools(){
     freeglut3-dev \
     git-completion 
     global \
-    libtool-bin \
     guake \
+    libtool-bin \
     meld \
     neovim \
     openssh-server \
     xclip
+
+  # install zgen
+  [ ! -d $HOME/.zgen ] && git clone https://github.com/tarjoilija/zgen.git ${HOME}/.zgen
 
   # install lunarvim
   curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
@@ -225,8 +223,8 @@ function dev_tools(){
 
   apt_update
   apt_install \
-    docker.io \
     docker-compose \
+    docker.io \
     git-lfs \
     golang-go \ # used by gitlab nvim plugin
     nodejs \
@@ -261,6 +259,41 @@ function dev_tools(){
 
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
+
+  cd /tmp
+
+  apt_update
+  apt_install chrome-gnome-shell
+
+  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
+  sudo dpkg -i vivaldi-stable*.deb
+
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+
+  apt_update
+  apt_install 1password
+
+  # add 1password support to vivaldi
+  sudo mkdir -p /etc/1password
+  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers 
+  sudo chown root:root /etc/1password/custom_allowed_browsers
+  sudo chmod 755 /etc/1password/custom_allowed_browsers
+
+  # install signal desktop
+  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
+  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+    sudo tee /etc/apt/sources.list.d/signal-xenial.list
+  apt_update 
+  apt_install signal-desktop
+
+  cd $DOTFILES_DIR
+  return 0
 }
 
 function tudelft(){
@@ -270,17 +303,6 @@ function tudelft(){
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ jammy main" | sudo tee /etc/apt/sources.list.d/eduvpn-v4.list
   apt_update
   apt_install eduvpn-client
-
-  # setup sam xl mounts
-  sudo cp -f $DOTFILES_DIR/private/auto.master /etc/
-  sudo cp -f $DOTFILES_DIR/private/auto.tudeflt /etc/
-
-  apt_install \
-    davfs2 \
-    autofs
-
-  # it is assumed that credentials are placed in /etc/davfs2/secrets
-  sudo systemctl restart autofs
 
   return 0
 }
@@ -318,47 +340,11 @@ function latitude_7440(){
   sudo update-initramfs -u
 }
 
-################################ extras ########################################
-function extras(){
-  cd /tmp
-
-  apt_update
-  apt_install chrome-gnome-shell
-
-  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
-  sudo dpkg -i vivaldi-stable*.deb
-
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
-  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-
-  apt_update
-  apt_install 1password
-
-  # add 1password support to vivaldi
-  sudo mkdir -p /etc/1password
-  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers 
-  sudo chown root:root /etc/1password/custom_allowed_browsers
-  sudo chmod 755 /etc/1password/custom_allowed_browsers
-
-  # install signal desktop
-  wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
-  cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
-    sudo tee /etc/apt/sources.list.d/signal-xenial.list
-  apt_update 
-  apt_install signal-desktop
-
-  cd $DOTFILES_DIR
-  return 0
-}
-
 ######################## remove things I never use #############################
 function crapware(){
-  sudo apt remove -y transmission-gtk thunderbird \
+  sudo apt remove -y \
+    thunderbird \ 
+    transmission-gtk \
 
   return 0
 }
@@ -385,8 +371,6 @@ do
     1)
        sym_links
        base_sys
-       dev_tools
-       extras
        crapware
        update_sys
        sudo apt -y autoremove
@@ -398,38 +382,30 @@ do
        run_me
        ;;
     3)
-       dev_tools
-       run_me
-       ;;
-    4)
        base_sys
        run_me
        ;;
-    5)
-       extras
-       run_me
-       ;;
-    6)
+    4)
        tudelft
        run_me
        ;;
-    7)
+    5)
        latitude_7440
        run_me
        ;;
-    8)
+    6)
        LaTeX
        run_me
        ;;
-    9)
+    7)
        crapware
        run_me
        ;;
-    10)
+    8)
        update_sys
        run_me
        ;;
-    11)
+    9)
        sudo_rules
        run_me
        ;;

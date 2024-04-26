@@ -1,127 +1,61 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# automatically run `zgen reset` if we modify our .zshrc
+ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="zsh2000"
+zgen selfupdate
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# if the init scipt doesn't exist
+if ! zgen saved; then
+    zgen oh-my-zsh
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+    # plugins
+    zgen oh-my-zsh plugins/1password
+    zgen oh-my-zsh plugins/colored-man-pages
+    zgen oh-my-zsh plugins/colorize
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/common-aliases
+    zgen oh-my-zsh plugins/copyfile
+    zgen oh-my-zsh plugins/copypath
+    zgen oh-my-zsh plugins/cp
+    zgen oh-my-zsh plugins/dirhistory
+    zgen oh-my-zsh plugins/docker
+    zgen oh-my-zsh plugins/docker-compose
+    zgen oh-my-zsh plugins/emacs
+    zgen oh-my-zsh plugins/fzf
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/man
+    zgen oh-my-zsh plugins/pass
+    zgen oh-my-zsh plugins/rsync
+    zgen oh-my-zsh plugins/safe-paste
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/ubuntu
+    zgen oh-my-zsh plugins/web-search
+    zgen oh-my-zsh plugins/zsh-interactive-cd
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+    zgen load zsh-users/zsh-autosuggestions
+    zgen load zsh-users/zsh-history-substring-search
+    zgen load zsh-users/zsh-syntax-highlighting
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
+    # theme
+    # zgen oh-my-zsh themes/arrow
+
+    # save all to init script
+    zgen save
+fi
+
+# automatically upgrade oh-my-zsh without asking
+DISABLE_UPDATE_PROMPT=true
 zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+# enable command auto-correction.
+ENABLE_CORRECTION="true"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  1password
-  colored-man-pages
-  colorize
-  common-aliases
-  copyfile
-  copypath
-  cp
-  dirhistory
-  docker
-  docker-compose
-  emacs
-  fzf
-  git
-  man
-  pass
-  rsync
-  safe-paste
-  sudo
-  ubuntu
-  web-search
-  zsh-autosuggestions
-  zsh-interactive-cd
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 extensions=(
   1password.plugin.zsh
@@ -138,8 +72,7 @@ done
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.aliases ] && source ~/.aliases
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[ -d $HOME/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
+eval "$(zoxide init --cmd cd zsh)"
 
 setopt nonomatch
 
