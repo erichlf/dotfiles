@@ -72,19 +72,16 @@ table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
 )
 
 -- LSP
-lvim.lsp.installer.setup.automatic_installation = true
-require("mason-lspconfig").setup {
-  ensure_installed = {
-    "clangd",
-    "cmake",
-    "docker_compose_language_service",
-    "dockerls",
-    "lemminx",
-    "lua_ls",
-    "pyright",
-    "taplo",
-    "yamlls",
-  },
+lvim.lsp.installer.setup.ensure_installed = {
+  "clangd",
+  "cmake",
+  "docker_compose_language_service",
+  "dockerls",
+  "lemminx",
+  "lua_ls",
+  "pyright",
+  "taplo",
+  "yamlls",
 }
 require("lvim.lsp.null-ls.formatters").setup {
   { name = "black" },
