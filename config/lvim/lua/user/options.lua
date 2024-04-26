@@ -71,4 +71,33 @@ table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
     "<CMD>lua require('devcontainer_cli.devcontainer_cli').up()<CR>" }
 )
 
+-- LSP
 lvim.lsp.installer.setup.automatic_installation = true
+require("mason-lspconfig").setup {
+  ensure_installed = {
+    "clangd",
+    "cmake",
+    "docker_compose_language_service",
+    "dockerls",
+    "lemminx",
+    "lua_ls",
+    "pyright",
+    "taplo",
+    "yamlls",
+  },
+}
+require("lvim.lsp.null-ls.formatters").setup {
+  { name = "black" },
+  { name = "clang-format" },
+  { name = "isort" },
+  { name = "yamlfmt" },
+}
+require("lvim.lsp.null-ls.linters").setup {
+  { name = "cmakelint" },
+  { name = "cpplint" },
+  { name = "cpptools" },
+  { name = "flake8" },
+  { name = "markdownlint" },
+  { name = "pylint" },
+  { name = "yamllint" },
+}
