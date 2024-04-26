@@ -3,13 +3,13 @@ set -e
 
 THIS=$0
 
-sudo apt install -y dialog git stow
+sudo apt-get install -y dialog git stow
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
 release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
 
-DOTFILES_DIR=$HOME/dotfiles
+DOTFILES_DIR=$(pwd)
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
@@ -338,7 +338,7 @@ function latitude_7440(){
   sudo pam-auth-update --enable fprintd
 
   # fix keyboard function keys
-  sudo apt reinstall -y libgdk-pixbuf2.0-0
+  sudo apt-get reinstall -y libgdk-pixbuf2.0-0
   echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
   echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
   sudo update-initramfs -u
@@ -346,7 +346,7 @@ function latitude_7440(){
 
 ######################## remove things I never use #############################
 function crapware(){
-  sudo apt remove -y \
+  sudo apt-get remove -y \
     thunderbird \ 
     transmission-gtk \
 
@@ -377,7 +377,7 @@ do
        base_sys
        crapware
        update_sys
-       sudo apt -y autoremove
+       sudo apt-get -y autoremove
        sudo_rules
        [ $CI ] && exit
        run_me
