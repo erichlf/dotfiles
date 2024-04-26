@@ -1,6 +1,6 @@
 lvim.plugins = {
   -- auto complete tags
-  { 
+  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").init()
@@ -43,12 +43,12 @@ lvim.plugins = {
         desc = "Execute a command in the DevContainer",
       },
       {
-        "<leader>Db", 
+        "<leader>Db",
         "<CMD>DevcontainerExec colcon build --symlink-install --merge-install<CR>",
         desc = "ROS2 build in the DevContainer",
       },
       {
-        "<leader>Dt", 
+        "<leader>Dt",
         "<CMD>DevcontainerExec source install/setup.zsh && colcon test --merge-install<CR>",
         desc = "ROS2 test in the DevContainer",
       },
@@ -59,11 +59,11 @@ lvim.plugins = {
       },
     }
   },
-  
+
   {
     'VonHeikemen/fine-cmdline.nvim',
     dependencies = {
-      {'MunifTanjim/nui.nvim'}
+      { 'MunifTanjim/nui.nvim' }
     }
   },
 
@@ -95,15 +95,15 @@ lvim.plugins = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
-      "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+      "stevearc/dressing.nvim",     -- Recommended but not required. Better UI for pickers.
       "nvim-tree/nvim-web-devicons" -- Recommended but not required. Icons in discussion tree.
     },
     enabled = true,
-    build = function () 
-      require("gitlab.server").build(true) 
+    build = function()
+      require("gitlab.server").build(true)
     end, -- Builds the Go binary
-    config = function() 
-      require("gitlab").setup() 
+    config = function()
+      require("gitlab").setup()
     end,
   },
 
@@ -114,11 +114,11 @@ lvim.plugins = {
   },
 
   -- interface
-  {"stevearc/dressing.nvim"},
+  { "stevearc/dressing.nvim" },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = { },
+    opts = {},
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -126,31 +126,30 @@ lvim.plugins = {
   },
 
   -- python
-  {"nvim-neotest/neotest"},
-  {"nvim-neotest/neotest-python"},
-  {"mfussenegger/nvim-dap-python"},
-  {"ChristianChiarulli/swenv.nvim"},
+  { "nvim-neotest/neotest" },
+  { "nvim-neotest/neotest-python" },
+  { "mfussenegger/nvim-dap-python" },
+  { "ChristianChiarulli/swenv.nvim" },
 
   -- project tracking
-  { 
+  {
     "nvim-telescope/telescope-project.nvim",
     event = "BufWinEnter",
     -- init = function()
     --   vim.cmd [[packadd telescope.nvim]]
     -- end,
   },
-  
+
   -- tmux
-  { 
-    'alexghergh/nvim-tmux-navigation', 
+  {
+    'alexghergh/nvim-tmux-navigation',
     config = function()
-      require'nvim-tmux-navigation'.setup {
+      require 'nvim-tmux-navigation'.setup {
         disable_when_zoomed = true, -- defaults to false
       }
     end
-},
+  },
 
   -- rainbow brackets
   { "mrjones2014/nvim-ts-rainbow", },
 }
-

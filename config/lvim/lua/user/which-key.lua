@@ -3,17 +3,17 @@ local mappings = lvim.builtin.which_key.mappings
 local vmappings = lvim.builtin.which_key.vmappings
 
 -- unmap things that I want to use
-mappings["/"] = {} -- comment
-mappings[";"] = {} -- Dashboard
+mappings["/"] = {}      -- comment
+mappings[";"] = {}      -- Dashboard
 mappings["b"]["b"] = {} -- previous buffer
 mappings["g"]["b"] = {} -- git new branch
 mappings["g"]["l"] = {} -- git blame
-mappings["bf"] = {} -- buffer find
-mappings["c"] = {} -- close buffer 
-mappings["h"] = {} -- no highlight
-mappings["s"] = {} -- search
-mappings["w"] = {} -- save
-vmappings["/"] = {} -- comment 
+mappings["bf"] = {}     -- buffer find
+mappings["c"] = {}      -- close buffer
+mappings["h"] = {}      -- no highlight
+mappings["s"] = {}      -- search
+mappings["w"] = {}      -- save
+vmappings["/"] = {}     -- comment
 
 -- set menu items
 mappings["D"] = { name = "Devcontainer" }
@@ -25,8 +25,9 @@ mappings["w"] = { name = "Windows" }
 mappings["+"] = { "<C-a>", "Increment Number" } -- increment
 mappings["-"] = { "<C-x>", "Decrement Number" } -- decrement
 
--- buffers operations 
+-- buffers operations
 mappings["<Tab>"] = { "<CMD>edit #<CR>", "Previous Active Buffer" }
+mappings["0"] = { "<CMD>NvimTreeFocus<CR>", "Focus Explorer" }
 mappings["1"] = { "<CMD>BufferLineGoToBuffer 1<CR>", "Select Buffer 1" }
 mappings["2"] = { "<CMD>BufferLineGoToBuffer 2<CR>", "Select Buffer 2" }
 mappings["3"] = { "<CMD>BufferLineGoToBuffer 3<CR>", "Select Buffer 3" }
@@ -51,16 +52,16 @@ mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 
 -- command
-mappings["<leader>"] = { "<cmd>FineCmdline<CR>", "Command" } 
+mappings["<leader>"] = { "<cmd>FineCmdline<CR>", "Command" }
 
--- comment lines 
+-- comment lines
 mappings[";"] = { "<Plug>(comment_toggle_linewise_current)<CR>", "Toggle Comment" }
-vmappings[";"] =  { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment" }
+vmappings[";"] = { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment" }
 
 -- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
--- file operations 
+-- file operations
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }
 mappings["fe"] = { "<CMD>NvimTreeToggle<CR>", "Toggle Explorer" }
 mappings["fS"] = { "<CMD>wa<CR>", "Save All" }
@@ -100,7 +101,7 @@ mappings["gLM"] = { "<CMD>lua require('gitlab').merge()<CR>", "Merge" }
 mappings["gLu"] = { "<CMD>lua require('gitlab').copy_mr_url()<CR>", "Copy URL" }
 mappings["gLP"] = { "<CMD>lua require('gitlab').publish_all_drafts()<CR>", "Publish Draft" }
 
--- quiting 
+-- quiting
 mappings["qq"] = { "<CMD>qa<CR>", "Quit without Saving" }
 mappings["qQ"] = { "<CMD>qa!<CR>", "Force Quit without Saving" }
 mappings["qx"] = { "<CMD>x<CR>", "Quit and Save" }
@@ -119,7 +120,7 @@ mappings["/k"] = { "<cmd>Telescope keymaps<CR>", "Keymaps" }
 mappings["/C"] = { "<cmd>Telescope commands<CR>", "Commands" }
 mappings["/l"] = { "<cmd>Telescope resume<CR>", "Resume last search" }
 
--- window operations 
+-- window operations
 mappings["wd"] = { "<CMD>close<CR>", "Close" }
 mappings["wD"] = { "<CMD>other<CR>", "Close All Other" }
 mappings["ws"] = { "<CMD>split<CR>", "Split Horizontal" }
