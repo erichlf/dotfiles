@@ -228,6 +228,7 @@ function dev_tools(){
     docker.io \
     docker-compose \
     git-lfs \
+    golang-go \ # used by gitlab nvim plugin
     nodejs \
     python3-git \
     python3-venv \

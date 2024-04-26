@@ -72,6 +72,34 @@ mappings["fw"] = { "<CMD>noautocmd w<CR>", "Save Current (noautocmd)" }
 mappings["gl"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }
 mappings["gb"] = { "<CMD>Gitsigns toggle_current_line_blame<CR>", "Blame" }
 
+-- gitlab
+mappings["gL"] = { name = "GitLab" }
+mappings["gLb"] = { "<CMD>lua require('gitlab').choose_merge_request()<CR>", "Choose Merge Request" }
+mappings["gLr"] = { "<CMD>lua require('gitlab').review()<CR>", "Review" }
+mappings["gLs"] = { "<CMD>lua require('gitlab').summary()<CR>", "Summary" }
+mappings["gLA"] = { "<CMD>lua require('gitlab').approve()<CR>", "Approve" }
+mappings["gLR"] = { "<CMD>lua require('gitlab').revoke()<CR>", "Revoke" }
+mappings["gLc"] = { "<CMD>lua require('gitlab').create_comment()<CR>", "Comment" }
+mappings["gLc"] = { "<CMD>lua require('gitlab').create_multiline_comment()<CR>", "Multiline Comment" }
+mappings["gLC"] = { "<CMD>lua require('gitlab').create_comment_suggestion()<CR>", "Suggestion" }
+mappings["gLO"] = { "<CMD>lua require('gitlab').create_mr()<CR>", "Create Merge Request" }
+mappings["gLm"] = { "<CMD>lua require('gitlab').move_to_discussion_tree_from_diagnostic()<CR>", "Discussion Tree" }
+mappings["gLn"] = { "<CMD>lua require('gitlab').create_note()<CR>", "Note" }
+mappings["gLd"] = { "<CMD>lua require('gitlab').toggle_discussions()<CR>", "Toggle Discussion" }
+mappings["gLa"] = { name = "Assignee" }
+mappings["gLaa"] = { "<CMD>lua require('gitlab').add_assignee()<CR>", "Add Assignee" }
+mappings["gLad"] = { "<CMD>lua require('gitlab').delete_assignee()<CR>", "Remove Assignee" }
+mappings["gLla"] = { "<CMD>lua require('gitlab').add_label()<CR>", "Add Label" }
+mappings["gLld"] = { "<CMD>lua require('gitlab').delete_label()<CR>", "Remove Label" }
+mappings["gLr"] = { name = "Reviewer" }
+mappings["gLra"] = { "<CMD>lua require('gitlab').add_reviewer()<CR>", "Add Reviewer" }
+mappings["gLrd"] = { "<CMD>lua require('gitlab').delete_reviewer()<CR>", "Remove Reviewer" }
+mappings["gLp"] = { "<CMD>lua require('gitlab').pipeline()<CR>", "Pipeline" }
+mappings["gLo"] = { "<CMD>lua require('gitlab').open_in_browser()<CR>", "Open in Browser" }
+mappings["gLM"] = { "<CMD>lua require('gitlab').merge()<CR>", "Merge" }
+mappings["gLu"] = { "<CMD>lua require('gitlab').copy_mr_url()<CR>", "Copy URL" }
+mappings["gLP"] = { "<CMD>lua require('gitlab').publish_all_drafts()<CR>", "Publish Draft" }
+
 -- quiting 
 mappings["qq"] = { "<CMD>qa<CR>", "Quit without Saving" }
 mappings["qQ"] = { "<CMD>qa!<CR>", "Force Quit without Saving" }

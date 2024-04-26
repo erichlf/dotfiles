@@ -3,6 +3,7 @@
 .clangd
 .ccls-cache
 .dir-locals.el
+.gitlab.nvim
 .org-gcal-token
 .org-generic-id-locations
 .ropeproject
