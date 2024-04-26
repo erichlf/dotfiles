@@ -6,6 +6,8 @@ local vmappings = lvim.builtin.which_key.vmappings
 mappings["/"] = {} -- comment
 mappings[";"] = {} -- Dashboard
 mappings["b"]["b"] = {} -- previous buffer
+mappings["g"]["b"] = {} -- git new branch
+mappings["g"]["l"] = {} -- git blame
 mappings["bf"] = {} -- buffer find
 mappings["c"] = {} -- close buffer 
 mappings["h"] = {} -- no highlight
@@ -49,7 +51,6 @@ mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 
 -- command
--- here and keymaps cause otherwise it doesn't load immediately
 mappings["<leader>"] = { "<cmd>FineCmdline<CR>", "Command" } 
 
 -- comment lines 
@@ -68,7 +69,8 @@ mappings["fW"] = { "<CMD>noautocmd wa<CR>", "Save All (noautocmd)" }
 mappings["fw"] = { "<CMD>noautocmd w<CR>", "Save Current (noautocmd)" }
 
 -- git
-mappings["gL"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }
+mappings["gl"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }
+mappings["gb"] = { "<CMD>Gitsigns toggle_current_line_blame<CR>", "Blame" }
 
 -- quiting 
 mappings["qq"] = { "<CMD>qa<CR>", "Quit without Saving" }

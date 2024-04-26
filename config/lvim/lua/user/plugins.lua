@@ -18,7 +18,6 @@ lvim.plugins = {
     end,
   },
 
-  -- devctontainer management
   {
     -- "erichlf/nvim-devcontainer-cli",
     dir = "/home/elfoster/workspace/nvim-devcontainer-cli",

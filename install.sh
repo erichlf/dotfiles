@@ -228,9 +228,9 @@ function dev_tools(){
     docker.io \
     docker-compose \
     git-lfs \
-    jq \ # used by nvim-devcontainer-cli
     nodejs \
     python3-git \
+    python3-venv \
     python3-yaml
 
   snap_install --edge chafa # needed by telescope-media-files 
