@@ -142,7 +142,7 @@ function base_sys(){
   curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
   # zsh plugin manager
-  [ ! -d $HOME/.zgen ] && git clone https://github.com/tarjoilija/zgen.git ${HOME}/.zgen
+  [ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
 
   # tool to figure out why my last command didn't work
   snap_install thefuck --beta --classic

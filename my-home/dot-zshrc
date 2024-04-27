@@ -1,53 +1,53 @@
-# automatically run `zgen reset` if we modify our .zshrc
+# automatically run `zgenom reset` if we modify our .zshrc
 ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 
-# load zgen
-source "${HOME}/.zgen/zgen.zsh"
+# load zgenom
+source "${HOME}/.zgenom/zgenom.zsh"
 
-zgen selfupdate
+zgenom selfupdate
 
 # if the init scipt doesn't exist
-if ! zgen saved; then
-    zgen oh-my-zsh
+if ! zgenom saved; then
+    zgenom ohmyzsh
 
     # plugins
-    zgen oh-my-zsh plugins/1password
-    zgen oh-my-zsh plugins/colored-man-pages
-    zgen oh-my-zsh plugins/colorize
-    zgen oh-my-zsh plugins/command-not-found
-    zgen oh-my-zsh plugins/common-aliases
-    zgen oh-my-zsh plugins/copyfile
-    zgen oh-my-zsh plugins/copypath
-    zgen oh-my-zsh plugins/cp
-    zgen oh-my-zsh plugins/dirhistory
-    zgen oh-my-zsh plugins/docker
-    zgen oh-my-zsh plugins/docker-compose
-    zgen oh-my-zsh plugins/emacs
-    zgen oh-my-zsh plugins/fzf
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/man
-    zgen oh-my-zsh plugins/pass
-    zgen oh-my-zsh plugins/rsync
-    zgen oh-my-zsh plugins/safe-paste
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/ubuntu
-    zgen oh-my-zsh plugins/web-search
-    zgen oh-my-zsh plugins/zsh-interactive-cd
+    zgenom ohmyzsh plugins/1password
+    zgenom ohmyzsh plugins/colored-man-pages
+    zgenom ohmyzsh plugins/colorize
+    zgenom ohmyzsh plugins/command-not-found
+    zgenom ohmyzsh plugins/common-aliases
+    zgenom ohmyzsh plugins/copyfile
+    zgenom ohmyzsh plugins/copypath
+    zgenom ohmyzsh plugins/cp
+    zgenom ohmyzsh plugins/dirhistory
+    zgenom ohmyzsh plugins/docker
+    zgenom ohmyzsh plugins/docker-compose
+    zgenom ohmyzsh plugins/emacs
+    zgenom ohmyzsh plugins/fzf
+    zgenom ohmyzsh plugins/git
+    zgenom ohmyzsh plugins/git
+    zgenom ohmyzsh plugins/man
+    zgenom ohmyzsh plugins/pass
+    zgenom ohmyzsh plugins/rsync
+    zgenom ohmyzsh plugins/safe-paste
+    zgenom ohmyzsh plugins/sudo
+    zgenom ohmyzsh plugins/sudo
+    zgenom ohmyzsh plugins/ubuntu
+    zgenom ohmyzsh plugins/web-search
+    zgenom ohmyzsh plugins/zsh-interactive-cd
 
-    zgen load zsh-users/zsh-autosuggestions
-    zgen load zsh-users/zsh-history-substring-search
-    zgen load zsh-users/zsh-syntax-highlighting
+    zgenom load zsh-users/zsh-autosuggestions
+    zgenom load zsh-users/zsh-history-substring-search
+    zgenom load zsh-users/zsh-syntax-highlighting
 
     # theme
-    # zgen oh-my-zsh themes/arrow
+    # zgenom ohmyzsh themes/arrow
 
     # save all to init script
-    zgen save
+    zgenom save
 fi
 
-# automatically upgrade oh-my-zsh without asking
+# automatically upgrade ohmyzsh without asking
 DISABLE_UPDATE_PROMPT=true
 zstyle ':omz:update' mode auto      # update automatically without asking
 

@@ -5,7 +5,7 @@ This repo contains all my config files.
 ## Contents
 
 The main things in this are a highly modified lunarvim, a basic setup of zsh
-using zgen and oh-my-zsh. All dotfiles are installed via stow.
+using zgenom and oh-my-zsh. All dotfiles are installed via stow.
 `$DOTFILES/my-home` contains all the dotfiles that go directly in `$HOME`,
 while `$DOTFILES/config` contains all the dotfiles that go in `$HOME/config`.
 And we don't talk about `$DOTFILES/private`.
