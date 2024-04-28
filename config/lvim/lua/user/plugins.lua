@@ -20,9 +20,7 @@ lvim.plugins = {
 
   {
     "erichlf/devcontainer-cli.nvim",
-    -- dir = "/home/elfoster/workspace/devcontainer-cli.nvim",
-    -- dev = true,
-    -- branch = "AddShell",
+    branch = "main",
     opts = {
       interactive = false,
       dotfiles_repository = "https://github.com/erichlf/dotfiles.git",

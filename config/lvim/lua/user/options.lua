@@ -68,7 +68,7 @@ lvim.builtin.project.patterns = { ".devcontainer", ".git", "!develop/.devcontain
 -- add devcontainer button to dashboard
 table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
   { "D", lvim.icons.misc.Package .. "  Bringup Devcontainer",
-    "<CMD>lua require('devcontainer_cli.devcontainer_cli').up()<CR>" }
+    "<CMD>lua require('devcontainer-cli.devcontainer_cli').up()<CR>" }
 )
 
 -- LSP
