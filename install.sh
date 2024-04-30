@@ -40,10 +40,8 @@ sudo mount /share/Public/tmp /tmp
 git submodule init
 git submodule update
 
-cd $HOME
-
 mkdir -p $HOME/.config
-stow $DOTFILES_DIR/my-home $HOME
+stow $DOTFILES_DIR/my-home $HOME/
 stow $DOTFILES_DIR/private/.ssh $HOME/.ssh
 stow $DOTFILES_DIR/config $HOME/.config 
 
@@ -64,12 +62,12 @@ curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
 $HOME/.local/bin/getnf -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono
 
 # setup starship
-curl -sS https://starship.rs/install.sh -o starship.sh 
-chmod +x starship.sh
-sudo ./starship.sh -y -b $HOME/.local/bin 
+curl -sS https://starship.rs/install.sh -o /tmp/starship.sh 
+chmod +x /tmp/starship.sh
+sudo /tmp/starship.sh -y -b $HOME/.local/bin 
 mkdir -p $HOME/.config
-rm -f starship.sh
 
+# install lunarvim
 curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y
 
 sudo umount /share/Public/tmp && sudo rm -rf /share/Public/tmp
