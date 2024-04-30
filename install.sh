@@ -1,14 +1,26 @@
 #!/bin/bash
 
-DOTFILES=$(pwd)
+DOTFILES_DIR=$(pwd)
+
+function stow(){
+
+  for f in $1/*; do
+    ln -sf $f $2/$(echo $(basename $f) | sed -r 's/dot-/./')
+  done
+
+  return 0
+}
 
 sudo busybox --install /opt/bin/
 
 sudo opkg install \
+  autoconf \
   findutils \
   gawk \
+  gcc \
   git \
   git-http \
+  go \
   grep \
   htop \
   make \
@@ -21,23 +33,19 @@ sudo opkg install \
   vim-full \
   zsh
 
+# the /tmp on my nas only has 64mb of space
+mkdir -p /share/Public/tmp
+sudo mount /share/Public/tmp /tmp
+
 git submodule init
 git submodule update
 
 cd $HOME
 
-# setup git
-ln -sf $DOTFILES/my-home/.gitconfig $HOME/
-ln -sf $DOTFILES/my-home/.gitexcludes $HOME/
-
-# oh-my-bash & plugins
-ln -sf $DOTFILES/my-home/.profile $HOME/
-ln -sf $DOTFILES/my-home/.zshrc $HOME/
-ln -sf $DOTFILES/my-home/.aliases $HOME/
-ln -sf $DOTFILES/my-home/.exports $HOME/
-ln -sf $DOTFILES/my-home/.oh-my-zsh $HOME/
-ln -sf $DOTFILES/my-home/.tmux.conf $HOME/
-ln -s $DOTFILES/my-home/.tmux $HOME/
+mkdir -p $HOME/.config
+stow $DOTFILES_DIR/my-home $HOME
+stow $DOTFILES_DIR/private/.ssh $HOME/.ssh
+stow $DOTFILES_DIR/config $HOME/.config 
 
 # install zgenom
 [ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
@@ -60,10 +68,8 @@ curl -sS https://starship.rs/install.sh -o starship.sh
 chmod +x starship.sh
 sudo ./starship.sh -y -b $HOME/.local/bin 
 mkdir -p $HOME/.config
-ln -sf $DOTFILES/config/starship.toml $HOME/.config/
 rm -f starship.sh
 
-# install lunar vim
-curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
-ln -sf $DOTFILES/config/lvim $HOME/.config/
+curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y
 
+sudo umount /share/Public/tmp && sudo rm -rf /share/Public/tmp

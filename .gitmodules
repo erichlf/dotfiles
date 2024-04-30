@@ -3,5 +3,5 @@
 	url = git@github.com:erichlf/dotfiles-private.git
 	branch = master
 [submodule ".tmux/plugins/tpm"]
-	path = my-home/.tmux/plugins/tpm
+	path = my-home/dot-tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
