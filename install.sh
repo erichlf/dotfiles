@@ -13,7 +13,7 @@ sudo opkg install \
   htop \
   make \
   neovim \
-  python3 \ 
+  python3 \
   python3-pip \
   rename \
   tmux \
@@ -26,10 +26,6 @@ git submodule update
 
 cd $HOME
 
-# lunarvim setup
-LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
-ln -sf $DOTFILES/config/lvim $HOME/.config/
-
 # setup git
 ln -sf $DOTFILES/my-home/.gitconfig $HOME/
 ln -sf $DOTFILES/my-home/.gitexcludes $HOME/
@@ -39,11 +35,15 @@ ln -sf $DOTFILES/my-home/.profile $HOME/
 ln -sf $DOTFILES/my-home/.zshrc $HOME/
 ln -sf $DOTFILES/my-home/.aliases $HOME/
 ln -sf $DOTFILES/my-home/.exports $HOME/
-ln -sf $DOTFILES/zsh/zsh-autosuggestions $DOTFILES/my-home/.oh-my-zsh/custom/plugins/
-ln -sf $DOTFILES/zsh/zsh-syntax-highlighting $DOTFILES/my-home/.oh-my-zsh/custom/plugins/
 ln -sf $DOTFILES/my-home/.oh-my-zsh $HOME/
 ln -sf $DOTFILES/my-home/.tmux.conf $HOME/
 ln -s $DOTFILES/my-home/.tmux $HOME/
+
+# install zgenom
+[ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
+
+# install zoxide
+curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
 # setup fzf
 mkdir -p $HOME/.local/bin
@@ -62,4 +62,8 @@ sudo ./starship.sh -y -b $HOME/.local/bin
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/config/starship.toml $HOME/.config/
 rm -f starship.sh
+
+# install lunar vim
+curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
+ln -sf $DOTFILES/config/lvim $HOME/.config/
 

@@ -1,10 +1,10 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-	signingkey = B052B44F7F5DB221
+    signingkey = 08A7E764EC1713A9 
 [core]
-    editor = vim
-    autocrlf = false
+    editor = nvim
+	autocrlf = input
     excludesfile = ~/.gitexcludes
 [push]
     default = upstream
@@ -28,7 +28,11 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+    helper = 
+    helper = /usr/local/bin/git-credential-manager
+    credentialStore = secretservice
 [merge]
+    ff = false
     tool = meld
 [merge "tool.meld"]
     trustExitCode = true
@@ -60,18 +64,23 @@
                 }; f"
     prettylog = log --graph --pretty=format:\"%C(auto)%d %h %C(magenta)%(trailers:key=Refs,separator= ) %C(cyan)%cn %C(auto)%s\"
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-[includeIf "gitdir:~/workspace/Seegrid/"]
-  path = ~/workspace/Seegrid/.gitconfig
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+[includeIf "gitdir:~/workspace/SAM_XL/src/**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
+[includeIf "hasconfig:remote.*.url:git@gitlab.tudelft.nl:**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
+[includeIf "hasconfig:remote.*.url:https://gitlab.tudelft.nl/**"] 
+    path = ~/workspace/SAM_XL/.gitconfig
 [commit]
-	gpgSign = true
+    gpgSign = true
 [grep]
-	lineNumber = true
+    lineNumber = true
+[credential "https://dev.azure.com"]
+    useHttpPath = true
+[init]
+	defaultBranch = main
 [safe]
-	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget/private
-	directory = /share/CACHEDEV1_DATA/Container/flexget/config/.flexget
-	directory = /share/CACHEDEV1_DATA/Container/flexget/.flexget/private
-	directory = /share/CACHEDEV1_DATA/Container/flexget/.flexget
+    directory = *

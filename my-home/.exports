@@ -1,14 +1,23 @@
 export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=10000
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
-export LC_ALL="en_US.UTF-8"
+[ -f /usr/share/X11/locale/en_US.UTF-8 ] && export LC_ALL="en_US.UTF-8"
 export PROMPT_COMMAND='history -a'
 export TERM=xterm  # this is to fix some annoying things with screen
 export NCARG_ROOT=/usr/local/ncl-6.3.0
 export PATH=$NCARG_ROOT/bin:$PATH
-export EDITOR='vim'
+export EDITOR='lvim'
 export VISUAL='vim'
 export dockerclean='docker image prune -a --filter "until=12h"'
+export HALCONROOT=$HOME/MVTec/HALCON-22.11-Steady
+export HALCONARCH="x64-linux"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$HALCONROOT/lib/$HALCONARCH"
+
+# check if we are on OSX and then set CLICOLOR
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then
+    export CLICOLOR=1
+fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d $HOME/bin ] ; then
@@ -20,7 +29,5 @@ fi
 
 export PATH="$PATH:$HOME/.local/bin"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[ -d $HOME/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
-
-export VIMRUNTIME=/share/CACHEDEV1_DATA/.qpkg/HD_Station/usr/share/vim/vim80
-
+export PATH="$PATH:$HOME/.rvm/bin"
+export ROS_DOMAIN_ID="3"

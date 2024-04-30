@@ -1,6 +1,6 @@
 lvim.plugins = {
   -- auto complete tags
-  { 
+  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").init()
@@ -18,45 +18,59 @@ lvim.plugins = {
     end,
   },
 
-  -- devctontainer management
   {
-    "arnaupv/nvim-devcontainer-cli",
-    branch = "main",
+    -- "erichlf/devcontainer-cli.nvim",
+    dir = "/home/elfoster/workspace/devcontainer-cli.nvim",
+    dev = true,
+    branch = "specify-window-location",
+    dependencies = { 'akinsho/toggleterm.nvim' },
     opts = {
-      -- By default, if no extra config is added, following nvim_dotfiles are
-      -- installed: "https://github.com/LazyVim/starter"
-      -- This is an example for configuring other nvim_dotfiles inside the docker container
-      system_environment_repo = "\\-b devcontainer https://github.com/erichlf/dotfiles.git",
-      system_environment_directory = "dotfiles",
-      system_environment_install_command = "./install.sh",
-      nvim_dotfiles_repo = "",
-      nvim_dotfiles_branch = "",
-      nvim_dotfiles_directory = "",
-      nvim_dotfiles_install_command = "",
-      -- In case you want to change the way the devenvironment is setup, you can also provide your own setup
-      -- setup_environment_repo = "https://github.com/arnaupv/setup-environment",
-      -- setup_environment_install_command = "./install.sh -p 'nvim stow zsh'",
+      interactive = false,
+      dotfiles_repository = "https://github.com/erichlf/dotfiles.git",
+      dotfiles_branch = "devcontainer",
+      dotfiles_targetPath = "~/dotfiles",
+      dotfiles_installCommand = "install.sh",
+      shell = "zsh",
     },
     keys = {
       -- stylua: ignore
       {
         "<leader>Du",
         "<CMD>DevcontainerUp<CR>",
-        desc = "Up the DevContainer",
+        desc = "Bring Up the DevContainer",
+      },
+      {
+        "<leader>De",
+        "<CMD>DevcontainerExec direction='horizontal'<CR>",
+        desc = "Execute a command in the DevContainer",
+      },
+      {
+        "<leader>Db",
+        "<CMD>DevcontainerExec cmd='colcon build --symlink-install --merge-install' direction='horizontal'<CR>",
+        desc = "ROS2 build in the DevContainer",
+      },
+      {
+        "<leader>Dt",
+        "<CMD>DevcontainerExec cmd='source install/setup.zsh && colcon test --merge-install' direction='horizontal'<CR>",
+        desc = "ROS2 test in the DevContainer",
       },
       {
         "<leader>Dc",
         "<CMD>DevcontainerConnect<CR>",
         desc = "Connect to DevContainer",
       },
-      }
+      {
+        "<leader>DT",
+        "<CMD>DevcontainerToggle<CR>",
+        desc = "Toggle the current DevContainer Terminal"
+      },
+    }
   },
 
-  -- fine command
   {
     'VonHeikemen/fine-cmdline.nvim',
     dependencies = {
-      {'MunifTanjim/nui.nvim'}
+      { 'MunifTanjim/nui.nvim' }
     }
   },
 
@@ -77,40 +91,70 @@ lvim.plugins = {
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>gL", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit" },
+      { "<leader>gL", "<CMD>LazyGitCurrentFile<CR>", desc = "LazyGit" },
+    },
+  },
+
+  -- gitlab
+  {
+    "harrisoncramer/gitlab.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "stevearc/dressing.nvim",     -- Recommended but not required. Better UI for pickers.
+      "nvim-tree/nvim-web-devicons" -- Recommended but not required. Icons in discussion tree.
+    },
+    enabled = true,
+    build = function()
+      require("gitlab.server").build(true)
+    end, -- Builds the Go binary
+    config = function()
+      require("gitlab").setup()
+    end,
+  },
+
+  -- images
+  {
+    "nvim-telescope/telescope-media-files.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
+  },
+
+  -- interface
+  { "stevearc/dressing.nvim" },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
     },
   },
 
   -- python
-  {"stevearc/dressing.nvim"},
-  {"nvim-neotest/neotest"},
-  {"nvim-neotest/neotest-python"},
-  {"mfussenegger/nvim-dap-python"},
-  {"ChristianChiarulli/swenv.nvim"},
+  { "nvim-neotest/neotest" },
+  { "nvim-neotest/neotest-python" },
+  { "mfussenegger/nvim-dap-python" },
+  { "ChristianChiarulli/swenv.nvim" },
 
   -- project tracking
-  { 
+  {
     "nvim-telescope/telescope-project.nvim",
     event = "BufWinEnter",
+    -- init = function()
+    --   vim.cmd [[packadd telescope.nvim]]
+    -- end,
   },
-  
+
   -- tmux
   {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<M-Left>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<M-Down>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<M-Up>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<M-Right>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<M-Tab>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
+    'alexghergh/nvim-tmux-navigation',
+    config = function()
+      require 'nvim-tmux-navigation'.setup {
+        disable_when_zoomed = true, -- defaults to false
+      }
+    end
   },
 
   -- rainbow brackets

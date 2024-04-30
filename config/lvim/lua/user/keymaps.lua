@@ -1,7 +1,5 @@
 -- for conciseness
 local keymap = vim.keymap
-local mappings = lvim.builtin.which_key.mappings
-local vmappings = lvim.builtin.which_key.vmappings
 
 -- helper for keymaps
 local function map(mode, l, r, opts)
@@ -17,15 +15,29 @@ local function vmap(l, r, opts)
 end
 
 -- navigation between window panes
-nmap("<A-Left>", "<C-W><Left>")
-nmap("<A-Right>", "<C-W><Right>")
-nmap("<A-Up>", "<C-W><Up>")
-nmap("<A-Down>", "<C-W><Down>")
+nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
+nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
+nmap("<C-k>", "<CMD>NvimTmuxNavigateUp<CR>")
+nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
+nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
+nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 
--- command
--- nmap(":", "<cmd>FineCmdline<CR>", {noremap = true})
-nmap("<leader><leader>", "<cmd>FineCmdline<CR>", {desc = "Command", noremap = true})
+-- navigation between buffers
+nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
+nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
+
+lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs + 1] = {
+  "devcontainer exec --workspace-folder . zsh",
+  "<M-4>",
+  "Bring Up Terminal in Devcontainer",
+  "float",
+  nil
+}
 
 -- comments
-nmap(";;", "<Plug>(comment_toggle_linewise)<CR>")
-vmap(";", "<Plug>(comment_toggle_linewise_visual)<CR>")
+nmap(";;", "gcc", { remap = true })
+nmap(";A", "gcA", { remap = true })
+nmap(";p", "gcap", { remap = true })
+nmap(";o", "gco", { remap = true })
+nmap(";O", "gcO", { remap = true })
+vmap(";", "gc", { remap = true })

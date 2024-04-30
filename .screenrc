@@ -1,3 +1,0 @@
-autodetach on # detach on hangup
-defshell -$SHELL  # the dash makes it a login shell
-defscrollback 50000
