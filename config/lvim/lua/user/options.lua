@@ -74,10 +74,14 @@ table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
 -- LSP
 require("lvim.lsp.null-ls.formatters").setup {
   { name = "black" },
-  { name = "clang-format" },
+  { name = "clang-format",
+    filetype = { "c", "cpp", "cs", "java" },
+    extra_args = { "--style", "file" }
+  },
   { name = "isort" },
   { name = "yamlfmt" },
 }
+
 require("lvim.lsp.null-ls.linters").setup {
   { name = "cmakelint" },
   { name = "cpplint" },
@@ -87,3 +91,7 @@ require("lvim.lsp.null-ls.linters").setup {
   { name = "pylint" },
   { name = "yamllint" },
 }
+
+lvim.lsp.null_ls.setup.on_init = function(new_client, _)
+  new_client.offset_encoding = "utf-8"
+end
