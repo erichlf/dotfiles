@@ -1,3 +1,6 @@
+# fix issue with compinit telling me there are insecure directories
+# and not being able to fix them even after changing many permissions
+ZGEN_COMPINIT_FLAGS='-u'
 # automatically run `zgenom reset` if we modify our .zshrc
 ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 
