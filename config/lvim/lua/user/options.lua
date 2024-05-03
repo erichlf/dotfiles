@@ -84,7 +84,6 @@ require("lvim.lsp.null-ls.formatters").setup {
 
 require("lvim.lsp.null-ls.linters").setup {
   { name = "cmakelint" },
-  { name = "cpplint" },
   { name = "cpptools" },
   { name = "flake8" },
   { name = "markdownlint" },

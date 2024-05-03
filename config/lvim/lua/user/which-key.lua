@@ -6,6 +6,7 @@ local vmappings = lvim.builtin.which_key.vmappings
 mappings["/"] = {}      -- comment
 mappings[";"] = {}      -- Dashboard
 mappings["b"]["b"] = {} -- previous buffer
+mappings["b"]["L"] = {} -- sort by language
 mappings["g"]["b"] = {} -- git new branch
 mappings["g"]["l"] = {} -- git blame
 mappings["bf"] = {}     -- buffer find
