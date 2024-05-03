@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - devcontainer
 jobs:
   install:
     runs-on: ${{ matrix.os }}
@@ -17,5 +16,3 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: install
         run: ./install.sh
-        env:
-          CI: true

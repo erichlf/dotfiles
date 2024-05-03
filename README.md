@@ -21,8 +21,15 @@ self-explanatory.
 
 ## Install
 
-To install everythings, which is quite a bit and almost certainly
-not what you really want to do, just run `./install.sh`. This will bring up a
-UI that allows you to select the features you want to install. There is a menu
-item for installing the dotfiles only. If you are reading this it is most
-likely what you would want.
+I have a single `install.sh` that determines the current system and then calls
+the appropriate install script (defined in `scripts`) from there. For
+consistency any manually installed items and functions are defined in
+`scripts/utils.sh`. The install process is as simple as running `./install.sh`,
+while located in the `DOTFILES_DIR`. Some of the functions in `scrips/utils.sh`
+do expect both `SYSTEM` and `DOTFILES` to be defined. `SYSTEM` is simply the
+the name given to your current system. It can be anything you like and is mostly
+there for debugging.
+
+If all you are interested in is installing the dotfiles I would recommend running
+`./scripts/main.sh` and selecting the menu item corresponding to "Create symbolic
+links".
