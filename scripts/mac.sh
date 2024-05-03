@@ -6,11 +6,15 @@ source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details "$SYSTEM"
 
+sudo rm -rf /Library/Developer/CommandLineTools
+sudo xcode-select --install
+
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew install neovim fzf starship stow gpg
+brew doctor
+brew cleanup
 
-chsh -s /bin/zsh
+brew install neovim fzf starship stow gpg
 
 git submodule init
 git submodule update

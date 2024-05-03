@@ -2,13 +2,15 @@
 SYSTEM="NAS"
 DOTFILES_DIR=$(pwd)
 
-source utils.sh
+source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details
 
 function stow(){
   for f in $1/*; do
-    ln -sf $f $2/$(echo $(basename $f) | sed -r 's/dot-/./')
+    link="$2/$(echo $(basename $f) | sed -r 's/dot-/./')"
+    unlink $link
+    ln -sf $f $link
   done
 
   return 0

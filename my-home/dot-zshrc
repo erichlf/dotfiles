@@ -1,4 +1,5 @@
 # automatically run `zgenom reset` if we modify our .zshrc
+ZGEN_COMPINIT_FLAGS="-u"
 ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 
 # load zgenom

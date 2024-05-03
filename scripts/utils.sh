@@ -88,9 +88,12 @@ function sudo_rule(){
 # setup fzf
 function fzf_install(){
   mkdir -p $HOME/.local/bin
+  rm -rf $HOME/.fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-  ./$HOME/.fzf/install --bin
-  cp $HOME/fzf/bin* $HOME/.local/bin/
+  cd $HOME/.fzf
+  ./install --bin
+  cp bin/* $HOME/.local/bin/
+  cd -
 }
 
 # install lazygit
