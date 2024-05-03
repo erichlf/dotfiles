@@ -2,7 +2,7 @@ OS=$(uname -o)
 KERNEL=$(uname -s)
 KERNEL_RELEASE=$(uname -r)
 KERNEL_VERSION=$(uname -v)
-HOST_NAME=$(uname -n)
+NODE=$(uname -n)
 
 # print the current system details
 # this expects DOTFILES_DIR and SYSTEM to be defined
@@ -14,7 +14,7 @@ OS:             $OS
 KERNEL:         $KERNEL
 KERNEL_RELEASE: $KERNEL_RELEASE
 KERNEL_VERSION: $KERNEL_VERSION
-HOST_NAME:      $HOST
+NODE:           $NODE
 DOTFILES_DIR:   $DOTFILES_DIR
 "
 }

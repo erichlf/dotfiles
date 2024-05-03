@@ -8,6 +8,7 @@ print_details
  
 pkg install -y \
   fzf \
+  git \
   getconf \
   openssh \
   python-pip \
