@@ -12,12 +12,14 @@ case "$kernel" in
     export CI=true
     ./scripts/main.sh
     ;;
-  *"generic"* ) # ubuntu
-    ./scripts/devcontainer.sh
-    ;;
   *"MANJARO"* )
-    ./scripts/main.sh
-    ;;
+    if [[ $DEV_WORKSPACE != "" ]]; then
+      ./scripts/devcontainer.sh
+    else
+      ./scripts/main.sh
+    fi
+      ;;
+
   *"qnap"* )
     ./scripts/nas.sh
     ;;

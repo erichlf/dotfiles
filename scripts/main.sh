@@ -67,6 +67,7 @@ function base_sys(){
     gnome-tweaks \
     guake \
     iftop \
+    pass \
     python \
     python-pip \
     tmux \
@@ -97,6 +98,7 @@ function base_sys(){
     ipython \
     llvm \
     meld \
+    obsidian \
     python-matplotlib \
     python-numpy \
     python-scipy \
@@ -148,7 +150,8 @@ function base_sys(){
 
   sudo usermod -a -G docker $USER
   sudo systemctl daemon-reload
-  sudo systemctl restart docker
+  sudo systemctl enable docker
+  sudo systemctl start docker
 
   echo "Installing vscode..."
   npm install -g @devcontainers/cli
@@ -189,9 +192,11 @@ function base_sys(){
 }
 
 function tudelft(){
-  pac_install \
+  curl https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --import -
+
+  yay_install \
     python-eduvpn-client \
-    teams-for-linux
+    teams
 
   return 0
 }
