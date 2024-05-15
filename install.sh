@@ -15,7 +15,7 @@ case "$kernel" in
   *"generic"* ) # ubuntu
     ./scripts/devcontainer.sh
     ;;
-  *"manjaro"* )
+  *"MANJARO"* )
     ./scripts/main.sh
     ;;
   *"qnap"* )

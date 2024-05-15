@@ -90,14 +90,26 @@ function apt_install(){
   return 0
 }
 
-function pip3_install(){
-  sudo -H pip3 install $@
+function pac_update(){
+  yes | sudo pacman -Syu
 
   return 0
 }
 
-function snap_install(){
-  sudo snap install $@
+function pac_install(){
+  yes | sudo pacman -S --needed $@
+
+  return 0
+}
+
+function yay_install(){
+  yes | yay -S --needed $@ --mflags "--nocheck"
+
+  return 0
+}
+
+function pip3_install(){
+  sudo -H pip3 install $@
 
   return 0
 }
@@ -134,10 +146,9 @@ function lazygit_install(){
 # install lunarvim
 function lunarvim_install(){
   INFO "Installing LunarVIM"
-  mkdir -p $HOME/.config/pip
-  echo \
-"[global]
-break-system-packages = true" > $HOME/.config/pip/pip.conf
+
+  # ensure there are no failures due to installing python packages
+  python3 -m pip config set global.break-system-packages true
 
   curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
 }
