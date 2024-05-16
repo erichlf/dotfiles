@@ -64,6 +64,7 @@ function base_sys(){
     btop \
     curl \
     fzf \
+    gnome-shell-extension-appindicator \
     gnome-tweaks \
     guake \
     iftop \
@@ -74,6 +75,8 @@ function base_sys(){
     wget
 
   guake --restore-preferences $DOTFILES_DIR/guake.conf
+  gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+  gnome-extensions enable pamac-updates@manjaro.org
 
   zsh_extras
 
