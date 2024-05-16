@@ -206,12 +206,19 @@ function tudelft(){
 
 ########################## Computer Specific ####################################
 function latitude_7440(){
+  # install drivers for intel webcam
+  pac_install libdrm 
+  git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
+  cd /tmp/archlinux-ipu6-webcam
+  git apply $DOTFILES/script/patches/intel_webcam.patch
+  ./install.sh
+
   # install driver for fingerprint scanner, enable it, and enroll left and right
   # index fingers
-  pac_install libfprint-2-tod1-broadcom fprintd libpam-fprintd
-  sudo fprintd-enroll -f left-index-finger
-  sudo fprintd-enroll -f right-index-finger
-  sudo pam-auth-update --enable fprintd
+  # pac_install libfprint-2-tod1-broadcom fprintd libpam-fprintd
+  # sudo fprintd-enroll -f left-index-finger
+  # sudo fprintd-enroll -f right-index-finger
+  # sudo pam-auth-update --enable fprintd
 }
 
 ########################## update and upgrade ##################################
