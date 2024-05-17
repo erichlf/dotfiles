@@ -4,10 +4,32 @@ KERNEL_RELEASE=$(uname -r)
 KERNEL_VERSION=$(uname -v)
 NODE=$(uname -n)
 
+BWHITE='\033[1;37m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33'
+RED='\033[0;31m'
+RESET='\033[0m'
+
+function LOG(){
+  printf "$@${RESET}\n"
+}
+
+function INFO(){
+  LOG ${GREEN}$@
+}
+
+function WARN(){
+  LOG ${ORANGE}$@
+}
+
+function ERROR(){
+  LOG ${RED}$@
+}
+
 # print the current system details
 # this expects DOTFILES_DIR and SYSTEM to be defined
 function print_details(){
-  echo \
+  LOG ${BWHITE} \
 "
 SYSTEM:         $SYSTEM
 OS:             $OS
@@ -15,6 +37,8 @@ KERNEL:         $KERNEL
 KERNEL_RELEASE: $KERNEL_RELEASE
 KERNEL_VERSION: $KERNEL_VERSION
 NODE:           $NODE
+USER:           $(whoami)
+HOME:           $HOME
 DOTFILES_DIR:   $DOTFILES_DIR
 "
 }
@@ -22,6 +46,7 @@ DOTFILES_DIR:   $DOTFILES_DIR
 # function to create my links
 # This expects the variable $DOTFILES_DIR to exist
 function sym_links(){
+  INFO "Creating symlinks"
   mkdir -p $HOME/.config
   stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
@@ -78,7 +103,7 @@ function snap_install(){
 }
 
 function sudo_rule(){
-  echo "$USER ALL = NOPASSWD: $@" | sudo tee -a /etc/sudoers
+  INFO "$USER ALL = NOPASSWD: $@" | sudo tee -a /etc/sudoers
 
   return 0
 }
@@ -108,11 +133,18 @@ function lazygit_install(){
 
 # install lunarvim
 function lunarvim_install(){
+  INFO "Installing LunarVIM"
+  mkdir -p $HOME/.config/pip
+  echo \
+"[global]
+break-system-packages = true" > $HOME/.config/pip/pip.conf
+
   curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
 }
 
 # setup starship
 function starship_install(){
+  INFO "Installing starship"
   curl -sS https://starship.rs/install.sh -o starship.sh
   chmod +x starship.sh
   ./starship.sh -y --bin-dir $HOME/.local/bin
@@ -121,6 +153,7 @@ function starship_install(){
 
 # install the various zsh components
 function zsh_extras(){
+  INFO "Setting up zsh extras"
   # install zgenom
   [ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
 
@@ -130,5 +163,5 @@ function zsh_extras(){
   # install fonts
   mkdir -p $HOME/.local/bin
   curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
-  $HOME/.local/bin/getnf -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono
+  $HOME/.local/bin/getnf -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono | true  # don't fail on fonts
 }

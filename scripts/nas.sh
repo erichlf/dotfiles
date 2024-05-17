@@ -2,65 +2,73 @@
 SYSTEM="NAS"
 DOTFILES_DIR=$(pwd)
 
-source "$DOTFILES_DIR/scripts/utils.sh"
+set -e
 
-print_details
-
-function stow(){
-  for f in $1/*; do
-    link="$2/$(echo $(basename $f) | sed -r 's/dot-/./')"
-    unlink $link
-    ln -sf $f $link
-  done
+function pac_update(){
+  yes | sudoj pacman -Syu
 
   return 0
 }
 
-# redefine symlinks to use the nas stow
-function sym_links(){
-  mkdir -p $HOME/.config
-  stow $DOTFILES_DIR/my-home $HOME/
-  stow $DOTFILES_DIR/private/.ssh $HOME/.ssh
-  stow $DOTFILES_DIR/config $HOME/.config 
+function pac_install(){
+  yes | sudoj pacman -S --needed $@
+
+  return 0
 }
 
-sudo busybox --install /opt/bin/
+source "$DOTFILES_DIR/scripts/utils.sh"
 
-sudo opkg install \
-  autoconf \
-  findutils \
-  gawk \
-  gcc \
-  git \
-  git-http \
-  go \
-  grep \
-  htop \
-  make \
-  neovim \
-  python3 \
-  python3-pip \
-  rename \
-  tmux \
-  tree \
-  vim-full \
-  zsh
-
-# the /tmp on my nas only has 64mb of space
-mkdir -p /share/Public/tmp
-sudo mount /share/Public/tmp /tmp
+print_details
 
 git submodule init
 git submodule update
 
+INFO "Installing busybox"
+sudo busybox --install /opt/bin/
+
+INFO "Installing JuNest"
+[[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest 
+[[ ! -d $HOME/.junest ]] && junest setup
+pac_update
+
+INFO "Installing stow"
+pac_install \
+  stow
+
 sym_links
+
+INFO "Installing zsh"
+sudo opkg install \
+  zsh
+
+INFO "Installing base system"
+pac_install \
+  btop \
+  fzf \
+  iftop \
+  python \
+  python-pip \
+  tmux
 
 zsh_extras
 
-fzf_install
-
 starship_install
+
+INFO "Installing neovim"
+pac_install \
+  chafa \
+  git-lfs \
+  go \
+  neovim \
+  nodejs \
+  npm \
+  python-gitpython \
+  python-pynvim \
+  python-ply \
+  python-virtualenv \
+  python-yaml \
+  rust
 
 lunarvim_install
 
-sudo umount /share/Public/tmp && sudo rm -rf /share/Public/tmp
+INFO "FInished setting up system"
