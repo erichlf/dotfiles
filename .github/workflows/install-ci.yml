@@ -18,5 +18,10 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: manjarolinux/base:latest
+          ssh: default=${{ env.SSH_AUTH_SOCK }}
           options: -v ${{ github.workspace }}:/root/dotfiles
-          run: ./install.sh
+          run: |
+            yes | pacman -S git && \
+            git config --global --add safe.directory $HOME/dotfiles && \
+            cd $HOME/dotfiles && \
+            ./install.sh
