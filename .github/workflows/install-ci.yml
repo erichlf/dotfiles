@@ -10,18 +10,16 @@ jobs:
   install:
     runs-on: ubuntu-latest 
     steps:
-      - uses: actions/checkout@v4
-      - uses: webfactory/ssh-agent@v0.9.0
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up ssh
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: install
-        uses: addnab/docker-run-action@v3
+        uses: docker://archlinux:latest
         with:
-          image: archlinux:latest
-          options: |
-            -v ${{ github.workspace }}:/root/dotfiles -v ${{ SSH_AUTH_SOCK }}:/ssh-agent -v ~/.ssh/known_hosts:/root/.ssh/known_hosts
-          run: |
-            yes | pacman -S git && \
-            git config --global --add safe.directory $HOME/dotfiles && \
-            cd $HOME/dotfiles && \
-            ./install.sh
+          entrypoint: /bin/bash
+          args: -c "pacman -Sy --noconfirm sudo openssh git && mkdir -p ~/.ssh && echo '$SSH_PRIVATE_KEY' > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa && git config --global --add safe.directory $GITHUB_WORKSPACE && cd $GITHUB_WORKSPACE && ./install.sh"
