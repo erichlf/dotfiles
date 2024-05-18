@@ -9,18 +9,19 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest 
-    container:
-      image: archlinux:latest
-      volumes: 
-        - ${{ github.workspace }}:/root/dotfiles
     steps:
       - uses: actions/checkout@v4
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: install
-        run: |
-          yes | pacman -S git && \
-          git config --global --add safe.directory $HOME/dotfiles && \
-          cd $HOME/dotfiles && \
-          ./install.sh
+        uses: addnab/docker-run-action@v3
+        with:
+          image: archlinux:latest
+          options: |
+            -v ${{ github.workspace }}:/root/dotfiles -v ${{ SSH_AUTH_SOCK }}:/ssh-agent -v ~/.ssh/known_hosts:/root/.ssh/known_hosts
+          run: |
+            yes | pacman -S git && \
+            git config --global --add safe.directory $HOME/dotfiles && \
+            cd $HOME/dotfiles && \
+            ./install.sh
