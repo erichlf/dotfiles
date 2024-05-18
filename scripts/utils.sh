@@ -46,7 +46,7 @@ DOTFILES_DIR:   $DOTFILES_DIR
 # function to create my links
 # This expects the variable $DOTFILES_DIR to exist
 function sym_links(){
-  INFO "Creating symlinks"
+  INFO "Creating symlinks..."
   mkdir -p $HOME/.config
   stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
@@ -145,7 +145,7 @@ function lazygit_install(){
 
 # install lunarvim
 function lunarvim_install(){
-  INFO "Installing LunarVIM"
+  INFO "Installing LunarVIM..."
 
   # ensure there are no failures due to installing python packages
   python3 -m pip config set global.break-system-packages true
@@ -155,7 +155,7 @@ function lunarvim_install(){
 
 # setup starship
 function starship_install(){
-  INFO "Installing starship"
+  INFO "Installing starship..."
   curl -sS https://starship.rs/install.sh -o starship.sh
   chmod +x starship.sh
   ./starship.sh -y --bin-dir $HOME/.local/bin
@@ -164,7 +164,7 @@ function starship_install(){
 
 # install the various zsh components
 function zsh_extras(){
-  INFO "Setting up zsh extras"
+  INFO "Setting up zsh extras..."
   # install zgenom
   [ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
 

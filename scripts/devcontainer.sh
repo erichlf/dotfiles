@@ -18,6 +18,7 @@ git submodule update
 # create links to dotfiles
 sym_links
 
+INFO "Installing NEOVIM..."
 # get the newest neovim
 sudo add-apt-repository ppa:ppa-verse/neovim -y
 sudo apt-get update

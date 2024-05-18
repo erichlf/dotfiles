@@ -4,18 +4,7 @@ DOTFILES_DIR=$(pwd)
 
 set -e
 
-function pac_update(){
-  yes | sudoj pacman -Syu
-
-  return 0
-}
-
-function pac_install(){
-  yes | sudoj pacman -S --needed $@
-
-  return 0
-}
-
+alias sudo=sudoj
 source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details
@@ -23,25 +12,25 @@ print_details
 git submodule init
 git submodule update
 
-INFO "Installing busybox"
+INFO "Installing busybox..."
 sudo busybox --install /opt/bin/
 
-INFO "Installing JuNest"
+INFO "Installing JuNest..."
 [[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest 
 [[ ! -d $HOME/.junest ]] && junest setup
 pac_update
 
-INFO "Installing stow"
+INFO "Installing stow..."
 pac_install \
   stow
 
 sym_links
 
-INFO "Installing zsh"
+INFO "Installing zsh..."
 sudo opkg install \
   zsh
 
-INFO "Installing base system"
+INFO "Installing base system..."
 pac_install \
   btop \
   fzf \
@@ -54,7 +43,7 @@ zsh_extras
 
 starship_install
 
-INFO "Installing neovim"
+INFO "Installing neovim..."
 pac_install \
   chafa \
   git-lfs \
@@ -71,4 +60,4 @@ pac_install \
 
 lunarvim_install
 
-INFO "FInished setting up system"
+INFO "Finished setting up system..."
