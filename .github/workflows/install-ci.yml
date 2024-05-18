@@ -8,18 +8,26 @@ on:
       - main
 jobs:
   install:
+    container:
+      image: archlinux:latest
+      options: --user=root --entrypoint=/bin/bash
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_AUTH_SOCK: ${{ secrets.SSH_AUTH_SOCK }}
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ${{ github.workspace }}:/workspace
     runs-on: ubuntu-latest 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up ssh
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Setup ssh
+        uses: PhutureCorp/container-ssh-agent@v0.0.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: install
-        uses: docker://archlinux:latest
-        with:
-          entrypoint: /bin/bash
-          args: -c "pacman -Sy --noconfirm sudo openssh git && mkdir -p ~/.ssh && echo '$SSH_PRIVATE_KEY' > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan github.com >> ~/.ssh/known_hosts && eval $(ssh-agent) && ssh-add ~/.ssh/id_rsa && git config --global --add safe.directory $GITHUB_WORKSPACE && cd $GITHUB_WORKSPACE && ./install.sh"
+        run: |
+          pacman -Sy --noconfirm sudo openssh git 
+          git config --global --add safe.directory /workspace
+          cd /workspace
+          ./install.sh"
