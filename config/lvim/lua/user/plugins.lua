@@ -21,7 +21,6 @@ lvim.plugins = {
   {
     "erichlf/devcontainer-cli.nvim",
     branch = "main",
-    branch = "specify-window-location",
     dependencies = { 'akinsho/toggleterm.nvim' },
     opts = {
       interactive = false,

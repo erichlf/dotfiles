@@ -6,6 +6,7 @@ source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details 
  
+INFO "Installing base system"
 pkg install -y \
   fzf \
   git \
@@ -37,3 +38,4 @@ lunarvim_install
 
 yes | pkg remove nano
 
+INFO "Finished setting up system"

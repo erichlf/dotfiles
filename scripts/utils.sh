@@ -46,7 +46,7 @@ DOTFILES_DIR:   $DOTFILES_DIR
 # function to create my links
 # This expects the variable $DOTFILES_DIR to exist
 function sym_links(){
-  INFO "Creating symlinks"
+  INFO "Creating symlinks..."
   mkdir -p $HOME/.config
   stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
@@ -90,14 +90,32 @@ function apt_install(){
   return 0
 }
 
-function pip3_install(){
-  sudo -H pip3 install $@
+function pac_update(){
+  sudo pacman -Syu --noconfirm
 
   return 0
 }
 
-function snap_install(){
-  sudo snap install $@
+function pac_install(){
+  sudo pacman -S --needed --noconfirm $@
+
+  return 0
+}
+
+function yay_install(){
+  yay -S --needed --noconfirm $@ --mflags "--nocheck"
+
+  return 0
+}
+
+function yay_update(){
+  yay -Syu --noconfirm
+
+  return 0
+}
+
+function pip3_install(){
+  sudo -H pip3 install $@
 
   return 0
 }
@@ -133,18 +151,17 @@ function lazygit_install(){
 
 # install lunarvim
 function lunarvim_install(){
-  INFO "Installing LunarVIM"
-  mkdir -p $HOME/.config/pip
-  echo \
-"[global]
-break-system-packages = true" > $HOME/.config/pip/pip.conf
+  INFO "Installing LunarVIM..."
+
+  # ensure there are no failures due to installing python packages
+  python3 -m pip config set global.break-system-packages true
 
   curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.3/neovim-0.9' bash -s -- -y 
 }
 
 # setup starship
 function starship_install(){
-  INFO "Installing starship"
+  INFO "Installing starship..."
   curl -sS https://starship.rs/install.sh -o starship.sh
   chmod +x starship.sh
   ./starship.sh -y --bin-dir $HOME/.local/bin
@@ -153,7 +170,7 @@ function starship_install(){
 
 # install the various zsh components
 function zsh_extras(){
-  INFO "Setting up zsh extras"
+  INFO "Setting up zsh extras..."
   # install zgenom
   [ ! -d $HOME/.zgenom ] && git clone https://github.com/jandamm/zgenom.git ${HOME}/.zgenom
 

@@ -14,7 +14,13 @@ sudo xcode-select --install
 brew doctor
 brew cleanup
 
-brew install neovim fzf starship stow gpg
+INFO "Installing base system..."
+brew install \
+  fzf \
+  gpg \
+  neovim \
+  starship \
+  stow
 
 git submodule init
 git submodule update

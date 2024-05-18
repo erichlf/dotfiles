@@ -10,7 +10,7 @@ print_details
 
 THIS=$0
 
-sudo apt-get install -y dialog git stow
+pac_install base-devel dialog git stow
 
 # get the version of ubuntu
 codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
@@ -35,10 +35,8 @@ options=(1 "Fresh system setup"
          2 "Install base system"
          4 "Install TU Delft tools"
          5 "Latitude 7440 Hacks"
-         6 "Install LaTeX"
-         7 "Remove crapware"
-         8 "Update system"
-         9 "sudo rules")
+         6 "Update system"
+         7 "sudo rules")
 
 if [ $CI ]; then 
   choices=1
@@ -47,38 +45,38 @@ else
 fi
 
 function run_me() {
+  [ $CI ] && exit
   bash $THIS
 }
 
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys(){
-  sudo add-apt-repository -y universe
+  echo "Setting up yay..."
+
+  git clone https://aur.archlinux.org/yay.git /tmp/yay
+  cd /tmp/yay
+  makepkg -si --noconfirm
 
   echo "Setting up shell..."
-  if no_ppa_exists linuxuprising
-  then
-    add_ppa linuxuprising/guake
-  fi
 
-  apt_install \
+  pac_install \
     btop \
-    cifs-utils \
     curl \
-    dconf-cli \
-    dconf-editor \
     fzf \
+    gnome-shell-extension-appindicator \
     gnome-tweaks \
     guake \
     iftop \
-    nfs-common \
+    pass \
+    python \
+    python-pip \
     tmux \
-    wget \
-    zsh 
+    wget
 
   guake --restore-preferences $DOTFILES_DIR/guake.conf
-
-  sudo chsh -s $(which zsh) $(whoami)
+  gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+  gnome-extensions enable pamac-updates@manjaro.org
 
   zsh_extras
 
@@ -87,126 +85,107 @@ function base_sys(){
   lazygit_install
 
   echo "Setting up networking..."
-  apt_install \
-    network-manager-openvpn \
-    network-manager-openvpn-gnome \
-    network-manager-vpnc \
-    openssh-server
+  pac_install \
+    networkmanager-openvpn \
+    networkmanager-vpnc \
+    openssh
 
   echo "Installing developer tools..."
   if [ ! -d "$HOME/workspace" ]; then
     mkdir "$HOME/workspace"
   fi
 
-  apt_install \
-    build-essential \
-    clang \
-    clang-format \
-    clang-tools \
+  pac_install \
     cmake \
-    g++ \
     gcc \
-    git-completion \
-    global \
-    libtool-bin \
+    ipython \
+    llvm \
     meld \
-    python3-dev \
-    python3-ipython \
-    python3-matplotlib \
-    python3-numpy \
-    python3-pip \
-    python3-scipy \
-    python3-setuptools 
+    obsidian \
+    python-matplotlib \
+    python-numpy \
+    python-scipy \
+    python-setuptools 
+
+  yay_install \
+    git-completion
 
   echo "Installing python linters..."
-  pip3_install \
-    autoflake \
-    black \
+  pac_install \
+    python-black \
     flake8 \
-    isort \
-    pep257 \
-    pylint \
-    wheel \
+    python-isort \
+    python-pylint \
+    python-wheel \
     yapf
 
-  if no_ppa_exists ppa-verse
-  then
-    add_ppa ppa-verse/neovim
-  fi
-
   echo "Installing NEOVIM..."
-  apt_install \
+  pac_install \
+    chafa \
     git-lfs \
-    golang-go \
+    go \
     neovim \
     nodejs \
-    python3-git \
-    python3-venv \
-    python3-yaml \
+    npm \
+    python-gitpython \
+    python-pynvim \
+    python-ply \
+    python-virtualenv \
+    python-yaml \
+    rust \
     xclip
-  
-  # treesitter for vim
+
+  mkdir -p $HOME/.npm-global
+  npm config set prefix $HOME/.npm-global
   npm install -g neovim tree-sitter
-  snap_install --edge chafa # needed by telescope-media-files 
-  curl -sSL https://get.rvm.io | bash
+  curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
   lunarvim_install
 
-  sudo update-alternatives --config editor
-
   echo "Setting up docker..."
-  apt_install \
+
+  pac_install \
     ca-certificates \
     containerd \
+    docker \
+    docker-compose \
     gnupg
 
-  apt_update
-  apt_install \
-    docker-compose \
-    docker.io \
-
   sudo usermod -a -G docker $USER
-  sudo systemctl daemon-reload
-  sudo systemctl restart docker
-
-  newgrp docker
+  if [ ! $CI ]; then 
+    sudo systemctl daemon-reload
+    sudo systemctl enable docker
+    sudo systemctl start docker
+  fi
 
   echo "Installing vscode..."
   npm install -g @devcontainers/cli
 
-  apt_install \
-    apt-transport-https \
-    software-properties-common 
-  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-  apt_install code
+  yay_install \
+    git-credential-manager
 
-  # install vs code and git-credential-manager for using devcontainer and development
-  wget "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.3.2/gcm-linux_amd64.2.3.2.deb" -O /tmp/gcmcore.deb
-  sudo dpkg -i /tmp/gcmcore.deb
+  pac_install \
+    vscode
+
   git-credential-manager configure
 
   echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
   echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
 
   echo "Installing extras..."
-  apt_update
-  apt_install chrome-gnome-shell
+  yay_install \
+    1password \
+    1password-cli \
+    signal-desktop
 
-  cd /tmp
-  wget -c https://downloads.vivaldi.com/stable/vivaldi-stable_6.6.3271.45-1_amd64.deb
-  sudo dpkg -i vivaldi-stable*.deb
-  cd $DOTFILES_DIR
+  pac_install \
+    vivaldi \
+    vivaldi-ffmpeg-codecs
 
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-  echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
-  sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-  curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-  sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-  curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+  sudo /opt/vivaldi/update-ffmpeg
 
-  apt_update
-  apt_install 1password
+  yay_install \
+    gnome-browser-connector-git
 
   # add 1password support to vivaldi
   sudo mkdir -p /etc/1password
@@ -214,73 +193,45 @@ function base_sys(){
   sudo chown root:root /etc/1password/custom_allowed_browsers
   sudo chmod 755 /etc/1password/custom_allowed_browsers
 
-  # install signal desktop
-  snap_install signal-desktop
-
   return 0
 }
 
 function tudelft(){
-  snap_install teams-for-linux
+  curl https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --import -
 
-  wget -O- https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --dearmor | sudo tee /usr/share/keyrings/eduvpn-v4.gpg >/dev/null
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ jammy main" | sudo tee /etc/apt/sources.list.d/eduvpn-v4.list
-  apt_update
-  apt_install eduvpn-client
-
-  return 0
-}
-
-# install latex
-function LaTeX(){
-  cd /tmp
-  wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/install-tl-ubuntu
-  sudo chmod +x install-tl-ubuntu
-  sudo ./install-tl-ubuntu
-
-  PATH=/usr/local/texlive/20*/bin/x86_64-linux:$PATH
-  tlmgr install arara
-
-  cd $DOTFILES_DIR
+  yay_install \
+    python-eduvpn-client \
+    teams
 
   return 0
 }
 
 ########################## Computer Specific ####################################
 function latitude_7440(){
+  # install drivers for intel webcam
+  pac_install libdrm 
+  git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
+  cd /tmp/archlinux-ipu6-webcam
+  git apply $DOTFILES_DIR/scripts/patches/intel_webcam.patch
+  ./install.sh
+
   # install driver for fingerprint scanner, enable it, and enroll left and right
   # index fingers
-  wget "http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom/libfprint-2-tod1-broadcom_5.12.018-0ubuntu1~22.04.01_amd64.deb" -O /tmp/broadcom-fingerprint.deb
-  sudo install libfprint-2-tod1 fprintd libpam-frintd
-  sudo dpkg -i /tmp/broadcom-fingerprint.deb
+  pac_install libfprint-2-tod1-broadcom fprintd libpam-fprintd
   sudo fprintd-enroll -f left-index-finger
   sudo fprintd-enroll -f right-index-finger
   sudo pam-auth-update --enable fprintd
-
-  # fix keyboard function keys
-  sudo apt-get reinstall -y libgdk-pixbuf2.0-0
-  echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
-  echo "options hid_apple fnmode=0" | sudo tee -a /etc/modprobe.d/hid_apple.conf
-  sudo update-initramfs -u
-}
-
-######################## remove things I never use #############################
-function crapware(){
-  echo "Removing crapware..."
-  pkgs="thunderbird transmission-gtk"
-  for pkg in $(echo $pkgs); do
-    echo "Removing $pkgsToRemove"
-    sudo apt-get --yes --purge remove $pkg || true
-  done
-
-  return 0
 }
 
 ########################## update and upgrade ##################################
 function update_sys(){
   echo "Updating system..."
-  apt_update
-  sudo apt-get -y upgrade
+  if [ $CI ]; then
+    return 0
+  fi
+
+  pac_update
+  yay_update
 
   return 0
 }
@@ -300,11 +251,8 @@ do
     1)
        sym_links
        base_sys
-       crapware
        update_sys
-       sudo apt-get -y autoremove
        sudo_rules
-       [ $CI ] && exit
        run_me
        ;;
     2)
@@ -324,18 +272,10 @@ do
        run_me
        ;;
     6)
-       LaTeX
-       run_me
-       ;;
-    7)
-       crapware
-       run_me
-       ;;
-    8)
        update_sys
        run_me
        ;;
-    9)
+    7)
        sudo_rules
        run_me
        ;;
