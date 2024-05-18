@@ -56,7 +56,7 @@ function base_sys(){
 
   git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay
-  makepkg -si
+  makepkg -si --noconfirm
 
   echo "Setting up shell..."
 
@@ -152,9 +152,11 @@ function base_sys(){
     gnupg
 
   sudo usermod -a -G docker $USER
-  sudo systemctl daemon-reload
-  sudo systemctl enable docker
-  sudo systemctl start docker
+  if [ ! $CI ]; then 
+    sudo systemctl daemon-reload
+    sudo systemctl enable docker
+    sudo systemctl start docker
+  fi
 
   echo "Installing vscode..."
   npm install -g @devcontainers/cli
@@ -224,8 +226,12 @@ function latitude_7440(){
 ########################## update and upgrade ##################################
 function update_sys(){
   echo "Updating system..."
-  sudo pacman -Syu
-  yay -Syu
+  if [ $CI ]; then
+    return 0
+  fi
+
+  pac_update
+  yay_update
 
   return 0
 }

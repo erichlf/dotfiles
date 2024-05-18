@@ -91,19 +91,25 @@ function apt_install(){
 }
 
 function pac_update(){
-  yes | sudo pacman -Syu
+  sudo pacman -Syu --noconfirm
 
   return 0
 }
 
 function pac_install(){
-  yes | sudo pacman -S --needed $@
+  sudo pacman -S --needed --noconfirm $@
 
   return 0
 }
 
 function yay_install(){
-  yes | yay -S --needed $@ --mflags "--nocheck"
+  yay -S --needed --noconfirm $@ --mflags "--nocheck"
+
+  return 0
+}
+
+function yay_update(){
+  yay -Syu --noconfirm
 
   return 0
 }

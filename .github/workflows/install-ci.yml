@@ -6,28 +6,45 @@ on:
   pull_request:
     branches:
       - main
+env:
+  GREEN: '\033[0;32m'
+  NC: '\033[0m'
 jobs:
   install:
-    container:
-      image: archlinux:latest
-      options: --user=root --entrypoint=/bin/bash
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_AUTH_SOCK: ${{ secrets.SSH_AUTH_SOCK }}
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - ${{ github.workspace }}:/workspace
     runs-on: ubuntu-latest 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Setup ssh
-        uses: PhutureCorp/container-ssh-agent@v0.0.1
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: install
+      - name: Install
         run: |
-          pacman -Sy --noconfirm sudo openssh git 
-          git config --global --add safe.directory /workspace
-          cd /workspace
-          ./install.sh"
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa  
+          # Update known hosts within the container (recommended)
+          echo -e "${GREEN}Update known hosts${NC}"
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            -v ~/.ssh:/home/builduser/.ssh \
+            -e SSH_AUTH_SOCK=/ssh-agent \
+            manjarolinux/base:latest \
+            /bin/bash -c "
+              echo -e '${GREEN}Install openssh and git${NC}'
+              pacman -Sy --noconfirm openssh git go && \
+              echo -e '${GREEN}Add /workspace to trusted repos${NC}'
+              git config --global --add safe.directory /workspace && \
+              echo -e '${GREEN}Create builduser${NC}' && \
+              useradd builduser -m && \
+              passwd -d builduser && \
+              printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers && \
+              chown builduser:builduser -R /home/builduser && \
+              echo -e '${GREEN}Start install${NC}' && \
+              cd /workspace && \
+              sudo -u builduser ./install.sh
+            "
