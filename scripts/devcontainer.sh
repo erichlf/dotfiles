@@ -1,4 +1,7 @@
 #!/bin/bash
+
+shopt -s expand_aliases
+
 SYSTEM="DEVCONTAINER"
 DOTFILES_DIR=$HOME/dotfiles
 
@@ -20,9 +23,12 @@ sym_links
 
 INFO "Installing NEOVIM..."
 # get the newest neovim
-sudo add-apt-repository ppa:ppa-verse/neovim -y
-sudo apt-get update
-sudo apt-get install -y neovim
+add_ppa ppa-verse/neovim
+apt_update
+apt_install neovim
+
+curl https://sh.rustup.rs -sSf | bash -s -- -y
+source $HOME/.cargo/env
 
 lunarvim_install
 

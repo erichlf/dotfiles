@@ -1,3 +1,5 @@
+shopt -s expand_aliases
+
 OS=$(uname -o)
 KERNEL=$(uname -s)
 KERNEL_RELEASE=$(uname -r)
