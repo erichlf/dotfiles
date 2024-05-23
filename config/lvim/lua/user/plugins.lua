@@ -7,15 +7,16 @@ lvim.plugins = {
     end,
   },
 
-  -- github co-pilot
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    dependencies = { "zbirenbaum/copilot.lua" },
-    config = function()
-      local ok, cmp = pcall(require, "copilot_cmp")
-      if ok then cmp.setup({}) end
-    end,
+   -- codeium
+   {
+      "Exafunction/codeium.nvim",
+      dependencies = {
+          "nvim-lua/plenary.nvim",
+          "hrsh7th/nvim-cmp",
+      },
+      config = function()
+          require("codeium").setup({})
+      end
   },
 
   {

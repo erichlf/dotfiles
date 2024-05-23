@@ -43,6 +43,12 @@ opt.swapfile = false
 lvim.format_on_save.enabled = false
 lvim.builtin.treesitter.highlight.enable = true
 
+-- completion settings
+local sources_table = lvim.builtin.cmp.sources
+sources_table[#sources_table+1] = {
+  name = "codeium"
+}
+
 -- auto install treesitter parsers
 lvim.builtin.treesitter.ensure_installed = { "cpp", "c", "lua", "python", "yaml" }
 
