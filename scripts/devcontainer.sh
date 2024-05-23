@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 shopt -s expand_aliases
 
 SYSTEM="DEVCONTAINER"
@@ -8,6 +9,14 @@ DOTFILES_DIR=$HOME/dotfiles
 source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details
+
+apt_update
+apt_install \
+  fzf \
+  golang-go \
+  npm \
+  python3-venv \
+  zsh
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
