@@ -4,6 +4,9 @@ DOTFILES_DIR=$(pwd)
 
 set -e
 
+cd $(dirname $0)/..
+DOTFILES_DIR=$(pwd)
+
 alias sudo=sudoj
 source "$DOTFILES_DIR/scripts/utils.sh"
 

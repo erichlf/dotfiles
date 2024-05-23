@@ -4,7 +4,8 @@ set -e
 shopt -s expand_aliases
 
 SYSTEM="DEVCONTAINER"
-DOTFILES_DIR=$HOME/dotfiles
+cd $(dirname $0)/..
+DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
 
