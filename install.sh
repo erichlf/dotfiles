@@ -10,7 +10,11 @@ case "$kernel" in
     ;;
   *"azure"* ) # github action
     export CI=true
-    ./scripts/main.sh
+    if [[ $DEV_WORKSPACE != "" ]]; then
+      ./scripts/devcontainer.sh
+    else
+      ./scripts/main.sh
+    fi
     ;;
   *"MANJARO"* )
     if [[ $DEV_WORKSPACE != "" ]]; then
@@ -18,8 +22,7 @@ case "$kernel" in
     else
       ./scripts/main.sh
     fi
-      ;;
-
+    ;;
   *"qnap"* )
     ./scripts/nas.sh
     ;;

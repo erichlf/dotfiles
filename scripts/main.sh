@@ -2,6 +2,7 @@
 set -e
 
 SYSTEM="MAIN"
+cd $(dirname $0)/..
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
