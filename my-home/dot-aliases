@@ -6,7 +6,6 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lla='ls -lah'
 alias grep='grep --color=always'
-alias bat='batcat'
 
 # nas docker aliases
 alias youtube-dl='docker run --rm -i -e PGID=$(id -g) -e PUID=$(id -u) -v ${PWD}:/workdir:rw ghcr.io/mikenye/docker-youtube-dl:latest'

@@ -202,7 +202,7 @@ function tudelft(){
 
   yay_install \
     python-eduvpn-client \
-    teams
+    teams-for-linux-bin
 
   return 0
 }
