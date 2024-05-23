@@ -17,6 +17,9 @@ apt_install \
   golang-go \
   npm \
   python3-venv \
+  stow \
+  wget \
+  unzip \
   zsh
 
 # change to zsh as default shell
