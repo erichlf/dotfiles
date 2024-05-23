@@ -25,8 +25,6 @@ apt_install \
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
 
-cd $DOTFILES_DIR
-
 # ensure that submodules are downloaded
 git submodule init
 git submodule update
