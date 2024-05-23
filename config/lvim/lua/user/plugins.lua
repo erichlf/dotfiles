@@ -112,6 +112,13 @@ lvim.plugins = {
     end,
   },
 
+  -- hardtimes aka hardmode
+  {
+     "m4xshen/hardtime.nvim",
+     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+     opts = {}
+  },
+
   -- images
   {
     "nvim-telescope/telescope-media-files.nvim",
@@ -128,6 +135,12 @@ lvim.plugins = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
+  },
+
+  -- hints
+  {
+    "tris203/precognition.nvim",
+    config = {},
   },
 
   -- python
