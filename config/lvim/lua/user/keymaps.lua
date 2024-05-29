@@ -14,6 +14,18 @@ local function vmap(l, r, opts)
   map("v", l, r, opts)
 end
 
+-- comments
+nmap(";;", "gcc", { remap = true })
+nmap(";A", "gcA", { remap = true })
+nmap(";p", "gcap", { remap = true })
+nmap(";o", "gco", { remap = true })
+nmap(";O", "gcO", { remap = true })
+vmap(";", "gc", { remap = true })
+
+-- navigation
+nmap("H", "Hzz")
+nmap("L", "Lzz")
+
 -- navigation between window panes
 nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
 nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
@@ -34,10 +46,3 @@ lvim.builtin.terminal.execs[#lvim.builtin.terminal.execs + 1] = {
   nil
 }
 
--- comments
-nmap(";;", "gcc", { remap = true })
-nmap(";A", "gcA", { remap = true })
-nmap(";p", "gcap", { remap = true })
-nmap(";o", "gco", { remap = true })
-nmap(";O", "gcO", { remap = true })
-vmap(";", "gc", { remap = true })
