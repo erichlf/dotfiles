@@ -34,7 +34,7 @@ sym_links
 
 INFO "Installing NEOVIM..."
 # get the newest neovim
-add_ppa ppa-verse/neovim
+add_ppa ppa-verse/core
 apt_update
 apt_install neovim
 
