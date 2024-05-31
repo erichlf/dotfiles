@@ -17,6 +17,7 @@ apt_install \
   golang-go \
   npm \
   python3-venv \
+  software-properties-common \
   stow \
   wget \
   unzip \
