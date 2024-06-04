@@ -2,7 +2,7 @@ lvim.plugins = {
   -- auto complete tags
   {
     "windwp/nvim-ts-autotag",
-    config = function()
+    init = function()
       require("nvim-ts-autotag").init()
     end,
   },
@@ -14,7 +14,7 @@ lvim.plugins = {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
     },
-    config = function()
+    init = function()
       require("codeium").setup({})
     end
   },
@@ -111,7 +111,7 @@ lvim.plugins = {
     build = function()
       require("gitlab.server").build(true)
     end, -- Builds the Go binary
-    config = function()
+    init = function()
       require("gitlab").setup()
     end,
   },
@@ -165,7 +165,7 @@ lvim.plugins = {
   -- tmux
   {
     'alexghergh/nvim-tmux-navigation',
-    config = function()
+    init = function()
       require 'nvim-tmux-navigation'.setup {
         disable_when_zoomed = true, -- defaults to false
       }
@@ -175,7 +175,7 @@ lvim.plugins = {
   -- treesitter plugins
   {
     "nvim-treesitter/nvim-treesitter-context",
-    config = function()
+    init = function()
       require 'treesitter-context'.setup {
         enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
         max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
