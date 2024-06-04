@@ -23,38 +23,6 @@ lvim.plugins = {
     "erichlf/devcontainer-cli.nvim",
     branch = "main",
     dependencies = { 'akinsho/toggleterm.nvim' },
-    keys = {
-      {
-        "<leader>Du",
-        "<CMD>DevcontainerUp<CR>",
-        desc = "Bring Up the DevContainer",
-      },
-      {
-        "<leader>De",
-        "<CMD>DevcontainerExec direction='horizontal'<CR>",
-        desc = "Execute a command in the DevContainer",
-      },
-      {
-        "<leader>Db",
-        "<CMD>DevcontainerExec cmd='colcon build --symlink-install --merge-install' direction='horizontal'<CR>",
-        desc = "ROS2 build in the DevContainer",
-      },
-      {
-        "<leader>Dt",
-        "<CMD>DevcontainerExec cmd='source install/setup.zsh && colcon test --merge-install' direction='horizontal'<CR>",
-        desc = "ROS2 test in the DevContainer",
-      },
-      {
-        "<leader>Dc",
-        "<CMD>DevcontainerConnect<CR>",
-        desc = "Connect to DevContainer",
-      },
-      {
-        "<leader>DT",
-        "<CMD>DevcontainerToggle<CR>",
-        desc = "Toggle the current DevContainer Terminal"
-      },
-    },
     init = function()
       local opts = {
         interactive = false,

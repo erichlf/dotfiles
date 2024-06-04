@@ -64,6 +64,23 @@ vmappings[";"] = { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment
 -- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
+-- Devcontainer
+mappings["Du"] = { "<CMD>DevcontainerUp<CR>", "Bring Up the DevContainer" }
+mappings["De"] = {
+  "<CMD>DevcontainerExec direction='horizontal'<CR>",
+  "Execute a command in the DevContainer"
+}
+mappings["Db"] = {
+  "<CMD>DevcontainerExec cmd='colcon build --symlink-install --merge-install' direction='horizontal'<CR>",
+  "ROS2 build in the DevContainer"
+}
+mappings["Dt"] = {
+  "<CMD>DevcontainerExec cmd='source install/setup.zsh && colcon test --merge-install' direction='horizontal'<CR>",
+  "ROS2 test in the DevContainer"
+}
+mappings["Dc"] = { "<CMD>DevcontainerConnect<CR>", "Connect to DevContainer" }
+mappings["DT"] = { "<CMD>DevcontainerToggle<CR>", "Toggle the current DevContainer Terminal" }
+
 -- file operations
 mappings["fr"] = { "<CMD>Telescope oldfiles<CR>", "Recent" }
 mappings["fe"] = { "<CMD>NvimTreeToggle<CR>", "Toggle Explorer" }
