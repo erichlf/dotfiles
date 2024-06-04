@@ -7,32 +7,23 @@ lvim.plugins = {
     end,
   },
 
-   -- codeium
-   {
-      "Exafunction/codeium.nvim",
-      dependencies = {
-          "nvim-lua/plenary.nvim",
-          "hrsh7th/nvim-cmp",
-      },
-      config = function()
-          require("codeium").setup({})
-      end
+  -- codeium
+  {
+    "Exafunction/codeium.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup({})
+    end
   },
 
   {
     "erichlf/devcontainer-cli.nvim",
     branch = "main",
     dependencies = { 'akinsho/toggleterm.nvim' },
-    opts = {
-      interactive = false,
-      dotfiles_repository = "https://github.com/erichlf/dotfiles.git",
-      dotfiles_branch = "main",
-      dotfiles_targetPath = "~/dotfiles",
-      dotfiles_installCommand = "install.sh",
-      shell = "zsh",
-    },
     keys = {
-      -- stylua: ignore
       {
         "<leader>Du",
         "<CMD>DevcontainerUp<CR>",
@@ -63,7 +54,19 @@ lvim.plugins = {
         "<CMD>DevcontainerToggle<CR>",
         desc = "Toggle the current DevContainer Terminal"
       },
-    }
+    },
+    init = function()
+      local opts = {
+        interactive = false,
+        dotfiles_repository = "https://github.com/erichlf/dotfiles.git",
+        dotfiles_branch = "main",
+        dotfiles_targetPath = "~/dotfiles",
+        dotfiles_installCommand = "install.sh",
+        nvim_binary = "lvim",
+        shell = "zsh",
+      }
+      require("devcontainer-cli").setup(opts)
+    end,
   },
 
   {
