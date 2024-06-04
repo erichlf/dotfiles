@@ -11,6 +11,7 @@ mappings["b"]["l"] = {} -- BufferLineCloseRight
 mappings["b"]["L"] = {} -- sort by language
 mappings["g"]["b"] = {} -- git new branch
 mappings["g"]["l"] = {} -- git blame
+mappings["g"]["L"] = {} -- git blame
 mappings["bf"] = {}     -- buffer find
 mappings["c"] = {}      -- close buffer
 mappings["s"] = {}      -- search
