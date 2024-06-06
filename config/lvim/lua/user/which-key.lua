@@ -66,6 +66,7 @@ mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 
 -- Devcontainer
 mappings["Du"] = { "<CMD>DevcontainerUp<CR>", "Bring Up the DevContainer" }
+mappings["Dd"] = { "<CMD>DevcontainerDown<CR>", "Kill the Current DevContainer" }
 mappings["De"] = {
   "<CMD>DevcontainerExec direction='horizontal'<CR>",
   "Execute a command in the DevContainer"
