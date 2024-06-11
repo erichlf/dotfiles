@@ -89,6 +89,7 @@ mappings["fS"] = { "<CMD>wa<CR>", "Save All" }
 mappings["fs"] = { "<CMD>w<CR>", "Save Current" }
 mappings["fW"] = { "<CMD>noautocmd wa<CR>", "Save All (noautocmd)" }
 mappings["fw"] = { "<CMD>noautocmd w<CR>", "Save Current (noautocmd)" }
+mappings["fo"] = { "<CMD>Oil --float .<CR>", "Open Oil in Current Path" }
 
 -- git
 mappings["gl"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }

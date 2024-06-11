@@ -16,6 +16,7 @@ apt_install \
   fzf \
   golang-go \
   npm \
+  pass \
   python3-venv \
   software-properties-common \
   stow \

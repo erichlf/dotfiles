@@ -7,20 +7,28 @@ lvim.plugins = {
     end,
   },
 
-  -- codeium
+  -- chatgpt
   {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-    init = function()
-      require("codeium").setup({})
-    end
+    "jackMort/ChatGPT.nvim",
+      event = "VeryLazy",
+      init = function()
+        require("chatgpt").setup(
+          {
+            api_key_cmd = "pass show chatgpt/api_key"
+          }
+        )
+      end,
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "folke/trouble.nvim",
+        "nvim-telescope/telescope.nvim"
+      }
   },
 
   {
     "erichlf/devcontainer-cli.nvim",
+    -- dir = "/home/elfoster/workspace/devcontainer-cli.nvim/",
     branch = "main",
     dependencies = { 'akinsho/toggleterm.nvim' },
     init = function()
@@ -42,6 +50,39 @@ lvim.plugins = {
     dependencies = {
       { 'MunifTanjim/nui.nvim' }
     }
+  },
+
+
+  -- file management
+  {
+    "stevearc/oil.nvim",
+    init = function()
+      require("oil").setup(
+        {
+          -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
+          delete_to_trash = false,
+          -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
+          skip_confirm_for_simple_edits = false,
+          view_options = {
+            -- Show files and directories that start with "."
+            show_hidden = true,
+          },
+          -- EXPERIMENTAL support for performing file operations with git
+          git = {
+            -- Return true to automatically git add/mv/rm files
+            add = function(_)
+              return false
+            end,
+            mv = function(_, _)
+              return true
+            end,
+            rm = function(_)
+              return true
+            end,
+          },
+        }
+      )
+    end,
   },
 
   -- git
@@ -128,6 +169,25 @@ lvim.plugins = {
     -- init = function()
     --   vim.cmd [[packadd telescope.nvim]]
     -- end,
+  },
+
+  -- tabnine
+  {
+    "codota/tabnine-nvim",
+    build = "./dl_binaries.sh",
+    init = function()
+      require('tabnine').setup(
+        {
+          disable_auto_comment=true,
+          accept_keymap="<Tab>",
+          dismiss_keymap = "<C-]>",
+          debounce_ms = 800,
+          suggestion_color = {gui = "#808080", cterm = 244},
+          exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+          log_file_path = nil, -- absolute path to Tabnine log file
+        }
+      )
+    end
   },
 
   -- tmux
