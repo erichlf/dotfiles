@@ -68,12 +68,10 @@
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
-[includeIf "gitdir:~/workspace/SAM_XL/src/**"] 
-    path = ~/workspace/SAM_XL/.gitconfig
-[includeIf "hasconfig:remote.*.url:git@gitlab.tudelft.nl:**"] 
-    path = ~/workspace/SAM_XL/.gitconfig
+[includeIf "gitdir:~/workspace/THERMOPLAST/src/**"] 
+[includeIf "gitdir:~/workspace/PENELOPE/src/**"] 
 [includeIf "hasconfig:remote.*.url:https://gitlab.tudelft.nl/**"] 
-    path = ~/workspace/SAM_XL/.gitconfig
+    path = ~/workspace/.samxl-gitconfig
 [commit]
     gpgSign = true
 [grep]
