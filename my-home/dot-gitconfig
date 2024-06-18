@@ -57,6 +57,10 @@
     prompt = false
 [difftool "meld"]
     cmd = meld -n "$LOCAL" "$REMOTE"
+[includeIf "gitdir:~/ros_ws/src/**"] 
+    path = ~/ros_ws/.samxl-gitconfig
+[includeIf "gitdir:/workspaces/src/**"] 
+    path = /workspaces/.samxl-gitconfig
 [alias]
     diffall = difftool -d
     diffeach = "!f(){\
@@ -68,10 +72,6 @@
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
-[includeIf "gitdir:~/workspace/THERMOPLAST/src/**"] 
-[includeIf "gitdir:~/workspace/PENELOPE/src/**"] 
-[includeIf "hasconfig:remote.*.url:https://gitlab.tudelft.nl/**"] 
-    path = ~/workspace/.samxl-gitconfig
 [commit]
     gpgSign = true
 [grep]
