@@ -98,7 +98,7 @@ require("lvim.lsp.null-ls.formatters").setup {
 require("lvim.lsp.null-ls.linters").setup {
   { name = "cmakelint" },
   { name = "cpptools" },
-  { name = "flake8" 
+  { name = "flake8",
     args = {
       "--max-line-length", "99",
       "--extend-ignore", "B902,C816,D100,D101,D102,D103,D104,D105,D106,D107,D203,D212,D404,I202"

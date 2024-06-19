@@ -227,7 +227,6 @@ lvim.plugins = {
     opts = {
       trim_last_line = false,
       trim_first_line = false,
-      highlight = true,
     }
   },
 
