@@ -221,6 +221,16 @@ lvim.plugins = {
     end
   },
 
+  -- trim trailing whitespace
+  {
+    "cappyzawa/trim.nvim",
+    opts = {
+      trim_last_line = false,
+      trim_first_line = false,
+      highlight = true,
+    }
+  },
+
   -- rainbow brackets
   { "mrjones2014/nvim-ts-rainbow", },
 }
