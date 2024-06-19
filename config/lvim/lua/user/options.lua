@@ -84,7 +84,7 @@ require("lvim.lsp.null-ls.formatters").setup {
   },
   { name = "clang-format",
     filetype = { "c", "cpp", "cs", "java" },
-    extra_args = { "--style", "file" }
+    args = { "--style", "file" }
   },
   { name = "isort",
     args = { 
