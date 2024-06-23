@@ -20,3 +20,4 @@ fi
 path+=($HOME/.local/bin $HOME/.npm-global/bin $HOME/.rvm/bin $path)
 export PATH
 export ROS_DOMAIN_ID="3"
+export GPG_TTY=$(tty)
