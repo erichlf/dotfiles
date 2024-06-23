@@ -154,11 +154,12 @@ function lazygit_install(){
 # install lunarvim
 function lunarvim_install(){
   INFO "Installing LunarVIM..."
+  NPM_CONFIG_PREFIX=$HOME/npm-global
 
   # ensure there are no failures due to installing python packages
   python3 -m pip config set global.break-system-packages true
 
-  curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.4/neovim-0.9' bash -s -- -y 
+  curl -sSL https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh | LV_BRANCH='release-1.4/neovim-0.9' bash -s -- -y
 }
 
 # setup starship

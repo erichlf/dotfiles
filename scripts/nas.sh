@@ -7,7 +7,6 @@ set -e
 cd $(dirname $0)/..
 DOTFILES_DIR=$(pwd)
 
-alias sudo=sudoj
 source "$DOTFILES_DIR/scripts/utils.sh"
 
 print_details
@@ -15,12 +14,21 @@ print_details
 git submodule init
 git submodule update
 
-INFO "Installing busybox..."
-sudo busybox --install /opt/bin/
+if [[ $JUNEST_ENV -ne 1 ]]; then
+  INFO "Installing busybox..."
+  sudo busybox --install /opt/bin/
+
+  INFO "Installing zsh..."
+  sudo opkg install \
+    zsh
+fi
 
 INFO "Installing JuNest..."
 [[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest 
 [[ ! -d $HOME/.junest ]] && junest setup
+
+[[ $JUNEST_ENV -ne 1 ]] && [[ -d .local/share/junest ]] && ./.local/share/junest/bin/junest -b "--bind /share /share"
+
 pac_update
 
 INFO "Installing stow..."
@@ -29,18 +37,20 @@ pac_install \
 
 sym_links
 
-INFO "Installing zsh..."
-sudo opkg install \
-  zsh
-
 INFO "Installing base system..."
 pac_install \
   btop \
+  curl \
   fzf \
+  gzip \
   iftop \
+  openssh \
   python \
   python-pip \
-  tmux
+  tar \
+  tmux \
+  wget \
+  zsh
 
 zsh_extras
 
