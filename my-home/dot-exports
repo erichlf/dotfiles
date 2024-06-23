@@ -17,6 +17,6 @@ if [[ "$unamestr" == 'Darwin' ]]; then
     export CLICOLOR=1
 fi
 
-path+=($HOME/.local/bin $HOME/.npm-global/bin $HOME/.local/share/junest/bin $HOME/.junest/usr/bin_wrappers $HOME/.rvm/bin $path)
+path+=($HOME/.local/bin $HOME/.npm-global/bin $HOME/.rvm/bin $path)
 export PATH
 export ROS_DOMAIN_ID="3"
