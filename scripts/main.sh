@@ -39,7 +39,7 @@ options=(1 "Fresh system setup"
          6 "Update system"
          7 "sudo rules")
 
-if [ $CI ]; then 
+if [ $CI ]; then
   choices=1
 else
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -58,6 +58,7 @@ function base_sys(){
   [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay
   makepkg -si --noconfirm
+  cd -
 
   echo "Setting up shell..."
 
@@ -106,7 +107,7 @@ function base_sys(){
     python-matplotlib \
     python-numpy \
     python-scipy \
-    python-setuptools 
+    python-setuptools
 
   yay_install \
     git-completion
@@ -153,7 +154,7 @@ function base_sys(){
     gnupg
 
   sudo usermod -a -G docker $USER
-  if [ ! $CI ]; then 
+  if [ ! $CI ]; then
     sudo systemctl daemon-reload
     sudo systemctl enable docker
     sudo systemctl start docker
@@ -163,10 +164,8 @@ function base_sys(){
   npm install -g @devcontainers/cli
 
   yay_install \
-    git-credential-manager
-
-  pac_install \
-    vscode
+    git-credential-manager \
+    visual-studio-code-bin
 
   git-credential-manager configure
 
@@ -190,7 +189,7 @@ function base_sys(){
 
   # add 1password support to vivaldi
   sudo mkdir -p /etc/1password
-  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers 
+  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers
   sudo chown root:root /etc/1password/custom_allowed_browsers
   sudo chmod 755 /etc/1password/custom_allowed_browsers
 
@@ -210,7 +209,7 @@ function tudelft(){
 ########################## Computer Specific ####################################
 function latitude_7440(){
   # install drivers for intel webcam
-  pac_install libdrm 
+  pac_install libdrm
   git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
   cd /tmp/archlinux-ipu6-webcam
   git apply $DOTFILES_DIR/scripts/patches/intel_webcam.patch
