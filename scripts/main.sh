@@ -33,7 +33,7 @@ cmd=( \
 
 options=(1 "Fresh system setup"
          2 "Create symbolic links"
-         2 "Install base system"
+         3 "Install base system"
          4 "Install TU Delft tools"
          5 "Latitude 7440 Hacks"
          6 "Update system"
