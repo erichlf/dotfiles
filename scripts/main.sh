@@ -55,7 +55,7 @@ function run_me() {
 function base_sys(){
   echo "Setting up yay..."
 
-  git clone https://aur.archlinux.org/yay.git /tmp/yay
+  [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay
   makepkg -si --noconfirm
 
