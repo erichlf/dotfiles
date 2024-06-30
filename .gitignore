@@ -1,6 +1,5 @@
 *.swp
 *.swo
 .ropeproject
-.pentadactyl/info
-my-home/dot-tmux/plugins/*
+home/dot-tmux/plugins/*
 config/*/lazy-lock.json

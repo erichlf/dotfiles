@@ -50,11 +50,11 @@ DOTFILES_DIR:   $DOTFILES_DIR
 function sym_links(){
   INFO "Creating symlinks..."
   mkdir -p $HOME/.config
-  stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow my-home
+  stow -v --dotfiles --adopt --dir $DOTFILES_DIR --target $HOME --restow home
   stow -v --adopt --dir $DOTFILES_DIR/private/ --target $HOME/.ssh --restow .ssh
   stow -v --adopt --dir $DOTFILES_DIR --target $HOME/.config/ --restow config
   # if the adopt made a local change then undo that
-  git checkout HEAD -- config my-home private
+  git checkout HEAD -- config home private
 
   return 0
 }
