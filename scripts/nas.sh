@@ -24,7 +24,7 @@ if [[ $JUNEST_ENV -ne 1 ]]; then
 fi
 
 INFO "Installing JuNest..."
-[[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest 
+[[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest
 [[ ! -d $HOME/.junest ]] && junest setup
 
 [[ $JUNEST_ENV -ne 1 ]] && [[ -d .local/share/junest ]] && ./.local/share/junest/bin/junest -b "--bind /share /share"
@@ -41,6 +41,7 @@ INFO "Installing base system..."
 pac_install \
   btop \
   curl \
+  docker \
   fzf \
   gzip \
   iftop \
