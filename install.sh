@@ -29,10 +29,12 @@ case "$kernel" in
   *)
     if [[ $(uname -o) == "Darwin" ]]; then
       ./scripts/mac.sh
+    elif [[ $DEV_WORKSPACE != "" ]]; then
+      ./scripts/devcontainer.sh
     else
       echo \
 "
-  Unknown system: $(uname -a) 
+  Unknown system: $(uname -a)
   KTHNXBYE
 "
       exit 1
