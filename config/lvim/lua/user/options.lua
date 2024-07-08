@@ -45,7 +45,7 @@ lvim.builtin.treesitter.highlight.enable = true
 
 -- completion settings
 local sources_table = lvim.builtin.cmp.sources
-sources_table[#sources_table+1] = {
+sources_table[#sources_table + 1] = {
   name = "codeium"
 }
 
@@ -65,7 +65,9 @@ lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
 
 -- buffer line options
 lvim.builtin.bufferline.options.middle_mouse_command = "bdelete! %d"
-lvim.builtin.bufferline.options.numbers = "ordinal"
+lvim.builtin.bufferline.options.numbers = function(opts)
+  return string.format("%s", opts.lower(opts.ordinal))
+end
 lvim.builtin.bufferline.options.separator_style = "slant"
 
 -- tell project where my projects start
@@ -80,14 +82,14 @@ table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
 -- LSP
 require("lvim.lsp.null-ls.formatters").setup {
   { name = "black",
-    args = {"-l", "99"}
+    args = { "-l", "99" }
   },
   { name = "clang-format",
     filetype = { "c", "cpp", "cs", "java" },
     args = { "--style", "file" }
   },
   { name = "isort",
-    args = { 
+    args = {
       "-l", "99",
       "--profile", "black"
     }
