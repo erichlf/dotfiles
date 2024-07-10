@@ -1,7 +1,7 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-    # signingkey = 08A7E764EC1713A9 
+    # signingkey = 08A7E764EC1713A9
 [core]
     editor = nvim
 	autocrlf = input
@@ -28,7 +28,7 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-    helper = 
+    helper =
     helper = /usr/local/bin/git-credential-manager
     credentialStore = secretservice
 [merge]
@@ -57,9 +57,11 @@
     prompt = false
 [difftool "meld"]
     cmd = meld -n "$LOCAL" "$REMOTE"
-[includeIf "gitdir:~/ros_ws/src/**"] 
+[includeIf "gitdir:~/workspace/*/src/**"]
+    path = ~/workspace/.samxl-gitconfig
+[includeIf "gitdir:~/ros_ws/src/**"]
     path = ~/ros_ws/.samxl-gitconfig
-[includeIf "gitdir:/workspaces/src/**"] 
+[includeIf "gitdir:/workspaces/src/**"]
     path = /workspaces/.samxl-gitconfig
 [alias]
     diffall = difftool -d
