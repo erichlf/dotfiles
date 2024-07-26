@@ -7,25 +7,6 @@ lvim.plugins = {
     end,
   },
 
-  -- chatgpt
-  {
-    "jackMort/ChatGPT.nvim",
-      event = "VeryLazy",
-      init = function()
-        require("chatgpt").setup(
-          {
-            api_key_cmd = "pass show chatgpt/api_key"
-          }
-        )
-      end,
-      dependencies = {
-        "MunifTanjim/nui.nvim",
-        "nvim-lua/plenary.nvim",
-        "folke/trouble.nvim",
-        "nvim-telescope/telescope.nvim"
-      }
-  },
-
   {
     "erichlf/devcontainer-cli.nvim",
     -- dir = "/home/elfoster/workspace/devcontainer-cli.nvim/",
@@ -106,25 +87,6 @@ lvim.plugins = {
     },
   },
 
-  -- gitlab
-  {
-    "harrisoncramer/gitlab.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      "stevearc/dressing.nvim",     -- Recommended but not required. Better UI for pickers.
-      "nvim-tree/nvim-web-devicons" -- Recommended but not required. Icons in discussion tree.
-    },
-    enabled = true,
-    build = function()
-      require("gitlab.server").build(true)
-    end, -- Builds the Go binary
-    init = function()
-      require("gitlab").setup()
-    end,
-  },
-
   -- hardtimes aka hardmode
   {
     "m4xshen/hardtime.nvim",
@@ -178,12 +140,12 @@ lvim.plugins = {
     init = function()
       require('tabnine').setup(
         {
-          disable_auto_comment=true,
-          accept_keymap="<Tab>",
+          disable_auto_comment = true,
+          accept_keymap = "<Tab>",
           dismiss_keymap = "<C-]>",
           debounce_ms = 800,
-          suggestion_color = {gui = "#808080", cterm = 244},
-          exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+          suggestion_color = { gui = "#808080", cterm = 244 },
+          exclude_filetypes = { "TelescopePrompt", "NvimTree" },
           log_file_path = nil, -- absolute path to Tabnine log file
         }
       )
