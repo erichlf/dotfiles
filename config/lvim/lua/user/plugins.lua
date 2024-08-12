@@ -33,39 +33,6 @@ lvim.plugins = {
     }
   },
 
-
-  -- file management
-  {
-    "stevearc/oil.nvim",
-    init = function()
-      require("oil").setup(
-        {
-          -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-          delete_to_trash = false,
-          -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
-          skip_confirm_for_simple_edits = false,
-          view_options = {
-            -- Show files and directories that start with "."
-            show_hidden = true,
-          },
-          -- EXPERIMENTAL support for performing file operations with git
-          git = {
-            -- Return true to automatically git add/mv/rm files
-            add = function(_)
-              return false
-            end,
-            mv = function(_, _)
-              return true
-            end,
-            rm = function(_)
-              return true
-            end,
-          },
-        }
-      )
-    end,
-  },
-
   -- git
   {
     "kdheepak/lazygit.nvim",
