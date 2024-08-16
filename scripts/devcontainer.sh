@@ -33,7 +33,7 @@ git submodule update
 
 # ensure that .config is owned by the current user
 if [[ -d $HOME/.config && ! $(stat -c "%U" $HOME/.config) == "$(whoami)" ]]; then
-  sudo chown $UID $HOME/.config
+  sudo chown $(id -u):$(id -g) $HOME/.config
 fi
 
 # create links to dotfiles
