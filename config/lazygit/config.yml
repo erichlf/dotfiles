@@ -2,3 +2,9 @@ keybinding:
   universal:
     pushFiles: 'p'
     pullFiles: 'P'
+os:
+  edit: '~/.local/bin/lvim {{filename}}'
+  editAtLine: '~/.local/bin/lvim +{{line}} {{filename}}'
+  editAtLineAndWait: '~/.local/bin/lvim +{{line}} {{filename}}'
+  editInTerminal: true
+  openDirInEditor: '~/.local/bin/lvim {{dir}}'
