@@ -41,9 +41,9 @@ sym_links
 
 INFO "Installing NEOVIM..."
 # get the newest neovim
-add_ppa ppa-verse/core
+add_ppa neovim-ppa/unstable
 apt_update
-apt_install neovim
+sudo apt-get upgrade -y neovim
 
 curl https://sh.rustup.rs -sSf | bash -s -- -y
 source $HOME/.cargo/env
