@@ -40,10 +40,10 @@ fi
 sym_links
 
 INFO "Installing NEOVIM..."
-# get the newest neovim
-add_ppa neovim-ppa/unstable
-apt_update
-sudo apt-get upgrade -y neovim
+apt_install libfuse2 fuse3
+wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
+sudo mv nvim.appimage /usr/bin/nvim
+sudo chmod u+x /usr/bin/nvim
 
 curl https://sh.rustup.rs -sSf | bash -s -- -y
 source $HOME/.cargo/env
