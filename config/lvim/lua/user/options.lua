@@ -80,37 +80,6 @@ table.insert(lvim.builtin.alpha.dashboard.section.buttons.entries,
 )
 
 -- LSP
-require("lvim.lsp.null-ls.formatters").setup {
-  { name = "black",
-    args = { "-l", "99" }
-  },
-  { name = "clang-format",
-    filetype = { "c", "cpp", "cs", "java" },
-    args = { "--style", "file" }
-  },
-  { name = "isort",
-    args = {
-      "-l", "99",
-      "--profile", "black"
-    }
-  },
-  { name = "yamlfmt" },
-}
-
-require("lvim.lsp.null-ls.linters").setup {
-  { name = "cmakelint" },
-  { name = "cpptools" },
-  { name = "flake8",
-    args = {
-      "--max-line-length", "99",
-      "--extend-ignore", "B902,C816,D100,D101,D102,D103,D104,D105,D106,D107,D203,D212,D404,I202"
-    }
-  },
-  { name = "markdownlint" },
-  { name = "pylint" },
-  { name = "yamllint" },
-}
-
 lvim.lsp.null_ls.setup.on_init = function(new_client, _)
   new_client.offset_encoding = "utf-8"
 end
