@@ -72,6 +72,4 @@ pac_install \
   python-yaml \
   rust
 
-lunarvim_install
-
 INFO "Finished setting up system..."

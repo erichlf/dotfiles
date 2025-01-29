@@ -1,29 +1,34 @@
--- for conciseness
-local mappings = lvim.builtin.which_key.mappings
-local vmappings = lvim.builtin.which_key.vmappings
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
+-- custom which-key mappings
+local groups = {}
+local mappings = {}
+local vmappings = {}
 
 -- unmap things that I want to use
-mappings["/"] = {}      -- comment
-mappings[";"] = {}      -- Dashboard
-mappings["b"]["b"] = {} -- previous buffer
-mappings["b"]["D"] = {} -- BufferLineSortByDirectory
-mappings["b"]["l"] = {} -- BufferLineCloseRight
-mappings["b"]["L"] = {} -- sort by language
-mappings["g"]["b"] = {} -- git new branch
-mappings["g"]["l"] = {} -- git blame
-mappings["g"]["L"] = {} -- git blame
-mappings["bf"] = {}     -- buffer find
-mappings["c"] = {}      -- close buffer
-mappings["s"] = {}      -- search
-mappings["w"] = {}      -- save
-vmappings["/"] = {}     -- comment
+-- mappings["/"] = {} -- comment
+-- mappings[";"] = {} -- Dashboard
+-- mappings["b"]["b"] = {} -- previous buffer
+-- mappings["b"]["D"] = {} -- BufferLineSortByDirectory
+-- mappings["b"]["l"] = {} -- BufferLineCloseRight
+-- mappings["b"]["L"] = {} -- sort by language
+-- mappings["g"]["b"] = {} -- git new branch
+-- mappings["g"]["l"] = {} -- git blame
+-- mappings["g"]["L"] = {} -- git blame
+-- mappings["bf"] = {} -- buffer find
+-- mappings["c"] = {} -- close buffer
+-- mappings["s"] = {} -- search
+-- mappings["w"] = {} -- save
+-- vmappings["/"] = {} -- comment
 
 -- set menu items
-mappings["D"] = { name = "Devcontainer" }
-mappings["f"] = { name = "Files" }
-mappings["q"] = { name = "Quit" }
-mappings["/"] = { name = "Search" }
-mappings["w"] = { name = "Windows" }
+groups["D"] = "Devcontainer"
+groups["f"] = "Files"
+groups["q"] = "Quit"
+groups["/"] = "Search"
+groups["w"] = "Windows"
 
 mappings["+"] = { "<C-a>", "Increment Number" } -- increment
 mappings["-"] = { "<C-x>", "Decrement Number" } -- decrement
@@ -69,15 +74,15 @@ mappings["Du"] = { "<CMD>DevcontainerUp<CR>", "Bring Up the DevContainer" }
 mappings["Dd"] = { "<CMD>DevcontainerDown<CR>", "Kill the Current DevContainer" }
 mappings["De"] = {
   "<CMD>DevcontainerExec direction='horizontal'<CR>",
-  "Execute a command in the DevContainer"
+  "Execute a command in the DevContainer",
 }
 mappings["Db"] = {
   "<CMD>DevcontainerExec cmd='colcon build --symlink-install --merge-install' direction='horizontal'<CR>",
-  "ROS2 build in the DevContainer"
+  "ROS2 build in the DevContainer",
 }
 mappings["Dt"] = {
   "<CMD>DevcontainerExec cmd='source install/setup.zsh && colcon test --merge-install' direction='horizontal'<CR>",
-  "ROS2 test in the DevContainer"
+  "ROS2 test in the DevContainer",
 }
 mappings["Dc"] = { "<CMD>DevcontainerConnect<CR>", "Connect to DevContainer" }
 mappings["DT"] = { "<CMD>DevcontainerToggle<CR>", "Toggle the current DevContainer Terminal" }
@@ -148,3 +153,66 @@ mappings["wD"] = { "<CMD>other<CR>", "Close All Other" }
 mappings["ws"] = { "<CMD>split<CR>", "Split Horizontal" }
 mappings["wt"] = { "<CMD>tab split<CR>", "Send to Tab" }
 mappings["wv"] = { "<CMD>vsplit<CR>", "Split Vertical" }
+
+local wk = require("which-key")
+for key, value in pairs(groups) do
+  wk.add({ "<leader>" .. key, group = value })
+end
+
+for key, value in pairs(mappings) do
+  local map = "<leader>" .. key
+  local command = value[1]
+  local description = value[2]
+
+  wk.add({ map, command, desc = description, mode = "n" })
+end
+
+for key, value in pairs(vmappings) do
+  local map = "<leader>" .. key
+  local command = value[1]
+  local description = value[2]
+
+  wk.add({ map, command, desc = description, mode = "v" })
+end
+
+
+-- custom keymaps
+-- for conciseness
+local keymap = vim.keymap
+
+-- helper for keymaps
+local function map(mode, l, r, opts)
+  keymap.set(mode, l, r, opts)
+end
+
+local function nmap(l, r, opts)
+  map("n", l, r, opts)
+end
+
+local function vmap(l, r, opts)
+  map("v", l, r, opts)
+end
+
+-- comments
+nmap(";;", "gcc", { remap = true })
+nmap(";A", "gcA", { remap = true })
+nmap(";p", "gcap", { remap = true })
+nmap(";o", "gco", { remap = true })
+nmap(";O", "gcO", { remap = true })
+vmap(";", "gc", { remap = true })
+
+-- navigation
+nmap("H", "Hzz")
+nmap("L", "Lzz")
+
+-- navigation between window panes
+nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
+nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
+nmap("<C-k>", "<CMD>NvimTmuxNavigateUp<CR>")
+nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
+nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
+nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
+
+-- navigation between buffers
+nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
+nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")

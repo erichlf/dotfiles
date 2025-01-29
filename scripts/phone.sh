@@ -5,8 +5,8 @@ DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
 
-print_details 
- 
+print_details
+
 INFO "Installing base system"
 pkg install -y \
   fzf \
@@ -34,8 +34,6 @@ sym_links
 zsh_extras
 
 starship_install
-
-lunarvim_install
 
 yes | pkg remove nano
 

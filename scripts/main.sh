@@ -14,30 +14,30 @@ THIS=$0
 pac_install base-devel dialog git stow
 
 # get the version of ubuntu
-codename=`lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}'`
-release=`lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}'`
+codename=$(lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}')
+release=$(lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}')
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
 git submodule update --init --recursive
 
-cmd=( \
-  dialog \
-  --clear \
-  --cancel-label "Exit" \
-  --backtitle "system setup" \
-  --menu "Welcome to Erich's system setup.\nWhat would you like to do?" \
-  14 50 16 \
+cmd=(
+  dialog
+  --clear
+  --cancel-label "Exit"
+  --backtitle "system setup"
+  --menu "Welcome to Erich's system setup.\nWhat would you like to do?"
+  14 50 16
 )
 
 options=(1 "Fresh system setup"
-         2 "Create symbolic links"
-         3 "Install base system"
-         4 "Install TU Delft tools"
-         5 "Latitude 7440 Hacks"
-         6 "Update system"
-         7 "sudo rules")
+  2 "Create symbolic links"
+  3 "Install base system"
+  4 "Install TU Delft tools"
+  5 "Latitude 7440 Hacks"
+  6 "Update system"
+  7 "sudo rules")
 
 if [ $CI ]; then
   choices=1
@@ -52,7 +52,7 @@ function run_me() {
 
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
-function base_sys(){
+function base_sys() {
   echo "Setting up yay..."
 
   [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -142,8 +142,6 @@ function base_sys(){
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
-  lunarvim_install
-
   echo "Setting up docker..."
 
   pac_install \
@@ -196,7 +194,7 @@ function base_sys(){
   return 0
 }
 
-function tudelft(){
+function tudelft() {
   curl https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --import -
 
   yay_install \
@@ -207,7 +205,7 @@ function tudelft(){
 }
 
 ########################## Computer Specific ####################################
-function latitude_7440(){
+function latitude_7440() {
   # install drivers for intel webcam
   pac_install libdrm
   git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
@@ -224,7 +222,7 @@ function latitude_7440(){
 }
 
 ########################## update and upgrade ##################################
-function update_sys(){
+function update_sys() {
   echo "Updating system..."
   if [ $CI ]; then
     return 0
@@ -237,7 +235,7 @@ function update_sys(){
 }
 
 ############################## annoyances ######################################
-function sudo_rules(){
+function sudo_rules() {
   echo "Setting sudo rules..."
   sudo_rule /sbin/shutdown
   sudo_rule /sbin/reboot
@@ -245,39 +243,38 @@ function sudo_rules(){
   return 0
 }
 
-for choice in $choices
-do
+for choice in $choices; do
   case $choice in
-    1)
-       sym_links
-       base_sys
-       update_sys
-       sudo_rules
-       run_me
-       ;;
-    2)
-       sym_links
-       run_me
-       ;;
-    3)
-       base_sys
-       run_me
-       ;;
-    4)
-       tudelft
-       run_me
-       ;;
-    5)
-       latitude_7440
-       run_me
-       ;;
-    6)
-       update_sys
-       run_me
-       ;;
-    7)
-       sudo_rules
-       run_me
-       ;;
+  1)
+    sym_links
+    base_sys
+    update_sys
+    sudo_rules
+    run_me
+    ;;
+  2)
+    sym_links
+    run_me
+    ;;
+  3)
+    base_sys
+    run_me
+    ;;
+  4)
+    tudelft
+    run_me
+    ;;
+  5)
+    latitude_7440
+    run_me
+    ;;
+  6)
+    update_sys
+    run_me
+    ;;
+  7)
+    sudo_rules
+    run_me
+    ;;
   esac
 done

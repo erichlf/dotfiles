@@ -55,6 +55,4 @@ starship_install
 lazygit_install
 
 # hack to get the proper shell to open when using devcontainer connect and nvim
-echo "export SHELL=zsh" >> $HOME/.profile
-
-lunarvim_install
+echo "export SHELL=zsh" >>$HOME/.profile
