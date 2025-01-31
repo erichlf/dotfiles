@@ -19,7 +19,7 @@ return {
         dotfiles_branch = "main",
         dotfiles_targetPath = "~/dotfiles",
         dotfiles_installCommand = "install.sh",
-        nvim_binary = "lvim",
+        nvim_binary = "nvim",
         shell = "zsh",
       }
       require("devcontainer-cli").setup(opts)

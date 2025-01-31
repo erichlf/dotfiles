@@ -2,40 +2,132 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+-- custom keymaps
+-- for conciseness
+local keymap = vim.keymap
+local wk = require("which-key")
+
+-- helper for keymaps
+local function map(mode, l, r, opts)
+  keymap.set(mode, l, r, opts)
+end
+
+local function nmap(l, r, opts)
+  map("n", l, r, opts)
+end
+
+local function vmap(l, r, opts)
+  map("v", l, r, opts)
+end
+
+local function unmap(mode, l)
+  keymap.del(mode, l)
+end
+
+local function nunmap(l)
+  unmap("n", l)
+end
+
+local function vunmap(l)
+  unmap("v", l)
+end
+
+local function wunmap(l)
+  nunmap("<leader>" .. l)
+end
+
+local function wgroup(groups)
+  for key, value in pairs(groups) do
+    wk.add({ "<leader>" .. key, group = value })
+  end
+end
+
+local function wmap(mode, mappings)
+  for key, value in pairs(mappings) do
+    local mapping = "<leader>" .. key
+    local command = value[1]
+    local description = value[2]
+
+    wk.add({ mapping, command, desc = description, mode = mode })
+  end
+end
+
+local function wnmap(mappings)
+  wmap("n", mappings)
+end
+
+local function wvmap(mappings)
+  wmap("v", mappings)
+end
+
 -- custom which-key mappings
 local groups = {}
 local mappings = {}
 local vmappings = {}
 
+-- comments
+nmap(";;", "gcc", { remap = true })
+nmap(";A", "gcA", { remap = true })
+nmap(";p", "gcap", { remap = true })
+nmap(";o", "gco", { remap = true })
+nmap(";O", "gcO", { remap = true })
+vmap(";", "gc", { remap = true })
+
+-- navigation
+nmap("H", "Hzz")
+nmap("L", "Lzz")
+
+-- navigation between window panes
+nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
+nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
+nmap("<C-k>", "<CMD>NvimTmuxNavigateUp<CR>")
+nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
+nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
+nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
+
+-- navigation between buffers
+nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
+nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
+
+nmap("<M-3>", "<leader>Tf")
+nmap("<M-2>", "<leader>Th")
+nmap("<M-1>", "<leader>Tv")
+
+-- which-key setup
 -- unmap things that I want to use
--- mappings["/"] = {} -- comment
--- mappings[";"] = {} -- Dashboard
--- mappings["b"]["b"] = {} -- previous buffer
--- mappings["b"]["D"] = {} -- BufferLineSortByDirectory
--- mappings["b"]["l"] = {} -- BufferLineCloseRight
--- mappings["b"]["L"] = {} -- sort by language
--- mappings["g"]["b"] = {} -- git new branch
--- mappings["g"]["l"] = {} -- git blame
--- mappings["g"]["L"] = {} -- git blame
--- mappings["bf"] = {} -- buffer find
--- mappings["c"] = {} -- close buffer
--- mappings["s"] = {} -- search
--- mappings["w"] = {} -- save
--- vmappings["/"] = {} -- comment
+wunmap("`")
+wunmap("fb")
+wunmap("fc")
+wunmap("fe")
+wunmap("fE")
+wunmap("ft")
+wunmap("fT")
+wunmap("gg")
+wunmap("gG")
+wunmap("bo")
+wunmap("bl")
+wunmap("br")
 
 -- set menu items
-groups["D"] = "Devcontainer"
-groups["f"] = "Files"
-groups["q"] = "Quit"
-groups["/"] = "Search"
-groups["w"] = "Windows"
+groups["D"] = "+devcontainer"
+groups["f"] = "+files"
+groups["/"] = "+search"
+groups["t"] = "+terminal"
+
+wgroup(groups)
 
 mappings["+"] = { "<C-a>", "Increment Number" } -- increment
 mappings["-"] = { "<C-x>", "Decrement Number" } -- decrement
+mappings["h"] = { "<CMD>nohlsearch<CR>", "No Highlight" }
 
 -- buffers operations
 mappings["<Tab>"] = { "<CMD>edit #<CR>", "Previous Active Buffer" }
-mappings["0"] = { "<CMD>NvimTreeFocus<CR>", "Focus Explorer" }
+mappings["0"] = {
+  function()
+    require("neo-tree.command").execute({ toggle = false, dir = vim.uv.cwd() })
+  end,
+  "Focus Explorer",
+}
 mappings["1"] = { "<CMD>BufferLineGoToBuffer 1<CR>", "Select Buffer 1" }
 mappings["2"] = { "<CMD>BufferLineGoToBuffer 2<CR>", "Select Buffer 2" }
 mappings["3"] = { "<CMD>BufferLineGoToBuffer 3<CR>", "Select Buffer 3" }
@@ -47,16 +139,15 @@ mappings["8"] = { "<CMD>BufferLineGoToBuffer 8<CR>", "Select Buffer 8" }
 mappings["9"] = { "<CMD>BufferLineGoToBuffer 9<CR>", "Select Buffer 9" }
 
 mappings["b/"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find" }
-mappings["bb"] = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" }
-mappings["bd"] = { "<CMD>BufferKill<CR>", "Close" }
+mappings["b["] = { "<CMD>BufferLineCycleNext<CR>", "Previous" }
+mappings["b]"] = { "<CMD>BufferLineCyclePrev<CR>", "Next" }
+mappings["bb"] = { "<CMD>Telescope oldfiles<CR>", "Open Recent File" }
 mappings["bD"] = { "<CMD>BufferSortByDirectory<CR>", "Sort by Directory" }
 mappings["bj"] = { "<CMD>BufferLinePick<CR>", "Jump" }
 mappings["bl"] = { "<CMD>BufferLineSortByExtension<CR>", "Sort by Language" }
 mappings["bL"] = { "<CMD>BufferLineCloseLeft<CR>", "Close All to Left" }
-mappings["bM"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", "Close All Other" }
-mappings["bn"] = { "<CMD>BufferLineCycleNext<CR>", "Next" }
 mappings["bN"] = { "<CMD>tabnew<CR>", "New" }
-mappings["bp"] = { "<CMD>BufferLineCyclePrev<CR>", "Previous" }
+mappings["bO"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", "Close All Other" }
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 
 -- command
@@ -97,7 +188,7 @@ mappings["fw"] = { "<CMD>noautocmd w<CR>", "Save Current (noautocmd)" }
 mappings["fo"] = { "<CMD>Oil --float .<CR>", "Open Oil in Current Path" }
 
 -- git
-mappings["gl"] = { "<CMD>LazyGit<CR>", "LazyGit (float)" }
+mappings["gl"] = { "<CMD>LazyGitCurrentFile<CR>", "LazyGit (float)" }
 mappings["gb"] = { "<CMD>Gitsigns toggle_current_line_blame<CR>", "Blame" }
 
 -- gitlab
@@ -154,65 +245,5 @@ mappings["ws"] = { "<CMD>split<CR>", "Split Horizontal" }
 mappings["wt"] = { "<CMD>tab split<CR>", "Send to Tab" }
 mappings["wv"] = { "<CMD>vsplit<CR>", "Split Vertical" }
 
-local wk = require("which-key")
-for key, value in pairs(groups) do
-  wk.add({ "<leader>" .. key, group = value })
-end
-
-for key, value in pairs(mappings) do
-  local map = "<leader>" .. key
-  local command = value[1]
-  local description = value[2]
-
-  wk.add({ map, command, desc = description, mode = "n" })
-end
-
-for key, value in pairs(vmappings) do
-  local map = "<leader>" .. key
-  local command = value[1]
-  local description = value[2]
-
-  wk.add({ map, command, desc = description, mode = "v" })
-end
-
-
--- custom keymaps
--- for conciseness
-local keymap = vim.keymap
-
--- helper for keymaps
-local function map(mode, l, r, opts)
-  keymap.set(mode, l, r, opts)
-end
-
-local function nmap(l, r, opts)
-  map("n", l, r, opts)
-end
-
-local function vmap(l, r, opts)
-  map("v", l, r, opts)
-end
-
--- comments
-nmap(";;", "gcc", { remap = true })
-nmap(";A", "gcA", { remap = true })
-nmap(";p", "gcap", { remap = true })
-nmap(";o", "gco", { remap = true })
-nmap(";O", "gcO", { remap = true })
-vmap(";", "gc", { remap = true })
-
--- navigation
-nmap("H", "Hzz")
-nmap("L", "Lzz")
-
--- navigation between window panes
-nmap("<C-h>", "<CMD>NvimTmuxNavigateLeft<CR>")
-nmap("<C-j>", "<CMD>NvimTmuxNavigateDown<CR>")
-nmap("<C-k>", "<CMD>NvimTmuxNavigateUp<CR>")
-nmap("<C-l>", "<CMD>NvimTmuxNavigateRight<CR>")
-nmap("<C-Tab>", "<CMD>NvimTmuxNavigateLastActive<CR>")
-nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
-
--- navigation between buffers
-nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
-nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
+wnmap(mappings)
+wvmap(vmappings)
