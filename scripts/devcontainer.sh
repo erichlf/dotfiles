@@ -14,10 +14,7 @@ print_details
 apt_update
 apt_install \
   fzf \
-  golang-go \
-  npm \
   pass \
-  python3-venv \
   software-properties-common \
   stow \
   wget \
@@ -26,10 +23,6 @@ apt_install \
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
-
-# ensure that submodules are downloaded
-git submodule init
-git submodule update
 
 # ensure that .config is owned by the current user
 if [[ -d $HOME/.config && ! $(stat -c "%U" $HOME/.config) == "$(whoami)" ]]; then
@@ -44,9 +37,6 @@ apt_install libfuse2 fuse3
 wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
 sudo mv nvim.appimage /usr/bin/nvim
 sudo chmod u+x /usr/bin/nvim
-
-curl https://sh.rustup.rs -sSf | bash -s -- -y
-source $HOME/.cargo/env
 
 zsh_extras
 
