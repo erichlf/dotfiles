@@ -12,6 +12,8 @@ pkg install -y \
   fzf \
   git \
   getconf \
+  gnupg \
+  make \
   openssh \
   python-pip \
   rsync \
@@ -19,7 +21,7 @@ pkg install -y \
   termux-api \
   termux-tools \
   neovim \
-  which make \
+  which \
   zsh
 
 pip install pygments
