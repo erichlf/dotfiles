@@ -139,8 +139,8 @@ mappings["8"] = { "<CMD>BufferLineGoToBuffer 8<CR>", "Select Buffer 8" }
 mappings["9"] = { "<CMD>BufferLineGoToBuffer 9<CR>", "Select Buffer 9" }
 
 mappings["b/"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find" }
-mappings["b["] = { "<CMD>BufferLineCycleNext<CR>", "Previous" }
-mappings["b]"] = { "<CMD>BufferLineCyclePrev<CR>", "Next" }
+mappings["b]"] = { "<CMD>BufferLineCycleNext<CR>", "Previous" }
+mappings["b["] = { "<CMD>BufferLineCyclePrev<CR>", "Next" }
 mappings["bb"] = { "<CMD>Telescope oldfiles<CR>", "Open Recent File" }
 mappings["bD"] = { "<CMD>BufferSortByDirectory<CR>", "Sort by Directory" }
 mappings["bj"] = { "<CMD>BufferLinePick<CR>", "Jump" }
