@@ -10,5 +10,6 @@ opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or 
 -- turn off swapfile
 opt.swapfile = false
 
--- backspace
-opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+-- enable line numbering
+opt.number = true
+opt.relativenumber = true
