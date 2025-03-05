@@ -26,9 +26,18 @@ return {
     end,
   },
 
+  -- floating command line
   {
     "VonHeikemen/fine-cmdline.nvim",
     dependencies = {
+      { "MunifTanjim/nui.nvim" },
+    },
+  },
+
+  -- floating search
+  {
+    "VonHeikemen/searchbox.nvim",
+    requires = {
       { "MunifTanjim/nui.nvim" },
     },
   },
