@@ -74,6 +74,44 @@ return {
   { "stevearc/dressing.nvim" },
 
   {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "bash-language-server",
+        "clang-format",
+        "clangd",
+        "cmakelang",
+        "codespell",
+        "debugpy",
+        "docker-compose-language-service",
+        "dockerfile-language-server",
+        "hadolint",
+        "jupytext",
+        "luacheck",
+        "luaformatter",
+        "lua-language-server",
+        "markdown-oxide",
+        "markdown-toc",
+        "markdownlint",
+        "markdownlint-cli2",
+        "marksman",
+        "misspell",
+        "neocmakelsp",
+        "pyright",
+        "python-lsp-server",
+        "ruff",
+        "shellcheck",
+        "shfmt",
+        "stylua",
+        "taplo",
+        "yamlfmt",
+        "yamllint",
+        "yaml-language-server",
+      },
+    },
+  },
+
+  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
@@ -157,6 +195,29 @@ return {
         zindex = 20, -- The Z-index of the context window
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       })
+    end,
+  },
+
+  -- add more treesitter parsers
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      -- add tsx and treesitter
+      vim.list_extend(opts.ensure_installed, {
+        "bash",
+        "cpp",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "regex",
+        "vim",
+        "xml",
+        "yaml",
+      })
+
+      return opts
     end,
   },
 
