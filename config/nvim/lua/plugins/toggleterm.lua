@@ -13,7 +13,7 @@ return {
         desc = "ToggleTerm (float root_dir)",
       },
       {
-        "<M-4>",
+        "<M-3>",
         function()
           local count = vim.v.count1
           require("toggleterm").toggle(count, 0, LazyVim.root.get(), "float")
