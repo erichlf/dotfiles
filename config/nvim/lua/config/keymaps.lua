@@ -165,6 +165,7 @@ vmappings[";"] = { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment
 
 -- Dashboard
 mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
+mappings["H"] = { "<CMD>lua Snacks.dashboard()<CR>", "Dashboard" }
 
 -- Devcontainer
 mappings["Du"] = { "<CMD>DevcontainerUp<CR>", "Bring Up the DevContainer" }
