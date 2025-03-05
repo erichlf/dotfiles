@@ -33,6 +33,7 @@ return {
       { "MunifTanjim/nui.nvim" },
     },
   },
+
   -- git
   {
     "kdheepak/lazygit.nvim",
@@ -71,15 +72,7 @@ return {
 
   -- interface
   { "stevearc/dressing.nvim" },
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {},
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
