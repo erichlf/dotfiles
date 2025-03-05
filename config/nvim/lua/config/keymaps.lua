@@ -161,14 +161,13 @@ mappings["bO"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", 
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 
 -- command
-mappings["<leader>"] = { "<cmd>FineCmdline<CR>", "Command" }
+mappings["<leader>"] = { "<CMD>FineCmdline<CR>", "Command" }
 
 -- comment lines
 mappings[";"] = { "<Plug>(comment_toggle_linewise_current)<CR>", "Toggle Comment" }
 vmappings[";"] = { "<Plug>(comment_toggle_linewise_visual)<CR>", "Toggle Comment" }
 
 -- Dashboard
-mappings["H"] = { "<CMD>Alpha<CR>", "Dashboard" }
 mappings["H"] = { "<CMD>lua Snacks.dashboard()<CR>", "Dashboard" }
 
 -- Devcontainer
@@ -237,17 +236,17 @@ mappings["qx"] = { "<CMD>x<CR>", "Quit and Save" }
 
 -- search
 mappings["/b"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find Buffer" }
-mappings["/c"] = { "<cmd>Telescope colorscheme<CR>", "Colorscheme" }
-mappings["/f"] = { "<cmd>Telescope find_files<CR>", "Find File" }
-mappings["/h"] = { "<cmd>Telescope help_tags<CR>", "Find Help" }
-mappings["/H"] = { "<cmd>Telescope highlights<CR>", "Find highlight groups" }
-mappings["/M"] = { "<cmd>Telescope man_pages<CR>", "Man Pages" }
-mappings["/r"] = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" }
-mappings["/R"] = { "<cmd>Telescope registers<CR>", "Registers" }
-mappings["/t"] = { "<cmd>Telescope live_grep<CR>", "Text" }
-mappings["/k"] = { "<cmd>Telescope keymaps<CR>", "Keymaps" }
-mappings["/C"] = { "<cmd>Telescope commands<CR>", "Commands" }
-mappings["/l"] = { "<cmd>Telescope resume<CR>", "Resume last search" }
+mappings["/c"] = { "<CMD>Telescope colorscheme<CR>", "Colorscheme" }
+mappings["/f"] = { "<CMD>Telescope find_files<CR>", "Find File" }
+mappings["/h"] = { "<CMD>Telescope help_tags<CR>", "Find Help" }
+mappings["/H"] = { "<CMD>Telescope highlights<CR>", "Find highlight groups" }
+mappings["/M"] = { "<CMD>Telescope man_pages<CR>", "Man Pages" }
+mappings["/r"] = { "<CMD>Telescope oldfiles<CR>", "Open Recent File" }
+mappings["/R"] = { "<CMD>Telescope registers<CR>", "Registers" }
+mappings["/t"] = { "<CMD>Telescope live_grep<CR>", "Text" }
+mappings["/k"] = { "<CMD>Telescope keymaps<CR>", "Keymaps" }
+mappings["/C"] = { "<CMD>Telescope commands<CR>", "Commands" }
+mappings["/l"] = { "<CMD>Telescope resume<CR>", "Resume last search" }
 
 -- window operations
 mappings["wd"] = { "<CMD>close<CR>", "Close" }
