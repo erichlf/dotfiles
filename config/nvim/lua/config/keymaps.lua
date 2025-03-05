@@ -89,10 +89,6 @@ nmap("<C-Space>", "<CMD>NvimTmuxNavigateNext<CR>")
 nmap("<M-Right>", "<CMD>BufferLineCycleNext<CR>")
 nmap("<M-Left>", "<CMD>BufferLineCyclePrev<CR>")
 
-nmap("<M-3>", "<leader>Tf")
-nmap("<M-2>", "<leader>Th")
-nmap("<M-1>", "<leader>Tv")
-
 -- which-key setup
 -- unmap things that I want to use
 wunmap("`")
@@ -122,21 +118,30 @@ mappings["h"] = { "<CMD>nohlsearch<CR>", "No Highlight" }
 
 -- buffers operations
 mappings["<Tab>"] = { "<CMD>edit #<CR>", "Previous Active Buffer" }
+
+-- buffer quick switch index starts at 1 instead of 0
+wk.add({
+  {
+    "<leader>",
+    group = "buffers",
+    expand = function()
+      local buf_entries = require("which-key.extras").expand.buf()
+      buf_entries = vim.list_slice(buf_entries, 1, 9)
+      -- Increment displayed index by 1 for each entry
+      for _, entry in ipairs(buf_entries) do
+        entry[1] = tostring(tonumber(entry[1]) + 1) -- Convert "0" → "1", etc.
+      end
+
+      return buf_entries
+    end,
+  },
+})
 mappings["0"] = {
   function()
     require("neo-tree.command").execute({ toggle = false, dir = vim.uv.cwd() })
   end,
   "Focus Explorer",
 }
-mappings["1"] = { "<CMD>BufferLineGoToBuffer 1<CR>", "Select Buffer 1" }
-mappings["2"] = { "<CMD>BufferLineGoToBuffer 2<CR>", "Select Buffer 2" }
-mappings["3"] = { "<CMD>BufferLineGoToBuffer 3<CR>", "Select Buffer 3" }
-mappings["4"] = { "<CMD>BufferLineGoToBuffer 4<CR>", "Select Buffer 4" }
-mappings["5"] = { "<CMD>BufferLineGoToBuffer 5<CR>", "Select Buffer 5" }
-mappings["6"] = { "<CMD>BufferLineGoToBuffer 6<CR>", "Select Buffer 6" }
-mappings["7"] = { "<CMD>BufferLineGoToBuffer 7<CR>", "Select Buffer 7" }
-mappings["8"] = { "<CMD>BufferLineGoToBuffer 8<CR>", "Select Buffer 8" }
-mappings["9"] = { "<CMD>BufferLineGoToBuffer 9<CR>", "Select Buffer 9" }
 
 mappings["b/"] = { "<CMD>Telescope buffers previewer=true<CR>", "Find" }
 mappings["b]"] = { "<CMD>BufferLineCycleNext<CR>", "Next" }
