@@ -103,6 +103,7 @@ wunmap("gG")
 wunmap("bo")
 wunmap("bl")
 wunmap("br")
+wunmap("<leader>")
 
 -- set menu items
 groups["D"] = "+devcontainer"
