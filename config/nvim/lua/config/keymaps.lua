@@ -65,10 +65,6 @@ local groups = {}
 local mappings = {}
 local vmappings = {}
 
--- search
-nmap("/", "<CMD>SearchBoxIncSearch<CR>", { remap = true })
-nmap("?", "<CMD>SearchBoxIncSearch reverse=true<CR>", { remap = true })
-
 -- comments
 nmap(";;", "gcc", { remap = true })
 nmap(";A", "gcA", { remap = true })
