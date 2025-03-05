@@ -57,12 +57,8 @@
     prompt = false
 [difftool "meld"]
     cmd = meld -n "$LOCAL" "$REMOTE"
-[includeIf "gitdir:~/workspace/*/src/**"]
-    path = ~/workspace/.samxl-gitconfig
-[includeIf "gitdir:~/ros_ws/src/**"]
-    path = ~/ros_ws/.samxl-gitconfig
-[includeIf "gitdir:/workspaces/src/**"]
-    path = /workspaces/.samxl-gitconfig
+[url "git@gitlab.tudelft.nl:"]
+  insteadOf = https://gitlab.tudelft.nl/
 [alias]
     diffall = difftool -d
     diffeach = "!f(){\

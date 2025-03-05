@@ -3,7 +3,7 @@ return {
   {
     "windwp/nvim-ts-autotag",
     init = function()
-      require("nvim-ts-autotag").init()
+      require("nvim-ts-autotag").setup()
     end,
   },
 
