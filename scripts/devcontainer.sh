@@ -4,7 +4,7 @@ set -e
 shopt -s expand_aliases
 
 SYSTEM="DEVCONTAINER"
-cd $(dirname $0)/..
+cd "$(dirname "$0")/.."
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
@@ -26,8 +26,8 @@ apt_install \
 sudo chsh -s /usr/bin/zsh
 
 # ensure that .config is owned by the current user
-if [[ -d $HOME/.config && ! $(stat -c "%U" $HOME/.config) == "$(whoami)" ]]; then
-  sudo chown $(id -u):$(id -g) $HOME/.config
+if [[ -d $HOME/.config && ! $(stat -c "%U" "$HOME/.config") == "$(whoami)" ]]; then
+  sudo chown $(id -u):$(id -g) "$HOME/.config"
 fi
 
 # create links to dotfiles
@@ -46,4 +46,4 @@ starship_install
 lazygit_install
 
 # hack to get the proper shell to open when using devcontainer connect and nvim
-echo "export SHELL=zsh" >>$HOME/.profile
+echo "export SHELL=zsh" >>"$HOME/.profile"

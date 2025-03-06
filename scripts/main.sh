@@ -2,7 +2,7 @@
 set -e
 
 SYSTEM="MAIN"
-cd $(dirname $0)/..
+cd "$(dirname "$0")/.."
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
@@ -12,10 +12,6 @@ print_details
 THIS=$0
 
 pac_install base-devel dialog git stow
-
-# get the version of ubuntu
-codename=$(lsb_release -a 2>/dev/null | grep Codename | awk -F ' ' '{print $2}')
-release=$(lsb_release -a 2>/dev/null | grep Release | awk -F ' ' '{print $2}')
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
@@ -39,15 +35,15 @@ options=(1 "Fresh system setup"
   6 "Update system"
   7 "sudo rules")
 
-if [ $CI ]; then
+if [ "$CI" ]; then
   choices=1
 else
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 fi
 
 function run_me() {
-  [ $CI ] && exit
-  bash $THIS
+  [ "$CI" ] && exit
+  bash "$THIS"
 }
 
 ############################# my base system ###################################
@@ -80,7 +76,7 @@ function base_sys() {
     tmux \
     wget
 
-  guake --restore-preferences $DOTFILES_DIR/guake.conf
+  guake --restore-preferences "$DOTFILES_DIR/guake.conf"
   gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
   gnome-extensions enable pamac-updates@manjaro.org
 
@@ -141,8 +137,8 @@ function base_sys() {
     rust \
     xclip
 
-  mkdir -p $HOME/.npm-global
-  npm config set prefix $HOME/.npm-global
+  mkdir -p "$HOME/.npm-global"
+  npm config set prefix "$HOME/.npm-global"
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
@@ -155,8 +151,8 @@ function base_sys() {
     docker-compose \
     gnupg
 
-  sudo usermod -a -G docker $USER
-  if [ ! $CI ]; then
+  sudo usermod -a -G docker "$USER"
+  if [ ! "$CI" ]; then
     sudo systemctl daemon-reload
     sudo systemctl enable docker
     sudo systemctl start docker
@@ -214,7 +210,7 @@ function latitude_7440() {
   pac_install libdrm
   git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
   cd /tmp/archlinux-ipu6-webcam
-  git apply $DOTFILES_DIR/scripts/patches/intel_webcam.patch
+  git apply "$DOTFILES_DIR/scripts/patches/intel_webcam.patch"
   ./install.sh
 
   # install driver for fingerprint scanner, enable it, and enroll left and right
@@ -228,7 +224,7 @@ function latitude_7440() {
 ########################## update and upgrade ##################################
 function update_sys() {
   echo "Updating system..."
-  if [ $CI ]; then
+  if [ "$CI" ]; then
     return 0
   fi
 
