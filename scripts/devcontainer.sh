@@ -14,6 +14,7 @@ print_details
 apt_update
 apt_install \
   fzf \
+  npm \
   pass \
   python3-venv \
   software-properties-common \
