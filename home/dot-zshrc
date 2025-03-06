@@ -69,6 +69,9 @@ for extension in $extensions; do
   autoload -U $extension;
 done
 
+# don't save history by rename
+unsetopt HIST_SAVE_BY_COPY
+
 # no point in rewriting my aliases
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.aliases ] && source ~/.aliases
