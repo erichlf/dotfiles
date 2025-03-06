@@ -15,6 +15,7 @@ apt_update
 apt_install \
   fzf \
   pass \
+  python3-venv \
   software-properties-common \
   stow \
   wget \
