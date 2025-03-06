@@ -90,7 +90,6 @@ return {
         "misspell",
         "neocmakelsp",
         "pyright",
-        "python-lsp-server",
         "ruff",
         "shellcheck",
         "shfmt",
