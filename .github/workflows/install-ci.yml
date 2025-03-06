@@ -11,7 +11,7 @@ env:
   NC: '\033[0m'
 jobs:
   main:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa  
+          chmod 600 ~/.ssh/id_rsa
           # Update known hosts within the container (recommended)
           echo -e "${GREEN}Update known hosts${NC}"
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
@@ -52,7 +52,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04]
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
     env:
       DEV_WORKSPACE: "/workspace"
     steps:
