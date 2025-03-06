@@ -157,7 +157,12 @@ mappings["bO"] = { "<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>", 
 mappings["bR"] = { "<CMD>BufferLineCloseRight<CR>", "Close All to Right" }
 
 -- command
-mappings["<leader>"] = { "<CMD>FineCmdline<CR>", "Command" }
+mappings["<leader>"] = {
+  function()
+    vim.api.nvim_feedkeys(":", "n", false)
+  end,
+  "Command",
+}
 
 -- comment lines
 mappings[";"] = { "<Plug>(comment_toggle_linewise_current)<CR>", "Toggle Comment" }

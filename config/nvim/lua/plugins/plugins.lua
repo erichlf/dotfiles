@@ -26,14 +26,6 @@ return {
     end,
   },
 
-  -- floating command line
-  {
-    "VonHeikemen/fine-cmdline.nvim",
-    dependencies = {
-      { "MunifTanjim/nui.nvim" },
-    },
-  },
-
   -- git
   {
     "kdheepak/lazygit.nvim",
