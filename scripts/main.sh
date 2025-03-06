@@ -53,6 +53,9 @@ function run_me() {
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys() {
+  echo "Updating system..."
+  sudo pacman -Syu --noconfirm
+
   echo "Setting up yay..."
 
   [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -68,6 +71,7 @@ function base_sys() {
     fzf \
     gnome-shell-extension-appindicator \
     gnome-tweaks \
+    gtk3 \
     guake \
     iftop \
     pass \
