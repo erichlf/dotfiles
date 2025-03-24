@@ -40,6 +40,7 @@ apt_install libfuse2 fuse3
 wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
 sudo mv nvim.appimage /usr/bin/nvim
 sudo chmod u+x /usr/bin/nvim
+pip3 install debugpy
 
 zsh_extras
 
