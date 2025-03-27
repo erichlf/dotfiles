@@ -6,17 +6,25 @@ cd "$(dirname "$0")/.."
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
+source "$DOTFILES_DIR/scripts/base_install.sh"
 
 print_details
 
 THIS=$0
 
-pac_install base-devel dialog git stow
+pac_install \
+    base-devel \
+    dialog \
+    git \
+    stow \
+    zsh
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
 # git clone git@github.com:erichlf/dotfiles.git
 git submodule update --init --recursive
+
+sudo usermod -s $(which zsh) $(whoami)
 
 cmd=(
   dialog
@@ -49,128 +57,24 @@ function run_me() {
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys() {
-  echo "Updating system..."
-  sudo pacman -Syu --noconfirm
+  echo "Installing base system"
+  base_install
 
-  echo "Setting up yay..."
-
-  [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
-  cd /tmp/yay
-  makepkg -si --noconfirm
-  cd -
-
-  echo "Setting up shell..."
-
+  echo "Installing extras..."
   pac_install \
-    btop \
-    curl \
-    fzf \
     gnome-shell-extension-appindicator \
     gnome-tweaks \
     gtk3 \
     guake \
-    iftop \
-    pass \
-    python \
-    python-pip \
-    tmux \
-    wget
+    meld \
+    networkmanager-openvpn \
+    networkmanager-vpnc \
+    obsidian 
 
   guake --restore-preferences "$DOTFILES_DIR/guake.conf"
   gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
   gnome-extensions enable pamac-updates@manjaro.org
 
-  zsh_extras
-
-  starship_install
-
-  lazygit_install
-
-  echo "Setting up networking..."
-  pac_install \
-    networkmanager-openvpn \
-    networkmanager-vpnc \
-    openssh
-
-  echo "Installing developer tools..."
-  if [ ! -d "$HOME/workspace" ]; then
-    mkdir "$HOME/workspace"
-  fi
-
-  pac_install \
-    cmake \
-    gcc \
-    ipython \
-    llvm \
-    meld \
-    obsidian \
-    python-matplotlib \
-    python-numpy \
-    python-scipy \
-    python-setuptools
-
-  yay_install \
-    git-completion
-
-  echo "Installing python linters..."
-  pac_install \
-    python-black \
-    flake8 \
-    python-isort \
-    python-pylint \
-    python-wheel \
-    yapf
-
-  echo "Installing NEOVIM..."
-  pac_install \
-    chafa \
-    git-lfs \
-    go \
-    neovim \
-    nodejs \
-    npm \
-    python-gitpython \
-    python-pynvim \
-    python-ply \
-    python-virtualenv \
-    python-yaml \
-    rust \
-    xclip
-
-  mkdir -p "$HOME/.npm-global"
-  npm config set prefix "$HOME/.npm-global"
-  npm install -g neovim tree-sitter
-  curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
-
-  echo "Setting up docker..."
-
-  pac_install \
-    ca-certificates \
-    containerd \
-    docker \
-    docker-compose \
-    gnupg
-
-  sudo usermod -a -G docker "$USER"
-  if [ ! "$CI" ]; then
-    sudo systemctl daemon-reload
-    sudo systemctl enable docker
-    sudo systemctl start docker
-  fi
-
-  echo "Installing vscode..."
-  npm install -g @devcontainers/cli
-
-  yay_install \
-    git-credential-manager \
-    visual-studio-code-bin
-
-  git-credential-manager configure
-
-  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
-  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
-
-  echo "Installing extras..."
   yay_install \
     1password \
     1password-cli \

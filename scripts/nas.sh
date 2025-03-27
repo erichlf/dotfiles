@@ -8,68 +8,28 @@ cd $(dirname $0)/..
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
+source "$DOTFILES_DIR/scripts/base_install.sh"
 
 print_details
 
-git submodule init
-git submodule update
+pac_install \
+    base-devel \
+    dialog \
+    git \
+    stow
 
-if [[ $JUNEST_ENV -ne 1 ]]; then
-  INFO "Installing busybox..."
-  sudo busybox --install /opt/bin/
+############################# grab dotfiles ####################################
+# dotfiles already exist since I am running this script!
+# git clone git@github.com:erichlf/dotfiles.git
+git submodule update --init --recursive
 
-  INFO "Installing zsh..."
-  sudo opkg install \
-    zsh
-fi
-
-INFO "Installing JuNest..."
-[[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest
-[[ ! -d $HOME/.junest ]] && junest setup
-
-[[ $JUNEST_ENV -ne 1 ]] && [[ -d .local/share/junest ]] && ./.local/share/junest/bin/junest -b "--bind /share /share"
+sudo usermod -s $(which zsh) $(whoami)
 
 pac_update
-
-INFO "Installing stow..."
-pac_install \
-  stow
 
 sym_links
 
 INFO "Installing base system..."
-pac_install \
-  btop \
-  curl \
-  docker \
-  fzf \
-  gzip \
-  iftop \
-  openssh \
-  python \
-  python-pip \
-  tar \
-  tmux \
-  wget \
-  zsh
+base_install
 
-zsh_extras
-
-starship_install
-
-INFO "Installing neovim..."
-pac_install \
-  chafa \
-  git-lfs \
-  go \
-  neovim \
-  nodejs \
-  npm \
-  python-gitpython \
-  python-pynvim \
-  python-ply \
-  python-virtualenv \
-  python-yaml \
-  rust
-
-INFO "Finished setting up system..."
+INFO "Finished setting up system."

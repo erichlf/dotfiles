@@ -23,7 +23,7 @@ case "$kernel" in
       ./scripts/main.sh
     fi
     ;;
-  *"qnap"* )
+  *"cachyos"* )
     ./scripts/nas.sh
     ;;
   *)
