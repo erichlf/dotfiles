@@ -7,60 +7,42 @@ set -e
 cd $(dirname $0)/..
 DOTFILES_DIR=$(pwd)
 
-alias sudo=sudoj
 source "$DOTFILES_DIR/scripts/utils.sh"
+source "$DOTFILES_DIR/scripts/base_install.sh"
 
 print_details
 
-git submodule init
-git submodule update
-
-INFO "Installing busybox..."
-sudo busybox --install /opt/bin/
-
-INFO "Installing JuNest..."
-[[ ! -d $HOME/.local/share/junest ]] && git clone https://github.com/fsquillace/junest.git $HOME/.local/share/junest 
-[[ ! -d $HOME/.junest ]] && junest setup
-pac_update
-
-INFO "Installing stow..."
 pac_install \
+  base-devel \
+  dialog \
+  git \
   stow
+
+############################# grab dotfiles ####################################
+# dotfiles already exist since I am running this script!
+# git clone git@github.com:erichlf/dotfiles.git
+git submodule update --init --recursive
+
+sudo usermod -s $(which zsh) $(whoami)
+
+pac_update
 
 sym_links
 
-INFO "Installing zsh..."
-sudo opkg install \
-  zsh
-
 INFO "Installing base system..."
+base_install
+
 pac_install \
-  btop \
-  fzf \
-  iftop \
-  python \
-  python-pip \
-  tmux
+  cockpit \
+  cockpit-files \
+  cockpit-storaged
 
-zsh_extras
+yay_install \
+  cockpit-file-sharing \
+  cockpit-sensors \
+  cockpit-zfs-manager
 
-starship_install
+sudo systemctl enable --now sshd
+sudo systemctl enable --now cockpit.socket
 
-INFO "Installing neovim..."
-pac_install \
-  chafa \
-  git-lfs \
-  go \
-  neovim \
-  nodejs \
-  npm \
-  python-gitpython \
-  python-pynvim \
-  python-ply \
-  python-virtualenv \
-  python-yaml \
-  rust
-
-lunarvim_install
-
-INFO "Finished setting up system..."
+INFO "Finished setting up system."

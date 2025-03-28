@@ -5,13 +5,15 @@ DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
 
-print_details 
- 
+print_details
+
 INFO "Installing base system"
 pkg install -y \
   fzf \
   git \
   getconf \
+  gnupg \
+  make \
   openssh \
   python-pip \
   rsync \
@@ -19,7 +21,7 @@ pkg install -y \
   termux-api \
   termux-tools \
   neovim \
-  which make \
+  which \
   zsh
 
 pip install pygments
@@ -34,8 +36,6 @@ sym_links
 zsh_extras
 
 starship_install
-
-lunarvim_install
 
 yes | pkg remove nano
 
