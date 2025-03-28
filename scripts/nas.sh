@@ -13,10 +13,10 @@ source "$DOTFILES_DIR/scripts/base_install.sh"
 print_details
 
 pac_install \
-    base-devel \
-    dialog \
-    git \
-    stow
+  base-devel \
+  dialog \
+  git \
+  stow
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
@@ -31,5 +31,15 @@ sym_links
 
 INFO "Installing base system..."
 base_install
+
+pac_install \
+  cockpit \
+  cockpit-files \
+  cockpit-storaged
+
+yay_install \
+  cockpit-file-sharing \
+  cockpit-sensors \
+  cockpit-zfs-manager
 
 INFO "Finished setting up system."
