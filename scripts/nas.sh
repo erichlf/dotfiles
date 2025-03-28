@@ -42,4 +42,7 @@ yay_install \
   cockpit-sensors \
   cockpit-zfs-manager
 
+sudo systemctl enable --now sshd
+sudo systemctl enable --now cockpit.socket
+
 INFO "Finished setting up system."
