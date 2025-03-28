@@ -45,4 +45,8 @@ yay_install \
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
 
+# allow ufw to manage docker traffic
+sudo iptables -I DOCKER-USER -i enp4s0 -s 192.168.1.0/24 -j ACCEPT
+sudo iptables -I DOCKER-USER -i enp5s0 -s 192.168.1.0/24 -j ACCEPT
+
 INFO "Finished setting up system."
