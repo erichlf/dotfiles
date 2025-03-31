@@ -39,7 +39,9 @@ function base_install() {
     python-setuptools
 
   yay_install \
-    git-completion
+    dust \
+    git-completion \
+    lazydocker
 
   echo "Installing NEOVIM..."
   pac_install \
@@ -63,7 +65,7 @@ function base_install() {
   npm config set prefix "$HOME/.npm-global"
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
-  
+
   npm install -g @devcontainers/cli
 
   echo "Setting up docker..."
