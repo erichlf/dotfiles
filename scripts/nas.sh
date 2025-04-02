@@ -16,6 +16,7 @@ pac_install \
   base-devel \
   dialog \
   git \
+  restic \
   stow
 
 ############################# grab dotfiles ####################################
