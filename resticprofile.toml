@@ -1,0 +1,63 @@
+version = "1"
+
+[global]
+{{ $DRIVE_UUID := "9720d32e-6f20-4871-a264-e986a48ad970" }}
+{{ $MOUNTPOINT := "/mnt/backup" }}
+
+[generic]
+reposity = "local:{{ $MOUNTPOINT }}/{{ .Profile.Name }}"
+run-before = "mount -U {{ $DRIVE_UUID }} {{ $MOUNTPOINT }}"
+run-after = "umount {{ $MOUNTPOINT }}"
+run-after-fail = "umount {{ $MOUNTPOINT }}"
+lock = "$HOME/resticprofile-{{ .Profile.Name }}.lock"
+restic-lock-retry-after = "5m"
+restic-stale-lock-age = "2h"
+insecure-no-password = true
+
+[generic.backup]
+check-before = false
+check-after = true
+one-file-system = false
+run-after = "echo Backup of {{ .Profile.Name }} complete"
+run-before = ["echo Starting backup of {{ .Profile.Name }} at {{ .Now.UTC }}"]
+schedule-permission = "system"
+schedule-priority = "background"
+priority = "low"
+
+[generic.retention]
+after-backup = true
+before-backup = false
+prune = true
+
+[generic.check]
+read-date = true
+
+[Music]
+inherit = "generic"
+
+[Music.backup]
+source = "/share/Public/Media/Music"
+schedule = "Mon *-*-* 08:00:00"
+
+[Music.retention]
+keep-weekly = 1
+
+[Photos]
+inherit = "generic"
+
+[Photos.backup]
+source = "/share/Public/Photos"
+schedule = "Tue *-*-* 08:00:00"
+
+[Photos.retention]
+keep-weekly = 1
+
+[Containers]
+inherit = "generic"
+
+[Containers.backup]
+source = "/share/Container"
+schedule = "*-*-* 09:00:00"
+
+[Containers.retention]
+keep-daily = 7

@@ -16,7 +16,6 @@ pac_install \
   base-devel \
   dialog \
   git \
-  restic \
   stow
 
 ############################# grab dotfiles ####################################
@@ -36,12 +35,14 @@ base_install
 pac_install \
   cockpit \
   cockpit-files \
-  cockpit-storaged
+  cockpit-storaged \
+  restic
 
 yay_install \
   cockpit-file-sharing \
   cockpit-sensors \
-  cockpit-zfs-manager
+  cockpit-zfs-manager \
+  resticprofile
 
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
