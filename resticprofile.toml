@@ -5,7 +5,7 @@ version = "1"
 {{ $MOUNTPOINT := "/mnt/backup" }}
 
 [generic]
-reposity = "local:{{ $MOUNTPOINT }}/{{ .Profile.Name }}"
+repository = "{{ $MOUNTPOINT }}/{{ .Profile.Name }}"
 run-before = "mount -U {{ $DRIVE_UUID }} {{ $MOUNTPOINT }}"
 run-after = "umount {{ $MOUNTPOINT }}"
 run-after-fail = "umount {{ $MOUNTPOINT }}"
