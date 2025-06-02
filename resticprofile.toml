@@ -5,10 +5,10 @@ version = "1"
 {{ $MOUNTPOINT := "/mnt/backup" }}
 
 [generic]
-reposity = "local:{{ $MOUNTPOINT }}/{{ .Profile.Name }}"
+repository = "local:{{ $MOUNTPOINT }}/{{ .Profile.Name }}"
 run-before = "mount -U {{ $DRIVE_UUID }} {{ $MOUNTPOINT }}"
 run-after = "umount {{ $MOUNTPOINT }}"
-run-after-fail = "umount {{ $MOUNTPOINT }}"
+run-after-fail = "umount {{ $MOUNTPOINT }} && ntfy send 'Backup of {{ .Profile.Name }} failed'"
 lock = "$HOME/resticprofile-{{ .Profile.Name }}.lock"
 restic-lock-retry-after = "5m"
 restic-stale-lock-age = "2h"

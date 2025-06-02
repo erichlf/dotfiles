@@ -42,7 +42,10 @@ yay_install \
   cockpit-file-sharing \
   cockpit-sensors \
   cockpit-zfs-manager \
+  ntfy \
   resticprofile
+
+WARNING "Remember to create ntfy config at /root/.config/ntfy/ntfy.yml"
 
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
