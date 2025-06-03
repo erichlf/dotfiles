@@ -43,12 +43,20 @@ yay_install \
   cockpit-sensors \
   cockpit-zfs-manager \
   ntfy \
-  resticprofile
+  resticprofile \
+  sanoid
 
 WARNING "Remember to create ntfy config at /root/.config/ntfy/ntfy.yml"
 
 sudo systemctl enable --now sshd
 sudo systemctl enable --now cockpit.socket
+
+# zfs mainenance
+sudo cp "$DOTFILES_DIR/sanoid.conf" /etc/sanoid/
+sudo systemctl daemon-reload
+sudo systemctl enable --now sanoid.timer sanoid-prune.service
+sudo systemctl enable --now zfs-scrub-weekly@zpcachyos.timer
+sudo systemctl enable --now zfs-scrub-monthly@media.timer
 
 # allow ufw to manage docker traffic
 sudo iptables -I DOCKER-USER -i enp4s0 -s 192.168.1.0/24 -j ACCEPT
