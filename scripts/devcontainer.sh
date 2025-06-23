@@ -13,6 +13,7 @@ print_details
 
 apt_update
 apt_install \
+  cargo \
   fzf \
   golang-go \
   npm \
