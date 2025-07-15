@@ -117,7 +117,7 @@ function yay_update() {
 }
 
 function snap_install() {
-  snap install "$@"
+  sudo snap install "$@"
 
   return 0
 }
