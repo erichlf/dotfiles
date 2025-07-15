@@ -61,10 +61,13 @@ function base_install() {
     python3-setuptools
 
   INFO "Installing NEOVIM..."
-  rust_install
-  $alt_install $GO
   $alt_install $NEOVIM
 
+  INFO "Installing LazyVim Dependencies"
+  rust_install
+  INFO "Installing go"
+  $alt_install $GO
+  INFO "Installing Lazy Dependencies"
   $pkg_install \
     nodejs \
     npm \
@@ -77,6 +80,7 @@ function base_install() {
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
+  INFO "Install Devcontainer dependencies"
   npm install -g @devcontainers/cli
 
   INFO "Setting up docker..."
