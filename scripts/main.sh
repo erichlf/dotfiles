@@ -190,6 +190,34 @@ function havoc() {
     sudo mv QGroundControl.AppImage /usr/bin/QGroundControl
     sudo chmod u+x /usr/bin/QGroundControl
   fi
+
+  INFO "Installing drivers"
+  sudo add-apt-repository -y --remove ppa:oem-solutions-group/intel-ipu6
+  sudo add-apt-repository -y --remove ppa:oem-solutions-group/intel-ipu7
+  sudo add-apt-repository ppa:oem-solutions-engineers/oem-projects-meta
+
+  sudo apt autopurge -y oem-*-meta libia-* libgcss* libipu* libcamhal*
+  sudo apt autopurge -y lib*ipu6*
+  sudo apt autopurge -y lib*ipu7*
+
+  apt_install \
+    ubuntu-oem-keyring
+  sudo add-apt-repository -y "deb http://dell.archive.canonical.com/ noble somerville"
+  apt_update
+  apt_install \
+    oem-somerville-magmar-meta \
+    libcamhal0
+  apt_install \
+    intel-ipu6-dkms \
+    linux-generic-hwe-24.04 \
+    linux-modules-ipu6-generic-hwe-24.04 \
+    linux-modules-usbio-generic-hwe-24.04 \
+    oem-somerville-magmar-meta \
+    oem-somerville-tentacool-meta
+  sudo apt-get autoclean
+  sudo apt-get autoremove
+
+  sudo usermod -a -G video "$USER"
 }
 
 for choice in $choices; do
