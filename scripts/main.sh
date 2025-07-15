@@ -12,12 +12,12 @@ print_details
 
 THIS=$0
 
-pac_install \
-    base-devel \
-    dialog \
-    git \
-    stow \
-    zsh
+apt_install \
+  build-essential \
+  dialog \
+  git \
+  stow \
+  zsh
 
 ############################# grab dotfiles ####################################
 # dotfiles already exist since I am running this script!
@@ -38,10 +38,10 @@ cmd=(
 options=(1 "Fresh system setup"
   2 "Create symbolic links"
   3 "Install base system"
-  4 "Install TU Delft tools"
-  5 "Latitude 7440 Hacks"
-  6 "Update system"
-  7 "sudo rules")
+  4 "Update system"
+  5 "sudo rules"
+  6 "Install HavocAI Specifics"
+)
 
 if [ "$CI" ]; then
   choices=1
@@ -57,94 +57,139 @@ function run_me() {
 ############################# my base system ###################################
 #bikeshed contains utilities such as purge-old-kernels
 function base_sys() {
-  echo "Installing base system"
-  base_install
+  INFO "Installing base system"
+  base_install "ubuntu"
 
-  echo "Installing extras..."
-  pac_install \
-    gnome-shell-extension-appindicator \
+  INFO "Installing extras..."
+  apt_install \
     gnome-tweaks \
-    gtk3 \
+    libgtk-3-dev \
     guake \
-    meld \
-    networkmanager-openvpn \
-    networkmanager-vpnc \
-    obsidian 
+    meld
+
+  snap_install \
+    obsidian --classic
 
   guake --restore-preferences "$DOTFILES_DIR/guake.conf"
-  gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
-  gnome-extensions enable pamac-updates@manjaro.org
 
-  yay_install \
+  snap_install \
     1password \
-    1password-cli \
-    signal-desktop
+    signal-desktop \
+    slack \
+    vivaldi
 
-  pac_install \
-    vivaldi \
-    vivaldi-ffmpeg-codecs
-
-  sudo /opt/vivaldi/update-ffmpeg
-
-  yay_install \
-    gnome-browser-connector-git
+  apt_install \
+    gnome-browser-connector
 
   # add 1password support to vivaldi
   sudo mkdir -p /etc/1password
-  echo "vivaldi-bin" | sudo tee /etc/1password/custom_allowed_browsers
+  echo "vivalid.vivaldi-stable" | sudo tee /etc/1password/custom_allowed_browsers
   sudo chown root:root /etc/1password/custom_allowed_browsers
   sudo chmod 755 /etc/1password/custom_allowed_browsers
 
   return 0
 }
 
-function tudelft() {
-  curl https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --import -
-
-  yay_install \
-    python-eduvpn-client \
-    teams-for-linux-bin
-
-  return 0
-}
-
-########################## Computer Specific ####################################
-function latitude_7440() {
-  # install drivers for intel webcam
-  pac_install libdrm
-  git clone git@github.com:stefanpartheym/archlinux-ipu6-webcam.git /tmp/archlinux-ipu6-webcam
-  cd /tmp/archlinux-ipu6-webcam
-  git apply "$DOTFILES_DIR/scripts/patches/intel_webcam.patch"
-  ./install.sh
-
-  # install driver for fingerprint scanner, enable it, and enroll left and right
-  # index fingers
-  pac_install libfprint-2-tod1-broadcom fprintd libpam-fprintd
-  sudo fprintd-enroll -f left-index-finger
-  sudo fprintd-enroll -f right-index-finger
-  sudo pam-auth-update --enable fprintd
-}
-
 ########################## update and upgrade ##################################
 function update_sys() {
-  echo "Updating system..."
+  INFO "Updating system..."
   if [ "$CI" ]; then
     return 0
   fi
 
-  pac_update
-  yay_update
+  apt_update
 
   return 0
 }
 
 ############################## annoyances ######################################
 function sudo_rules() {
-  echo "Setting sudo rules..."
+  INFO "Setting sudo rules..."
   sudo_rule /sbin/shutdown
   sudo_rule /sbin/reboot
 
   return 0
+}
+
+# install HavocAI specifics
+function havoc() {
+  INFO "Installing HavocAI Specifics"
+  INFO "Installing gRPC"
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+  if [ ! -d $HOME/.local/balena ]; then
+    INFO "Installing balena"
+    mkdir -p $HOME/.local
+    mkdir -p /tmp/balena
+    cd /tmp/balena
+    RELEASE=v22.1.1
+    BALENA="balena-cli-$RELEASE-linux-x64-standalone.tar.gz"
+    wget https://github.com/balena-io/balena-cli/releases/download/$RELEASE/$BALENA
+    tar xzvf $BALENA
+    mv balena $HOME/.local/
+    rm -rf /tmp/balena
+  fi
+
+  if [ $(which aws) == "" ]; then
+    INFO "Installing AWS"
+    mkdir -p /tmp/aws
+    cd /tmp/aws
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    rm -rf /tmp/aws
+  fi
+
+  INFO "Installing Yarn"
+  npm install --global yarn
+
+  INFO "Installing Nvidia Container Toolkit"
+  curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg &&
+    curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |
+      sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+  apt_update
+  export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.17.8-1
+  apt_install \
+    nvidia-container-toolkit=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    nvidia-container-toolkit-base=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    libnvidia-container-tools=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    libnvidia-container1=${NVIDIA_CONTAINER_TOOLKIT_VERSION}
+
+  INFO "Installing Tailscale"
+  curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+  curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+  apt_update
+  apt_install tailscale
+
+  if [ $(which foxglove) == "" ]; then
+    INFO "Install foxglove"
+    mkdir -p /tmp/foxglove
+    cd /tmp/foxglove
+    wget https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
+    apt_install ./foxglove-studio-*.deb
+    cd -
+    rm -rf /tmp/foxglove
+  fi
+
+  INFO "Installing wireshark"
+  apt_install wireshark
+
+  if [ $(which QGroundControl) == "" ]; then
+    INFO "Installing QGroundControl"
+    sudo usermod -a -G dialout $USER
+    sudo apt-get remove modemmanager -y
+    apt_install \
+      gstreamer1.0-gl \
+      gstreamer1.0-libav \
+      gstreamer1.0-plugins-bad \
+      libfuse2 \
+      libqt5gui5
+    wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage
+    sudo mv QGroundControl.AppImage /usr/bin/QGroundControl
+    sudo chmod u+x /usr/bin/QGroundControl
+  fi
 }
 
 for choice in $choices; do
@@ -154,6 +199,7 @@ for choice in $choices; do
     base_sys
     update_sys
     sudo_rules
+    havoc
     run_me
     ;;
   2)
@@ -165,19 +211,15 @@ for choice in $choices; do
     run_me
     ;;
   4)
-    tudelft
-    run_me
-    ;;
-  5)
-    latitude_7440
-    run_me
-    ;;
-  6)
     update_sys
     run_me
     ;;
-  7)
+  5)
     sudo_rules
+    run_me
+    ;;
+  6)
+    havoc
     run_me
     ;;
   esac

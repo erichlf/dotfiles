@@ -116,8 +116,14 @@ function yay_update() {
   return 0
 }
 
+function snap_install() {
+  snap install "$@"
+
+  return 0
+}
+
 function pip3_install() {
-  sudo -H pip3 install "$@"
+  pip3 install "$@"
 
   return 0
 }
@@ -168,9 +174,13 @@ function zsh_extras() {
 
   # install zoxide
   curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+}
 
-  # install fonts
-  mkdir -p "$HOME/.local/bin"
-  curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
-  "$HOME/.local/bin/getnf" -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono | true # don't fail on fonts
+# install rust and cargo
+function rust_install() {
+  INFO "Installing rust"
+  curl https://sh.rustup.rs -sSf -o rust.sh
+  chmod +x rust.sh
+  ./rust.sh -y
+  rm -rf rust.sh
 }

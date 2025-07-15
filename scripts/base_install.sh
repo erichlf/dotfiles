@@ -1,21 +1,47 @@
 function base_install() {
-  echo "Setting up yay..."
-  [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
-  cd /tmp/yay
-  makepkg -si --noconfirm
-  cd -
+  local system="$1"
 
-  echo "Setting up shell..."
-  pac_install \
+  if [[ "$system" == "arch" ]]; then
+    INFO "Setting up an arch based system"
+    if [ $(which yay) == "" ]; then
+      INFO "Setting up yay..."
+      [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
+      cd /tmp/yay
+      makepkg -si --noconfirm
+      cd -
+    else
+      INFO "yay already installed"
+    fi
+
+    pkg_install="pac_install"
+    alt_install="yay_install"
+    NEOVIM="neovim"
+    GO="go"
+  else
+    INFO "Setting up an ubuntu based system"
+
+    pkg_install="apt_install"
+    alt_install="snap_install"
+    NEOVIM="nvim --classic"
+    GO="go --classic"
+  fi
+
+  INFO "Setting up shell..."
+  $pkg_install \
     btop \
     curl \
     fzf \
     iftop \
     pass \
-    python \
-    python-pip \
+    python3 \
+    python3-pip \
     tmux \
     wget
+
+  # install fonts
+  mkdir -p "$HOME/.local/bin"
+  curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+  "$HOME/.local/bin/getnf" -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono | true # don't fail on fonts
 
   zsh_extras
 
@@ -23,42 +49,27 @@ function base_install() {
 
   lazygit_install
 
-  echo "Setting up networking..."
-  pac_install \
-    openssh
-
-  echo "Installing developer tools..."
+  INFO "Installing developer tools..."
   if [ ! -d "$HOME/workspace" ]; then
     mkdir -p "$HOME/workspace"
   fi
 
-  pac_install \
+  $pkg_install \
     cmake \
     gcc \
     llvm \
-    python-setuptools
+    python3-setuptools
 
-  yay_install \
-    dust \
-    git-completion \
-    lazydocker
+  INFO "Installing NEOVIM..."
+  rust_install
+  $alt_install $GO
+  $alt_install $NEOVIM
 
-  echo "Installing NEOVIM..."
-  pac_install \
-    chafa \
-    git-lfs \
-    go \
-    neovim \
+  $pkg_install \
     nodejs \
     npm \
-    python-debugpy \
-    python-gitpython \
-    python-pynvim \
-    python-ply \
-    python-ruff \
-    python-virtualenv \
-    python-yaml \
-    rust \
+    python3-debugpy \
+    python3-virtualenv \
     xclip
 
   mkdir -p "$HOME/.npm-global"
@@ -68,13 +79,27 @@ function base_install() {
 
   npm install -g @devcontainers/cli
 
-  echo "Setting up docker..."
-  pac_install \
+  INFO "Setting up docker..."
+  $pkg_install \
     ca-certificates \
-    containerd \
-    docker \
-    docker-compose \
     gnupg
+  if [ $system == "arch" ]; then
+    DOCKER_PACKAGES="containerd docker docker-compose"
+  else
+    $pkg_install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      software-properties-common
+
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+
+    apt_update
+    DOCKER_PACKAGES="containerd.io docker-ce docker-ce-cli docker-buildx-plugin docker-compose-plugin"
+  fi
+
+  $pkg_install $DOCKER_PACKAGES
 
   sudo usermod -a -G docker "$USER"
   if [ ! "$CI" ]; then

@@ -30,7 +30,7 @@ pac_update
 sym_links
 
 INFO "Installing base system..."
-base_install
+base_install "arch"
 
 pac_install \
   cockpit \

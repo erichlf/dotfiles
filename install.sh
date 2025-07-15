@@ -16,7 +16,7 @@ case "$kernel" in
       ./scripts/main.sh
     fi
     ;;
-  *"MANJARO"* )
+  *"generic"* )
     if [[ $DEV_WORKSPACE != "" ]]; then
       ./scripts/devcontainer.sh
     else

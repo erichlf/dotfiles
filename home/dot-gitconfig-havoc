@@ -1,0 +1,7 @@
+[user]
+    name = Erich L Foster
+    email = erich.foster@havocai.com
+    signingkey = 0541CB2AB0E97F1D
+[core]
+    sshCommand = ssh -i ~/.ssh/id_ed25519-havoc
+

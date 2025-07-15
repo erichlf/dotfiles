@@ -1,7 +1,9 @@
 [user]
     name = Erich L Foster
     email = erichlf@gmail.com
-    # signingkey = 08A7E764EC1713A9
+    signingkey = 08A7E764EC1713A9
+[includeIf "gitdir:~/workspace/HavocAI/"] # job needs, like workspace/* so all included projects
+    path = .gitconfig-havoc
 [core]
     editor = nvim
 	autocrlf = input

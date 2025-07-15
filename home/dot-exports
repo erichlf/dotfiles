@@ -18,6 +18,8 @@ if [[ "$unamestr" == 'Darwin' ]]; then
 fi
 
 path+=($HOME/.local/bin $HOME/.npm-global/bin $HOME/.rvm/bin $path)
+[ $(which go) != "" ] && path+=$(go env GOPATH)/bin
+[ -d $HOME/.local/balena ] && path+=$HOME/.local/balena/bin
 export PATH
 export ROS_DOMAIN_ID="3"
 export GPG_TTY=$(tty)
