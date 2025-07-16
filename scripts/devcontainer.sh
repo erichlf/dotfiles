@@ -13,7 +13,6 @@ print_details
 
 apt_update
 apt_install \
-  cargo \
   fzf \
   golang-go \
   npm \
@@ -24,6 +23,8 @@ apt_install \
   wget \
   unzip \
   zsh
+
+rust_install
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
