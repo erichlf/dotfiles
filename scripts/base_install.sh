@@ -3,12 +3,12 @@ function base_install() {
 
   if [[ "$system" == "arch" ]]; then
     INFO "Setting up an arch based system"
-    if [ $(which yay) == "" ]; then
+    if [ "$(which yay)" == "" ]; then
       INFO "Setting up yay..."
       [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
-      cd /tmp/yay
+      cd /tmp/yay || exit 1
       makepkg -si --noconfirm
-      cd -
+      cd - || exit 1
     else
       INFO "yay already installed"
     fi
@@ -61,12 +61,12 @@ function base_install() {
     python3-setuptools
 
   INFO "Installing NEOVIM..."
-  $alt_install $NEOVIM
+  $alt_install "$NEOVIM"
 
   INFO "Installing LazyVim Dependencies"
   rust_install
   INFO "Installing go"
-  $alt_install $GO
+  $alt_install "$GO"
   INFO "Installing Lazy Dependencies"
   $pkg_install \
     nodejs \
@@ -87,7 +87,7 @@ function base_install() {
   $pkg_install \
     ca-certificates \
     gnupg
-  if [ $system == "arch" ]; then
+  if [ "$system" == "arch" ]; then
     DOCKER_PACKAGES="containerd docker docker-compose"
   else
     $pkg_install \
@@ -103,7 +103,7 @@ function base_install() {
     DOCKER_PACKAGES="containerd.io docker-ce docker-ce-cli docker-buildx-plugin docker-compose-plugin"
   fi
 
-  $pkg_install $DOCKER_PACKAGES
+  $pkg_install "$DOCKER_PACKAGES"
 
   sudo usermod -a -G docker "$USER"
   if [ ! "$CI" ]; then

@@ -31,7 +31,7 @@ sudo chsh -s /usr/bin/zsh
 
 # ensure that .config is owned by the current user
 if [[ -d $HOME/.config && ! $(stat -c "%U" "$HOME/.config") == "$(whoami)" ]]; then
-  sudo chown $(id -u):$(id -g) "$HOME/.config"
+  sudo chown "$(id -u)":"$(id -g)" "$HOME/.config"
 fi
 
 # create links to dotfiles

@@ -24,7 +24,7 @@ apt_install \
 # git clone git@github.com:erichlf/dotfiles.git
 git submodule update --init --recursive
 
-sudo usermod -s $(which zsh) $(whoami)
+sudo usermod -s "$(which zsh)" "$(whoami)"
 
 cmd=(
   dialog
@@ -76,7 +76,7 @@ function base_sys() {
     signal-desktop \
     slack
 
-  if [ $(which 1password) == "" ]; then
+  if [ "$(which 1password)" == "" ]; then
     INFO "Installing 1password"
     mkdir -p /tmp/1password
     cd /tmp/1password
@@ -86,7 +86,7 @@ function base_sys() {
     rm -rf /tmp/1password
   fi
 
-  if [ $(which vivaldi) == "" ]; then
+  if [ "$(which vivaldi)" == "" ]; then
     INFO "Installing Vivaldi"
     mkdir -p /tmp/vivaldi
     cd /tmp/vivaldi
@@ -136,20 +136,20 @@ function havoc() {
   go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
   go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
-  if [ ! -d $HOME/.local/balena ]; then
+  if [ ! -d "$HOME/.local/balena" ]; then
     INFO "Installing balena"
-    mkdir -p $HOME/.local
+    mkdir -p "$HOME/.local"
     mkdir -p /tmp/balena
     cd /tmp/balena
     RELEASE=v22.1.1
     BALENA="balena-cli-$RELEASE-linux-x64-standalone.tar.gz"
     wget https://github.com/balena-io/balena-cli/releases/download/$RELEASE/$BALENA
     tar xzvf $BALENA
-    mv balena $HOME/.local/
+    mv balena "$HOME/.local/"
     rm -rf /tmp/balena
   fi
 
-  if [ $(which aws) == "" ]; then
+  if [ "$(which aws)" == "" ]; then
     INFO "Installing AWS"
     mkdir -p /tmp/aws
     cd /tmp/aws
@@ -181,7 +181,7 @@ function havoc() {
   apt_update
   apt_install tailscale
 
-  if [ $(which foxglove) == "" ]; then
+  if [ "$(which foxglove)" == "" ]; then
     INFO "Install foxglove"
     mkdir -p /tmp/foxglove
     cd /tmp/foxglove
@@ -194,9 +194,9 @@ function havoc() {
   INFO "Installing wireshark"
   apt_install wireshark
 
-  if [ $(which QGroundControl) == "" ]; then
+  if [ "$(which QGroundControl)" == "" ]; then
     INFO "Installing QGroundControl"
-    sudo usermod -a -G dialout $USER
+    sudo usermod -a -G dialout "$USER"
     sudo apt-get remove modemmanager -y
     apt_install \
       gstreamer1.0-gl \

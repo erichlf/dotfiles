@@ -4,7 +4,7 @@ DOTFILES_DIR=$(pwd)
 
 set -e
 
-cd $(dirname $0)/..
+cd "$(dirname "$0")/.."
 DOTFILES_DIR=$(pwd)
 
 source "$DOTFILES_DIR/scripts/utils.sh"
@@ -23,7 +23,7 @@ pac_install \
 # git clone git@github.com:erichlf/dotfiles.git
 git submodule update --init --recursive
 
-sudo usermod -s $(which zsh) $(whoami)
+sudo usermod -s "$(which zsh)" "$(whoami)"
 
 pac_update
 
