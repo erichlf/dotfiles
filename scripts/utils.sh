@@ -122,6 +122,19 @@ function snap_install() {
   return 0
 }
 
+function deb_install() {
+  PACKAGE=$1
+  HTTP=$2
+  
+  INFO "Installing $PACKAGE"
+  mkdir -p "/tmp/$PACKAGE"
+  cd "/tmp/$PACKAGE" || exit 1
+  wget "$HTTP"
+  apt_install ./"$PACKAGE"*.deb
+  cd - || exit 1
+  rm -rf "/tmp/$PACKAGE"
+}
+
 function pip3_install() {
   pip3 install "$@"
 

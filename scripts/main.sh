@@ -77,23 +77,11 @@ function base_sys() {
     slack
 
   if [ "$(which 1password)" == "" ]; then
-    INFO "Installing 1password"
-    mkdir -p /tmp/1password
-    cd /tmp/1password
-    wget https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
-    apt_install ./1password-latest.deb
-    cd -
-    rm -rf /tmp/1password
+    deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
   fi
 
   if [ "$(which vivaldi)" == "" ]; then
-    INFO "Installing Vivaldi"
-    mkdir -p /tmp/vivaldi
-    cd /tmp/vivaldi
-    wget https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
-    apt_install ./vivaldi-stable*.deb
-    cd -
-    rm -rf /tmp/vivaldi
+    deb_install vivaldi https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
 
     # add 1password support to vivaldi
     sudo mkdir -p /etc/1password
@@ -182,13 +170,7 @@ function havoc() {
   apt_install tailscale
 
   if [ "$(which foxglove)" == "" ]; then
-    INFO "Install foxglove"
-    mkdir -p /tmp/foxglove
-    cd /tmp/foxglove
-    wget https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
-    apt_install ./foxglove-studio-*.deb
-    cd -
-    rm -rf /tmp/foxglove
+    deb_isntall foxglove https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
   fi
 
   INFO "Installing wireshark"
