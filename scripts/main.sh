@@ -73,19 +73,37 @@ function base_sys() {
   guake --restore-preferences "$DOTFILES_DIR/guake.conf"
 
   snap_install \
-    1password \
     signal-desktop \
-    slack \
-    vivaldi
+    slack
+
+  if [ $(which 1password) == "" ]; then
+    INFO "Installing 1password"
+    mkdir -p /tmp/1password
+    cd /tmp/1password
+    wget https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
+    apt_install ./1password-latest.deb
+    cd -
+    rm -rf /tmp/1password
+  fi
+
+  if [ $(which vivaldi) == "" ]; then
+    INFO "Installing Vivaldi"
+    mkdir -p /tmp/vivaldi
+    cd /tmp/vivaldi
+    wget https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
+    apt_install ./vivaldi-stable*.deb
+    cd -
+    rm -rf /tmp/vivaldi
+
+    # add 1password support to vivaldi
+    sudo mkdir -p /etc/1password
+    echo "vivalid" | sudo tee /etc/1password/custom_allowed_browsers
+    sudo chown root:root /etc/1password/custom_allowed_browsers
+    sudo chmod 755 /etc/1password/custom_allowed_browsers
+  fi
 
   apt_install \
     gnome-browser-connector
-
-  # add 1password support to vivaldi
-  sudo mkdir -p /etc/1password
-  echo "vivalid.vivaldi-stable" | sudo tee /etc/1password/custom_allowed_browsers
-  sudo chown root:root /etc/1password/custom_allowed_browsers
-  sudo chmod 755 /etc/1password/custom_allowed_browsers
 
   return 0
 }
