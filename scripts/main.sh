@@ -73,8 +73,9 @@ function base_sys() {
   guake --restore-preferences "$DOTFILES_DIR/guake.conf"
 
   snap_install \
-    signal-desktop \
-    slack
+    signal-desktop
+
+  deb_install slack https://downloads.slack-edge.com/desktop-releases/linux/x64/4.43.51/slack-desktop-4.43.51-amd64.deb
 
   if [ "$(which 1password)" == "" ]; then
     deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
