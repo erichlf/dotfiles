@@ -165,10 +165,11 @@ function havoc() {
     libnvidia-container1=${NVIDIA_CONTAINER_TOOLKIT_VERSION}
 
   INFO "Installing Tailscale"
-  curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-  curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-  apt_update
-  apt_install tailscale
+  mkdir -p /tmp/tailscale
+  cd /tmp/tailscale
+  curl -fsSL https://tailscale.com/install.sh | sh
+  cd -
+  rm -rf /tmp/tailscale
 
   if [ "$(which foxglove)" == "" ]; then
     deb_isntall foxglove https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
