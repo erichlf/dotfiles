@@ -6,7 +6,7 @@ return {
       preset = "default",
       ["<Tab>"] = { "select_next" },
       ["<S-Tab>"] = { "select_prev" },
-      ["<CR>]"] = { "accept" },
+      ["<CR>"] = { "accept" },
     }
     return opts
   end,
