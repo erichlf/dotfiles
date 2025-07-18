@@ -125,7 +125,7 @@ function snap_install() {
 function deb_install() {
   PACKAGE=$1
   HTTP=$2
-  
+
   INFO "Installing $PACKAGE"
   mkdir -p "/tmp/$PACKAGE"
   cd "/tmp/$PACKAGE" || exit 1
@@ -196,4 +196,20 @@ function rust_install() {
   chmod +x rust.sh
   ./rust.sh -y
   rm -rf rust.sh
+}
+
+function nodejs_install() {
+  INFO "Installing NodeJS"
+  # install nvm
+  mkdir -p /tmp/nodejs
+  cd /tmp/nodejs
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+  cd -
+  rm -rf /tmp/nodejs
+
+  \. "$HOME/.nvm/nvm.sh"
+
+  # Download and install Node.js:
+  nvm install 22
 }

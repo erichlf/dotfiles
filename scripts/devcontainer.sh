@@ -15,7 +15,6 @@ apt_update
 apt_install \
   fzf \
   golang-go \
-  npm \
   pass \
   python3-venv \
   software-properties-common \
@@ -23,6 +22,8 @@ apt_install \
   wget \
   unzip \
   zsh
+
+nodejs_install
 
 rust_install
 

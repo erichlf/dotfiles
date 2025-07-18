@@ -69,14 +69,12 @@ function base_install() {
   $alt_install "$GO"
   INFO "Installing Lazy Dependencies"
   $pkg_install \
-    nodejs \
-    npm \
     python3-debugpy \
     python3-virtualenv \
     xclip
 
-  mkdir -p "$HOME/.npm-global"
-  npm config set prefix "$HOME/.npm-global"
+  nodejs_install
+
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
