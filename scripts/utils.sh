@@ -116,6 +116,10 @@ function yay_update() {
   return 0
 }
 
+function brew_install() {
+  brew install "$@"
+}
+
 function snap_install() {
   sudo snap install "$@"
 
@@ -136,7 +140,7 @@ function deb_install() {
 }
 
 function pip3_install() {
-  pip3 install "$@"
+  pipx install "$@"
 
   return 0
 }
@@ -189,35 +193,8 @@ function zsh_extras() {
   curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 
-# install rust and cargo
-function rust_install() {
-  INFO "Installing rust"
-  curl https://sh.rustup.rs -sSf -o rust.sh
-  chmod +x rust.sh
-  ./rust.sh -y
-  rm -rf rust.sh
-}
+function install_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-function nodejs_install() {
-  INFO "Installing NodeJS"
-  # install nvm
-  mkdir -p /tmp/nodejs
-  cd /tmp/nodejs
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-  cd -
-  rm -rf /tmp/nodejs
-
-  \. "$HOME/.nvm/nvm.sh"
-
-  # Download and install Node.js:
-  nvm install 22
-}
-
-function nvim_install() {
-  INFO "Installing NEOVIM..."
-  apt_install libfuse2 fuse3
-  wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
-  sudo mv nvim.appimage /usr/bin/nvim
-  sudo chmod u+x /usr/bin/nvim
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 }

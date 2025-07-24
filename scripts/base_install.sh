@@ -15,20 +15,27 @@ function base_install() {
 
     pkg_install="pac_install"
     alt_install="yay_install"
-    GO="go"
   else
     INFO "Setting up an ubuntu based system"
 
     pkg_install="apt_install"
-    alt_install="snap_install"
-    GO="go --classic"
+    alt_install="brew_install"
+
+    INFO "Installing homebrew"
+    $pkg_install \
+      build-essential \
+      procps \
+      curl \
+      file \
+      git
+    install_brew
+
   fi
 
   INFO "Setting up shell..."
   $pkg_install \
     btop \
     curl \
-    fzf \
     iftop \
     pass \
     python3 \
@@ -58,12 +65,21 @@ function base_install() {
     llvm \
     python3-setuptools
 
-  nvim_install
+  $alt_install \
+    fzf \
+    lazydocker
+
+  INFO "Installing NEOVIM"
+  $alt_install nvim
 
   INFO "Installing LazyVim Dependencies"
   rust_install
-  INFO "Installing go"
-  $alt_install "$GO"
+
+  $alt_install \
+    go \
+    node \
+    rust
+
   INFO "Installing Lazy Dependencies"
   $pkg_install \
     python3-debugpy \
@@ -83,11 +99,10 @@ function base_install() {
     ca-certificates \
     gnupg
   if [ "$system" == "arch" ]; then
-    DOCKER_PACKAGES="containerd docker docker-compose"
+    DOCKER_PACKAGES=("containerd" "docker" "docker-compose")
   else
     $pkg_install \
       apt-transport-https \
-      ca-certificates \
       curl \
       software-properties-common
 
@@ -95,10 +110,10 @@ function base_install() {
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
     apt_update
-    DOCKER_PACKAGES="containerd.io docker-ce docker-ce-cli docker-buildx-plugin docker-compose-plugin"
+    DOCKER_PACKAGES=("containerd.io" "docker-ce" "docker-ce-cli" "docker-buildx-plugin" "docker-compose-plugin")
   fi
 
-  $pkg_install "$DOCKER_PACKAGES"
+  $pkg_install "${DOCKER_PACKAGES[@]}"
 
   sudo usermod -a -G docker "$USER"
   if [ ! "$CI" ]; then

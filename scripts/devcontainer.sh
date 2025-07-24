@@ -13,19 +13,23 @@ print_details
 
 apt_update
 apt_install \
-  fzf \
-  golang-go \
   pass \
   python3-venv \
+  pipx \
   software-properties-common \
   stow \
   wget \
   unzip \
   zsh
 
-nodejs_install
+install_brew
 
-rust_install
+brew_install \
+  fzf \
+  go \
+  node \
+  nvim \
+  rust
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
@@ -38,8 +42,7 @@ fi
 # create links to dotfiles
 sym_links
 
-nvim_install
-pip3 install debugpy
+pip3_install debugpy
 
 zsh_extras
 
