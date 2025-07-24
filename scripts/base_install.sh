@@ -15,14 +15,12 @@ function base_install() {
 
     pkg_install="pac_install"
     alt_install="yay_install"
-    NEOVIM="neovim"
     GO="go"
   else
     INFO "Setting up an ubuntu based system"
 
     pkg_install="apt_install"
     alt_install="snap_install"
-    NEOVIM="nvim --classic"
     GO="go --classic"
   fi
 
@@ -60,8 +58,7 @@ function base_install() {
     llvm \
     python3-setuptools
 
-  INFO "Installing NEOVIM..."
-  $alt_install "$NEOVIM"
+  nvim_install
 
   INFO "Installing LazyVim Dependencies"
   rust_install

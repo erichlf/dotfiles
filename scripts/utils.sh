@@ -213,3 +213,11 @@ function nodejs_install() {
   # Download and install Node.js:
   nvm install 22
 }
+
+function nvim_install() {
+  INFO "Installing NEOVIM..."
+  apt_install libfuse2 fuse3
+  wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
+  sudo mv nvim.appimage /usr/bin/nvim
+  sudo chmod u+x /usr/bin/nvim
+}
