@@ -92,7 +92,6 @@ return {
         "neocmakelsp",
         "pyright",
         "ruff",
-        "ruff-lsp",
         "shellcheck",
         "shfmt",
         "stylua",
