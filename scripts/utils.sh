@@ -10,6 +10,7 @@ BWHITE='\033[1;37m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33'
 RED='\033[0;31m'
+BRED='\033[1;31m'
 RESET='\033[0m'
 
 function LOG() {
@@ -26,6 +27,20 @@ function WARN() {
 
 function ERROR() {
   LOG "${RED}$*"
+}
+
+function catch() {
+  echo -e "\n${BWHITE}[${BRED}ERROR${RESET}${BWHITE}]:${RESET} Installation failed, exiting script..."
+  exit 1
+}
+
+function download_stdout() {
+  local dl_link="${1}"
+  if type wget &>/dev/null; then
+    wget -qO - "${dl_link}"
+  elif type curl &>/dev/null; then
+    curl -s "${dl_link}"
+  fi
 }
 
 # print the current system details
@@ -139,6 +154,12 @@ function deb_install() {
   rm -rf "/tmp/$PACKAGE"
 }
 
+function pac_install() {
+  pacstall -PI "$@"
+
+  return 0
+}
+
 function pip3_install() {
   pipx install "$@"
 
@@ -190,7 +211,12 @@ function zsh_extras() {
   [ ! -d "$HOME/.zgenom" ] && git clone https://github.com/jandamm/zgenom.git "${HOME}/.zgenom"
 
   # install zoxide
-  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+  download_stdout https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+}
+
+function install_pacstall() {
+  INFO "Install pacstall"
+  echo Y | sudo bash -c "$(curl -fsSL https://pacstall.dev/q/install)"
 }
 
 function install_brew() {
