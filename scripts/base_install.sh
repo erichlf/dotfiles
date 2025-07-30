@@ -50,9 +50,9 @@ function base_install() {
 
   zsh_extras
 
-  starship_install
+  install_starship
 
-  lazygit_install
+  install_lazygit
 
   INFO "Installing developer tools..."
   if [ ! -d "$HOME/workspace" ]; then

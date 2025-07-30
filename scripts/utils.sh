@@ -155,7 +155,7 @@ function deb_install() {
 }
 
 function pac_install() {
-  pacstall -PI "$@"
+  sudo pacstall -PI "$@"
 
   return 0
 }
@@ -186,7 +186,7 @@ function fzf_install() {
 }
 
 # install lazygit
-function lazygit_install() {
+function install_lazygit() {
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": "v\K[^"]*')
   cd /tmp || return
   curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
@@ -196,7 +196,7 @@ function lazygit_install() {
 }
 
 # setup starship
-function starship_install() {
+function install_starship() {
   INFO "Installing starship..."
   curl -sS https://starship.rs/install.sh -o starship.sh
   chmod +x starship.sh
@@ -223,4 +223,32 @@ function install_brew() {
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+}
+
+# install rust and cargo
+function install_rust() {
+  INFO "Installing rust"
+  curl https://sh.rustup.rs -sSf -o rust.sh
+  chmod +x rust.sh
+  ./rust.sh -y
+  rm -rf rust.sh
+}
+
+function install_nodejs() {
+  INFO "Installing NodeJS"
+  # install nvm
+  download_stdout https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+  \. "$HOME/.nvm/nvm.sh"
+
+  # Download and install Node.js:
+  nvm install 22
+}
+
+function install_nvim() {
+  INFO "Installing NEOVIM..."
+  apt_install libfuse2 fuse3
+  wget https://github.com/neovim/neovim-releases/releases/download/v0.10.1/nvim.appimage
+  sudo mv nvim.appimage /usr/bin/nvim
+  sudo chmod u+x /usr/bin/nvim
 }

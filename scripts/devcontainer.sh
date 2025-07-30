@@ -13,6 +13,7 @@ print_details
 
 apt_update
 apt_install \
+  fzf \
   pass \
   python3-venv \
   pipx \
@@ -22,14 +23,11 @@ apt_install \
   unzip \
   zsh
 
-install_brew
+install_rust
 
-brew_install \
-  fzf \
-  go \
-  node \
-  nvim \
-  rust
+install_nodejs
+
+install_nvim
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh
@@ -45,10 +43,8 @@ sym_links
 pip3_install debugpy
 
 zsh_extras
-
-starship_install
-
-lazygit_install
+install_starship
+install_lazygit
 
 # hack to get the proper shell to open when using devcontainer connect and nvim
 echo "export SHELL=zsh" >>"$HOME/.profile"
