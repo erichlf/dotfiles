@@ -81,6 +81,5 @@ eval "$(zoxide init --cmd cd zsh)"
 setopt nonomatch
 
 eval "$(starship init zsh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 set -o vi
