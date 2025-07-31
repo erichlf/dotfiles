@@ -15,21 +15,29 @@ function base_install() {
 
     pkg_install="pac_install"
     alt_install="yay_install"
+
+    NVIM="nvim"
+    GO="go"
+    FZF="fzf"
+    LAZYDOCKER="lazydocker"
+    NODEJS="node"
+    RUST="rust"
   else
     INFO "Setting up an ubuntu based system"
 
     pkg_install="apt_install"
-    alt_install="brew_install"
+    alt_install="pacstall_install"
 
-    INFO "Installing homebrew"
+    install_chaotic
     $pkg_install \
-      build-essential \
-      procps \
-      curl \
-      file \
-      git
-    install_brew
+      pacstall
 
+    NVIM="neovim"
+    GO="go-bin"
+    FZF="fzf-bin"
+    LAZYDOCKER="lazydocker-bin"
+    NODEJS="nodejs-deb"
+    RUST="rust-bin"
   fi
 
   INFO "Setting up shell..."
@@ -66,27 +74,25 @@ function base_install() {
     python3-setuptools
 
   $alt_install \
-    fzf \
-    lazydocker
+    $FZF \
+    $LAZYDOCKER
 
   INFO "Installing NEOVIM"
-  $alt_install nvim
+  $alt_install \
+    $NVIM
 
   INFO "Installing LazyVim Dependencies"
-  rust_install
 
   $alt_install \
-    go \
-    node \
-    rust
+    $GO \
+    $NODEJS \
+    $RUST
 
   INFO "Installing Lazy Dependencies"
   $pkg_install \
     python3-debugpy \
     python3-virtualenv \
     xclip
-
-  nodejs_install
 
   npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
@@ -110,7 +116,7 @@ function base_install() {
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
     apt_update
-    DOCKER_PACKAGES=("containerd.io" "docker-ce" "docker-ce-cli" "docker-buildx-plugin" "docker-compose-plugin")
+    DOCKER_PACKAGES=("docker-ce" "docker-ce-cli" "docker-buildx-plugin" "docker-compose-plugin")
   fi
 
   $pkg_install "${DOCKER_PACKAGES[@]}"

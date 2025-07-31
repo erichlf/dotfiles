@@ -154,8 +154,8 @@ function deb_install() {
   rm -rf "/tmp/$PACKAGE"
 }
 
-function pac_install() {
-  sudo pacstall -PI "$@"
+function pacstall_install() {
+  sudo pacstall -PIQ -Nc "$@"
 
   return 0
 }
@@ -175,7 +175,7 @@ function sudo_rule() {
 ############################ manual install items ########################################
 
 # setup fzf
-function fzf_install() {
+function install_fzf() {
   mkdir -p "$HOME/.local/bin"
   rm -rf "$HOME/.fzf"
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
@@ -217,6 +217,12 @@ function zsh_extras() {
 function install_pacstall() {
   INFO "Install pacstall"
   echo Y | sudo bash -c "$(curl -fsSL https://pacstall.dev/q/install)"
+}
+
+function install_chaotic() {
+  INFO "Install pacstall"
+  echo N | sudo bash -c "$(curl -fsSL https://pacstall.dev/q/ppr)"
+  apt_update
 }
 
 function install_brew() {

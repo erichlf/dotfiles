@@ -13,7 +13,6 @@ print_details
 
 apt_update
 apt_install \
-  fzf \
   pass \
   python3-venv \
   pipx \
@@ -23,11 +22,16 @@ apt_install \
   unzip \
   zsh
 
-install_rust
+install_chaotic
 
-install_nodejs
+apt_install \
+  pacstall
 
-install_nvim
+pacstall_install \
+  fzf-bin \
+  neovim \
+  nodejs-deb \
+  rust-bin
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh

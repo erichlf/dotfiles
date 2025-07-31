@@ -35,7 +35,7 @@ sym_links
 
 zsh_extras
 
-starship_install
+install_starship
 
 yes | pkg remove nano
 
