@@ -41,8 +41,6 @@ fi
 # create links to dotfiles
 sym_links
 
-pip3_install debugpy
-
 zsh_extras
 install_starship
 install_lazygit
