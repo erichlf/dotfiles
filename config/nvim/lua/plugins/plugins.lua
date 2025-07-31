@@ -70,7 +70,7 @@ return {
     opts = {
       ensure_installed = {
         "bash-language-server",
-        "clang-format@14.0.0",
+        "clang-format",
         "clangd",
         "cmakelang",
         "codespell",
