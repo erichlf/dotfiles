@@ -29,8 +29,6 @@ function base_install() {
     alt_install="pacstall_install"
 
     install_chaotic
-    $pkg_install \
-      pacstall
 
     NVIM="neovim"
     GO="go-bin"
@@ -94,11 +92,11 @@ function base_install() {
     python3-virtualenv \
     xclip
 
-  npm install -g neovim tree-sitter
+  sudo npm install -g neovim tree-sitter
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 
   INFO "Install Devcontainer dependencies"
-  npm install -g @devcontainers/cli
+  sudo npm install -g @devcontainers/cli
 
   INFO "Setting up docker..."
   $pkg_install \

@@ -67,15 +67,15 @@ function base_sys() {
     guake \
     meld
 
-  snap_install \
-    obsidian --classic
+  pacstall_install \
+    obsidian-deb
 
-  guake --no-startup-script --restore-preferences "$DOTFILES_DIR/guake.conf"
+  [ ! "$CI" ] && guake --no-startup-script --restore-preferences "$DOTFILES_DIR/guake.conf"
 
-  snap_install \
-    signal-desktop
+  pacstall_install \
+    signal-desktop-deb
 
-  deb_install slack https://downloads.slack-edge.com/desktop-releases/linux/x64/4.43.51/slack-desktop-4.43.51-amd64.deb
+  pacstall_install slack-deb
 
   if [ "$(which 1password)" == "" ]; then
     deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb

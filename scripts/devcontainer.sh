@@ -24,9 +24,6 @@ apt_install \
 
 install_chaotic
 
-apt_install \
-  pacstall
-
 pacstall_install \
   fzf-bin \
   neovim \

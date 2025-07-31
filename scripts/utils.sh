@@ -223,6 +223,8 @@ function install_chaotic() {
   INFO "Install pacstall"
   echo N | sudo bash -c "$(curl -fsSL https://pacstall.dev/q/ppr)"
   apt_update
+  apt_install \
+    pacstall
 }
 
 function install_brew() {
