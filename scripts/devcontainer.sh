@@ -27,8 +27,9 @@ install_chaotic
 pacstall_install \
   fzf-bin \
   neovim \
-  nodejs-deb \
-  rust-bin
+  nodejs-deb
+
+install_rust
 
 # change to zsh as default shell
 sudo chsh -s /usr/bin/zsh

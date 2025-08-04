@@ -240,6 +240,10 @@ function install_rust() {
   chmod +x rust.sh
   ./rust.sh -y
   rm -rf rust.sh
+
+  source $HOME/.cargo/env
+  rustup install nightly
+  rustup default nightly
 }
 
 function install_nodejs() {
