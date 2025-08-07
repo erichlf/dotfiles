@@ -137,6 +137,7 @@ function havoc() {
     wget https://github.com/balena-io/balena-cli/releases/download/$RELEASE/$BALENA
     tar xzvf $BALENA
     mv balena "$HOME/.local/"
+    cd -
     rm -rf /tmp/balena
   fi
 
@@ -147,6 +148,7 @@ function havoc() {
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     sudo ./aws/install
+    cd -
     rm -rf /tmp/aws
   fi
 
