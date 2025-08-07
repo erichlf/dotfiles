@@ -21,7 +21,6 @@ function base_install() {
     FZF="fzf"
     LAZYDOCKER="lazydocker"
     NODEJS="node"
-    RUST="rust"
   else
     INFO "Setting up an ubuntu based system"
 
@@ -35,7 +34,6 @@ function base_install() {
     FZF="fzf-bin"
     LAZYDOCKER="lazydocker-bin"
     NODEJS="nodejs-deb"
-    RUST="rust-bin"
   fi
 
   INFO "Setting up shell..."
@@ -83,8 +81,9 @@ function base_install() {
 
   $alt_install \
     $GO \
-    $NODEJS \
-    $RUST
+    $NODEJS
+
+  install_rust
 
   INFO "Installing Lazy Dependencies"
   $pkg_install \
