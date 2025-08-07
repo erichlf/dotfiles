@@ -174,7 +174,7 @@ function havoc() {
   rm -rf /tmp/tailscale
 
   if [ "$(which foxglove)" == "" ]; then
-    deb_isntall foxglove https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
+    deb_install foxglove https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
   fi
 
   INFO "Installing wireshark"
