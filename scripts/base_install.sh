@@ -30,7 +30,7 @@ function base_install() {
     install_chaotic
 
     NVIM="neovim"
-    GO="go-bin"
+    GO="golang"
     FZF="fzf-bin"
     LAZYDOCKER="lazydocker-bin"
     NODEJS="nodejs-deb"
@@ -66,6 +66,7 @@ function base_install() {
   $pkg_install \
     cmake \
     gcc \
+    $GO \
     llvm \
     python3-setuptools
 
@@ -80,7 +81,6 @@ function base_install() {
   INFO "Installing LazyVim Dependencies"
 
   $alt_install \
-    $GO \
     $NODEJS
 
   install_rust
