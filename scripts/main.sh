@@ -150,8 +150,10 @@ function havoc() {
     rm -rf /tmp/aws
   fi
 
-  INFO "Installing Yarn"
-  npm install --global yarn
+  if [ ! "$CI" ]; then # avoid issue with CI and uv_cwd
+    INFO "Installing Yarn"
+    npm install --global yarn
+  fi
 
   INFO "Installing Nvidia Container Toolkit"
   curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg &&
