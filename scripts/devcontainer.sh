@@ -13,6 +13,7 @@ print_details
 
 apt_update
 apt_install \
+  fuse \
   pass \
   python3-venv \
   pipx \
@@ -26,7 +27,7 @@ install_chaotic
 
 pacstall_install \
   fzf-bin \
-  neovim \
+  neovim-app \
   nodejs-deb
 
 install_rust
