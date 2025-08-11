@@ -34,7 +34,7 @@
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
     helper =
     helper = /usr/local/bin/git-credential-manager
-    credentialStore = secretservice
+	credentialStore = gpg
 [merge]
     ff = false
     tool = meld
