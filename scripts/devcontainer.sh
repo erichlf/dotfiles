@@ -47,5 +47,9 @@ zsh_extras
 install_starship
 install_lazygit
 
+# use clang 14 for compiler
+sudo ln -sf /usr/bin/clang-14 /usr/bin/clang || true
+sudo ln -sf /usr/bin/clang++-14 /usr/bin/clang++ || true
+
 # hack to get the proper shell to open when using devcontainer connect and nvim
 echo "export SHELL=zsh" >>"$HOME/.profile"

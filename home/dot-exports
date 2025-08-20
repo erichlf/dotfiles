@@ -1,3 +1,5 @@
+export CC=/usr/bin/clang
+export CXX=/usr/bin/clang++
 export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=10000
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
