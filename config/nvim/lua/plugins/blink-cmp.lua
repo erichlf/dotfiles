@@ -15,7 +15,7 @@ return {
     opts.keymap.preset = "default"
     opts.keymap["<Tab>"] = { "select_next", "snippet_forward", "fallback" }
     opts.keymap["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" }
-    opts.keymap["<CR>"] = { "accept", "fallback" }
+    opts.keymap["<C-Space>"] = { "accept", "fallback" }
 
     return opts
   end,
