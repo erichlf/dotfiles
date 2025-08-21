@@ -26,12 +26,12 @@ return {
           auto_trigger = true,
           debounce = 75,
           keymap = {
-            accept = "<M-l>",
+            accept = "<C-Tab>",
             accept_word = false,
             accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
+            next = "<M-Tab>",
+            prev = "<M-S-Tab>",
+            dismiss = "<C-M-Space>",
           },
         },
         filetypes = {
