@@ -1,6 +1,6 @@
 return {
   "saghen/blink.cmp",
-  build = "cargo build --release",
+  build = "cargo +nightly build --release",
   opts = function(_, opts)
     opts.sources = opts.sources or {}
     opts.sources.compat = opts.sources.compat or {}
