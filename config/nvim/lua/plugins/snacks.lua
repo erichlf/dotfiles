@@ -9,6 +9,12 @@ return {
         icon = LazyVim.config.icons.kinds.Package,
         key = "D",
       }
+      opts.dashboard.preset.keys[#keys + 1] = {
+        action = "<CMD>lua require('devcontainer-cli.devcontainer_cli').connect()<CR>",
+        desc = "Connect to Devcontainer",
+        icon = LazyVim.config.icons.kinds.Package,
+        key = "C",
+      }
 
       return opts
     end,
