@@ -61,8 +61,6 @@
     prompt = false
 [difftool "meld"]
     cmd = meld -n "$LOCAL" "$REMOTE"
-[url "git@gitlab.tudelft.nl:"]
-  insteadOf = https://gitlab.tudelft.nl/
 [alias]
     diffall = difftool -d
     diffeach = "!f(){\
