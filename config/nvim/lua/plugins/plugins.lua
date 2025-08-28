@@ -67,8 +67,9 @@ return {
 
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      -- add tsx and treesitter
+      vim.list_extend(opts.ensure_installed, {
         "bash-language-server",
         "clang-format",
         "clangd",
@@ -99,8 +100,9 @@ return {
         "yamlfmt",
         "yamllint",
         "yaml-language-server",
-      },
-    },
+      })
+      return opts
+    end,
   },
 
   {
