@@ -235,7 +235,7 @@ for choice in $choices; do
     base_sys
     update_sys
     sudo_rules
-    havoc
+    [ ! $CI ] && havoc
     run_me
     ;;
   2)
