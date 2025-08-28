@@ -7,7 +7,7 @@ return {
     config = function()
       require("copilot").setup({
         panel = {
-          enabled = true,
+          enabled = false,
           auto_refresh = false,
           keymap = {
             jump_prev = "[[",
@@ -22,7 +22,7 @@ return {
           },
         },
         suggestion = {
-          enabled = true,
+          enabled = false,
           auto_trigger = true,
           debounce = 75,
           keymap = {
@@ -35,7 +35,7 @@ return {
           },
         },
         filetypes = {
-          yaml = tru,
+          yaml = true,
           markdown = true,
           help = true,
           gitcommit = false,
@@ -48,5 +48,26 @@ return {
         server_opts_overrides = {},
       })
     end,
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      {
+        "giuxtaposition/blink-cmp-copilot",
+      },
+    },
+    opts = {
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "copilot" },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
+      },
+    },
   },
 }
