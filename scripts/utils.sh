@@ -161,7 +161,7 @@ function pacstall_install() {
 }
 
 function pip3_install() {
-  pipx install "$@"
+  pip3 install "$@"
 
   return 0
 }

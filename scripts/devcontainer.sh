@@ -13,12 +13,14 @@ print_details
 
 apt_update
 apt_install \
+  fd-find \
   fuse \
   lua5.4 \
   luarocks \
   pass \
   python3-venv \
   pipx \
+  ripgrep \
   software-properties-common \
   stow \
   wget \
@@ -31,6 +33,10 @@ pacstall_install \
   fzf-bin \
   neovim \
   nodejs-deb
+
+pip3_install \
+  neovim \
+  pynvim==0.5.2
 
 install_rust
 

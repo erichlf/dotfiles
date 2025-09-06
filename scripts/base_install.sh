@@ -46,6 +46,7 @@ function base_install() {
     pass \
     python3 \
     python3-pip \
+    ripgrep \
     tmux \
     wget
 
@@ -86,6 +87,10 @@ function base_install() {
 
   $alt_install \
     $NODEJS
+
+  pip3_install --break-system-packages \
+    neovim \
+    pynvim==0.5.2
 
   install_rust
 
