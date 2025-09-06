@@ -14,6 +14,8 @@ print_details
 apt_update
 apt_install \
   fuse \
+  lua5.4 \
+  luarocks \
   pass \
   python3-venv \
   pipx \
@@ -27,7 +29,7 @@ install_chaotic
 
 pacstall_install \
   fzf-bin \
-  neovim-app \
+  neovim \
   nodejs-deb
 
 install_rust

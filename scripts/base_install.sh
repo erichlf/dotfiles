@@ -16,6 +16,7 @@ function base_install() {
     pkg_install="pac_install"
     alt_install="yay_install"
 
+    LUA="lua"
     NVIM="nvim"
     GO="go"
     FZF="fzf"
@@ -29,6 +30,7 @@ function base_install() {
 
     install_chaotic
 
+    LUA="lua5.4"
     NVIM="neovim"
     GO="golang"
     FZF="fzf-bin"
@@ -68,6 +70,8 @@ function base_install() {
     gcc \
     $GO \
     llvm \
+    $LUA \
+    luarocks \
     python3-setuptools
 
   $alt_install \
