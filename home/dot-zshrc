@@ -5,7 +5,7 @@ ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 # load zgenom
 source "${HOME}/.zgenom/zgenom.zsh"
 # setup git subrepos
-source "${HOME}/workspace/git-subrepos/.rc"
+source "${HOME}/workspace/git-subrepo/.rc"
 
 zgenom selfupdate
 
