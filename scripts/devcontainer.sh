@@ -31,7 +31,7 @@ install_chaotic
 
 pacstall_install \
   fzf-bin \
-  neovim \
+  neovim.app \
   nodejs-deb
 
 pip3_install \
