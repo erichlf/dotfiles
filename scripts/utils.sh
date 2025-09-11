@@ -161,7 +161,7 @@ function pacstall_install() {
 }
 
 function pip3_install() {
-  pip3 install "$@"
+  pip3 install --break-system-packages "$@"
 
   return 0
 }

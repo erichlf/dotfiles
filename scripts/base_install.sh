@@ -88,7 +88,7 @@ function base_install() {
   $alt_install \
     $NODEJS
 
-  pip3_install --break-system-packages \
+  pip3_install \
     neovim \
     pynvim==0.5.2
 
