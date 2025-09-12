@@ -51,9 +51,7 @@ function base_install() {
     wget
 
   # install fonts
-  mkdir -p "$HOME/.local/bin"
-  curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
-  "$HOME/.local/bin/getnf" -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono | true # don't fail on fonts
+  install_fonts
 
   zsh_extras
 
@@ -101,7 +99,8 @@ function base_install() {
     xclip
 
   sudo npm install -g neovim tree-sitter
-  curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
+
+  install_rvm
 
   INFO "Install Devcontainer dependencies"
   sudo npm install -g @devcontainers/cli
@@ -110,30 +109,14 @@ function base_install() {
   $pkg_install \
     ca-certificates \
     gnupg
-  if [ "$system" == "arch" ]; then
-    DOCKER_PACKAGES=("containerd" "docker" "docker-compose")
-  else
+  if [ "$system" != "arch" ]; then
     $pkg_install \
       apt-transport-https \
       curl \
       software-properties-common
-
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-
-    apt_update
-    DOCKER_PACKAGES=("docker-ce" "docker-ce-cli" "docker-buildx-plugin" "docker-compose-plugin")
   fi
 
-  $pkg_install "${DOCKER_PACKAGES[@]}"
+  docker_install
 
-  sudo usermod -a -G docker "$USER"
-  if [ ! "$CI" ]; then
-    sudo systemctl daemon-reload
-    sudo systemctl enable docker
-    sudo systemctl start docker
-  fi
-
-  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
-  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
+  increase_network_kernel_mem
 }

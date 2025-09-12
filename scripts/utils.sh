@@ -264,3 +264,54 @@ function install_nvim() {
   sudo mv nvim.appimage /usr/bin/nvim
   sudo chmod u+x /usr/bin/nvim
 }
+
+function install_docker() {
+  if [ "$system" == "arch" ]; then
+    pkg_install="pac_install"
+    DOCKER_PACKAGES=("containerd" "docker" "docker-compose")
+  else
+    pkg_install="apt_install"
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+
+    apt_update
+    DOCKER_PACKAGES=("docker-ce" "docker-ce-cli" "docker-buildx-plugin" "docker-compose-plugin")
+  fi
+
+  $pkg_install "${DOCKER_PACKAGES[@]}"
+
+  sudo usermod -a -G docker "$USER"
+  if [ ! "$CI" ]; then
+    sudo systemctl daemon-reload
+    sudo systemctl enable docker
+    sudo systemctl start docker
+  fi
+}
+
+function install_fonts() {
+  mkdir -p "$HOME/.local/bin"
+  curl -fsSL https://raw.githubusercontent.com/getnf/getnf/main/install.sh | bash
+  "$HOME/.local/bin/getnf" -i DejaVuSansMono,DroidSansMono,Hack,Recursive,RobotoMono | true # don't fail on fonts
+}
+
+function increase_network_kernel_mem() {
+  echo "net.core.rmem_max=26214400" | sudo tee /etc/sysctl.d/10-udp-buffer-sizes.conf
+  echo "net.core.rmem_default=26214400" | sudo tee -a /etc/sysctl.d/10-udp-buffer-sizes.conf
+}
+
+function install_rvm() {
+  curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
+}
+
+function install_1password() {
+  deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
+  # add 1password support to vivaldi
+  sudo mkdir -p /etc/1password
+  echo "vivalid" | sudo tee /etc/1password/custom_allowed_browsers
+  sudo chown root:root /etc/1password/custom_allowed_browsers
+  sudo chmod 755 /etc/1password/custom_allowed_browsers
+}
+
+function install_vivaldi() {
+  deb_install vivaldi https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
+}

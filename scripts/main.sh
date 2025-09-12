@@ -77,19 +77,8 @@ function base_sys() {
 
   pacstall_install slack-deb
 
-  if [ "$(which 1password)" == "" ]; then
-    deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
-  fi
-
-  if [ "$(which vivaldi)" == "" ]; then
-    deb_install vivaldi https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
-
-    # add 1password support to vivaldi
-    sudo mkdir -p /etc/1password
-    echo "vivalid" | sudo tee /etc/1password/custom_allowed_browsers
-    sudo chown root:root /etc/1password/custom_allowed_browsers
-    sudo chmod 755 /etc/1password/custom_allowed_browsers
-  fi
+  install_1password
+  install_vivaldi
 
   apt_install \
     gnome-browser-connector
