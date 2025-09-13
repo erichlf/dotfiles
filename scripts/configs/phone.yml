@@ -1,0 +1,21 @@
+base-phone:
+  - git
+  - openssh
+  - rsync
+  - stow
+  - which
+  - zsh
+pkg:
+  - fzf
+  - getconf
+  - gnupg
+  - make
+  - python-pip
+  - termux-api
+  - termux-tools
+  - neovim
+pip3:
+  - pygments
+extras:
+  - zsh_extras
+  - install_starship

@@ -1,0 +1,32 @@
+base-ubuntu:
+  - build-essential
+  - git
+  - stow
+  - zsh
+apt-get:
+  - fd-find
+  - fuse
+  - lua5.4
+  - luarocks
+  - pass
+  - python3-venv
+  - pipx
+  - ripgrep
+  - software-properties-common
+  - wget
+  - unzip
+extras:
+  - install_chaotic # install pacstall
+  - install_rust
+pip3:
+  - neovim
+  - pynvim==0.5.2
+pacstall:
+  - fzf-bin
+  - neovim
+  - nodejs-deb
+final-ubuntu:
+  - zsh_extras
+  - install_starship
+  - install_lazygit
+  - devcontainer_extras
