@@ -8,7 +8,7 @@ NODE=$(uname -n)
 
 BWHITE='\033[1;37m'
 GREEN='\033[0;32m'
-ORANGE='\033[0;33'
+ORANGE='\033[0;33m'
 RED='\033[0;31m'
 BRED='\033[1;31m'
 RESET='\033[0m'
@@ -172,6 +172,18 @@ function sudo_rule() {
   return 0
 }
 
+function npm_install() {
+  sudo npm install -g "$@"
+}
+
+function go_install() {
+  go install "$@"
+}
+
+function pkg_install() {
+  pkg install -y "$@"
+}
+
 ############################ manual install items ########################################
 
 # setup fzf
@@ -314,4 +326,184 @@ function install_1password() {
 
 function install_vivaldi() {
   deb_install vivaldi https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
+}
+
+function devcontainer_extras() {
+  # change to zsh as default shell
+  sudo chsh -s /usr/bin/zsh
+
+  # ensure that .config is owned by the current user
+  if [[ -d $HOME/.config && ! $(stat -c "%U" "$HOME/.config") == "$(whoami)" ]]; then
+    sudo chown "$(id -u)":"$(id -g)" "$HOME/.config"
+  fi
+
+  sudo ln -sf /usr/bin/clang-19 /usr/bin/clang || true
+  sudo ln -sf /usr/bin/clang++-19 /usr/bin/clang++ || true
+
+  # hack to get the proper shell to open when using devcontainer connect and nvim
+  echo "export SHELL=zsh" >>"$HOME/.profile"
+}
+
+function install_yay() {
+  INFO "Setting up an arch based system"
+  if [ "$(which yay)" == "" ]; then
+    INFO "Setting up yay..."
+    [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay || exit 1
+    makepkg -si --noconfirm
+    cd - || exit 1
+  else
+    INFO "yay already installed"
+  fi
+}
+
+function nas_extras() {
+  WARNING "Remember to create ntfy config at /root/.config/ntfy/ntfy.yml"
+
+  sudo systemctl enable --now sshd
+  sudo systemctl enable --now cockpit.socket
+
+  # zfs mainenance
+  sudo cp "$DOTFILES_DIR/sanoid.conf" /etc/sanoid/
+  sudo systemctl daemon-reload
+  sudo systemctl enable --now sanoid.timer sanoid-prune.service
+  sudo systemctl enable --now zfs-scrub-weekly@zpcachyos.timer
+  sudo systemctl enable --now zfs-scrub-monthly@media.timer
+
+  # allow ufw to manage docker traffic
+  sudo iptables -I DOCKER-USER -i enp4s0 -s 192.168.1.0/24 -j ACCEPT
+  sudo iptables -I DOCKER-USER -i enp5s0 -s 192.168.1.0/24 -j ACCEPT
+}
+
+function install_devcontainer_cli() {
+  export OS=linux   # also darwin
+  export ARCH=amd64 # also 386
+  cd /tmp
+  wget https://raw.githubusercontent.com/stuartleeks/devcontainer-cli/main/scripts/install.sh
+  chmod +x install.sh
+  sudo -E ./install.sh
+  cd -
+}
+
+function guake_config() {
+  guake --no-startup-script --restore-preferences "$DOTFILES_DIR/guake.conf"
+}
+
+############################## annoyances ######################################
+function sudo_rules() {
+  INFO "Setting sudo rules..."
+  sudo_rule /sbin/shutdown
+  sudo_rule /sbin/reboot
+
+  return 0
+}
+
+# install HavocAI specifics
+function havoc() {
+  INFO "Installing HavocAI Specifics"
+  INFO "Installing gRPC"
+  INFO "GOROOT=$(go env GOROOT)"
+  INFO "GOPATH=$(go env GOPATH)"
+  go_install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+  go_install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+  if [ ! -d "$HOME/.local/balena" ]; then
+    INFO "Installing balena"
+    mkdir -p "$HOME/.local"
+    mkdir -p /tmp/balena
+    cd /tmp/balena
+    RELEASE=v22.1.1
+    BALENA="balena-cli-$RELEASE-linux-x64-standalone.tar.gz"
+    wget https://github.com/balena-io/balena-cli/releases/download/$RELEASE/$BALENA
+    tar xzvf $BALENA
+    mv balena "$HOME/.local/"
+    cd -
+    rm -rf /tmp/balena
+  fi
+
+  if [ "$(which aws)" == "" ]; then
+    INFO "Installing AWS"
+    mkdir -p /tmp/aws
+    cd /tmp/aws
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    cd -
+    rm -rf /tmp/aws
+  fi
+
+  if [ ! "$CI" ]; then # avoid issue with CI and uv_cwd
+    INFO "Installing Yarn"
+    npm_install --global yarn
+  fi
+
+  INFO "Installing Nvidia Container Toolkit"
+  curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg &&
+    curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |
+      sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+  apt_update
+  export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.17.8-1
+  apt_install \
+    nvidia-container-toolkit=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    nvidia-container-toolkit-base=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    libnvidia-container-tools=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+    libnvidia-container1=${NVIDIA_CONTAINER_TOOLKIT_VERSION}
+
+  INFO "Installing Tailscale"
+  mkdir -p /tmp/tailscale
+  cd /tmp/tailscale
+  curl -fsSL https://tailscale.com/install.sh | sh
+  cd -
+  rm -rf /tmp/tailscale
+
+  if [ "$(which foxglove)" == "" ]; then
+    deb_install foxglove https://get.foxglove.dev/desktop/latest/foxglove-studio-latest-linux-amd64.deb
+  fi
+
+  INFO "Installing wireshark"
+  apt_install wireshark
+
+  if [ "$(which QGroundControl)" == "" ]; then
+    INFO "Installing QGroundControl"
+    sudo usermod -a -G dialout "$USER"
+    sudo apt-get remove modemmanager -y
+    apt_install \
+      gstreamer1.0-gl \
+      gstreamer1.0-libav \
+      gstreamer1.0-plugins-bad \
+      libfuse2 \
+      libqt5gui5
+    wget https://d176tv9ibo4jno.cloudfront.net/latest/QGroundControl.AppImage
+    sudo mv QGroundControl.AppImage /usr/bin/QGroundControl
+    sudo chmod u+x /usr/bin/QGroundControl
+  fi
+
+  # INFO "Installing drivers"
+  # sudo add-apt-repository -y --remove ppa:oem-solutions-group/intel-ipu6
+  # sudo add-apt-repository -y --remove ppa:oem-solutions-group/intel-ipu7
+  # sudo add-apt-repository ppa:oem-solutions-engineers/oem-projects-meta
+  #
+  # sudo apt autopurge -y oem-*-meta libia-* libgcss* libipu* libcamhal*
+  # sudo apt autopurge -y lib*ipu6*
+  # sudo apt autopurge -y lib*ipu7*
+  #
+  # apt_install \
+  #   ubuntu-oem-keyring
+  # sudo add-apt-repository -y "deb http://dell.archive.canonical.com/ noble somerville"
+  # apt_update
+  # apt_install \
+  #   oem-somerville-magmar-meta \
+  #   libcamhal0
+  # apt_install \
+  #   intel-ipu6-dkms \
+  #   linux-generic-hwe-24.04 \
+  #   linux-modules-ipu6-generic-hwe-24.04 \
+  #   linux-modules-usbio-generic-hwe-24.04 \
+  #   oem-somerville-magmar-meta \
+  #   oem-somerville-tentacool-meta
+  # sudo apt-get autoclean
+  # sudo apt-get autoremove
+  #
+  # sudo usermod -a -G video "$USER"
 }

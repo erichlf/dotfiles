@@ -1,0 +1,55 @@
+base-arch:
+  - base-devel
+  - dialog
+  - git
+  - stow
+pac:
+  - btop
+  - ca-certificates
+  - cockpit
+  - cockpit-files
+  - cockpit-storaged
+  - curl
+  - cmake
+  - gcc
+  - gnupg
+  - go
+  - iftop
+  - libgtk-3-dev
+  - llvm
+  - lua
+  - luarocks
+  - meld
+  - nvim
+  - pass
+  - python3-debugpy
+  - python3-full
+  - python3-pip
+  - python3-setuptools
+  - python3-virtualenv
+  - restic
+  - ripgrep
+  - tmux
+  - wget
+  - xclip
+extras:
+  - install_yay # install pacstall
+  - install_rust
+  - install_rvm
+  - install_docker
+yay:
+  - cockpit-file-sharing
+  - cockpit-sensors
+  - cockpit-zfs-manager
+  - fzf
+  - lazydocker
+  - nodejs-git
+  - ntfy
+  - resticprofile
+  - sanoid
+final-extras:
+  - zsh_extras
+  - install_starship
+  - install_lazygit
+  - nas_extras
+  - sudo_rules

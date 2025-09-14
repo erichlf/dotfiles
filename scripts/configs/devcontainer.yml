@@ -1,0 +1,43 @@
+base-ubuntu:
+  - build-essential
+  - git
+  - stow
+  - zsh
+apt-get:
+  - fd-find
+  - fuse
+  - gnupg
+  - golang
+  - llvm
+  - lua5.4
+  - luarocks
+  - meld
+  - pass
+  - pipx
+  - python3-debugpy
+  - python3-pip
+  - python3-venv
+  - ripgrep
+  - software-properties-common
+  - unzip
+  - wget
+extras:
+  - install_chaotic # install pacstall
+  - install_rust
+  - install_rvm
+pacstall:
+  - fzf-bin
+  - neovim-app
+  - nodejs-deb
+pip3:
+  - neovim
+  - pynvim==0.5.2
+npm:
+  - neovim
+  - tree-sitter@0.22.4
+final-extras:
+  - install_fonts
+  - zsh_extras
+  - install_starship
+  - install_lazygit
+  - devcontainer_extras

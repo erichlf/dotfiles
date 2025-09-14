@@ -1,0 +1,68 @@
+base-ubuntu:
+  - build-essential
+  - dialog
+  - git
+  - stow
+  - zsh
+apt-get:
+  - apt-transport-https
+  - btop
+  - ca-certificates
+  - curl
+  - cmake
+  - fd-find
+  - gnome-tweaks
+  - guake
+  - gcc
+  - gnupg
+  - gnome-browser-connector
+  - gnome-tweaks
+  - golang
+  - guake
+  - iftop
+  - libgtk-3-dev
+  - llvm
+  - lua5.4
+  - luarocks
+  - meld
+  - pass
+  - python3-debugpy
+  - python3-full
+  - python3-pip
+  - python3-setuptools
+  - python3-virtualenv
+  - ripgrep
+  - software-properties-common
+  - tmux
+  - wget
+  - xclip
+extras:
+  - install_chaotic # install pacstall
+  - install_rust
+  - install_rvm
+  - install_nodejs
+  - install_docker
+  - install_1password
+  - install_vivaldi
+pacstall:
+  - fzf-bin
+  - lazydocker-bin
+  - neovim
+  - obsidian-deb
+  - signal-desktop-deb
+  - slack-deb
+  - zoom-deb
+pip3:
+  - neovim
+  - pynvim==0.5.2
+npm:
+  - neovim
+  - tree-sitter
+final-extras:
+  - install_fonts
+  - zsh_extras
+  - install_starship
+  - install_lazygit
+  - install_devcontainer_cli
+  - increase_network_kernel_mem
+  - sudo_rules

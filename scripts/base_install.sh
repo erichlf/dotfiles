@@ -1,122 +1,135 @@
+# helpers
+_do() {
+  "$@"
+}
+
 function base_install() {
+  source "$DOTFILES_DIR/scripts/read_yaml.sh"
+  source "$DOTFILES_DIR/scripts/utils.sh"
+
+  print_details
+
   local system="$1"
+  local file="$DOTFILES_DIR/scripts/configs/$system.yml"
 
-  if [[ "$system" == "arch" ]]; then
-    INFO "Setting up an arch based system"
-    if [ "$(which yay)" == "" ]; then
-      INFO "Setting up yay..."
-      [ ! -d /tmp/yay ] && git clone https://aur.archlinux.org/yay.git /tmp/yay
-      cd /tmp/yay || exit 1
-      makepkg -si --noconfirm
-      cd - || exit 1
-    else
-      INFO "yay already installed"
-    fi
+  INFO "Collecting packages for $system ($file)"
+  collect_yaml_lists "$file"
 
-    pkg_install="pac_install"
-    alt_install="yay_install"
+  local i name orig
+  # run the most basic install first then run some required commands
 
-    LUA="lua"
-    NVIM="nvim"
-    GO="go"
-    FZF="fzf"
-    LAZYDOCKER="lazydocker"
-    NODEJS="node"
-  else
-    INFO "Setting up an ubuntu based system"
+  INFO "Running base program install"
+  for i in "${!categories[@]}"; do
+    name="${categories[$i]}"
+    orig="${orig_keys[$i]}"
 
-    pkg_install="apt_install"
-    alt_install="pacstall_install"
+    # materialize the dynamically-named array into pkgs[]
+    eval 'pkgs=( "${'"$name"'[@]}" )'
 
-    install_chaotic
+    [ ${#pkgs[@]} -eq 0 ] && continue
 
-    LUA="lua5.4"
-    NVIM="neovim"
-    GO="golang"
-    FZF="fzf-bin"
-    LAZYDOCKER="lazydocker-bin"
-    NODEJS="nodejs-deb"
-  fi
+    case "$orig" in
+    base-ubuntu)
+      _do apt_update
+      _do apt_install "${pkgs[@]}"
+      ;;
+    base-arch)
+      _do pac_install "${pkgs[@]}"
+      ;;
+    base-phone)
+      _do pkg_install "${pkg[@]}"
+      ;;
+    esac
+  done
 
-  INFO "Setting up shell..."
-  $pkg_install \
-    btop \
-    curl \
-    iftop \
-    pass \
-    python3 \
-    python3-pip \
-    ripgrep \
-    tmux \
-    wget
+  INFO "Updated dotfile submodules"
+  git submodule update --init --recursive
 
-  # install fonts
-  install_fonts
+  INFO "Setting zsh as default shell"
+  sudo usermod -s "$(which zsh)" "$(whoami)"
 
-  zsh_extras
+  sym_links
 
-  install_starship
+  INFO "Running system install"
+  for i in "${!categories[@]}"; do
+    name="${categories[$i]}"
+    orig="${orig_keys[$i]}"
 
-  install_lazygit
+    # materialize the dynamically-named array into pkgs[]
+    eval 'pkgs=( "${'"$name"'[@]}" )'
 
-  INFO "Installing developer tools..."
-  if [ ! -d "$HOME/workspace" ]; then
-    mkdir -p "$HOME/workspace"
-  fi
+    [ ${#pkgs[@]} -eq 0 ] && continue
 
-  $pkg_install \
-    cmake \
-    gcc \
-    $GO \
-    llvm \
-    $LUA \
-    luarocks \
-    python3-setuptools
+    case "$orig" in
+    pacstall)
+      _do pacstall_install "${pkgs[@]}"
+      ;;
+    pac)
+      _do pac_install "${pkgs[@]}"
+      ;;
+    yay)
+      _do yay_install "${pkgs[@]}"
+      ;;
+    apt | apt-get)
+      _do apt_update
+      _do apt_install "${pkgs[@]}"
+      ;;
+    pkg)
+      _do pkg_install "${pkgs[@]}"
+      ;;
+    pip | pip3 | pipx)
+      _do pip3_install "${pkgs[@]}"
+      ;;
+    npm | node | npm_global)
+      _do npm_install "${pkgs[@]}"
+      ;;
+    brew | homebrew)
+      _do brew_install "${pkgs[@]}"
+      ;;
+    extras)
+      local x
+      for x in "${pkgs[@]}"; do
+        _do "$x" || return $?
+      done
+      ;;
+    base-ubuntu | base-arch | base-phone | final-ubuntu | final-arch | final-phone | final-extras)
+      continue
+      ;;
+    *)
+      WARN "No handler for category '$orig'; items:"
+      WARN "  - '${pkgs[@]}'"
+      ;;
+    esac
+  done
 
-  $alt_install \
-    $FZF \
-    $LAZYDOCKER
+  INFO "Running any final setups"
+  for i in "${!categories[@]}"; do
+    name="${categories[$i]}"
+    orig="${orig_keys[$i]}"
 
-  INFO "Installing NEOVIM"
-  $alt_install \
-    $NVIM
+    # materialize the dynamically-named array into pkgs[]
+    eval 'pkgs=( "${'"$name"'[@]}" )'
 
-  INFO "Installing LazyVim Dependencies"
+    [ ${#pkgs[@]} -eq 0 ] && continue
 
-  $alt_install \
-    $NODEJS
+    case "$orig" in
+    final-ubuntu)
+      _do apt_install "${pkgs[@]}"
+      ;;
+    final-arch)
+      _do pac_install "${pkgs[@]}"
+      ;;
+    final-phone)
+      _do pkg_install "${pkg[@]}"
+      ;;
+    final-extras)
+      local x
+      for x in "${pkgs[@]}"; do
+        _do "$x" || return $?
+      done
+      ;;
+    esac
+  done
 
-  pip3_install \
-    neovim \
-    pynvim==0.5.2
-
-  install_rust
-
-  INFO "Installing Lazy Dependencies"
-  $pkg_install \
-    python3-debugpy \
-    python3-virtualenv \
-    xclip
-
-  sudo npm install -g neovim tree-sitter
-
-  install_rvm
-
-  INFO "Install Devcontainer dependencies"
-  sudo npm install -g @devcontainers/cli
-
-  INFO "Setting up docker..."
-  $pkg_install \
-    ca-certificates \
-    gnupg
-  if [ "$system" != "arch" ]; then
-    $pkg_install \
-      apt-transport-https \
-      curl \
-      software-properties-common
-  fi
-
-  docker_install
-
-  increase_network_kernel_mem
+  INFO "Finished setting up system."
 }
