@@ -4,8 +4,8 @@ set -e
 shopt -s expand_aliases
 
 SYSTEM="DEVCONTAINER"
-cd "$(dirname "$0")/.."
 DOTFILES_DIR=$(pwd)
+cd "$(dirname "$0")/.."
 
 source "$DOTFILES_DIR/scripts/utils.sh"
 
@@ -34,7 +34,7 @@ fi
 
 INFO "Installing NEOVIM..."
 apt_install libfuse2 fuse3
-wget https://github.com/neovim/neovim-releases/releases/download/v0.11.4/nvim-linux-x86_64.appimage
+wget https://github.com/neovim/neovim-releases/releases/download/v0.11.4/nvim-linux-x86_64.appimage -o nvim.appimage
 sudo mv nvim.appimage /usr/bin/nvim
 sudo chmod u+x /usr/bin/nvim
 pip3 install debugpy
