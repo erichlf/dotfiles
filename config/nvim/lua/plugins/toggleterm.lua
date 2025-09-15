@@ -56,6 +56,7 @@ return {
       persist_size = true,
       direction = "horizontal" or "vertical" or "window" or "float",
       close_on_exit = true, -- close the terminal window when the process exits
+      shell = "/usr/bin/zsh",
     },
   },
 }
