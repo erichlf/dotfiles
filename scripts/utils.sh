@@ -57,7 +57,7 @@ NODE:           $NODE
 USER:           $(whoami)
 HOME:           $HOME
 DOTFILES_DIR:   $DOTFILES_DIR
-"
+" "${RESET}"
 }
 
 # function to create my links
@@ -66,10 +66,7 @@ function sym_links() {
   INFO "Creating symlinks..."
   mkdir -p "$HOME/.config"
   stow -v --dotfiles --adopt --dir "$DOTFILES_DIR" --target "$HOME" --restow home
-  [[ -d $DOTFILES/private/.ssh ]] && stow -v --adopt --dir "$DOTFILES_DIR/private/" --target "$HOME/.ssh" --restow .ssh
   stow -v --adopt --dir "$DOTFILES_DIR" --target "$HOME/.config/" --restow config
-  # if the adopt made a local change then undo that
-  git checkout HEAD -- config home private
 
   return 0
 }

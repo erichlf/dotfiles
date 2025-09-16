@@ -4,15 +4,15 @@ _do() {
 }
 
 function base_install() {
+  local SYSTEM="$1"
+
+  local file="$DOTFILES_DIR/scripts/configs/$SYSTEM.yml"
   source "$DOTFILES_DIR/scripts/read_yaml.sh"
   source "$DOTFILES_DIR/scripts/utils.sh"
 
   print_details
 
-  local system="$1"
-  local file="$DOTFILES_DIR/scripts/configs/$system.yml"
-
-  INFO "Collecting packages for $system ($file)"
+  INFO "Collecting packages for $SYSTEM ($file)"
   collect_yaml_lists "$file"
 
   local i name orig
