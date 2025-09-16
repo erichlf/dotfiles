@@ -9,3 +9,5 @@ alias grep='grep --color=always'
 # nas docker aliases
 alias youtube-dl='docker run --rm -i -e PGID=$(id -g) -e PUID=$(id -u) -v ${PWD}:/workdir:rw ghcr.io/mikenye/docker-youtube-dl:latest'
 alias tvnamer='docker run --rm -i -e PGID=$(id -g) -e PUID=$(id -u) -v ${PWD}:/workdir:rw -v /share/Public/Videos/Series/mytvnamerconfig.json:/config/tvnamerconfig.json:ro tvnamer'
+
+[ -f $HOME/.local-export ] && source $HOME/.local-aliases
