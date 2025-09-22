@@ -14,7 +14,6 @@ apt-get:
   - meld
   - pass
   - pipx
-  - python3-debugpy
   - python3-pip
   - python3-venv
   - ripgrep
@@ -30,6 +29,7 @@ pacstall:
   - neovim-app
   - nodejs-deb
 pip3:
+  - debugpy
   - neovim
   - pynvim==0.5.2
 npm:

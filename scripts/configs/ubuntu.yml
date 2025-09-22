@@ -26,7 +26,6 @@ apt-get:
   - luarocks
   - meld
   - pass
-  - python3-debugpy
   - python3-full
   - python3-pip
   - python3-setuptools
@@ -53,6 +52,7 @@ pacstall:
   - slack-deb
   - zoom-deb
 pip3:
+  - debugpy
   - neovim
   - pynvim==0.5.2
 npm:
