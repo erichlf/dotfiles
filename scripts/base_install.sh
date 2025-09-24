@@ -78,11 +78,7 @@ function base_install() {
       _do pkg_install "${pkgs[@]}"
       ;;
     pip | pip3 | pipx)
-      if [ $SYSTEM == "devcontainer" ]; then
-        _do pip3_install "${pkgs[@]}"
-      else
-        _do pip3_install --break-system-packages "${pkgs[@]}"
-      fi
+      _do pip3_install --break-system-packages "${pkgs[@]}"
       ;;
     npm | node | npm_global)
       _do npm_install "${pkgs[@]}"
