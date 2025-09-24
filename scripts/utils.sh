@@ -334,8 +334,8 @@ function devcontainer_extras() {
     sudo chown "$(id -u)":"$(id -g)" "$HOME/.config"
   fi
 
-  sudo ln -sf /usr/bin/clang-20 /usr/bin/clang || true
-  sudo ln -sf /usr/bin/clang++-20 /usr/bin/clang++ || true
+  sudo ln -sf /usr/bin/clang-19 /usr/bin/clang || true
+  sudo ln -sf /usr/bin/clang++-19 /usr/bin/clang++ || true
 
   # hack to get the proper shell to open when using devcontainer connect and nvim
   echo "export SHELL=zsh" >>"$HOME/.profile"
