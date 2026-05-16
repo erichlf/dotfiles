@@ -4,8 +4,6 @@ ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc")
 
 # load zgenom
 source "${HOME}/.zgenom/zgenom.zsh"
-# setup git subrepos
-source "${HOME}/workspace/git-subrepo/.rc"
 
 zgenom selfupdate
 
@@ -85,3 +83,10 @@ setopt nonomatch
 eval "$(starship init zsh)"
 
 set -o vi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
