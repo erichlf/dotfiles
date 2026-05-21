@@ -208,5 +208,8 @@ return {
   },
 
   -- rainbow brackets
-  { "mrjones2014/nvim-ts-rainbow" },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    sub_commands = { "RainbowDelimiters" }, -- Optional: for lazy loading
+  },
 }
