@@ -170,7 +170,7 @@ function sudo_rule() {
 }
 
 function npm_install() {
-  sudo npm install -g "$@"
+  npm install -g "$@"
 }
 
 function go_install() {
@@ -263,7 +263,7 @@ function install_nodejs() {
   \. "$HOME/.nvm/nvm.sh"
 
   # Download and install Node.js:
-  nvm install 22
+  nvm install --lts
 }
 
 function install_nvim() {

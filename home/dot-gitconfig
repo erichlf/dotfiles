@@ -2,13 +2,11 @@
     name = Erich L Foster
     email = erichlf@gmail.com
     signingkey = 08A7E764EC1713A9
-[includeIf "gitdir:~/workspace/HavocAI/"] # job needs, like workspace/* so all included projects
-    path = .gitconfig-havoc
-[includeIf "gitdir:/havoc/"]
-    path = .gitconfig-havoc
+[includeIf "gitdir:/mnt/c/mmmdev/"]
+    path = .gitconfig-solventum
 [core]
     editor = nvim
-	autocrlf = input
+	  autocrlf = input
     excludesfile = ~/.gitexcludes
 [push]
     default = upstream
@@ -32,9 +30,8 @@
     untracked = cyan
 [credential]
     helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
-    helper =
     helper = /usr/local/bin/git-credential-manager
-	credentialStore = gpg
+	  credentialStore = gpg
 [merge]
     ff = false
     tool = meld

@@ -49,4 +49,16 @@ return {
       })
     end,
   },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+    },
+    build = "make tiktoken",
+    opts = {
+      question_header = "## User",
+      answer_header = "## Copilot",
+      error_header = "## Error",
+    },
+  },
 }

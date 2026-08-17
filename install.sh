@@ -29,6 +29,9 @@ case "$kernel" in
 *"cachyos"*)
   base_install "nas"
   ;;
+*"microsoft"*)
+  base_install "wsl"
+  ;;
 *)
   if [[ $DEV_WORKSPACE != "" ]]; then
     base_install "devcontainer"

@@ -1,0 +1,6 @@
+[user]
+    name = Erich L Foster
+    email = erich.foster@solventum.com
+    signingkey = 491F0BF5D5055DFA
+[core]
+    sshCommand = ssh -i ~/.ssh/id_ed25519_solventum

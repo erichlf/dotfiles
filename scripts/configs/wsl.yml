@@ -1,0 +1,55 @@
+base-ubuntu:
+  - build-essential
+  - git
+  - stow
+  - zsh
+apt-get:
+  - ant
+  - clang
+  - dos2unix
+  - dpkg
+  - fd-find
+  - fuse
+  - fzf
+  - g++
+  - gdb
+  - gcc
+  - gnupg
+  - golang
+  - less
+  - libssl-dev
+  - llvm
+  - lua5.4
+  - luarocks
+  - meld
+  - neovim
+  - ninja-build
+  - openjdk-8-jdk
+  - openssl
+  - pass
+  - python3
+  - python3-pip
+  - python3-venv
+  - pipx
+  - ripgrep
+  - software-properties-common
+  - symlinks
+  - uuid-dev
+  - unzip
+  - wget
+extras:
+  - install_nodejs
+npm:
+  - neovim
+  - tree-sitter
+  - opencode-ai
+
+pip3:
+  - debugpy
+  - neovim
+  - pynvim==0.5.2
+final-extras:
+  - install_fonts
+  - zsh_extras
+  - install_starship
+  - install_lazygit
