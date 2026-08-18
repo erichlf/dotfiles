@@ -14,3 +14,4 @@ org-gcal---sync-tokens
 persist
 settings.el
 __pycache__
+AGENTS.md
