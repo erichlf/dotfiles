@@ -63,48 +63,6 @@ return {
   },
 
   -- interface
-  { "stevearc/dressing.nvim" },
-
-  {
-    "mason-org/mason.nvim",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "bash-language-server",
-        "clang-format",
-        "clangd",
-        "cmakelang",
-        "codespell",
-        "debugpy",
-        "docker-compose-language-service",
-        "dockerfile-language-server",
-        "hadolint",
-        "isort",
-        "jupytext",
-        "luacheck",
-        "luaformatter",
-        "lua-language-server",
-        "markdown-oxide",
-        "markdown-toc",
-        "markdownlint",
-        "markdownlint-cli2",
-        "marksman",
-        "misspell",
-        "neocmakelsp",
-        "pyright",
-        "ruff",
-        "shellcheck",
-        "shfmt",
-        "stylua",
-        "taplo",
-        "yamlfmt",
-        "yamllint",
-        "yaml-language-server",
-      })
-      return opts
-    end,
-  },
-
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -124,6 +82,34 @@ return {
   {
     "tris203/precognition.nvim",
     opts = {},
+  },
+
+  -- markdown
+  {
+    "MeanderingProgrammer/markdown.nvim",
+    main = "render-markdown",
+    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+
+  -- obsidian
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*", -- use latest release, remove to use latest commit
+    ---@module 'obsidian'
+    ---@type obsidian.config
+    opts = {
+      legacy_commands = false, -- this will be removed in 4.0.0
+      workspaces = {
+        {
+          name = "work",
+          path = "/mnt/c/Users/HGBIZR4/notes",
+        },
+      },
+    },
   },
 
   -- python
