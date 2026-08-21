@@ -6,6 +6,7 @@ base-ubuntu:
 apt-get:
   - ant
   - clang
+  - cmake
   - dos2unix
   - dpkg
   - fd-find
@@ -43,7 +44,6 @@ npm:
   - neovim
   - tree-sitter
   - opencode-ai
-
 pip3:
   - debugpy
   - neovim

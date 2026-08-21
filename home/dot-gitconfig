@@ -2,7 +2,7 @@
     name = Erich L Foster
     email = erichlf@gmail.com
     signingkey = 08A7E764EC1713A9
-[includeIf "gitdir:/mnt/c/mmmdev/"]
+[includeIf "gitdir:~/mmmdev/"]
     path = .gitconfig-solventum
 [core]
     editor = nvim
