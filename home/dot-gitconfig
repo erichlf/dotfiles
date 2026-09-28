@@ -4,6 +4,8 @@
     signingkey = 08A7E764EC1713A9
 [includeIf "gitdir:~/mmmdev/"]
     path = .gitconfig-solventum
+[includeIf "gitdir:/mnt/c/mmmdev/"]
+    path = .gitconfig-solventum
 [core]
     editor = nvim
 	  autocrlf = input
