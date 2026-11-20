@@ -504,3 +504,7 @@ function havoc() {
   #
   # sudo usermod -a -G video "$USER"
 }
+
+function install_opencode() {
+  curl -fsSL https://opencode.ai/v2/install | bash
+}
