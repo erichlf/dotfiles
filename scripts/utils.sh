@@ -312,15 +312,6 @@ function install_rvm() {
   curl -sSL https://get.rvm.io | bash -s -- --auto-dotfiles
 }
 
-function install_1password() {
-  deb_install 1password https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
-  # add 1password support to vivaldi
-  sudo mkdir -p /etc/1password
-  echo "vivalid" | sudo tee /etc/1password/custom_allowed_browsers
-  sudo chown root:root /etc/1password/custom_allowed_browsers
-  sudo chmod 755 /etc/1password/custom_allowed_browsers
-}
-
 function install_vivaldi() {
   deb_install vivaldi https://downloads.vivaldi.com/stable/vivaldi-stable_7.5.3735.54-1_amd64.deb
 }

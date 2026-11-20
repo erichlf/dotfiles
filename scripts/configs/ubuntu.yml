@@ -40,8 +40,7 @@ extras:
   - install_rvm
   - install_nodejs
   - install_docker
-  - install_1password
-  - install_vivaldi
+  - install_vaivaldi
 pacstall:
   - fzf-bin
   - lazydocker-bin
