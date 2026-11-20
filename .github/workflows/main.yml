@@ -26,7 +26,9 @@ jobs:
           rc=$?
           cat /tmp/install.log
           if [ $rc -ne 0 ]; then
-            tail -n 30 /tmp/install.log | sed ':a;N;$!ba;s/\n/%0A/g' |
-              sed "s/^/::error::Install failed (exit $rc): /"
+            echo "::error::Install failed (exit $rc); tail follows"
+            while IFS= read -r line; do
+              echo "::error::$line"
+            done < <(tail -n 40 /tmp/install.log)
           fi
           exit $rc
