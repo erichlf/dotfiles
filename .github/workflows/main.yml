@@ -20,19 +20,4 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Install
-        run: |
-          set +e
-          ./install.sh > /tmp/install.log 2>&1
-          rc=$?
-          cat /tmp/install.log
-          if [ $rc -ne 0 ]; then
-            echo "::error::Install failed (exit $rc); error lines follow"
-            {
-              grep -iE '^(E:|W:|dpkg:|error|fatal|failed)|error:|failed|no space|cannot|abort|not found' /tmp/install.log | tail -n 3
-              echo "--- last lines ---"
-              tail -n 5 /tmp/install.log
-            } | while IFS= read -r line; do
-              echo "::error::$line"
-            done
-          fi
-          exit $rc
+        run: ./install.sh

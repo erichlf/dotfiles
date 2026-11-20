@@ -223,9 +223,20 @@ function zsh_extras() {
   download_stdout https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 
+function ensure_spdx_licenses() {
+  # pacstall validates pacscript licenses against files in this directory.
+  # Some newer Ubuntu images no longer ship the spdx-licenses package, so
+  # provide the SPDX identifiers used by our pacscripts when it is missing.
+  sudo mkdir -p /usr/share/spdx-licenses
+  if ! find /usr/share/spdx-licenses -maxdepth 2 \( -name 'MIT.txt' -o -name 'MIT.xml' \) -print -quit | grep -q .; then
+    echo MIT | sudo tee /usr/share/spdx-licenses/MIT.txt >/dev/null
+  fi
+}
+
 function install_pacstall() {
   INFO "Install pacstall"
   echo Y | sudo bash -c "$(curl -fsSL https://pacstall.dev/q/install)"
+  ensure_spdx_licenses
 }
 
 function install_chaotic() {
@@ -234,6 +245,7 @@ function install_chaotic() {
   apt_update
   apt_install \
     pacstall
+  ensure_spdx_licenses
 }
 
 function install_brew() {
