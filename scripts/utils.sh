@@ -382,10 +382,6 @@ function install_devcontainer_cli() {
   cd -
 }
 
-function guake_config() {
-  guake --no-startup-script --restore-preferences "$DOTFILES_DIR/guake.conf"
-}
-
 ############################## annoyances ######################################
 function sudo_rules() {
   INFO "Setting sudo rules..."
@@ -507,4 +503,14 @@ function havoc() {
 
 function install_opencode() {
   curl -fsSL https://opencode.ai/v2/install | bash
+}
+
+function install_wezterm() {
+  curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+  sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
+
+  echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+
+  sudo apt update
+  sudo apt install wezterm
 }

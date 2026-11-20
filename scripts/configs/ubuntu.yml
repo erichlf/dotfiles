@@ -12,13 +12,11 @@ apt-get:
   - cmake
   - fd-find
   - gnome-tweaks
-  - guake
   - gcc
   - gnupg
   - gnome-browser-connector
   - gnome-tweaks
   - golang
-  - guake
   - iftop
   - libgtk-3-dev
   - llvm
@@ -36,6 +34,7 @@ apt-get:
   - wget
   - xclip
 extras:
+  - install_wezterm
   - install_chaotic # install pacstall
   - install_rust
   - install_rvm
