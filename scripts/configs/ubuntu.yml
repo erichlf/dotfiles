@@ -66,3 +66,4 @@ final-extras:
   - install_devcontainer_cli
   - increase_network_kernel_mem
   - sudo_rules
+  - install_opencode
