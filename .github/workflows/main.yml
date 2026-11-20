@@ -11,7 +11,7 @@ env:
   NC: '\033[0m'
 jobs:
   main:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,4 +20,13 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Install
-        run: ./install.sh
+        run: |
+          set +e
+          ./install.sh > /tmp/install.log 2>&1
+          rc=$?
+          cat /tmp/install.log
+          if [ $rc -ne 0 ]; then
+            tail -n 30 /tmp/install.log | sed ':a;N;$!ba;s/\n/%0A/g' |
+              sed "s/^/::error::Install failed (exit $rc): /"
+          fi
+          exit $rc
