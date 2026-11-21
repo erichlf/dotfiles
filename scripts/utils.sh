@@ -230,6 +230,13 @@ function install_lazygit() {
 # setup starship
 function install_starship() {
   INFO "Installing starship..."
+  if [[ "$(uname -o)" == "Android" ]]; then
+    # The upstream musl binary is ET_EXEC and cannot run under Termux's
+    # libtermux-exec; use the native Android package instead.
+    pkg_install starship
+    rm -f "$HOME/.local/bin/starship"
+    return 0
+  fi
   curl -sS https://starship.rs/install.sh -o starship.sh
   chmod +x starship.sh
   ./starship.sh -y --bin-dir "$HOME/.local/bin"
