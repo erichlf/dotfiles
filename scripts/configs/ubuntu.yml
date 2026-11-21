@@ -1,4 +1,4 @@
-base-ubuntu:
+apt-get:
   - build-essential
   - dialog
   - git
@@ -56,7 +56,7 @@ pip3:
 npm:
   - neovim
   - tree-sitter
-final-extras:
+extras:
   - install_fonts
   - zsh_extras
   - install_starship

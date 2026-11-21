@@ -1,4 +1,4 @@
-base-arch:
+pac:
   - base-devel
   - dialog
   - git
@@ -47,7 +47,7 @@ yay:
   - ntfy
   - resticprofile
   - sanoid
-final-extras:
+extras:
   - zsh_extras
   - install_starship
   - install_lazygit

@@ -1,4 +1,4 @@
-base-ubuntu:
+apt-get:
   - build-essential
   - git
   - stow
@@ -35,7 +35,7 @@ pip3:
 npm:
   - neovim
   - tree-sitter@0.22.4
-final-extras:
+extras:
   - install_fonts
   - zsh_extras
   - install_starship
