@@ -113,13 +113,28 @@ cachyos, and ubuntu.
 
 **Q: What keys are supported in the yaml files?**
 
+Core package lists are installed first, before submodules, symlinks, and shell setup:
+
 - apt-get, apt: uses apt-get to install packages
-- pacstall: uses pacstall to install packages, should have extras:
-  install_chaotic prior
 - pac: uses pacman to install packages
-- yay: uses yay to install packages, should have extras: install_yay prior
 - pkg: uses termux pkg to install packages
-- extras: run aliases that are in the environment (sourced from utils.sh) by name
+
+Core package keys may appear more than once; each section is installed separately
+in the core phase.
+
+Everything else runs in the order it appears in the file:
+
+- pacstall: uses pacstall to install packages; add `install_chaotic` to an earlier
+  `extras` section
+- yay: uses yay to install packages; add `install_yay` to an earlier `extras` section
+- pip3, pip, pipx: uses pip3 to install packages
+- npm, node, npm_global: uses npm to install packages
+- brew, homebrew: uses brew to install packages
+- extras: runs shell functions (sourced from `utils.sh`) by name. This key may
+  appear more than once; each section runs wherever it appears in the file.
+  The core setup steps `update_git_submodules`, `set_default_shell`, and `sym_links`
+  are listed in the first `extras` section of each config. `set_default_shell`
+  defaults to the current `SYSTEM` when called with no arguments.
 
 ---
 
