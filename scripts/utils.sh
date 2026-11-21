@@ -60,6 +60,11 @@ DOTFILES_DIR:   $DOTFILES_DIR
 " "${RESET}"
 }
 
+function update_git_submodules() {
+  INFO "Updating dotfile submodules..."
+  git submodule update --init --recursive
+}
+
 # function to create my links
 # This expects the variable $DOTFILES_DIR to exist
 function sym_links() {
@@ -181,11 +186,18 @@ function pkg_install() {
   pkg install -y "$@"
 }
 
-# set_default_shell <system>
+# set_default_shell [system]
+# Defaults to $SYSTEM when called from the installer.
 # Termux has no sudo/usermod; termux-tools provides chsh instead.
 function set_default_shell() {
-  local system="$1"
+  local system="${1:-${SYSTEM:-}}"
   local zsh_path
+
+  if [ -z "$system" ]; then
+    case "$(uname -r)" in
+    *android*) system="phone" ;;
+    esac
+  fi
 
   if ! zsh_path=$(command -v zsh); then
     WARN "zsh not found; skipping default shell change"

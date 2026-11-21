@@ -3,6 +3,10 @@ pac:
   - dialog
   - git
   - stow
+extras:
+  - update_git_submodules
+  - set_default_shell
+  - sym_links
 pac:
   - btop
   - ca-certificates

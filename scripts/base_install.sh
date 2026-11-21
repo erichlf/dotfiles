@@ -42,14 +42,7 @@ function base_install() {
     esac
   done
 
-  INFO "Updated dotfile submodules"
-  git submodule update --init --recursive
-
-  INFO "Setting zsh as default shell"
-  set_default_shell "$SYSTEM"
-
-  sym_links
-
+  # Submodules, default shell and symlinks are declared as extras in the config.
   INFO "Running system install"
   for i in "${!categories[@]}"; do
     name="${categories[$i]}"

@@ -5,6 +5,10 @@ pkg:
   - stow
   - which
   - zsh
+extras:
+  - update_git_submodules
+  - set_default_shell
+  - sym_links
 pkg:
   - fzf
   - getconf
