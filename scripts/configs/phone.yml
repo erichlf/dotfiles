@@ -19,3 +19,4 @@ pip3:
 extras:
   - zsh_extras
   - install_starship
+  - install_termux_font

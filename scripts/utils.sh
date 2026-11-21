@@ -206,6 +206,26 @@ function set_default_shell() {
 
 ############################ manual install items ########################################
 
+# install a Nerd Font for Termux so powerline/starship glyphs render
+function install_termux_font() {
+  INFO "Installing Nerd Font for Termux..."
+  local font_dir="$HOME/.local/share/fonts/Hack"
+  local font="$font_dir/HackNerdFont-Regular.ttf"
+
+  mkdir -p "$HOME/.termux" "$font_dir"
+  if ! command -v unzip >/dev/null 2>&1; then
+    pkg_install unzip
+  fi
+
+  if [ ! -f "$font" ]; then
+    download_stdout https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip > "$HOME/Hack.zip"
+    unzip -q -o "$HOME/Hack.zip" -d "$font_dir"
+    rm -f "$HOME/Hack.zip"
+  fi
+
+  ln -sf "$font" "$HOME/.termux/font.ttf"
+}
+
 # setup fzf
 function install_fzf() {
   mkdir -p "$HOME/.local/bin"
