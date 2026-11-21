@@ -16,31 +16,7 @@ function base_install() {
   collect_yaml_lists "$file"
 
   local i name orig
-  # run the most basic install first then run some required commands
-
-  INFO "Running base program install"
-  for i in "${!categories[@]}"; do
-    name="${categories[$i]}"
-    orig="${orig_keys[$i]}"
-
-    # materialize the dynamically-named array into pkgs[]
-    eval 'pkgs=( "${'"$name"'[@]}" )'
-
-    [ ${#pkgs[@]} -eq 0 ] && continue
-
-    case "$orig" in
-    base-ubuntu)
-      _do apt_update
-      _do apt_install "${pkgs[@]}"
-      ;;
-    base-arch)
-      _do pac_install "${pkgs[@]}"
-      ;;
-    base-phone)
-      _do pkg_install "${pkgs[@]}"
-      ;;
-    esac
-  done
+  local -a pkgs
 
   # Submodules, default shell and symlinks are declared as extras in the config.
   INFO "Running system install"
@@ -85,41 +61,9 @@ function base_install() {
         _do "$x" || return $?
       done
       ;;
-    base-ubuntu | base-arch | base-phone | final-ubuntu | final-arch | final-phone | final-extras)
-      continue
-      ;;
     *)
       WARN "No handler for category '$orig'; items:"
       WARN "  - '${pkgs[@]}'"
-      ;;
-    esac
-  done
-
-  INFO "Running any final setups"
-  for i in "${!categories[@]}"; do
-    name="${categories[$i]}"
-    orig="${orig_keys[$i]}"
-
-    # materialize the dynamically-named array into pkgs[]
-    eval 'pkgs=( "${'"$name"'[@]}" )'
-
-    [ ${#pkgs[@]} -eq 0 ] && continue
-
-    case "$orig" in
-    final-ubuntu)
-      _do apt_install "${pkgs[@]}"
-      ;;
-    final-arch)
-      _do pac_install "${pkgs[@]}"
-      ;;
-    final-phone)
-      _do pkg_install "${pkgs[@]}"
-      ;;
-    final-extras)
-      local x
-      for x in "${pkgs[@]}"; do
-        _do "$x" || return $?
-      done
       ;;
     esac
   done

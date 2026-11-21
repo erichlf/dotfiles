@@ -119,15 +119,7 @@ cachyos, and ubuntu.
 - pac: uses pacman to install packages
 - yay: uses yay to install packages, should have extras: install_yay prior
 - pkg: uses termux pkg to install packages
-- base-ubuntu: uses apt-get to install packages as a first step
-- base-arch: uses pacman to install packages as a first step
-- base-phone: uses termux pkg to install packages as a first step
 - extras: run aliases that are in the environment (sourced from utils.sh) by name
-- final-ubuntu: uses apt-get to install packages as a final step
-- final-arch: uses pacman to install packages as a final step
-- final-phone: uses termux pkg to install packages as a final step
-- final-extras: runs aliases that are in the environment
-  (sourced from utils.sh) by name as a final step
 
 ---
 
