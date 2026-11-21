@@ -4,7 +4,7 @@ apt-get:
   - git
   - stow
   - zsh
-extras:
+functions:
   - update_git_submodules
   - set_default_shell
   - sym_links
@@ -37,7 +37,7 @@ apt-get:
   - tmux
   - wget
   - xclip
-extras:
+functions:
   - install_wezterm
   - install_chaotic # install pacstall
   - install_rust
@@ -60,7 +60,7 @@ pip3:
 npm:
   - neovim
   - tree-sitter
-extras:
+functions:
   - install_fonts
   - zsh_extras
   - install_starship

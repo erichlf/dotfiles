@@ -5,7 +5,7 @@ pkg:
   - stow
   - which
   - zsh
-extras:
+functions:
   - update_git_submodules
   - set_default_shell
   - sym_links
@@ -20,7 +20,7 @@ pkg:
   - neovim
 pip3:
   - pygments
-extras:
+functions:
   - zsh_extras
   - install_starship
   - install_termux_font

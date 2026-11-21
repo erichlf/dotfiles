@@ -3,7 +3,7 @@ apt-get:
   - git
   - stow
   - zsh
-extras:
+functions:
   - update_git_submodules
   - set_default_shell
   - sym_links
@@ -24,7 +24,7 @@ apt-get:
   - software-properties-common
   - unzip
   - wget
-extras:
+functions:
   - install_chaotic # install pacstall
   - install_rust
   - install_rvm
@@ -39,7 +39,7 @@ pip3:
 npm:
   - neovim
   - tree-sitter@0.22.4
-extras:
+functions:
   - install_fonts
   - zsh_extras
   - install_starship

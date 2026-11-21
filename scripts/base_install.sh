@@ -18,7 +18,7 @@ function base_install() {
   local i name orig
   local -a pkgs
 
-  # Submodules, default shell and symlinks are declared as extras in the config.
+  # Submodules, default shell and symlinks are declared as functions in the config.
   INFO "Running system install"
   for i in "${!categories[@]}"; do
     name="${categories[$i]}"
@@ -63,8 +63,8 @@ function base_install() {
       INFO "Installing brew packages: ${pkgs[*]}"
       _do brew_install "${pkgs[@]}"
       ;;
-    extras)
-      INFO "Running extras: ${pkgs[*]}"
+    functions)
+      INFO "Running functions: ${pkgs[*]}"
       local x
       for x in "${pkgs[@]}"; do
         _do "$x" || return $?

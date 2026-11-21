@@ -3,7 +3,7 @@ apt-get:
   - git
   - stow
   - zsh
-extras:
+functions:
   - update_git_submodules
   - set_default_shell
   - sym_links
@@ -42,7 +42,7 @@ apt-get:
   - uuid-dev
   - unzip
   - wget
-extras:
+functions:
   - install_nodejs
 npm:
   - neovim
@@ -52,7 +52,7 @@ pip3:
   - debugpy
   - neovim
   - pynvim==0.5.2
-extras:
+functions:
   - install_fonts
   - zsh_extras
   - install_starship

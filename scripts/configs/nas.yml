@@ -3,7 +3,7 @@ pac:
   - dialog
   - git
   - stow
-extras:
+functions:
   - update_git_submodules
   - set_default_shell
   - sym_links
@@ -36,7 +36,7 @@ pac:
   - tmux
   - wget
   - xclip
-extras:
+functions:
   - install_yay # install pacstall
   - install_rust
   - install_rvm
@@ -51,7 +51,7 @@ yay:
   - ntfy
   - resticprofile
   - sanoid
-extras:
+functions:
   - zsh_extras
   - install_starship
   - install_lazygit
