@@ -11,7 +11,7 @@ case "$kernel" in
 *"android"*)
   base_install "phone"
   ;;
-*"azure"*) # github action
+*"azure"* | *"aws"*) # github action
   export CI=true
   if [[ $DEV_WORKSPACE != "" ]]; then
     base_install "devcontainer"
