@@ -181,6 +181,29 @@ function pkg_install() {
   pkg install -y "$@"
 }
 
+# set_default_shell <system>
+# Termux has no sudo/usermod; termux-tools provides chsh instead.
+function set_default_shell() {
+  local system="$1"
+  local zsh_path
+
+  if ! zsh_path=$(command -v zsh); then
+    WARN "zsh not found; skipping default shell change"
+    return 0
+  fi
+
+  if [[ "$system" == "phone" ]]; then
+    if command -v chsh >/dev/null 2>&1; then
+      chsh -s "$zsh_path"
+    else
+      WARN "chsh not available; set your Termux shell manually"
+    fi
+    return 0
+  fi
+
+  sudo usermod -s "$zsh_path" "$(whoami)"
+}
+
 ############################ manual install items ########################################
 
 # setup fzf

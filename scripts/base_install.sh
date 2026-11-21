@@ -46,7 +46,7 @@ function base_install() {
   git submodule update --init --recursive
 
   INFO "Setting zsh as default shell"
-  sudo usermod -s "$(which zsh)" "$(whoami)"
+  set_default_shell "$SYSTEM"
 
   sym_links
 
