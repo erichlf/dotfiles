@@ -37,7 +37,7 @@ function base_install() {
       _do pac_install "${pkgs[@]}"
       ;;
     base-phone)
-      _do pkg_install "${pkg[@]}"
+      _do pkg_install "${pkgs[@]}"
       ;;
     esac
   done
@@ -120,7 +120,7 @@ function base_install() {
       _do pac_install "${pkgs[@]}"
       ;;
     final-phone)
-      _do pkg_install "${pkg[@]}"
+      _do pkg_install "${pkgs[@]}"
       ;;
     final-extras)
       local x
