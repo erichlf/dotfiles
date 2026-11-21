@@ -243,7 +243,13 @@ function zsh_extras() {
   [ ! -d "$HOME/.zgenom" ] && git clone https://github.com/jandamm/zgenom.git "${HOME}/.zgenom"
 
   # install zoxide
-  download_stdout https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+  # The upstream installer hardcodes /tmp, which Android does not let apps write to.
+  local zoxide_script zoxide_installer="$HOME/.zoxide-install.sh"
+  zoxide_script="$(download_stdout https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh)"
+  zoxide_script="${zoxide_script//\/tmp\/zoxide_/${TMPDIR:-$HOME}\/zoxide_}"
+  printf '%s\n' "$zoxide_script" > "$zoxide_installer"
+  bash "$zoxide_installer"
+  rm -f "$zoxide_installer"
 }
 
 function ensure_spdx_licenses() {
